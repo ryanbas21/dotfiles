@@ -3,6 +3,8 @@ filetype off
 let &runtimepath.=',~/.vim/bundle/ale'
 filetype plugin indent on
 syntax enable
+scriptencoding utf-8
+set encoding=utf-8
 set termguicolors
 set smartindent
 set showmatch
@@ -55,6 +57,9 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'shougo/vimproc.vim', {'do' : 'make'}
 Plugin 'tpope/vim-commentary'
 Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'xuyuanp/nerdtree-git-plugin'
+Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline'
