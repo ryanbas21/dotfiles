@@ -8,6 +8,7 @@ set encoding=utf-8
 set termguicolors
 set smartindent
 set showmatch
+set relativenumber
 set textwidth=100
 set autoindent
 set statusline=%{fugitive#statusline()}
