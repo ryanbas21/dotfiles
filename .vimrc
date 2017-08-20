@@ -31,8 +31,7 @@ set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 
 if has("gui_running")
    let s:uname = system("uname")
-   if s:uname == "Darwin\n"
-      set guifont=Meslo\ LG\ S\ for\ Powerline
+   if s:uname == "Darwin\n" set guifont=Meslo\ LG\ S\ for\ Powerline
    endif
  endif
 call vundle#begin()
@@ -40,41 +39,57 @@ call vundle#begin()
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'rafi/awesome-vim-colorschemes'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'majutsushi/tagbar'
-Plugin 'crusoexia/vim-javascript-lib'
-Plugin 'neovimhaskell/haskell-vim'
 Plugin 'VundleVim/Vundle.vim'
+
+" Color / Themes
+Plugin 'rafi/awesome-vim-colorschemes'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'vim-airline/vim-airline'
+
+" Git
+Plugin 'xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-fugitive'
-Plugin 'wakatime/vim-wakatime'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'chrisbra/vim-diff-enhanced'
+
+
+" Movement
+Plugin 'easymotion/vim-easymotion'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-speeddating'
+Plugin 'tpope/vim-surround'
+
+" Syntax
+Plugin 'neovimhaskell/haskell-vim'
+Plugin 'crusoexia/vim-javascript-lib'
+Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'ctrlpvim/ctrlp.vim.git'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'shougo/vimproc.vim', {'do' : 'make'}
-Plugin 'tpope/vim-commentary'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'xuyuanp/nerdtree-git-plugin'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'mattn/emmet-vim'
-Plugin 'hail2u/vim-css3-syntax'
 Plugin 'Quramy/tsuquyomi'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'w0rp/ale'
 Plugin 'prettier/prettier-eslint-cli'
+Plugin 'leafgarland/typescript-vim'
 Plugin 'mitermayer/vim-prettier', {
 	\ 'do': 'yarn install',
 	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
 
+Plugin 'hail2u/vim-css3-syntax'
+
+" Completion
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'w0rp/ale'
+Plugin 'ctrlpvim/ctrlp.vim.git'
+
+" File Tree
+Plugin 'scrooloose/nerdtree'
+
+" Searching
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'shougo/vimproc.vim', {'do' : 'make'}
+Plugin 'tpope/vim-commentary'
+Plugin 'mattn/emmet-vim'
+Plugin 'wakatime/vim-wakatime'
+Plugin 'junegunn/vim-easy-align'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -92,9 +107,17 @@ hi Comment cterm=italic
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+
+" Easy Align
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+
+
 let g:CommandTAcceptSelectionMap = '<C-t>'
 let g:CommandTAcceptSelectionTabMap = '<CR>'
 
+" NERDTREE
+let g:NERDTreeShowHidden=1
 
 "vim-javascript
 let g:javascript_plugin_jsdoc = 1
