@@ -19,6 +19,7 @@ autocmd FileType typescript: set makeprg=tsc
 set rtp+=~/.vim/bundle/Vundle.vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set number
+
 " Configure Cursor shape based on mode
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
@@ -109,6 +110,9 @@ hi Comment cterm=italic
 " Put your non-Plugin stuff after this line
 
 
+" Easy Motion
+map <Leader> <Plug>(easymotion-prefix)
+
 " Easy Align
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
@@ -128,10 +132,6 @@ let g:javascript_plugin_flow = 1
 "vim-jsx
 let g:jsx_ext_required = 0
 
-" delimitmate
-" CTRL + C
-imap <C-c> <CR><Esc>
-
 " ALE Setup
  let g:ale_emit_conflict_warnings = 1
  let g:airline#extensions#ale#enabled = 1
@@ -140,6 +140,7 @@ imap <C-c> <CR><Esc>
  let g:ale_echo_msg_warning_str = 'W'
  let g:ale_lint_on_text_changed = 'never'
  let g:ale_linters = { 'javascript': ['eslint'], 'typescript' : ['tslint'] }
+
 " Airline
  let g:airline#extensions#tabline#enabled = 1
  let g:airline#extensions#tabline#left_sep = ' '
