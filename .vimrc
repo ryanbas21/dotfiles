@@ -1,6 +1,4 @@
 set nocompatible
-filetype off
-let &runtimepath.=',~/.vim/bundle/ale'
 filetype plugin indent on
 syntax enable
 scriptencoding utf-8
@@ -9,16 +7,20 @@ set termguicolors
 set smartindent
 set showmatch
 set relativenumber
-set textwidth=100
+set textwidth=80
 set autoindent
 set statusline=%{fugitive#statusline()}
 let mapleader = "\<Space>"
 autocmd FileType typescript: set makeprg=tsc
 
+set rtp+=/usr/local/opt/fzf
+
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set number
+
 " Configure Cursor shape based on mode
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
@@ -27,6 +29,7 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 let g:monokai_gui_italic = 1
 filetype off
 set lines=50 columns=100
+set tabstop=4
 set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 
 if has("gui_running")
@@ -46,56 +49,49 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'rafi/awesome-vim-colorschemes'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-airline/vim-airline'
+Plugin 'https://github.com/junegunn/limelight.vim'
+Plugin 'junegunn/goyo.vim'
 
 " Git
 Plugin 'xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'chrisbra/vim-diff-enhanced'
-
 
 " Movement
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-surround'
+Plugin 'universal-ctags/ctags'
 
 " Syntax
 Plugin 'neovimhaskell/haskell-vim'
 Plugin 'crusoexia/vim-javascript-lib'
-Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'Quramy/tsuquyomi'
-Plugin 'prettier/prettier-eslint-cli'
 Plugin 'leafgarland/typescript-vim'
-Plugin 'mitermayer/vim-prettier', {
-	\ 'do': 'yarn install',
-	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
-
 Plugin 'hail2u/vim-css3-syntax'
 
 " Completion
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'marijnh/tern_for_vim'
+Plugin 'junegunn/fzf.vim'
 Plugin 'w0rp/ale'
-Plugin 'ctrlpvim/ctrlp.vim.git'
 
 " File Tree
 Plugin 'scrooloose/nerdtree'
 
 " Searching
-Plugin 'editorconfig/editorconfig-vim'
 Plugin 'shougo/vimproc.vim', {'do' : 'make'}
+Plugin 'mileszs/ack.vim'
 Plugin 'tpope/vim-commentary'
-Plugin 'mattn/emmet-vim'
 Plugin 'wakatime/vim-wakatime'
 Plugin 'junegunn/vim-easy-align'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-colorscheme space-vim-dark
+colorscheme minimalist 
 hi Comment cterm=italic
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -108,6 +104,9 @@ hi Comment cterm=italic
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
+
+" Easy Motion
+map <Leader> <Plug>(easymotion-prefix)
 
 " Easy Align
 nmap ga <Plug>(EasyAlign)
@@ -128,18 +127,6 @@ let g:javascript_plugin_flow = 1
 "vim-jsx
 let g:jsx_ext_required = 0
 
-" delimitmate
-" CTRL + C
-imap <C-c> <CR><Esc>
-
-" ALE Setup
- let g:ale_emit_conflict_warnings = 1
- let g:airline#extensions#ale#enabled = 1
- let g:ale_sign_warning = '--'
- let g:ale_sign_errorle_echo_msg_error_str = 'E'
- let g:ale_echo_msg_warning_str = 'W'
- let g:ale_lint_on_text_changed = 'never'
- let g:ale_linters = { 'javascript': ['eslint'], 'typescript' : ['tslint'] }
 " Airline
  let g:airline#extensions#tabline#enabled = 1
  let g:airline#extensions#tabline#left_sep = ' '
@@ -185,32 +172,6 @@ autocmd QuickFixCmdPost    l* nested lwindow
 autocmd FileType typescript :set makeprg=tsc
 autocmd FileType typescript setl omnifunc=tsuquyomi#complete
 
-" CTRL P
-" Set no max file limit
-let g:ctrlp_max_files = 0
-
-" Prettier setup
-let g:prettier#autoformat = 0
-autocmd FileType javascript set formatprg=prettier-eslint
-autocmd FileType typescript set formatprg=prettier-tslint
-let g:prettier#config#print_width = 100
-let g:prettier#config#tab_width = 2
-let g:prettier#config#use_tabs = 'false'
-let g:prettier#config#semi = 'true'
-let g:prettier#config#semi = 'true'
-let g:prettier#config#bracket_spacing = 'true'
-let g:prettier#config#jsx_bracket_same_line = 'true'
-let g:prettier#config#trailing_comma = 'none'
-
-autocmd BufWritePre *.js,*.json,*.css,*ts,*.scss,*.less,*.graphql Prettier
-
-" Search from current directory instead of project root
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-"Editor Config
-let g:EditorConfig_exec_path = './.editorconfig'
-
 "KEY MAPPINGS
 " Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
@@ -223,4 +184,108 @@ nmap <C-n> :NERDTreeToggle<CR>
 inoremap jj <esc>
 inoremap jk <esc>
 
+" ALE
+ let g:ale_lint_delay = 1000
+ let g:ale_linters = {
+\   'javascript': ['prettier'],
+\   'typescript': ['prettier']
+\ }
+
+ fun! FzfOmniFiles() 
+	 let is_git = system('git status')
+	 if v:shell_error
+		 :Files
+	else 
+		:GFiles --exclude-standard -o	
+	endif
+endfun
+
+" FZF Config
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+let g:fzf_layout = { 'down': '~40%' }
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+let g:fzf_files_options =
+  \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
+
+
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
+" Hide statusline of terminal buffer
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+autocmd! VimEnter * command! -nargs=* -complete=file Ag :call fzf#vim#ag_raw(<q-args>, fzf#wrap('ag-raw',
+\ {'options': "--preview 'coderay $(cut -d: -f1 <<< {}) 2> /dev/null | sed -n $(cut -d: -f2 <<< {}),\\$p | head -".&lines."'"}))
+
+  " File types
+  au BufNewFile,BufRead *.js               set filetype=javascript
+  au BufNewFile,BufRead *.jsx 		   set filetype=javascript
+  au BufNewFile,BufRead *.ts               set filetype=typescript
+  au BufNewFile,BufRead *.tsx              set filetype=typescript
+  au BufNewFile,BufRead *.hs		   set filetype=haskell 
+
+  "" Fugitive
+  au FileType gitcommit setlocal completefunc=emoji#complete
+  au FileType gitcommit nnoremap <buffer> <silent> cd :<C-U>Gcommit --amend --date="$(date)"<CR>
+
+
+  function! s:goyo_enter()
+  if has('gui_running')
+    set fullscreen
+    set background=light
+    set linespace=7
+  elseif exists('$TMUX')
+    silent !tmux set status off
+  endif
+  Limelight
+  let &l:statusline = '%M'
+  hi StatusLine ctermfg=red guifg=red cterm=NONE gui=NONE
+endfunction
+
+function! s:goyo_leave()
+  if has('gui_running')
+    set nofullscreen
+    set background=dark
+    set linespace=0
+  elseif exists('$TMUX')
+    silent !tmux set status on
+  endif
+  Limelight!
+endfunction
+
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+nnoremap <Leader>G :Goyo<CR>
+let g:limelight_paragraph_span = 1
+let g:limelight_priority = -1
 
