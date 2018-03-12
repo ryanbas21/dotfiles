@@ -1,6 +1,5 @@
 set nocompatible
 filetype plugin indent on
-syntax enable
 scriptencoding utf-8
 set encoding=utf-8
 set termguicolors
@@ -8,36 +7,84 @@ set smartindent
 set showmatch
 set relativenumber
 set textwidth=80
+set formatoptions=qrn1
+set wrapmargin=0
+set colorcolumn=+1
 set autoindent
-set statusline=%{fugitive#statusline()}
-let mapleader = "\<Space>"
-autocmd FileType typescript: set makeprg=tsc
-
-set rtp+=/usr/local/opt/fzf
-
-
+set wrapmargin=0
+set colorcolumn=+1
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 set number
+set rtp+=/usr/local/opt/fzf
+set lines=50 columns=100
+set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
+set tabstop=2 
+set shiftwidth=2 
+set expandtab
+
+" Make Searching Beter
+set gdefault  
+set ignorecase
+
+" Stop highlight after searching
+set hlsearch
+nnoremap <silent> <leader>, :noh<cr> 
+
+" Allow mouse in iterm
+"Allow usage of mouse in iTerm
+set ttyfast
+set mouse=a
+
+set guifont=Inconsolata\ for\ Powerline:h24
+
+set cursorline    " highlight the current line
+set visualbell    " stop that ANNOYING beeping
+
+set autowrite     " Automatically :write before running commands
+set autoread      " Reload files changed outside vim
+" Trigger autoread when changing buffers or coming back to vim in terminal.
+au FocusGained,BufEnter * :silent! !
+
+set backspace=2   " Backspace deletes like most programs in insert mode
+
+set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
+
+set ruler         " show the cursor position all the time
 
 " Configure Cursor shape based on mode
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+let mapleader = "\<Space>"
+
+autocmd FileType typescript: set makeprg=tsc
+augroup vimrcEx
+  autocmd!
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  " Set syntax highlighting for specific file types
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+
 
 let g:monokai_gui_italic = 1
-filetype off
-set lines=50 columns=100
-set tabstop=4
-set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 
+filetype off
 if has("gui_running")
    let s:uname = system("uname")
    if s:uname == "Darwin\n"
      set guifont=Meslo\ LG\ S\ for\ Powerline
    endif
  endif
+
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
@@ -66,7 +113,6 @@ Plugin 'universal-ctags/ctags'
 
 " Syntax
 Plugin 'neovimhaskell/haskell-vim'
-Plugin 'crusoexia/vim-javascript-lib'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'Quramy/tsuquyomi'
@@ -88,10 +134,13 @@ Plugin 'tpope/vim-commentary'
 Plugin 'wakatime/vim-wakatime'
 Plugin 'junegunn/vim-easy-align'
 
+" TMUX
+Plugin 'benmills/vimux'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-colorscheme minimalist 
+
 hi Comment cterm=italic
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
@@ -286,6 +335,22 @@ autocmd! User GoyoEnter nested call <SID>goyo_enter()
 autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 nnoremap <Leader>G :Goyo<CR>
-let g:limelight_paragraph_span = 1
-let g:limelight_priority = -1
 
+" KEY MAPPINGS
+map <LEADER>a : Ack<Space>
+nmap <Leader>F :Files<CR>
+nmap <Leader>B :Buffers<CR>
+
+map <Leader>rt :call VimuxRunCommand("clear; npm t" )<CR>
+
+
+  " Automatically wrap at 100 characters and spell check git commit messages
+autocmd FileType gitcommit setlocal textwidth=100
+autocmd FileType gitcommit setlocal spell
+
+
+" Enable spellchecking for Markdown
+  autocmd FileType markdown setlocal spell
+
+colorscheme minimalist 
+set statusline=%{fugitive#statusline()}
