@@ -24,6 +24,8 @@ set term=xterm-256color
 set termencoding=utf-8
 set t_Co=256
 
+set exrc
+set secure
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -93,65 +95,64 @@ if has("gui_running")
    endif
  endif
 
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+ if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
 " Color / Themes
-Plugin 'rafi/awesome-vim-colorschemes'
-Plugin 'viniciusban/vim-ubuntu-colorscheme'
-Plugin 'junegunn/limelight.vim'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'viniciusban/vim-ubuntu-colorscheme'
+Plug 'junegunn/limelight.vim', { 'on': 'GoyoEnter' }
 
 " TMUX
-Plugin 'benmills/vimux'
+Plug 'benmills/vimux'
 
 " Git
-Plugin 'xuyuanp/nerdtree-git-plugin'
-Plugin 'tpope/vim-fugitive'
-Plugin 'chrisbra/vim-diff-enhanced'
-
+Plug 'xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-fugitive'
 
 " Movement
-Plugin 'easymotion/vim-easymotion'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-speeddating'
-Plugin 'tpope/vim-surround'
-Plugin 'junegunn/goyo.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'junegunn/goyo.vim', { 'on': 'GoyoEnter' }
 
 " Syntax
-Plugin 'crusoexia/vim-javascript-lib'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'Quramy/tsuquyomi'
-Plugin 'prettier/prettier-eslint-cli'
-Plugin 'leafgarland/typescript-vim'
-Plugin 'mitermayer/vim-prettier', {
+Plug 'crusoexia/vim-javascript-lib'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'typescript' ] }
+Plug 'Quramy/tsuquyomi'
+Plug 'prettier/prettier-eslint-cli', { 'for': ['javascript', 'typescript'] }
+Plug 'leafgarland/typescript-vim', { 'for' : 'typescript' }
+Plug 'mitermayer/vim-prettier', {
 	\ 'do': 'yarn install',
 	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
 
-Plugin 'hail2u/vim-css3-syntax'
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 
 " Completion
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'w0rp/ale'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'w0rp/ale'
 
 " File Tree
-Plugin 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Searching
-Plugin 'shougo/vimproc.vim', {'do' : 'make'}
-Plugin 'tpope/vim-commentary'
-Plugin 'wakatime/vim-wakatime'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'junegunn/fzf.vim'
-Plugin 'mileszs/ack.vim'
+Plug 'shougo/vimproc.vim', {'do' : 'make'}
+Plug 'tpope/vim-commentary'
+Plug 'wakatime/vim-wakatime'
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/fzf.vim'
+Plug 'mileszs/ack.vim'
+Plug 'ternjs/tern_for_vim'
 
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
+call plug#end()
+
 filetype plugin indent on    " required
 colorscheme space-vim-dark 
 hi Comment cterm=italic
@@ -368,4 +369,6 @@ autocmd FileType gitcommit setlocal spell
 " Enable spellchecking for Markdown
   autocmd FileType markdown setlocal spell
 
+  "CTAGS
+let g:easytags_async = 1
 syntax on
