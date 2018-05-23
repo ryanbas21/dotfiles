@@ -126,6 +126,7 @@ Plug 'crusoexia/vim-javascript-lib'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'typescript' ] }
 Plug 'Quramy/tsuquyomi'
+Plug 'elixir-editors/vim-elixir'
 Plug 'prettier/prettier-eslint-cli', { 'for': ['javascript', 'typescript'] }
 Plug 'leafgarland/typescript-vim', { 'for' : 'typescript' }
 Plug 'mitermayer/vim-prettier', {
