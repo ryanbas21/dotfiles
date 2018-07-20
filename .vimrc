@@ -1,9 +1,8 @@
 set nocompatible
-set guifont=Inconsolata\ for\ Powerline:h15
+set guifont=Inconsolata\ for\ Powerline:h20
 filetype plugin indent on
 scriptencoding utf-8
 set encoding=utf-8
-set termguicolors
 set smartindent
 set showmatch
 set relativenumber
@@ -20,39 +19,32 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 set fillchars+=stl:\ ,stlnc:\
-set term=xterm-256color
 set termencoding=utf-8
-set t_Co=256
-
 set exrc
 set secure
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
 set rtp+=/usr/local/opt/fzf
 set rtp+=~/.fzf
 set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 
 " Make Searching Beter
-
 set gdefault
 set ignorecase
 
+ " ctags optimization
+set autochdir
+set tags=tags;
+
 " Stop highlight after searching
 set hlsearch
-nnoremap <silent> <leader>, :noh<cr>
-
-" Allow mouse in iterm
-"Allow usage of mouse in iTerm
-set ttyfast
-set mouse=a
+map <silent> <leader>, :nohl<cr>
 
 set cursorline    " highlight the current line
 set visualbell    " stop that ANNOYING beeping
 
 set autowrite     " Automatically :write before running commands
 set autoread      " Reload files changed outside vim
-"
+
 " Trigger autoread when changing buffers or coming back to vim in terminal.
 au FocusGained,BufEnter * :silent! !
 
@@ -63,6 +55,7 @@ set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitigno
 set ruler         " show the cursor position all the time
 
 let g:Powerline_symbols = 'fancy'
+
 " Configure Cursor shape based on mode
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
@@ -100,40 +93,33 @@ if has("gui_running")
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-
+set termguicolors
 call plug#begin('~/.vim/plugged')
 
 " Color / Themes
-Plug 'rafi/awesome-vim-colorschemes'
-Plug 'viniciusban/vim-ubuntu-colorscheme'
-Plug 'junegunn/limelight.vim', { 'on': 'GoyoEnter' }
+Plug 'morhetz/gruvbox'
+Plug 'itchyny/lightline.vim'
 
 " TMUX
 Plug 'benmills/vimux'
+Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
 
 " Git
-Plug 'xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-fugitive'
 
 " Movement
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'junegunn/goyo.vim', { 'on': 'GoyoEnter' }
+Plug 'ludovicchabant/vim-gutentags'
 
 " Syntax
-Plug 'crusoexia/vim-javascript-lib'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'typescript' ] }
-Plug 'Quramy/tsuquyomi'
-Plug 'elixir-editors/vim-elixir'
-Plug 'prettier/prettier-eslint-cli', { 'for': ['javascript', 'typescript'] }
-Plug 'leafgarland/typescript-vim', { 'for' : 'typescript' }
-Plug 'mitermayer/vim-prettier', {
-	\ 'do': 'yarn install',
-	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
-
+Plug 'Quramy/tsuquyomi', { 'for' : ['typescript'] }
+Plug 'leafgarland/typescript-vim', { 'for' : ['typescript'] }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
+Plug 'elixir-editors/vim-elixir', { 'for': ['elixir'] }
 
 " Completion
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
@@ -143,19 +129,17 @@ Plug 'w0rp/ale'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Searching
-Plug 'shougo/vimproc.vim', {'do' : 'make'}
 Plug 'tpope/vim-commentary'
-Plug 'wakatime/vim-wakatime'
-Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
-Plug 'ternjs/tern_for_vim'
 
+" Waka
+Plug 'wakatime/vim-wakatime'
 
 call plug#end()
 
 filetype plugin indent on    " required
-colorscheme space-vim-dark 
 hi Comment cterm=italic
 
 " Easy Motion
@@ -169,6 +153,18 @@ let g:CommandTAcceptSelectionMap = '<C-t>'
 let g:CommandTAcceptSelectionTabMap = '<CR>'
 
 " NERDTREE
+let g:NERDTreeIndicatorMapCustom = {
+        \ "Modified"  : "✹",
+        \ "Staged"    : "✚",
+        \ "Untracked" : "✭",
+        \ "Renamed"   : "➜",
+        \ "Unmerged"  : "═",
+        \ "Deleted"   : "✖",
+        \ "Dirty"     : "✗",
+        \ "Clean"     : "✔︎",
+        \ 'Ignored'   : '☒',
+        \ "Unknown"   : "?"
+        \ }
 let g:NERDTreeShowHidden=1
 
 "vim-javascript
@@ -186,13 +182,9 @@ let g:jsx_ext_required = 0
  let g:ale_sign_errorle_echo_msg_error_str = 'E'
  let g:ale_echo_msg_warning_str = 'W'
  let g:ale_lint_on_text_changed = 'never'
- let g:ale_linters = { 'javascript': ['prettier'], 'typescript' : ['prettier'] }
-
-" Airline
- let g:airline#extensions#tabline#enabled = 1
- let g:airline#extensions#tabline#left_sep = ' '
- let g:airline#extensions#tabline#left_alt_sep = '|'
- let g:airline_theme='gruvbox'
+ let g:ale_fix_on_save = 1
+ let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'] }
+ let g:ale_linters = { 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['stack-ghc', 'ghc-mod', 'hlint', 'hdevtools', 'hfmt'] }
 
 " NERDTREE
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -228,29 +220,13 @@ if !exists("g:ycm_semantic_triggers")
 let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
 let g:typescript_compiler_binary = 'tsc'
 let g:typescript_compiler_options = ''
+
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 autocmd FileType typescript :set makeprg=tsc
 autocmd FileType typescript setl omnifunc=tsuquyomi#complete
 
-" Prettier setup
-" For Work!
-let g:prettier#autoformat = 1
-autocmd FileType javascript set formatprg=prettier-eslint
-autocmd FileType typescript set formatprg=prettier-tslint
-let g:prettier#config#print_width = 120
-let g:prettier#config#tab_width = 4
-let g:prettier#config#use_tabs = 'true'
-let g:prettier#config#semi = 'true'
-let g:prettier#config#bracket_spacing = 'true'
-let g:prettier#config#jsx_bracket_same_line = 'true'
-let g:prettier#config#trailing_comma = 'none'
-let g:prettier#config#single_quote='true'
-let g:prettier#config#parser = 'typescript'
-let g:prettier#config#config_precedence = 'prefer-file'
-autocmd BufWritePre *.js,*.json,*.css,*ts,*.scss,*.less,*.graphql PrettierAsync
-"
-"KEY MAPPINGS
+" "KEY MAPPINGS
 " Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
@@ -260,11 +236,12 @@ nmap <C-n> :NERDTreeToggle<CR>
 
 " Remap To Normal Mode
 inoremap jj <esc>
-inoremap jk <esc>
 
   "" Fugitive
   au FileType gitcommit setlocal completefunc=emoji#complete
   au FileType gitcommit nnoremap <buffer> <silent> cd :<C-U>Gcommit --amend --date="$(date)"<CR>
+
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
   fun! FzfOmniFiles()
 	 let is_git = system('git status')
@@ -317,59 +294,78 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
   " File types
-  au BufNewFile,BufRead *.js               set filetype=javascript
+  au BufNewFile,BufRead *.js         set filetype=javascript
   au BufNewFile,BufRead *.jsx 		   set filetype=javascript
-  au BufNewFile,BufRead *.ts               set filetype=typescript
-  au BufNewFile,BufRead *.tsx              set filetype=typescript
-  au BufNewFile,BufRead *.hs		   set filetype=haskell
-
-
-  function! s:goyo_enter()
-  if has('gui_running')
-    set fullscreen
-    set background=light
-    set linespace=7
-  elseif exists('$TMUX')
-    silent !tmux set status off
-  endif
-  Limelight
-  let &l:statusline = '%M'
-  hi StatusLine ctermfg=red guifg=red cterm=NONE gui=NONE
-endfunction
-
-function! s:goyo_leave()
-  if has('gui_running')
-    set nofullscreen
-    set background=dark
-    set linespace=0
-  elseif exists('$TMUX')
-    silent !tmux set status on
-  endif
-  Limelight!
-endfunction
-
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
-
-nnoremap <Leader>G :Goyo<CR>
+  au BufNewFile,BufRead *.ts         set filetype=typescript
+  au BufNewFile,BufRead *.tsx        set filetype=typescript
+  au BufNewFile,BufRead *.hs		     set filetype=haskell
 
 let g:ackprg = 'rg --vimgrep --no-heading'
 
 " KEY MAPPINGS
-map <LEADER>a :Ack!<Space>
+map  <LEADER>a :Ack!<Space>
 nmap <Leader>F :Files<CR>
 nmap <Leader>B :Buffers<CR>
 
-
-map <Leader>rt :call VimuxRunCommand("clear; npm run transpile; npm t" )<CR>
+" Ctag mapping
+nmap <Leader>d <c-]>
+nmap <Leader>i <c-T>
 
   " Automatically wrap at 100 characters and spell check git commit messages
 autocmd FileType gitcommit setlocal textwidth=100
 autocmd FileType gitcommit setlocal spell
 
 " Enable spellchecking for Markdown
-  autocmd FileType markdown setlocal spell
+autocmd FileType markdown setlocal spell
 
-  "CTAGS
-let g:easytags_async = 1
+" Themes
+let g:airline_theme='gruvbox'
+colorscheme gruvbox  
+
+" Haskell Intero
+augroup interoMaps
+  au!
+  " Maps for intero. Restrict to Haskell buffers so the bindings don't collide.
+  " Background process and window management
+  au FileType haskell nnoremap <silent> <leader>is :InteroStart<CR>
+  au FileType haskell nnoremap <silent> <leader>ik :InteroKill<CR>
+
+  " Open intero/GHCi split horizontally
+  au FileType haskell nnoremap <silent> <leader>io :InteroOpen<CR>
+  " Open intero/GHCi split vertically
+  au FileType haskell nnoremap <silent> <leader>iov :InteroOpen<CR><C-W>H
+  au FileType haskell nnoremap <silent> <leader>ih :InteroHide<CR>
+
+  " Reloading (pick one)
+  " Automatically reload on save
+  au BufWritePost *.hs InteroReload
+  " Manually save and reload
+  au FileType haskell nnoremap <silent> <leader>wr :w \| :InteroReload<CR>
+
+  " Load individual modules
+  au FileType haskell nnoremap <silent> <leader>il :InteroLoadCurrentModule<CR>
+  au FileType haskell nnoremap <silent> <leader>if :InteroLoadCurrentFile<CR>
+
+  " Type-related information
+  " Heads up! These next two differ from the rest.
+  au FileType haskell map <silent> <leader>t <Plug>InteroGenericType
+  au FileType haskell map <silent> <leader>T <Plug>InteroType
+  au FileType haskell nnoremap <silent> <leader>it :InteroTypeInsert<CR>
+
+  " Navigation
+  au FileType haskell nnoremap <silent> <leader>jd :InteroGoToDef<CR>
+
+  " Managing targets
+  " Prompts you to enter targets (no silent):
+  au FileType haskell nnoremap <leader>ist :InteroSetTargets<SPACE>
+augroup END
+
+" Enable type information on hover (when holding cursor at point for ~1 second).
+let g:intero_type_on_hover = 1
+
+" OPTIONAL: Make the update time shorter, so the type info will trigger faster.
+set updatetime=1000
+
+
+set background=dark
 syntax on
