@@ -32,7 +32,7 @@ set gdefault
 set ignorecase
 
  " ctags optimization
-set autochdir
+autocmd BufEnter * silent! lcd %:p:h
 set tags=tags;
 
 " Stop highlight after searching
@@ -90,11 +90,10 @@ Plug 'itchyny/lightline.vim'
 " TMUX
 Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
 
-" Git
-Plug 'tpope/vim-fugitive'
+" GIT
+Plug 'chemzqm/denite-git'
 
 " Movement
-Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'ludovicchabant/vim-gutentags'
@@ -102,16 +101,14 @@ Plug 'ludovicchabant/vim-gutentags'
 " Syntax
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'typescript' ] }
-Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'Quramy/tsuquyomi', { 'for' : ['typescript'] }
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'leafgarland/typescript-vim', { 'for' : ['typescript'] }
 
 " Completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'HerringtonDarkholme/yats.vim'
-" For async completion
+Plug 'carlitux/deoplete-ternjs'
 Plug 'Shougo/deoplete.nvim'
-" For Denite features
 Plug 'Shougo/denite.nvim'
 
 Plug 'w0rp/ale'
@@ -121,11 +118,9 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
 " Searching
 Plug 'tpope/vim-commentary'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'mileszs/ack.vim'
 
 call plug#end()
+
 " ************ TYPESCRIPT ******
  " Typescript
 let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
@@ -136,14 +131,20 @@ let g:typescript_compiler_options = ''
 
 
 " ***************** DEOPLETE *****************
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#auto_complete_start_length = 1
+let g:deoplete#auto_complete_delay = 50
 let g:deoplete#enable_at_startup = 1
-"  **************************** 
+let g:deoplete#num_processes = 1
+
+
+"  ************************************************** 
 
 " ******************Easy Motion *********************
 map <Leader> <Plug>(easymotion-prefix)
 " ***************************************************
 
-"v******************vim-javascript******************
+"v******************vim-javascript*******************
 "
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
@@ -186,6 +187,7 @@ let g:NERDTreeShowHidden=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
@@ -201,58 +203,7 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 "************************************************************************
 
 
-" ************************FZF Config********************************
-
-fun! FzfOmniFiles()
-	 let is_git = system('git status')
-	 if v:shell_error
-		 :Files
-	else
-		:GFiles --exclude-standard -o
-	endif
-endfun
-
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-let g:fzf_layout = { 'down': '~40%' }
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-let g:fzf_files_options = "--preview '[[ $(file --mime {}) =~ binary ]] && echo {} is a binary file || (highlight -O ansi -l {} || coderay {} || rougify {} || cat {}) 2> /dev/null | head -500'"
-  
-
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
-
-" Hide statusline of terminal buffer
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-  " File types
+" ********* File types ***************************************************
   au BufNewFile,BufRead *.js         set filetype=javascript
   au BufNewFile,BufRead *.jsx 		   set filetype=javascript
   au BufNewFile,BufRead *.ts         set filetype=typescript
@@ -260,22 +211,16 @@ let g:fzf_colors =
   au BufNewFile,BufRead *.hs		     set filetype=haskell
 "************************************************************************
   
-let g:ackprg = 'rg --vimgrep --no-heading'
-
 " ***************** KEY MAPPINGS ********************
 
 let mapleader = "\<Space>"
 
 nmap <silent> <leader>, :nohl<cr>
 
-nmap <Leader>a :Ack!<Space>
-nmap <Leader>F :Files<CR>
-nmap <Leader>G :GFiles<CR>
-nmap <Leader>B :Buffers<CR>
-
+nmap <Leader>F :Denite file<CR>
 " Ctag mapping
-nmap <Leader>d <c-]>
-nmap <Leader>i <c-T>
+nmap <silent> <Leader>d <c-]>
+nmap <silent> <Leader>i <c-T>
 
 " Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
@@ -293,6 +238,55 @@ tnoremap <Esc> <C-\><C-n>
 inoremap jj <esc>
 " ************************************************
 
+" ************** DENITE ************************
+if has('nvim')
+  " reset 50% winheight on window resize
+  augroup deniteresize
+    autocmd!
+    autocmd VimResized,VimEnter * call denite#custom#option('default',
+          \'winheight', winheight(0) / 2)
+  augroup end
+call denite#custom#option('default', {
+        \ 'prompt': '❯'
+        \ })
+
+  call denite#custom#var('file_rec', 'command',
+        \ ['rg', '--files', '--glob', '!.git', ''])
+  call denite#custom#var('grep', 'command', ['rg'])
+  call denite#custom#var('grep', 'default_opts',
+        \ ['--hidden', '--vimgrep', '--no-heading', '-S'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'final_opts', [])
+  call denite#custom#map('insert', '<Esc>', '<denite:enter_mode:normal>',
+        \'noremap')
+  call denite#custom#map('normal', '<Esc>', '<NOP>',
+        \'noremap')
+  call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>',
+        \'noremap')
+  call denite#custom#map('normal', '<C-v>', '<denite:do_action:vsplit>',
+        \'noremap')
+  call denite#custom#map('normal', 'dw', '<denite:delete_word_after_caret>',
+        \'noremap')
+
+  nnoremap <leader>g :<C-u>Denite grep:. -mode=normal<CR>
+  nnoremap <leader>hc :<C-u>Denite history:cmd -mode=normal<CR>
+  nnoremap <leader>hs :<C-u>Denite history:search -mode=normal<CR>
+
+  nnoremap <leader>gs :<C-u>Denite gitstatus -mode=normal<CR>
+  nnoremap <leader>gb :<C-u>Denite gitbranch -mode=normal<CR>
+  call denite#custom#map('normal', 'a', '<denite:do_action:add>',
+        \ 'noremap')
+  call denite#custom#map('normal', 'd', '<denite:do_action:delete>',
+        \ 'noremap')
+  call denite#custom#map('normal', 'r', '<denite:do_action:reset>',
+        \ 'noremap')
+
+
+endif
+
+" **************************************************
 
 " **************** GIT ********************
 
@@ -309,8 +303,6 @@ autocmd FileType markdown setlocal spell
 " ******************** Themes *******************
 colorscheme gruvbox  
 " ************************************************
-
-
 
 " ************** Haskell Intero ******************
 augroup interoMaps
