@@ -1,6 +1,8 @@
 set nocompatible
 set guifont=Inconsolata\ for\ Powerline:h20
+
 filetype plugin indent on
+
 scriptencoding utf-8
 set encoding=utf-8
 set smartindent
@@ -13,7 +15,6 @@ set colorcolumn=+1
 set autoindent
 set wrapmargin=0
 set colorcolumn=+1
-set lines=50 columns=100
 set number
 set tabstop=2
 set shiftwidth=2
@@ -63,8 +64,6 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 let mapleader = "\<Space>"
 
 autocmd FileType typescript: set makeprg=tsc
-augroup vimrcEx
-  autocmd!
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it for commit messages, when the position is invalid, or when
@@ -74,11 +73,11 @@ augroup vimrcEx
     \   exe "normal g`\"" |
     \ endif
 
-  " Set syntax highlighting for specific file types
-  autocmd BufRead,BufNewFile *.md set filetype=markdown
+" Set syntax highlighting for specific file types
+autocmd BufRead,BufNewFile *.md set filetype=markdown
 
 
-let g:monokai_gui_italic = 1
+"let g:monokai_gui_italic = 1
 
 filetype off
 if has("gui_running")
@@ -93,6 +92,7 @@ if has("gui_running")
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
 set termguicolors
 call plug#begin('~/.vim/plugged')
 
@@ -101,7 +101,6 @@ Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
 
 " TMUX
-Plug 'benmills/vimux'
 Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
 
 " Git
@@ -139,12 +138,9 @@ Plug 'wakatime/vim-wakatime'
 
 call plug#end()
 
-filetype plugin indent on    " required
-hi Comment cterm=italic
-
 " Easy Motion
 map <Leader> <Plug>(easymotion-prefix)
-
+"
 " Easy Align
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
@@ -198,19 +194,6 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 let g:ycm_confirm_extra_conf=1
 " set completeopt-=preview
 autocmd FileType javascript setlocal omnifunc=tern#Complete
-if has("gui_running")
-  " GUI is running or is about to start.
-  " Maximize gvim window (for an alternative on Windows, see simalt below).
-  set lines=999 columns=999
-else
-  " This is console Vim.
-  if exists("+lines")
-    set lines=50
-  endif
-  if exists("+columns")
-    set columns=100
-  endif
-endif
 if !exists("g:ycm_semantic_triggers")
  let g:ycm_semantic_triggers = {}
  endif
@@ -237,7 +220,7 @@ nmap <C-n> :NERDTreeToggle<CR>
 " Remap To Normal Mode
 inoremap jj <esc>
 
-  "" Fugitive
+  " Fugitive
   au FileType gitcommit setlocal completefunc=emoji#complete
   au FileType gitcommit nnoremap <buffer> <silent> cd :<C-U>Gcommit --amend --date="$(date)"<CR>
 
