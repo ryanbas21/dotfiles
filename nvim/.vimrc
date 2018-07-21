@@ -1,5 +1,6 @@
 set nocompatible
 set guifont=Inconsolata\ for\ Powerline:h16
+autocmd! bufwritepost .vimrc source %
 
 filetype plugin indent on
 scriptencoding utf-8
@@ -104,20 +105,21 @@ Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'typescript' ] }
 Plug 'Quramy/tsuquyomi', { 'for' : ['typescript'] }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'leafgarland/typescript-vim', { 'for' : ['typescript'] }
+Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
+Plug 'tpope/vim-commentary'
+Plug 'jiangmiao/auto-pairs'
 
 " Completion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'carlitux/deoplete-ternjs'
+Plug 'Shougo/neomru.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/denite.nvim'
-
+Plug 'carlitux/deoplete-ternjs'
 Plug 'w0rp/ale'
 
 " File Tree
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
-" Searching
-Plug 'tpope/vim-commentary'
 
 call plug#end()
 
@@ -131,13 +133,16 @@ let g:typescript_compiler_options = ''
 
 
 " ***************** DEOPLETE *****************
+" " use tab to forward cycle
+inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" use tab to backward cycle
+inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#auto_complete_start_length = 1
 let g:deoplete#auto_complete_delay = 50
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#num_processes = 1
-
-
 "  ************************************************** 
 
 " ******************Easy Motion *********************
@@ -164,7 +169,7 @@ let g:jsx_ext_required = 0
  let g:ale_lint_on_text_changed = 'never'
  let g:ale_fix_on_save = 1
  let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'] }
- let g:ale_linters = { 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['stack-ghc', 'ghc-mod', 'hlint', 'hdevtools', 'hfmt'] }
+ let g:ale_linters = { 'javascript': ['prettier'], 'typescript' : ['prettier'] }
 " ************************************************************
 
 
@@ -193,16 +198,6 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 
 " ************************************************************************ 
 
-
-" ************************Fugitive********************************
-au FileType gitcommit setlocal completefunc=emoji#complete
-au FileType gitcommit nnoremap <buffer> <silent> cd :<C-U>Gcommit --amend --date="$(date)"<CR>
-
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-
-"************************************************************************
-
-
 " ********* File types ***************************************************
   au BufNewFile,BufRead *.js         set filetype=javascript
   au BufNewFile,BufRead *.jsx 		   set filetype=javascript
@@ -212,12 +207,24 @@ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-h
 "************************************************************************
   
 " ***************** KEY MAPPINGS ********************
-
 let mapleader = "\<Space>"
 
 nmap <silent> <leader>, :nohl<cr>
+inoremap jk <Esc>
 
-nmap <Leader>F :Denite file<CR>
+" Denite Mappings
+nmap <Leader>f :Denite file_mru buffer file file_rec <CR>
+nmap <Leader>s :DeniteCursorWord grep:. <CR><Esc>
+nmap <Leader>ju :Denite jump<CR>
+nmap <Leader>tag :Denite tag<CR>
+nmap <Leader>b :Denite buffer<CR>
+nnoremap <leader>g :<C-u>Denite grep:. -mode=normal<CR>
+nnoremap <leader>hc :<C-u>Denite history:cmd -mode=normal<CR>
+nnoremap <leader>hs :<C-u>Denite history:search -mode=normal<CR>
+nnoremap <leader>gs :<C-u>Denite gitstatus -mode=normal<CR>
+nnoremap <leader>gb :<C-u>Denite gitbranch -mode=normal<CR>
+ 
+
 " Ctag mapping
 nmap <silent> <Leader>d <c-]>
 nmap <silent> <Leader>i <c-T>
@@ -231,11 +238,11 @@ nmap <silent> <c-l> :wincmd l<CR>
 " NerdTree Toggle
 nmap <silent> <C-n> :NERDTreeToggle<CR>
 
+" map Y to yank from cursor to end of line
+noremap <silent> Y y$
+
 " Neovim Terminal Mappings
 tnoremap <Esc> <C-\><C-n>
-
-" Remap To Normal Mode
-inoremap jj <esc>
 " ************************************************
 
 " ************** DENITE ************************
@@ -259,24 +266,16 @@ call denite#custom#option('default', {
   call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
   call denite#custom#var('grep', 'separator', ['--'])
   call denite#custom#var('grep', 'final_opts', [])
-  call denite#custom#map('insert', '<Esc>', '<denite:enter_mode:normal>',
+  call denite#custom#map('insert', 'jk', '<denite:enter_mode:normal>',
         \'noremap')
   call denite#custom#map('normal', '<Esc>', '<NOP>',
         \'noremap')
-  call denite#custom#map('insert', '<C-v>', '<denite:do_action:vsplit>',
-        \'noremap')
-  call denite#custom#map('normal', '<C-v>', '<denite:do_action:vsplit>',
+  call denite#custom#map('normal', '<v>', '<denite:do_action:vsplit>',
         \'noremap')
   call denite#custom#map('normal', 'dw', '<denite:delete_word_after_caret>',
         \'noremap')
 
-  nnoremap <leader>g :<C-u>Denite grep:. -mode=normal<CR>
-  nnoremap <leader>hc :<C-u>Denite history:cmd -mode=normal<CR>
-  nnoremap <leader>hs :<C-u>Denite history:search -mode=normal<CR>
-
-  nnoremap <leader>gs :<C-u>Denite gitstatus -mode=normal<CR>
-  nnoremap <leader>gb :<C-u>Denite gitbranch -mode=normal<CR>
-  call denite#custom#map('normal', 'a', '<denite:do_action:add>',
+ call denite#custom#map('normal', 'a', '<denite:do_action:add>',
         \ 'noremap')
   call denite#custom#map('normal', 'd', '<denite:do_action:delete>',
         \ 'noremap')
@@ -318,18 +317,14 @@ augroup interoMaps
   au FileType haskell nnoremap <silent> <leader>iov :InteroOpen<CR><C-W>H
   au FileType haskell nnoremap <silent> <leader>ih :InteroHide<CR>
 
-  " Reloading (pick one)
   " Automatically reload on save
   au BufWritePost *.hs InteroReload
-  " Manually save and reload
-  au FileType haskell nnoremap <silent> <leader>wr :w \| :InteroReload<CR>
 
   " Load individual modules
   au FileType haskell nnoremap <silent> <leader>il :InteroLoadCurrentModule<CR>
   au FileType haskell nnoremap <silent> <leader>if :InteroLoadCurrentFile<CR>
 
   " Type-related information
-  " Heads up! These next two differ from the rest.
   au FileType haskell map <silent> <leader>t <Plug>InteroGenericType
   au FileType haskell map <silent> <leader>T <Plug>InteroType
   au FileType haskell nnoremap <silent> <leader>it :InteroTypeInsert<CR>
@@ -351,4 +346,6 @@ set updatetime=1000
 " ************************************************
 
 set background=dark
+
+
 syntax on
