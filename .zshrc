@@ -22,8 +22,6 @@ POWERLEVEL9K_SHOW_CHANGESET=true
 # just show the 6 first characters of changeset
 POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
 
-
-
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
@@ -35,14 +33,6 @@ plugins=(git npm)
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
-#fzf --preview '[[ $(file --mime {}) =~ binary ]] &&
-#                 echo {} is a binary file ||
-#                 (highlight -O ansi -l {} ||
-#                  coderay {} ||
-#                  rougify {} ||
-#                  cat {}) 2> /dev/null | head -500'
 
 
 complete -F _fzf_path_completion -o default -o bashdefault rg

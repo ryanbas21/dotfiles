@@ -7,7 +7,6 @@ alias ohmyzsh="mate ~/.oh-my-zsh"
 export TERM="xterm-256color"
 export ZSH=~/.oh-my-zsh
 
-
 ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_MODE='awesome-patched'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir vcs)
@@ -23,12 +22,10 @@ POWERLEVEL9K_SHOW_CHANGESET=true
 POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
 
 source $ZSH/oh-my-zsh.sh
-source ./dotfiles/functions.sh
-source ./dotfiles/vi-mode.zsh
-source ./dotfiles/zsh.keybindings.sh
-source ./dotfiles/key-binding.zsh
+source ./dotfiles/zsh/functions.sh
+source ./dotfiles/zsh/vi-mode.zsh
+source ./dotfiles/zsh/zsh.keybindings.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
 
 
 plugins=(git npm zsh-syntax-highlighting )
@@ -40,7 +37,9 @@ export NVM_DIR="$HOME/.nvm"
 
 complete -F _fzf_path_completion -o default -o bashdefault rg
 complete -F _fzf_dir_completion -o default -o bashdefault tree
-clear
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# use nvim, but don't make me think about it
+alias vim="nvim"
+
 
 
