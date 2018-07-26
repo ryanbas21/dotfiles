@@ -81,7 +81,6 @@ endif
 set termguicolors
 
 " ******** PLUGINS ***********8
-
 call plug#begin('~/.vim/plugged')
 
 " Color / Themes
@@ -100,7 +99,7 @@ Plug 'tpope/vim-surround'
 Plug 'ludovicchabant/vim-gutentags'
 
 " Syntax
-Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript', { 'for' : ['javascript', 'typescript'] }
 Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'typescript' ] }
 Plug 'Quramy/tsuquyomi', { 'for' : ['typescript'] }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
@@ -114,12 +113,14 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/denite.nvim'
-Plug 'carlitux/deoplete-ternjs'
+Plug 'carlitux/deoplete-ternjs', { 'for' : ['javascript', 'typescript'] }
 Plug 'w0rp/ale'
 
 " File Tree
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
+" Documentation
+Plug 'rizzatti/dash.vim'
 
 call plug#end()
 
@@ -133,27 +134,29 @@ let g:typescript_compiler_options = ''
 
 
 " ***************** DEOPLETE *****************
-" " use tab to forward cycle
-inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" use tab to backward cycle
-inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+augroup deoplete
+  au!
+  " " use tab to forward cycle
+  inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+  " use tab to backward cycle
+  inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#auto_complete_start_length = 1
-let g:deoplete#auto_complete_delay = 50
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#num_processes = 1
+  let g:deoplete#enable_smart_case = 1
+  let g:deoplete#auto_complete_start_length = 1
+  let g:deoplete#auto_complete_delay = 50
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#num_processes = 1
+augroup end
 "  ************************************************** 
 
-" ******************Easy Motion *********************
-map <Leader> <Plug>(easymotion-prefix)
-" ***************************************************
-
-"v******************vim-javascript*******************
+"******************vim-javascript*******************
 "
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_ngdoc = 1
-let g:javascript_plugin_flow = 1
+augroup javascript_syntax_detection
+  au!  
+  au FileType Javascript let g:javascript_plugin_jsdoc = 1
+  au FileType Javascript let g:javascript_plugin_ngdoc = 1
+  au FileType Javascript let g:javascript_plugin_flow = 1
+augroup end
 "******************************************************
 
 " ************************************vim-jsx******************
@@ -163,12 +166,13 @@ let g:jsx_ext_required = 0
 " ************************ALE Setup******************************
  let g:ale_emit_conflict_warnings = 1
  let g:airline#extensions#ale#enabled = 1
- let g:ale_sign_warning = '--'
- let g:ale_sign_errorle_echo_msg_error_str = 'E'
- let g:ale_echo_msg_warning_str = 'W'
+ let g:ale_sign_warning = '~~'
+ let g:ale_echo_msg_warning_str = '**warning**'
  let g:ale_lint_on_text_changed = 'never'
+ let g:ale_sign_errorle_echo_msg_error_str="✖"
+ let g:ale_completion_enabled = 0 
  let g:ale_fix_on_save = 1
- let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'] }
+ let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['brittany'], 'vue': ['prettier'] }
  let g:ale_linters = { 'javascript': ['prettier'], 'typescript' : ['prettier'] }
 " ************************************************************
 
@@ -212,19 +216,38 @@ let mapleader = "\<Space>"
 nmap <silent> <leader>, :nohl<cr>
 inoremap jk <Esc>
 
+augroup DashVim
+  au! 
+  " Dash
+  " Dash search under cursr
+  nmap <silent> <leader>ds <Plug>DashSearch
+  nmap <silent> <leader>da :Dash!  
+
+augroup end
+
 " Denite Mappings
-nmap <Leader>f :Denite file_mru buffer file file_rec <CR>
-nmap <Leader>s :DeniteCursorWord grep:. <CR><Esc>
+
+" Fuzzy Finder
+nmap <Leader>f :DeniteProjectDir file_mru buffer file file_rec<CR>
+
+" search file 
+nmap <Leader>s :Denite grep<CR><Esc>
+
+"search word under cursor
+nmap <Leader>cw :DeniteCursorWord grep:.<CR><Esc>
+
+" jump to tag
 nmap <Leader>ju :Denite jump<CR>
-nmap <Leader>tag :Denite tag<CR>
+
+" cycle buffers
 nmap <Leader>b :Denite buffer<CR>
-nnoremap <leader>g :<C-u>Denite grep:. -mode=normal<CR>
-nnoremap <leader>hc :<C-u>Denite history:cmd -mode=normal<CR>
-nnoremap <leader>hs :<C-u>Denite history:search -mode=normal<CR>
+
+" run previous commands
+nmap <Leader>ch :Denite command_history<CR>
+
 nnoremap <leader>gs :<C-u>Denite gitstatus -mode=normal<CR>
 nnoremap <leader>gb :<C-u>Denite gitbranch -mode=normal<CR>
  
-
 " Ctag mapping
 nmap <silent> <Leader>d <c-]>
 nmap <silent> <Leader>i <c-T>
@@ -253,6 +276,7 @@ if has('nvim')
     autocmd VimResized,VimEnter * call denite#custom#option('default',
           \'winheight', winheight(0) / 2)
   augroup end
+
 call denite#custom#option('default', {
         \ 'prompt': '❯'
         \ })
@@ -270,18 +294,35 @@ call denite#custom#option('default', {
         \'noremap')
   call denite#custom#map('normal', '<Esc>', '<NOP>',
         \'noremap')
-  call denite#custom#map('normal', '<v>', '<denite:do_action:vsplit>',
+  call denite#custom#map('normal', 'v', '<denite:do_action:vsplit>',
         \'noremap')
   call denite#custom#map('normal', 'dw', '<denite:delete_word_after_caret>',
         \'noremap')
 
- call denite#custom#map('normal', 'a', '<denite:do_action:add>',
+
+  " Git Commit Bindings
+  call denite#custom#map('normal', 'a', '<denite:do_action:add>',
         \ 'noremap')
+
   call denite#custom#map('normal', 'd', '<denite:do_action:delete>',
         \ 'noremap')
+
   call denite#custom#map('normal', 'r', '<denite:do_action:reset>',
         \ 'noremap')
 
+  call denite#custom#map('normal', 'gc', '<denite:do_action:Commit>',
+        \ 'noremap')
+
+  call denite#custom#map('normal', 'gco', '<denite:do_action:checkout>',
+        \ 'noremap')
+
+  " Git Branch Bindings
+
+  call denite#custom#map('normal', 'gd', '<denite:do_action:delete>',
+        \ 'noremap')
+
+  call denite#custom#map('normal', 'gr', '<denite:do_action:rebase>',
+        \ 'noremap')
 
 endif
 
@@ -335,7 +376,7 @@ augroup interoMaps
   " Managing targets
   " Prompts you to enter targets (no silent):
   au FileType haskell nnoremap <leader>ist :InteroSetTargets<SPACE>
-augroup END
+augroup end
 
 " Enable type information on hover (when holding cursor at point for ~1 second).
 let g:intero_type_on_hover = 1
@@ -345,7 +386,6 @@ set updatetime=1000
 
 " ************************************************
 
+
 set background=dark
-
-
 syntax on
