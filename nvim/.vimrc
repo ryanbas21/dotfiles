@@ -91,7 +91,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
 
 " GIT
-Plug 'chemzqm/denite-git'
+Plug 'tpope/vim-fugitive'
 
 " Movement
 Plug 'tpope/vim-repeat'
@@ -228,29 +228,35 @@ augroup end
 " Denite Mappings
 
 " Fuzzy Finder
-nmap <Leader>f :DeniteProjectDir file_mru buffer file file_rec<CR>
+nmap <Leader>f :DeniteProjectDir buffer file file_rec<CR>
 
 " search file 
-nmap <Leader>s :Denite grep<CR><Esc>
+nmap <Leader>s :DeniteBufferDir  grep<CR><Esc>
 
 "search word under cursor
 nmap <Leader>cw :DeniteCursorWord grep:.<CR><Esc>
 
 " jump to tag
-nmap <Leader>ju :Denite jump<CR>
+nmap <Leader>ju :DeniteProjectDir jump<CR>
 
 " cycle buffers
 nmap <Leader>b :Denite buffer<CR>
 
 " run previous commands
-nmap <Leader>ch :Denite command_history<CR>
+nmap <Leader>ch :DeniteProjectDir command_history<CR>
 
-nnoremap <leader>gs :<C-u>Denite gitstatus -mode=normal<CR>
-nnoremap <leader>gb :<C-u>Denite gitbranch -mode=normal<CR>
- 
+nmap <Leader>gs :Gstatus<CR>
+
+nmap <Leader>gb :Gblame<CR>
+nmap <Leader>gc :Gcommit<CR>
+nmap <Leader>gca :Gcommit --amend<CR>
+nmap <Leader>gp :Gpush origin
+nmap <Leader>gaa :Git add .
 " Ctag mapping
-nmap <silent> <Leader>d <c-]>
-nmap <silent> <Leader>i <c-T>
+" Definition
+noremap <silent> <Leader>d <c-]>
+" implementation
+noremap <silent> <Leader>i <c-T>
 
 " Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
@@ -277,53 +283,27 @@ if has('nvim')
           \'winheight', winheight(0) / 2)
   augroup end
 
-call denite#custom#option('default', {
-        \ 'prompt': '❯'
-        \ })
+  call denite#custom#option('default', {
+          \ 'prompt': '❯'
+          \ })
 
-  call denite#custom#var('file_rec', 'command',
-        \ ['rg', '--files', '--glob', '!.git', ''])
-  call denite#custom#var('grep', 'command', ['rg'])
-  call denite#custom#var('grep', 'default_opts',
-        \ ['--hidden', '--vimgrep', '--no-heading', '-S'])
-  call denite#custom#var('grep', 'recursive_opts', [])
-  call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-  call denite#custom#var('grep', 'separator', ['--'])
-  call denite#custom#var('grep', 'final_opts', [])
-  call denite#custom#map('insert', 'jk', '<denite:enter_mode:normal>',
-        \'noremap')
-  call denite#custom#map('normal', '<Esc>', '<NOP>',
-        \'noremap')
-  call denite#custom#map('normal', 'v', '<denite:do_action:vsplit>',
-        \'noremap')
-  call denite#custom#map('normal', 'dw', '<denite:delete_word_after_caret>',
-        \'noremap')
-
-
-  " Git Commit Bindings
-  call denite#custom#map('normal', 'a', '<denite:do_action:add>',
-        \ 'noremap')
-
-  call denite#custom#map('normal', 'd', '<denite:do_action:delete>',
-        \ 'noremap')
-
-  call denite#custom#map('normal', 'r', '<denite:do_action:reset>',
-        \ 'noremap')
-
-  call denite#custom#map('normal', 'gc', '<denite:do_action:Commit>',
-        \ 'noremap')
-
-  call denite#custom#map('normal', 'gco', '<denite:do_action:checkout>',
-        \ 'noremap')
-
-  " Git Branch Bindings
-
-  call denite#custom#map('normal', 'gd', '<denite:do_action:delete>',
-        \ 'noremap')
-
-  call denite#custom#map('normal', 'gr', '<denite:do_action:rebase>',
-        \ 'noremap')
-
+    call denite#custom#var('file_rec', 'command',
+          \ ['rg', '--files', '--glob', '!.git', ''])
+    call denite#custom#var('grep', 'command', ['rg'])
+    call denite#custom#var('grep', 'default_opts',
+          \ ['--hidden', '--vimgrep', '--no-heading', '-S'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+    call denite#custom#var('grep', 'separator', ['--'])
+    call denite#custom#var('grep', 'final_opts', [])
+    call denite#custom#map('insert', 'jk', '<denite:enter_mode:normal>',
+          \'noremap')
+    call denite#custom#map('normal', '<Esc>', '<NOP>',
+          \'noremap')
+    call denite#custom#map('normal', 'v', '<denite:do_action:vsplit>',
+          \'noremap')
+    call denite#custom#map('normal', 'dw', '<denite:delete_word_after_caret>',
+          \'noremap')
 endif
 
 " **************************************************
