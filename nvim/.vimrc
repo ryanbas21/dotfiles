@@ -245,12 +245,12 @@ nmap <Leader>b :Denite buffer<CR>
 nmap <Leader>ch :DeniteProjectDir command_history<CR>
 
 nmap <Leader>gs :Gstatus<CR>
-
 nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gc :Gcommit<CR>
 nmap <Leader>gca :Gcommit --amend<CR>
 nmap <Leader>gp :Gpush origin
 nmap <Leader>gaa :Git add .<CR>:q<CR>
+
 " " Ctag mapping
 " Definition
 noremap <silent> <Leader>d <c-]>
