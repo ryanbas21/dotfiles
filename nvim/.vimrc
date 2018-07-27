@@ -23,9 +23,6 @@ set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 set exrc
 set secure
-
-set rtp+=/usr/local/opt/fzf
-set rtp+=~/.fzf
 set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 
 " Make Searching Beter
