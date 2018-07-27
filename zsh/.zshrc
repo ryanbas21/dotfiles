@@ -1,6 +1,8 @@
 export DEFAULT_USER=`whoami`
 export TERM="xterm-256color"
 export ZSH=/home/v1rgul/.oh-my-zsh
+export VISUAL=nvim
+export EDITOR='$VISUAL'
 
 alias ohmyzsh="mate ~/.oh-my-zsh"
 
@@ -22,9 +24,9 @@ POWERLEVEL9K_SHOW_CHANGESET=true
 POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
 
 source $ZSH/oh-my-zsh.sh
-source ./dotfiles/zsh/functions.sh
-source ./dotfiles/zsh/vi-mode.zsh
-source ./dotfiles/zsh/zsh.keybindings.sh
+source ~/dotfiles/zsh/functions.sh
+source ~/dotfiles/zsh/vi-mode.zsh
+source ~/dotfiles/zsh/zsh.keybindings.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 
@@ -37,6 +39,7 @@ export NVM_DIR="$HOME/.nvm"
 
 complete -F _fzf_path_completion -o default -o bashdefault rg
 complete -F _fzf_dir_completion -o default -o bashdefault tree
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # use nvim, but don't make me think about it
 alias vim="nvim"
