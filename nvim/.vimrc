@@ -80,7 +80,7 @@ endif
 
 set termguicolors
 
-" ******** PLUGINS ***********8
+" ************ PLUGINS ************
 call plug#begin('~/.vim/plugged')
 
 " Color / Themes
@@ -124,13 +124,12 @@ Plug 'rizzatti/dash.vim'
 
 call plug#end()
 
-" ************ TYPESCRIPT ******
+" *************** TYPESCRIPT *****************
  " Typescript
 let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
 let g:typescript_compiler_binary = 'tsc'
 let g:typescript_compiler_options = ''
-" ********************************
-" ****************************
+" ********************************************
 
 
 " ***************** DEOPLETE *****************
@@ -147,9 +146,9 @@ augroup deoplete
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#num_processes = 1
 augroup end
-"  ************************************************** 
+"  ****************************************************** 
 
-"******************vim-javascript*******************
+"****************** vim-javascript **********************
 "
 augroup javascript_syntax_detection
   au!  
@@ -157,13 +156,13 @@ augroup javascript_syntax_detection
   au FileType Javascript let g:javascript_plugin_ngdoc = 1
   au FileType Javascript let g:javascript_plugin_flow = 1
 augroup end
-"******************************************************
+"***********************************************************
 
-" ************************************vim-jsx******************
+" ************************************vim-jsx***************
 let g:jsx_ext_required = 0
-" ******************************************************
+" **********************************************************
 
-" ************************ALE Setup******************************
+" ************************ ALE Setup ***********************
  let g:ale_emit_conflict_warnings = 1
  let g:airline#extensions#ale#enabled = 1
  let g:ale_sign_warning = '~~'
@@ -177,7 +176,7 @@ let g:jsx_ext_required = 0
 " ************************************************************
 
 
-" ********************* NERDTREE ************************************ 
+" ********************* NERDTREE ***************************** 
 let g:NERDTreeIndicatorMapCustom = {
         \ "Modified"  : "✹",
         \ "Staged"    : "✚",
@@ -200,15 +199,15 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 
-" ************************************************************************ 
+" ****************************************************
 
-" ********* File types ***************************************************
+" ********* File types *******************************
   au BufNewFile,BufRead *.js         set filetype=javascript
   au BufNewFile,BufRead *.jsx 		   set filetype=javascript
   au BufNewFile,BufRead *.ts         set filetype=typescript
   au BufNewFile,BufRead *.tsx        set filetype=typescript
   au BufNewFile,BufRead *.hs		     set filetype=haskell
-"************************************************************************
+"****************************************************
   
 " ***************** KEY MAPPINGS ********************
 let mapleader = "\<Space>"
@@ -251,8 +250,8 @@ nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gc :Gcommit<CR>
 nmap <Leader>gca :Gcommit --amend<CR>
 nmap <Leader>gp :Gpush origin
-nmap <Leader>gaa :Git add .
-" Ctag mapping
+nmap <Leader>gaa :Git add .<CR>:q<CR>
+" " Ctag mapping
 " Definition
 noremap <silent> <Leader>d <c-]>
 " implementation
@@ -272,8 +271,19 @@ noremap <silent> Y y$
 
 " Neovim Terminal Mappings
 tnoremap <Esc> <C-\><C-n>
-" ************************************************
-
+" **********************************************
+"*************** LightLine *********************
+  let g:lightline = {
+      \ 'colorscheme': 'powerline',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+"***********************************************
 " ************** DENITE ************************
 if has('nvim')
   " reset 50% winheight on window resize
@@ -306,21 +316,21 @@ if has('nvim')
           \'noremap')
 endif
 
-" **************************************************
+" ************************************************
 
-" **************** GIT ********************
+" **************** GIT ***************************
 
 " Automatically wrap at 100 characters and spell check git commit messages
 autocmd FileType gitcommit setlocal textwidth=100
 autocmd FileType gitcommit setlocal spell
 
-" ************************************************
+" **************************************************
 
 " Enable spellchecking for Markdown
 autocmd FileType markdown setlocal spell
 
 
-" ******************** Themes *******************
+" ******************** Themes ********************
 colorscheme gruvbox  
 " ************************************************
 
