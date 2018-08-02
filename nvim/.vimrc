@@ -88,7 +88,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'bling/vim-bufferline'
 Plug 'junegunn/goyo.vim'
 
-
 " TMUX
 Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
 
@@ -370,7 +369,7 @@ augroup end
 let g:intero_type_on_hover = 1
 
 " OPTIONAL: Make the update time shorter, so the type info will trigger faster.
-set updatetime=1000
+set updatetime=100
 
 " ************************************************
 
