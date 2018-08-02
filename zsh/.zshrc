@@ -29,8 +29,7 @@ source ~/dotfiles/zsh/vi-mode.zsh
 source ~/dotfiles/zsh/zsh.keybindings.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-
-plugins=(git npm zsh-syntax-highlighting )
+plugins=(zsh-syntax-highlighting )
 # NVM
 #
 export NVM_DIR="$HOME/.nvm"

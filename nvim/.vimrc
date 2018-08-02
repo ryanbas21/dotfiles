@@ -199,8 +199,8 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 " ********* File types ***************************************************
   au BufNewFile,BufRead *.js         set filetype=javascript
   au BufNewFile,BufRead *.jsx 		   set filetype=javascript
-  " au BufNewFile,BufRead *.ts         set filetype=typescript
-  " au BufNewFile,BufRead *.tsx        set filetype=typescript
+  au BufNewFile,BufRead *.ts         set filetype=typescript
+  au BufNewFile,BufRead *.tsx        set filetype=typescript
   au BufNewFile,BufRead *.hs		     set filetype=haskell
 "************************************************************************
   
