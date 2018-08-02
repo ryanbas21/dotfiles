@@ -86,6 +86,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
 Plug 'bling/vim-bufferline'
+Plug 'junegunn/goyo.vim'
+
 
 " TMUX
 Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
@@ -101,11 +103,9 @@ Plug 'ludovicchabant/vim-gutentags'
 " Syntax
 Plug 'pangloss/vim-javascript', { 'for' : ['javascript', 'typescript'] }
 Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'typescript' ] }
-" Plug 'Quramy/tsuquyomi', { 'do': 'make', 'for' : ['typescript'] }
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
+Plug 'mhartington/nvim-typescript', {'do': './install.sh', 'for': 'typescript' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-"Plug 'leafgarland/typescript-vim', { 'for' : ['typescript'] }
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
@@ -204,10 +204,13 @@ let g:NERDTreeDirArrowCollapsible = '▾'
   au BufNewFile,BufRead *.hs		     set filetype=haskell
 "************************************************************************
   
+" ***************** Goyo ********************
+  let g:goyo_width = 120
 " ***************** KEY MAPPINGS ********************
 let mapleader = "\<Space>"
 
 nmap <silent> <leader>ot :split term://zsh<cr>
+nmap <silent> <leader>g :Goyo<cr>
 
 nmap <silent> <leader>, :nohl<cr>
 inoremap jk <Esc>
@@ -215,9 +218,9 @@ inoremap jk <Esc>
 augroup DashVim
   au! 
   " Dash
-  " Dash search under cursr
+  " Dash search under cursor
   nmap <silent> <leader>ds <Plug>DashSearch
-  nmap <silent> <leader>da :Dash!  
+  nmap <silent> <leader>da :Dash!<cr>  
 
 augroup end
 
@@ -227,7 +230,7 @@ augroup end
 nmap <Leader>f :DeniteProjectDir buffer file file_rec<CR>
 
 " search file 
-nmap <Leader>s :DeniteBufferDir  grep<CR><Esc>
+nmap <Leader>s :DeniteBufferDir grep<CR><Esc>
 
 "search word under cursor
 nmap <Leader>cw :DeniteCursorWord grep:.<CR><Esc>
