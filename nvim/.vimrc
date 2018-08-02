@@ -101,9 +101,11 @@ Plug 'ludovicchabant/vim-gutentags'
 " Syntax
 Plug 'pangloss/vim-javascript', { 'for' : ['javascript', 'typescript'] }
 Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'typescript' ] }
-Plug 'Quramy/tsuquyomi', { 'do': 'make', 'for' : ['typescript'] }
+" Plug 'Quramy/tsuquyomi', { 'do': 'make', 'for' : ['typescript'] }
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-Plug 'leafgarland/typescript-vim', { 'for' : ['typescript'] }
+"Plug 'leafgarland/typescript-vim', { 'for' : ['typescript'] }
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
@@ -124,18 +126,6 @@ Plug 'rizzatti/dash.vim'
 
 call plug#end()
 
-" ************ TYPESCRIPT ******
- " Typescript
-let g:typescript_compiler_binary = 'tsc'
-let g:typescript_compiler_options = ''
-let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
-let g:typescript_compiler_binary = 'tsc'
-let g:typescr = ''
-" Make errors appear in quickfix window
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-
-" ********************************
 " ********************************
 
 " ***************** DEOPLETE *****************
@@ -147,8 +137,7 @@ augroup deoplete
   inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
   let g:deoplete#enable_smart_case = 1
-  let g:deoplete#auto_complete_start_length = 1
-  let g:deoplete#auto_complete_delay = 50
+  let g:deoplete#auto_complete_delay = 20
   let g:deoplete#enable_at_startup = 1
   let g:deoplete#num_processes = 1
 augroup end
@@ -210,8 +199,8 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 " ********* File types ***************************************************
   au BufNewFile,BufRead *.js         set filetype=javascript
   au BufNewFile,BufRead *.jsx 		   set filetype=javascript
-  au BufNewFile,BufRead *.ts         set filetype=typescript
-  au BufNewFile,BufRead *.tsx        set filetype=typescript
+  " au BufNewFile,BufRead *.ts         set filetype=typescript
+  " au BufNewFile,BufRead *.tsx        set filetype=typescript
   au BufNewFile,BufRead *.hs		     set filetype=haskell
 "************************************************************************
   
