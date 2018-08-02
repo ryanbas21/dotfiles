@@ -1,4 +1,3 @@
-set nocompatible
 set guifont=Inconsolata\ for\ Powerline:h16
 autocmd! bufwritepost .vimrc source %
 
@@ -86,6 +85,7 @@ call plug#begin('~/.vim/plugged')
 " Color / Themes
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
+Plug 'bling/vim-bufferline'
 
 " TMUX
 Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
@@ -126,10 +126,14 @@ call plug#end()
 
 " ************ TYPESCRIPT ******
  " Typescript
-let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
 let g:typescript_compiler_binary = 'tsc'
 let g:typescript_compiler_options = ''
-autocmd FileType typescript setlocal completeopt+=menu,preview
+let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
+let g:typescript_compiler_binary = 'tsc'
+let g:typescr = ''
+" Make errors appear in quickfix window
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
 
 " ********************************
 " ********************************
@@ -214,6 +218,8 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 " ***************** KEY MAPPINGS ********************
 let mapleader = "\<Space>"
 
+nmap <silent> <leader>ot :split term://zsh<cr>
+
 nmap <silent> <leader>, :nohl<cr>
 inoremap jk <Esc>
 
@@ -247,12 +253,11 @@ nmap <Leader>b :Denite buffer<CR>
 nmap <Leader>ch :DeniteProjectDir command_history<CR>
 
 nmap <Leader>gs :Gstatus<CR>
-
 nmap <Leader>gb :Gblame<CR>
-nmap <Leader>gc :Gcommit<CR>
 nmap <Leader>gca :Gcommit --amend<CR>
-nmap <Leader>gp :Gpush origin
+nmap <Leader>gp :Gpush origin<space>
 nmap <Leader>gaa :Git add .<CR>
+
 " Ctag mapping
 " Definition
 noremap <silent> <Leader>d <c-]>
@@ -377,6 +382,9 @@ set updatetime=1000
 
 " ************************************************
 
+command! TERMLOW split | resize 10 | terminal
+
+au VimEnter * :TERMLOW
 
 set background=dark
 syntax on
