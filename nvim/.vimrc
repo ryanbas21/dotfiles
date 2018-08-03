@@ -110,11 +110,9 @@ Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
 
 " Completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 Plug 'Shougo/neomru.vim'
-Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/denite.nvim'
-Plug 'carlitux/deoplete-ternjs', { 'for' : ['javascript', 'typescript'] }
 Plug 'w0rp/ale'
 
 " File Tree
@@ -128,18 +126,16 @@ call plug#end()
 " ********************************
 
 " ***************** DEOPLETE *****************
-augroup deoplete
-  au!
-  " " use tab to forward cycle
-  inoremap <silent><expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-  " use tab to backward cycle
-  inoremap <silent><expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
-
-  let g:deoplete#enable_smart_case = 1
-  let g:deoplete#auto_complete_delay = 20
-  let g:deoplete#enable_at_startup = 1
-  let g:deoplete#num_processes = 1
-augroup end
+" YCM gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
+let g:ycm_confirm_extra_conf=1
+set completeopt-=preview
+let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
+let g:typescript_compiler_binary = 'tsc'
+let g:typescript_compiler_options = ''
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+autocmd FileType typescript :set makeprg=tsc
+autocmd FileType typescript setl omnifunc=tsuquyomi#complete
 "  ************************************************** 
 
 "******************vim-javascript*******************
