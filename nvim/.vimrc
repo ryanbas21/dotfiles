@@ -100,11 +100,11 @@ Plug 'ludovicchabant/vim-gutentags'
 " Syntax
 Plug 'pangloss/vim-javascript', { 'for' : ['javascript', 'typescript'] }
 Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'typescript' ] }
-Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
 Plug 'Quramy/tsuquyomi', { 'for': ['typescript'], 'do': 'make' }
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'tpope/vim-commentary'
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
 Plug 'jiangmiao/auto-pairs'
 
 " Completion
@@ -119,20 +119,23 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Documentation
 Plug 'rizzatti/dash.vim'
 
+" Other
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
+
 call plug#end()
 
 " ********************************
 
-" ***************** DEOPLETE *****************
 " YCM gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
 let g:tsuquyomi_completion_detail = 1
-autocmd FileType typescript setlocal completeopt+=menu,preview
 autocmd FileType typescript :set makeprg=tsc
 autocmd FileType typescript setl omnifunc=tsuquyomi#complete
 " Fixit !
-nmap <leader>fi :YcmCompleter FixIt<CR> 
-autocmd FileType typescript :set makeprg=tsc
+nmap <C-f> :YcmCompleter FixIt<CR> 
 autocmd FileType typescript setl omnifunc=tsuquyomi#complete
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
 "  ************************************************** 
 
 "******************vim-javascript*******************
@@ -194,8 +197,10 @@ let g:NERDTreeDirArrowCollapsible = '▾'
   au BufNewFile,BufRead *.ts         set filetype=typescript
   au BufNewFile,BufRead *.tsx        set filetype=typescript
   au BufNewFile,BufRead *.hs		     set filetype=haskell
+  autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
+  autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript
 "************************************************************************
-  
+" ************** Key Mappings *******************************************  
 let mapleader = "\<Space>"
 
 nmap <silent> <leader>ot :split term://zsh<cr>
@@ -214,8 +219,8 @@ augroup end
 " Denite Mappings
 
 " Fuzzy Finder
-nmap <Leader>f :DeniteProjectDir file file_rec<CR>
-nmap <Leader>rf :DeniteProjectDir file_rec<CR>
+nmap <Leader>f :DeniteProjectDir file<CR>
+nmap <Leader>rf :DeniteProjectDir file_mru file_rec<CR>
 
 " search file 
 nmap <Leader>s :DeniteBufferDir grep<CR><Esc>
@@ -244,6 +249,20 @@ noremap <silent> <Leader>d <c-]>
 " implementation
 noremap <silent> <Leader>i <c-T>
 
+" Typescript
+let g:typescript_indent_disable = 1
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
+
+augroup typescript_key_mapping
+  autocmd FileType typescript nmap <buffer> <Leader>qf <Plug>(TsuquyomiQuickFix)
+  autocmd FileType typescript nmap <buffer> <Leader>h :<C-u>echo tsuquyomi#hint()<CR>
+  autocmd FileType typescript nmap <buffer> <Leader>ii <Plug>(TsuquyomiImport)
+  autocmd FileType typescript nmap <buffer> <Leader>td <Plug>(TsuTypeDefinition)
+  autocmd FileType typescript nmap <buffer> <Leader>ti <Plug>(:TsuImplementation)
+augroup END
+
+
 " Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
@@ -271,7 +290,6 @@ noremap <silent> Y y$
       \ }
 "*************************************************
 " ************** DENITE **************************
-if has('nvim')
   " reset 50% winheight on window resize
   augroup deniteresize
     autocmd!
@@ -283,7 +301,7 @@ if has('nvim')
           \ 'prompt': '❯'
           \ })
 
-    call denite#custom#var('file_rec', 'command',
+    call denite#custom#var('file_rec', 'command', 
           \ ['rg', '--files', '--glob', '!.git', ''])
     call denite#custom#var('grep', 'command', ['rg'])
     call denite#custom#var('grep', 'default_opts',
@@ -300,7 +318,6 @@ if has('nvim')
           \'noremap')
     call denite#custom#map('normal', 'dw', '<denite:delete_word_after_caret>',
           \'noremap')
-endif
 
 " **************************************************
 
