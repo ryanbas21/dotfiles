@@ -101,8 +101,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'pangloss/vim-javascript', { 'for' : ['javascript', 'typescript'] }
 Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'typescript' ] }
 Plug 'HerringtonDarkholme/yats.vim', { 'for': 'typescript' }
-Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'Quramy/tsuquyomi', { 'for': ['typescript'], 'do': 'make' }
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'tpope/vim-commentary'
 Plug 'jiangmiao/auto-pairs'
@@ -123,22 +123,16 @@ call plug#end()
 
 " ********************************
 
+" ***************** DEOPLETE *****************
 " YCM gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
-let g:ycm_confirm_extra_conf=1
-set completeopt-=preview
-let g:typescript_opfirst='\%([<>=,?^%|*/&]\|\([-:+]\)\1\@!\|!=\|in\%(stanceof\)\=\>\)'
-let g:typescript_compiler_binary = 'tsc'
-let g:typescript_compiler_options = ''
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-" slows completion
-
 let g:tsuquyomi_completion_detail = 1
 autocmd FileType typescript setlocal completeopt+=menu,preview
 autocmd FileType typescript :set makeprg=tsc
 autocmd FileType typescript setl omnifunc=tsuquyomi#complete
 " Fixit !
 nmap <leader>fi :YcmCompleter FixIt<CR> 
+autocmd FileType typescript :set makeprg=tsc
+autocmd FileType typescript setl omnifunc=tsuquyomi#complete
 "  ************************************************** 
 
 "******************vim-javascript*******************
