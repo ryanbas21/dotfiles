@@ -369,9 +369,7 @@ set updatetime=100
 
 " ************************************************
 
-command! TERMLOW split | resize 10 | terminal
-
-au VimEnter * :TERMLOW
+command! TERMLOW belowright split | resize 10 | terminal
 
 set background=dark
 syntax on
