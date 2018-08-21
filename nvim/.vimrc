@@ -1,7 +1,4 @@
 set guifont=Source\ Code\ Pro\ for\ Powerline:h20
-"set guifont=Fira\ Code:h16
-"set guifont=Fira\ Mono\ for\ Powerline:h16
-" set guifont=Inconsolata\ for\ Powerline:h16
 autocmd! bufwritepost .vimrc source %
 
 filetype plugin indent on
@@ -82,29 +79,31 @@ set termguicolors
 " ******** PLUGINS ***********8
 call plug#begin('~/.vim/plugged')
 
+
+
 " Color / Themes
 Plug 'morhetz/gruvbox'
+Plug 'rafi/awesome-vim-colorschemes'
 Plug 'itchyny/lightline.vim'
-
-" TMUX
+" Haskell
 Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
-
 " GIT
 Plug 'tpope/vim-fugitive'
-
 " Movement
+
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'ludovicchabant/vim-gutentags'
-
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 " Syntax
-Plug 'pangloss/vim-javascript', { 'for' : ['javascript', 'typescript'] }
-Plug 'mxw/vim-jsx', { 'for' : ['javascript', 'typescript' ] }
-Plug 'Quramy/tsuquyomi', { 'for': ['typescript'], 'do': 'make' }
-Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
+Plug 'aanari/vim-tsx-pretty'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'tpope/vim-commentary'
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
+Plug 'leafgarland/typescript-vim' 
+Plug 'Quramy/tsuquyomi'
 Plug 'jiangmiao/auto-pairs'
 
 " Completion
@@ -112,28 +111,23 @@ Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 Plug 'Shougo/neomru.vim'
 Plug 'Shougo/denite.nvim'
 Plug 'w0rp/ale'
-
 " File Tree
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-
 " Documentation
 Plug 'rizzatti/dash.vim'
-
 " Other
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-
-
 call plug#end()
 
 " ********************************
 
 " YCM gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
-let g:tsuquyomi_completion_detail = 1
-autocmd FileType typescript :set makeprg=tsc
-autocmd FileType typescript setl omnifunc=tsuquyomi#complete
-" Fixit !
 nmap <C-f> :YcmCompleter FixIt<CR> 
+
+autocmd FileType typescript :set makeprg=tsc
+autocmd FileType typescript setlocal completeopt+=menu,preview
 autocmd FileType typescript setl omnifunc=tsuquyomi#complete
+
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 "  ************************************************** 
@@ -180,6 +174,7 @@ let g:NERDTreeIndicatorMapCustom = {
         \ "Unknown"   : "?"
         \ }
 let g:NERDTreeShowHidden=1
+let NERDTreeIgnore = ['\.js$','\.js\.map' ]
 
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -201,7 +196,12 @@ let g:NERDTreeDirArrowCollapsible = '▾'
   autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript
 "************************************************************************
 " ************** Key Mappings *******************************************  
+
 let mapleader = "\<Space>"
+
+nmap <silent> <Leader>f :Files<CR>
+nmap <silent> <Leader>C :Commits<CR>
+nnoremap <silent> <leader>; :BLines<CR>
 
 nmap <silent> <leader>ot :split term://zsh<cr>
 nmap <silent> <leader>, :nohl<cr>
@@ -218,12 +218,14 @@ augroup end
 
 " Denite Mappings
 
+" Color Scheme
+nmap <Leader>dcs :Denite colorscheme<CR>
 " Fuzzy Finder
-nmap <Leader>f :DeniteProjectDir file<CR>
+
 nmap <Leader>rf :DeniteProjectDir file_mru file_rec<CR>
 
 " search file 
-nmap <Leader>s :DeniteBufferDir grep<CR><Esc>
+nmap <Leader>s :Find <CR>
 
 "search word under cursor
 nmap <Leader>cw :DeniteCursorWord grep:.<CR><Esc>
@@ -246,6 +248,7 @@ nmap <Leader>gaa :Git add .<CR>
 " Ctag mapping
 " Definition
 noremap <silent> <Leader>d <c-]>
+
 " implementation
 noremap <silent> <Leader>i <c-T>
 
@@ -337,6 +340,50 @@ autocmd FileType markdown setlocal spell
 colorscheme gruvbox  
 " ************************************************
 
+" ************** FZF *****************************
+let g:fzf_nvim_statusline = 0
+
+set grepprg=rg\ --vimgrep
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R'
+
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'up': '~20%' }
+
+" In Neovim, you can set up fzf window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+let g:fzf_layout = { 'window': '10split enew' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+" ***********************************************
 " ************** Haskell Intero ******************
 augroup interoMaps
   au!
