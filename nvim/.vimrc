@@ -219,7 +219,7 @@ augroup end
 " Denite Mappings
 
 " Color Scheme
-nmap <Leader>dcs :Denite colorscheme<CR>
+nmap <Leader>dcs :Denite colorscheme -auto-preview -mode=normal <CR><CR>
 " Fuzzy Finder
 
 nmap <Leader>rf :DeniteProjectDir file_mru file_rec<CR>
@@ -337,7 +337,7 @@ autocmd FileType markdown setlocal spell
 
 
 " ******************** Themes *******************
-colorscheme gruvbox  
+colorscheme hybrid_material
 " ************************************************
 
 " ************** FZF *****************************
@@ -428,5 +428,4 @@ set updatetime=100
 
 command! TERMLOW split | resize 10 | terminal
 
-set background=dark
 syntax on
