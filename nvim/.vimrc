@@ -337,7 +337,7 @@ autocmd FileType markdown setlocal spell
 
 
 " ******************** Themes *******************
-colorscheme hybrid_material
+colorscheme happy_hacking
 " ************************************************
 
 " ************** FZF *****************************
