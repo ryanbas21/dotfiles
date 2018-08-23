@@ -30,8 +30,10 @@ set gdefault
 set ignorecase
 
  " ctags optimization
-au FileType gitcommit,gitrebase let g:gutentags_enabled=0
-autocmd BufEnter * silent! lcd %:p:h
+au FileType gitcommit,gitrebase,tags,md,yml,yaml,json,map let g:gutentags_enabled=0
+
+" Was changing fzf directory
+" autocmd BufEnter * silent! lcd %:p:h
 set tags=tags;
 
 " Stop highlight after searching
@@ -78,15 +80,12 @@ set termguicolors
 
 " ******** PLUGINS ***********8
 call plug#begin('~/.vim/plugged')
-
-
-
 " Color / Themes
-Plug 'morhetz/gruvbox'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'itchyny/lightline.vim'
+
 " Haskell
-Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
+" Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
 " GIT
 Plug 'tpope/vim-fugitive'
 " Movement
@@ -94,22 +93,24 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'ludovicchabant/vim-gutentags'
+
+" Junegunn
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
 " Syntax
-Plug 'aanari/vim-tsx-pretty'
-Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+Plug 'aanari/vim-tsx-pretty', { 'for': ['typescript'] }
+Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'typescript'] }
+Plug 'mxw/vim-jsx', { 'for': ['javascript', 'typescript'] }
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'tpope/vim-commentary'
-Plug 'leafgarland/typescript-vim' 
-Plug 'Quramy/tsuquyomi'
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
+Plug 'Quramy/tsuquyomi', { 'for': ['typescript'] }
 Plug 'jiangmiao/auto-pairs'
 
 " Completion
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 Plug 'Shougo/neomru.vim'
-Plug 'Shougo/denite.nvim'
 Plug 'w0rp/ale'
 " File Tree
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -154,7 +155,7 @@ let g:jsx_ext_required = 0
  let g:ale_lint_on_text_changed = 'never'
  let g:ale_sign_errorle_echo_msg_error_str="✖"
  let g:ale_completion_enabled = 0 
- let g:ale_fix_on_save = 1
+ let g:ale_fix_on_save = 0
  let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['brittany'], 'vue': ['prettier'] }
  let g:ale_linters = { 'javascript': ['prettier'], 'typescript' : ['prettier'] }
 " ************************************************************
@@ -175,11 +176,7 @@ let g:NERDTreeIndicatorMapCustom = {
         \ }
 let g:NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.js$','\.js\.map' ]
-
-
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
@@ -195,13 +192,11 @@ let g:NERDTreeDirArrowCollapsible = '▾'
   autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
   autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript
 "************************************************************************
-" ************** Key Mappings *******************************************  
 
+" ************** Key Mappings *******************************************  
 let mapleader = "\<Space>"
 
-nmap <silent> <Leader>f :Files<CR>
-nmap <silent> <Leader>C :Commits<CR>
-nnoremap <silent> <leader>; :BLines<CR>
+nnoremap <silent> <Leader>P :ALEFix<CR>
 
 nmap <silent> <leader>ot :split term://zsh<cr>
 nmap <silent> <leader>, :nohl<cr>
@@ -216,28 +211,28 @@ augroup DashVim
 
 augroup end
 
-" Denite Mappings
-
 " Color Scheme
-nmap <Leader>dcs :Denite colorscheme -auto-preview -mode=normal <CR><CR>
-" Fuzzy Finder
+nmap <Leader>C :call fzf#run({
+\   'source':
+\     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
+\         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
+\   'sink':    'colo',
+\   'options': '+m',
+\   'left':    30
+\ })<CR>
 
-nmap <Leader>rf :DeniteProjectDir file_mru file_rec<CR>
-
-" search file 
-nmap <Leader>s :Find <CR>
-
-"search word under cursor
-nmap <Leader>cw :DeniteCursorWord grep:.<CR><Esc>
-
-" jump to tag
-nmap <Leader>ju :DeniteProjectDir jump<CR>
-
-" cycle buffers
-nmap <Leader>b :Denite buffer<CR>
-
-" run previous commands
-nmap <Leader>ch :DeniteProjectDir command_history<CR>
+" FZF Mappings
+nnoremap <silent> <Leader>f :Files<CR>
+nnoremap <Leader><Leader> :FZFMru <CR>
+nnoremap <silent> <Leader>C :Commits<CR>
+nnoremap <silent> <leader>; :BLines<CR>
+nnoremap <Leader>t :BTags<CR>
+nnoremap <Leader>T :Tags<CR>
+nnoremap <Leader>C :Commads<CR>
+nnoremap <Leader>H :History<CR>
+nnoremap <Leader>s :Rg<space> 
+nnoremap <Leader>S :Rg<space><C-r><C-w><CR>
+nmap <Leader>b :Buffers <CR>
 
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gb :Gblame<CR>
@@ -245,25 +240,17 @@ nmap <Leader>gca :Gcommit --amend<CR>
 nmap <Leader>gp :Gpush origin<space>
 nmap <Leader>gaa :Git add .<CR>
 
-" Ctag mapping
-" Definition
-noremap <silent> <Leader>d <c-]>
-
-" implementation
-noremap <silent> <Leader>i <c-T>
-
 " Typescript
 let g:typescript_indent_disable = 1
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
-augroup typescript_key_mapping
-  autocmd FileType typescript nmap <buffer> <Leader>qf <Plug>(TsuquyomiQuickFix)
-  autocmd FileType typescript nmap <buffer> <Leader>h :<C-u>echo tsuquyomi#hint()<CR>
-  autocmd FileType typescript nmap <buffer> <Leader>ii <Plug>(TsuquyomiImport)
-  autocmd FileType typescript nmap <buffer> <Leader>td <Plug>(TsuTypeDefinition)
-  autocmd FileType typescript nmap <buffer> <Leader>ti <Plug>(:TsuImplementation)
-augroup END
+  nmap <buffer> <Leader>qf <Plug>(TsuquyomiQuickFix)
+  nmap <buffer> <Leader>h :<C-u>echo tsuquyomi#hint()<CR>
+  nmap <buffer> <Leader>ii <Plug>(TsuquyomiImport)
+  nmap <Leader>] :TsuDefinition<CR>
+  nmap <Leader>[ :TsuImplementation<CR>
+  nmap <Leader>D :TsuTypeDefinition<CR>
 
 
 " Use ctrl-[hjkl] to select the active split!
@@ -292,37 +279,6 @@ noremap <silent> Y y$
       \ },
       \ }
 "*************************************************
-" ************** DENITE **************************
-  " reset 50% winheight on window resize
-  augroup deniteresize
-    autocmd!
-    autocmd VimResized,VimEnter * call denite#custom#option('default',
-          \'winheight', winheight(0) / 2)
-  augroup end
-
-  call denite#custom#option('default', {
-          \ 'prompt': '❯'
-          \ })
-
-    call denite#custom#var('file_rec', 'command', 
-          \ ['rg', '--files', '--glob', '!.git', ''])
-    call denite#custom#var('grep', 'command', ['rg'])
-    call denite#custom#var('grep', 'default_opts',
-          \ ['--hidden', '--vimgrep', '--no-heading', '-S'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-    call denite#custom#var('grep', 'separator', ['--'])
-    call denite#custom#var('grep', 'final_opts', [])
-    call denite#custom#map('insert', 'jk', '<denite:enter_mode:normal>',
-          \'noremap')
-    call denite#custom#map('normal', '<Esc>', '<NOP>',
-          \'noremap')
-    call denite#custom#map('normal', 's', '<denite:do_action:vsplit>',
-          \'noremap')
-    call denite#custom#map('normal', 'dw', '<denite:delete_word_after_caret>',
-          \'noremap')
-
-" **************************************************
 
 " **************** GIT ********************
 
@@ -341,13 +297,28 @@ colorscheme happy_hacking
 " ************************************************
 
 " ************** FZF *****************************
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+  \   <bang>0)
+
+command! FZFMru call fzf#run({
+\  'source':  v:oldfiles,
+\  'sink':    'e',
+\  'options': '-m -x +s',
+\  'down':    '40%'})
+
 let g:fzf_nvim_statusline = 0
 
 set grepprg=rg\ --vimgrep
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
 " Likewise, Files command with preview window
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
@@ -425,7 +396,4 @@ let g:intero_type_on_hover = 1
 set updatetime=100
 
 " ************************************************
-
-command! TERMLOW split | resize 10 | terminal
-
 syntax on
