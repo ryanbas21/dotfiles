@@ -4,13 +4,18 @@ export ZSH=/home/v1rgul/.oh-my-zsh
 export VISUAL=nvim
 export EDITOR='$VISUAL'
 
+export PATH=/usr/local/opt/ruby/bin:$PATH
+export GEM_HOME=/usr/local/opt/ruby/lib/ruby/gems/2.5.0
+export GEM_PATH=/usr/local/opt/ruby/lib/ruby/gems/2.5.0
+
 alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export TERM="xterm-256color"
 export ZSH=~/.oh-my-zsh
 
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --files --follow --glob "!.git/*"' 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="cd ~/; bfs -type d -nohidden | sed s/^\./~/"  
 
 if [ -x ~/.vim/plugged/fzf.vim/bin/preview.rb ]; then
   export FZF_CTRL_T_OPTS="--preview '~/.vim/plugged/fzf.vim/bin/preview.rb {} | head -200'"
@@ -18,7 +23,6 @@ fi
 
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' --border"
 [ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
-
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_MODE='awesome-patched'
@@ -125,3 +129,7 @@ alias vim="nvim"
 #   do brew upgrade $prog
 #   done
 # fi
+#
+#
+
+Fortune | cowsay -f vader | lolcat 
