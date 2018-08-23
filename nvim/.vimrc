@@ -308,7 +308,7 @@ command! FZFMru call fzf#run({
 \  'source':  v:oldfiles,
 \  'sink':    'e',
 \  'options': '-m -x +s',
-\  'down':    '40%'})
+\  'up':    '40%'})
 
 let g:fzf_nvim_statusline = 0
 
