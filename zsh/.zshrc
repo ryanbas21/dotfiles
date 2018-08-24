@@ -13,7 +13,7 @@ alias ohmyzsh="mate ~/.oh-my-zsh"
 export TERM="xterm-256color"
 export ZSH=~/.oh-my-zsh
 
-export FZF_DEFAULT_COMMAND='rg --files --follow --glob "!.git/*" --null 2> /dev/null | xargs -0 dirname | uniq'
+export FZF_DEFAULT_COMMAND='rg --files --follow --glob "!.git/*"' 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="cd ~/; bfs -type d -nohidden | sed s/^\./~/"  
 
