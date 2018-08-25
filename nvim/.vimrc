@@ -86,11 +86,11 @@ Plug 'rafi/awesome-vim-colorschemes'
 Plug 'itchyny/lightline.vim'
 
 " Haskell
-" Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
+ Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
 " GIT
 Plug 'tpope/vim-fugitive'
 " Movement
-
+Plug 'junegunn/vim-xmark', { 'do': 'make' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'ludovicchabant/vim-gutentags'

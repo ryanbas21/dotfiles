@@ -32,10 +32,10 @@ POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
 
 source $ZSH/oh-my-zsh.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+ source ~/dotfiles/zsh/functions.sh
+ source ~/dotfiles/zsh/zsh.keybindings.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source ~/dotfiles/zsh/functions.sh
-source ~/dotfiles/zsh/zsh.keybindings.sh
 
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
