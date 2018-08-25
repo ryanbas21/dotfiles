@@ -80,6 +80,7 @@ set termguicolors
 
 " ******** PLUGINS ***********8
 call plug#begin('~/.vim/plugged')
+
 " Color / Themes
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'itchyny/lightline.vim'
@@ -223,12 +224,13 @@ nmap <Leader>C :call fzf#run({
 
 " FZF Mappings
 nnoremap <silent> <Leader>f :Files<CR>
+nnoremap <silent> <Leader>g :GFiles<CR>
 nnoremap <Leader><Leader> :FZFMru <CR>
 nnoremap <silent> <Leader>C :Commits<CR>
+nnoremap <silent> <Leader>c :Commands<CR>
 nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <Leader>t :BTags<CR>
 nnoremap <Leader>T :Tags<CR>
-nnoremap <Leader>C :Commads<CR>
 nnoremap <Leader>H :History<CR>
 nnoremap <Leader>s :Rg<space> 
 nnoremap <Leader>S :Rg<space><C-r><C-w><CR>
@@ -267,6 +269,7 @@ noremap <silent> Y y$
 
 " Neovim Terminal Mappings
 " ************************************************
+
 "*************** LightLine ***********************
   let g:lightline = {
       \ 'colorscheme': 'powerline',
@@ -332,7 +335,7 @@ let g:fzf_tags_command = 'ctags -R'
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
 " Default fzf layout
 " - down / up / left / right
-let g:fzf_layout = { 'up': '~20%' }
+let g:fzf_layout = { 'up': '~10%' }
 
 " In Neovim, you can set up fzf window using a Vim command
 let g:fzf_layout = { 'window': 'enew' }
