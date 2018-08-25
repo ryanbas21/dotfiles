@@ -13,6 +13,7 @@ My leader key is Space.
 I use vim-fugitive to handle my git work while working in vim. I have setup
 a few key mappings to make my git workflow a bit faster. 
 
+
 All of the keys are prefixed by the `<Leader>` key.
 
 ```
@@ -39,22 +40,6 @@ gb = git blame
   <Leader> s = grep file
   <Leader> S = grep cursor word
   <Leader> b = buffers
-
-```
-```
-
-nnoremap <silent> <Leader>f :Files<CR>
-nnoremap <Leader><Leader> :FZFMru <CR>
-nnoremap <silent> <Leader>C :Commits<CR>
-nnoremap <silent> <leader>; :BLines<CR>
-nnoremap <Leader>t :BTags<CR>
-nnoremap <Leader>T :Tags<CR>
-nnoremap <Leader>C :Commads<CR>
-nnoremap <Leader>H :History<CR>
-nnoremap <Leader>s :Rg<space> 
-nnoremap <Leader>S :Rg<space><C-r><C-w><CR>
-nmap <Leader>b :Buffers <CR>
-
  ```
 ### Dash - vim
  I work on OSX currently, and have Dash installed. So here are my current key
@@ -73,8 +58,9 @@ javascript/typescript. I also have it fix on  save.
 
 Haskell - I am trying out brittany
 
-### Deoplete
-I use deoplete for completion. It's working great, no config needed.
+### YouCompleteMe
+YoucompleteMe works best for me, so i use it.
+
 
 ### Intero
  Again - all commands are prefixed with `<Leader>`
@@ -97,11 +83,6 @@ I use deoplete for completion. It's working great, no config needed.
   I've tried airline - I just found Lightline to be far faster. I don't need any
   special stuff, I included vim-fugitive and it works on the powerline theme by
   default
-
-### Theme
-  I just use the gruvbox theme, I don't really change it, and that way I only
-  install that one theme, rather than having a hundred themes installed to
-  change to.
 
 ### Plugins 
 Aside from the plugins listed here, I have `vim-plug` setup to run them only
