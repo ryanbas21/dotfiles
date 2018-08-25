@@ -23,35 +23,39 @@ gc = git commit
 gca = git commit -- amend
 gb = git blame
 ```
+### FZF 
+ FZF is love, its literally an incredible tool
 
-### Vim - Denite 
-I use Denite to handle the bulk of my vim work. I am still learning denite, but
-it's been fantastic to use thus far. I have a few key mappings that I like to
-use to optimize my Denite work
-
-Again - prefix all the commands with `<Leader>`
+ ```
+  <Leader> f  = files
+  <Leader> g = Git files
+  <Leader><Leader> = Recent Files
+  <Leader> C = Commits
+  <Leader> c = Commands
+  <Leader> ; = Buffer lines
+  <Leader> T = Tags
+  <Leader> t = Buffer Tags
+  <Leader> H = history
+  <Leader> s = grep file
+  <Leader> S = grep cursor word
+  <Leader> b = buffers
 
 ```
-  f = :DeniteProjectDir buffer file file_rec<CR>  
-  s = :DeniteBufferDir  grep<CR><Esc>
-  cw = :DeniteCursorWord grep:.<CR><Esc>
-  ju = :DeniteProjectDir jump<CR>
-  b = :Denite buffer<CR>
-  ch = :DeniteProjectDir command_history<CR>
 ```
 
-`f` acts as my fuzzy finder, within the project directory. I had it use
-`file_mru` but I noticed it including files outside of my current directory, so
-I opted out of it for now.
+nnoremap <silent> <Leader>f :Files<CR>
+nnoremap <Leader><Leader> :FZFMru <CR>
+nnoremap <silent> <Leader>C :Commits<CR>
+nnoremap <silent> <leader>; :BLines<CR>
+nnoremap <Leader>t :BTags<CR>
+nnoremap <Leader>T :Tags<CR>
+nnoremap <Leader>C :Commads<CR>
+nnoremap <Leader>H :History<CR>
+nnoremap <Leader>s :Rg<space> 
+nnoremap <Leader>S :Rg<space><C-r><C-w><CR>
+nmap <Leader>b :Buffers <CR>
 
-`s` is a way to search the buffer
-
-`cw` will grep the word under the cursor
-
-`ju` will jump to a tag
-
- `b` will trigger the buffer window
- 
+ ```
 ### Dash - vim
  I work on OSX currently, and have Dash installed. So here are my current key
  mappings to use Dash with vim.
