@@ -1,11 +1,7 @@
 set guifont=Source\ Code\ Pro\ for\ Powerline:h20
 
-autocmd! bufwritepost .vimrc source %
-
 set ttimeout
 set ttimeoutlen=0
-
-colorscheme molokai 
 
 filetype plugin indent on
 scriptencoding utf-8
@@ -107,7 +103,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Syntax
-" Plug 'aanari/vim-tsx-pretty', { 'for': ['typescript'] }
 Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'typescript'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'typescript'] }
@@ -121,13 +116,18 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
 Plug 'Shougo/neomru.vim'
 Plug 'w0rp/ale'
+
 " File Tree
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
 " Documentation
 Plug 'rizzatti/dash.vim'
+
 " Other
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'kassio/neoterm'
+Plug 'janko-m/vim-test'
+
 call plug#end()
 
 " ********************************
@@ -413,4 +413,13 @@ let g:intero_type_on_hover = 1
 set updatetime=100
 
 " ************************************************
+
+nmap  tN :TestNearest<CR> " t Ctrl+n
+nmap  tF :TestFile<CR>    " t Ctrl+f
+nmap  tS :TestSuite<CR>   " t Ctrl+s
+nmap  tL :TestLast<CR>    " t Ctrl+l
+nmap  tG :TestVisit<CR>   " t Ctrl+g
+let test#strategy = "neoterm"
+
+colorscheme molokai
 syntax on
