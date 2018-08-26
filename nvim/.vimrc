@@ -107,7 +107,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Syntax
-Plug 'aanari/vim-tsx-pretty', { 'for': ['typescript'] }
+" Plug 'aanari/vim-tsx-pretty', { 'for': ['typescript'] }
+Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'typescript'] }
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'typescript'] }
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
