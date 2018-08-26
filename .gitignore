@@ -2,3 +2,4 @@ node_modules
 tags
 gems.tags
 EOT
+tags.temp
