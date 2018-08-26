@@ -1,5 +1,11 @@
 set guifont=Source\ Code\ Pro\ for\ Powerline:h20
+
 autocmd! bufwritepost .vimrc source %
+
+set ttimeout
+set ttimeoutlen=0
+
+colorscheme molokai 
 
 filetype plugin indent on
 scriptencoding utf-8
@@ -32,7 +38,6 @@ set ignorecase
  " ctags optimization
 au FileType gitcommit,gitrebase,tags,md,yml,yaml,json,map let g:gutentags_enabled=0
 
-" Was changing fzf directory
 " autocmd BufEnter * silent! lcd %:p:h
 set tags=tags;
 
@@ -87,8 +92,10 @@ Plug 'itchyny/lightline.vim'
 
 " Haskell
  Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
+
 " GIT
 Plug 'tpope/vim-fugitive'
+
 " Movement
 Plug 'junegunn/vim-xmark', { 'do': 'make' }
 Plug 'tpope/vim-repeat'
@@ -119,6 +126,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'rizzatti/dash.vim'
 " Other
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+Plug 'kassio/neoterm'
 call plug#end()
 
 " ********************************
@@ -175,9 +183,18 @@ let g:NERDTreeIndicatorMapCustom = {
         \ 'Ignored'   : '☒',
         \ "Unknown"   : "?"
         \ }
+augroup nerd_loader
+  autocmd!
+  autocmd VimEnter * silent! autocmd! FileExplorer
+  autocmd BufEnter,BufNew *
+        \  if isdirectory(expand('<amatch>'))
+        \|   call plug#load('nerdtree')
+        \|   execute 'autocmd! nerd_loader'
+        \| endif
+augroup END
+
 let g:NERDTreeShowHidden=1
-let NERDTreeIgnore = ['\.js$','\.js\.map' ]
-autocmd StdinReadPre * let s:std_in=1
+let NERDTreeIgnore = ['\.js\.map' ]
 
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
@@ -201,6 +218,10 @@ nnoremap <silent> <Leader>P :ALEFix<CR>
 
 nmap <silent> <leader>ot :split term://zsh<cr>
 nmap <silent> <leader>, :nohl<cr>
+
+"escaping
+xnoremap jk <Esc>
+cnoremap jk <C-c>
 inoremap jk <Esc>
 
 augroup DashVim
@@ -212,7 +233,6 @@ augroup DashVim
 
 augroup end
 
-" Color Scheme
 nmap <Leader>C :call fzf#run({
 \   'source':
 \     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
@@ -225,9 +245,9 @@ nmap <Leader>C :call fzf#run({
 " FZF Mappings
 nnoremap <silent> <Leader>f :Files<CR>
 nnoremap <silent> <Leader>g :GFiles<CR>
-nnoremap <Leader><Leader> :FZFMru <CR>
+nnoremap <silent> <Leader><Leader> :FZFMru <CR>
 nnoremap <silent> <Leader>C :Commits<CR>
-nnoremap <silent> <Leader>c :Commands<CR>
+nnoremap <silent> <Leader>c :Colors<CR>
 nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <Leader>t :BTags<CR>
 nnoremap <Leader>T :Tags<CR>
@@ -267,9 +287,6 @@ nmap <silent> <C-n> :NERDTreeToggle<CR>
 " map Y to yank from cursor to end of line
 noremap <silent> Y y$
 
-" Neovim Terminal Mappings
-" ************************************************
-
 "*************** LightLine ***********************
   let g:lightline = {
       \ 'colorscheme': 'powerline',
@@ -294,10 +311,6 @@ autocmd FileType gitcommit setlocal spell
 " Enable spellchecking for Markdown
 autocmd FileType markdown setlocal spell
 
-
-" ******************** Themes *******************
-colorscheme happy_hacking
-" ************************************************
 
 " ************** FZF *****************************
 command! -bang -nargs=* Rg
