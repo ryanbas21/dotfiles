@@ -93,7 +93,6 @@ Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
 
 " Movement
-Plug 'junegunn/vim-xmark', { 'do': 'make' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'ludovicchabant/vim-gutentags'
@@ -101,7 +100,8 @@ Plug 'ludovicchabant/vim-gutentags'
 " Junegunn
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
+Plug 'pbogut/fzf-mru.vim'
+Plug 'junegunn/vim-xmark', { 'do': 'make' }
 " Syntax
 Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'typescript'] }
@@ -320,12 +320,6 @@ command! -bang -nargs=* Rg
   \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
   \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
   \   <bang>0)
-
-command! FZFMru call fzf#run({
-\  'source':  v:oldfiles,
-\  'sink':    'e',
-\  'options': '-m -x +s',
-\  'up':    '40%'})
 
 let g:fzf_nvim_statusline = 0
 
