@@ -9,6 +9,7 @@ _site
 Library
 Music
 Screenshots
+package-lock.json
 Movies
 Desktop
 Downloads
@@ -39,4 +40,5 @@ fonts
 *history*
 vendor
 *debug*
+package.json
 
