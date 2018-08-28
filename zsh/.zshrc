@@ -59,6 +59,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+fpath=(./zsh "${fpath[@]}")
+autoload -Uz kp bip bup bcp buu cani 
 # use nvim, but don't make me think about it
 alias vim="nvim"
 Fortune | cowsay -f vader 
