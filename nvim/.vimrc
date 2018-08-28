@@ -407,13 +407,13 @@ let g:intero_type_on_hover = 1
 set updatetime=100
 
 " ************************************************
-
 nmap  tN :TestNearest<CR> " t Ctrl+n
 nmap  tF :TestFile<CR>    " t Ctrl+f
 nmap  tS :TestSuite<CR>   " t Ctrl+s
 nmap  tL :TestLast<CR>    " t Ctrl+l
 nmap  tG :TestVisit<CR>   " t Ctrl+g
 let test#strategy = "neoterm"
+let g:test#preserve_screen = 1
 
 colorscheme molokai
 syntax on
