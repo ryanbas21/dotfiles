@@ -268,12 +268,10 @@ let g:typescript_indent_disable = 1
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
 
-  nmap <buffer> <Leader>qf <Plug>(TsuquyomiQuickFix)
-  nmap <buffer> <Leader>h :<C-u>echo tsuquyomi#hint()<CR>
-  nmap <buffer> <Leader>ii <Plug>(TsuquyomiImport)
-  nmap <Leader>] :TsuDefinition<CR>
-  nmap <Leader>[ :TsuImplementation<CR>
-  nmap <Leader>D :TsuTypeDefinition<CR>
+nmap <buffer> <Leader>qf <Plug>(TsuquyomiQuickFix)
+nmap <buffer> <Leader>h :<C-u>echo tsuquyomi#hint()<CR>
+nmap <buffer> <Leader>ti <Plug>(TsuquyomiImport)
+nmap <Leader>D :TsuTypeDefinition<CR>
 
 
 " Use ctrl-[hjkl] to select the active split!
