@@ -15,7 +15,7 @@ set formatoptions=qrn1
 set wrapmargin=0
 set autoindent
 set wrapmargin=0
-set colorcolumn=+1
+set cc=0
 set number
 set tabstop=2
 set shiftwidth=2
@@ -24,7 +24,6 @@ set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 set exrc
 set secure
-
 set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 
 " Make Searching Beter
@@ -32,7 +31,7 @@ set gdefault
 set ignorecase
 
  " ctags optimization
-au FileType gitcommit,gitrebase,tags,md,yml,yaml,json,map let g:gutentags_enabled=0
+au FileType gitcommit,gitrebase,tags,md,yml,yaml,json,map, let g:gutentags_enabled=0
 
 " autocmd BufEnter * silent! lcd %:p:h
 set tags=tags;
@@ -105,7 +104,7 @@ Plug 'junegunn/vim-xmark', { 'do': 'make' }
 
 " Syntax
 Plug 'sheerun/vim-polyglot'
-Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
+Plug 'moll/vim-node'
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'typescript', 'tsx'] }
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'tpope/vim-commentary'
@@ -119,33 +118,25 @@ Plug 'Shougo/neomru.vim'
 Plug 'w0rp/ale'
 
 " File Tree
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle', 'off': 'NERDTreeClose' }
 
 " Documentation
 Plug 'rizzatti/dash.vim'
 
 " Other
+Plug 'tpope/vim-dispatch'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'junegunn/goyo.vim', { 'on': 'GoyoEnter' }
 
 call plug#end()
 
+let g:fzf_mru_relative = 1
 let g:deoplete#enable_at_startup=1
 let g:deoplete#max_list = 20
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-
-"******************vim-javascript*******************
-"
-augroup javascript_syntax_detection
-  au!  
-  au FileType Javascript let g:javascript_plugin_jsdoc = 1
-  au FileType Javascript let g:javascript_plugin_ngdoc = 1
-  au FileType Javascript let g:javascript_plugin_flow = 1
-augroup end
-"******************************************************
 
 " ************************************vim-jsx******************
 let g:jsx_ext_required = 0
@@ -159,7 +150,7 @@ let g:jsx_ext_required = 0
  let g:ale_lint_on_text_changed = 'never'
  let g:ale_sign_errorle_echo_msg_error_str="✖"
  let g:ale_completion_enabled = 0 
- let g:ale_fix_on_save = 0
+ let g:ale_fix_on_save = 1
  let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['brittany'], 'vue': ['prettier'] }
  let g:ale_linters = { 'javascript': ['prettier'], 'typescript' : ['prettier'] }
 " ************************************************************
@@ -386,8 +377,8 @@ nmap  tF :TestFile<CR>    " t Ctrl+f
 nmap  tS :TestSuite<CR>   " t Ctrl+s
 nmap  tL :TestLast<CR>    " t Ctrl+l
 nmap  tG :TestVisit<CR>   " t Ctrl+g
-let test#strategy = "neoterm"
+let test#strategy = "dispatch_background"
 let g:test#preserve_screen = 1
 
-colorscheme molokai
+colorscheme deep-space
 syntax on
