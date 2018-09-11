@@ -113,6 +113,7 @@ Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
 Plug 'jiangmiao/auto-pairs'
 
 " Completion
+
 Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neomru.vim'
 Plug 'w0rp/ale'
