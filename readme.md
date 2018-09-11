@@ -57,9 +57,8 @@ javascript/typescript. I also have it fix on  save.
 
 Haskell - I am trying out brittany
 
-### YouCompleteMe
-YoucompleteMe works best for me, so i use it.
-
+### Deoplete
+Deoplete - it works well.
 
 ### Intero
  Again - all commands are prefixed with `<Leader>`
