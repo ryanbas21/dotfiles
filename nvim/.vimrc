@@ -224,8 +224,7 @@ nmap <Leader>C :call fzf#run({
 \ })<CR>
 
 " FZF Mappings
-nnoremap <silent> <Leader>f :Files<CR>
-nnoremap <silent> <Leader>g :GFiles<CR>
+nnoremap <silent> <Leader>f :GFiles<CR>
 nnoremap <silent> <Leader><Leader> :FZFMru <CR>
 nnoremap <silent> <Leader>C :Commits<CR>
 nnoremap <silent> <Leader>c :Colors<CR>
@@ -244,7 +243,6 @@ nmap <Leader>gp :Gpush origin<space>
 nmap <Leader>gaa :Git add .<CR>
 
 " Typescript
-nmap <buffer> <Leader>tr :TSRename <C-r><C-w><CR>
 nmap <buffer> <Leader>ti :TSImport
 nmap <C-[> :TSDef<CR>
 nmap <Leader>D :TSDefPreview<CR>
