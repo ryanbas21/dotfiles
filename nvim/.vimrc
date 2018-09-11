@@ -104,16 +104,16 @@ Plug 'pbogut/fzf-mru.vim'
 Plug 'junegunn/vim-xmark', { 'do': 'make' }
 " Syntax
 Plug 'sheerun/vim-polyglot'
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'typescript'] }
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'typescript'] }
+Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
+Plug 'mxw/vim-jsx', { 'for': ['javascript', 'typescript', 'tsx'] }
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'tpope/vim-commentary'
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript'] }
-Plug 'Quramy/tsuquyomi', { 'for': ['typescript'] }
+Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'tsx'], 'do': 'sh ./install.sh' }
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
 Plug 'jiangmiao/auto-pairs'
 
 " Completion
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --all' }
+Plug 'Shougo/deoplete.nvim'
 Plug 'Shougo/neomru.vim'
 Plug 'w0rp/ale'
 
@@ -129,19 +129,9 @@ Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
 
 call plug#end()
+let g:deoplete#enable_at_startup=1
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" ********************************
-
-" YCM gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
-nmap <C-f> :YcmCompleter FixIt<CR> 
-
-autocmd FileType typescript :set makeprg=tsc
-autocmd FileType typescript setlocal completeopt+=menu,preview
-autocmd FileType typescript setl omnifunc=tsuquyomi#complete
-
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-"  ************************************************** 
 
 "******************vim-javascript*******************
 "
@@ -202,16 +192,6 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 
 " ************************************************************************ 
 
-" ********* File types ***************************************************
-  au BufNewFile,BufRead *.js         set filetype=javascript
-  au BufNewFile,BufRead *.jsx 		   set filetype=javascript
-  au BufNewFile,BufRead *.ts         set filetype=typescript
-  au BufNewFile,BufRead *.tsx        set filetype=typescript
-  au BufNewFile,BufRead *.hs		     set filetype=haskell
-  autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
-  autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript
-"************************************************************************
-
 " ************** Key Mappings *******************************************  
 let mapleader = "\<Space>"
 
@@ -264,15 +244,11 @@ nmap <Leader>gp :Gpush origin<space>
 nmap <Leader>gaa :Git add .<CR>
 
 " Typescript
-let g:typescript_indent_disable = 1
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-
-nmap <buffer> <Leader>qf <Plug>(TsuquyomiQuickFix)
-nmap <buffer> <Leader>h :<C-u>echo tsuquyomi#hint()<CR>
-nmap <buffer> <Leader>ti <Plug>(TsuquyomiImport)
-nmap <Leader>D :TsuTypeDefinition<CR>
-
+nmap <buffer> <Leader>tr :TSRename <C-r><C-w><CR>
+nmap <buffer> <Leader>ti :TSImport
+nmap <C-[> :TSDef<CR>
+nmap <Leader>D :TSDefPreview<CR>
+nmap <C-]> :TSTypeDef<CR>
 
 " Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
@@ -339,9 +315,7 @@ let g:fzf_tags_command = 'ctags -R'
 
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
-" Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'up': '~10%' }
+" Default fzf layout " - down / up / left / right let g:fzf_layout = { 'up': '~10%' }
 
 " In Neovim, you can set up fzf window using a Vim command
 let g:fzf_layout = { 'window': 'enew' }
