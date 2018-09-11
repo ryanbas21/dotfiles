@@ -102,6 +102,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'junegunn/vim-xmark', { 'do': 'make' }
+
 " Syntax
 Plug 'sheerun/vim-polyglot'
 Plug 'pangloss/vim-javascript', { 'for': ['javascript'] }
@@ -129,7 +130,10 @@ Plug 'kassio/neoterm'
 Plug 'janko-m/vim-test'
 
 call plug#end()
+
 let g:deoplete#enable_at_startup=1
+let g:deoplete#max_list = 20
+
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 
@@ -244,9 +248,9 @@ nmap <Leader>gaa :Git add .<CR>
 
 " Typescript
 nmap <buffer> <Leader>ti :TSImport
-nmap <C-[> :TSDef<CR>
+nmap <C-]> :TSDef<CR>
 nmap <Leader>D :TSDefPreview<CR>
-nmap <C-]> :TSTypeDef<CR>
+nmap <C-[> :TSTypeDef<CR>
 
 " Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
