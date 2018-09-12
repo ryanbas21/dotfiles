@@ -80,28 +80,22 @@ set termguicolors
 
 " ******** PLUGINS ***********8
 call plug#begin('~/.vim/plugged')
-
 " Color / Themes
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'itchyny/lightline.vim'
-
 " Haskell
  Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
-
 " GIT
 Plug 'tpope/vim-fugitive'
-
 " Movement
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'ludovicchabant/vim-gutentags'
-
 " Junegunn
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'junegunn/vim-xmark', { 'do': 'make' }
-
 " Syntax
 Plug 'sheerun/vim-polyglot'
 Plug 'moll/vim-node'
@@ -111,26 +105,20 @@ Plug 'tpope/vim-commentary'
 Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'tsx'], 'do': 'sh ./install.sh' }
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
 Plug 'jiangmiao/auto-pairs'
-
 " Completion
-
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
 Plug 'Shougo/neomru.vim'
 Plug 'w0rp/ale'
-
 " File Tree
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle', 'off': 'NERDTreeClose' }
-
 " Documentation
 Plug 'rizzatti/dash.vim'
-
 " Other
 Plug 'tpope/vim-dispatch'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'janko-m/vim-test'
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'junegunn/goyo.vim', { 'on': 'GoyoEnter' }
-
 call plug#end()
 
 let g:fzf_mru_relative = 1
