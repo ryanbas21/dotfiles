@@ -1,5 +1,24 @@
 # GIT heart FZF
+#
 # -------------
+
+_fzf_complete_git() {
+    ARGS="$@"
+    local branches
+    branches=$(git branch -vv --all)
+    if [[ $ARGS == 'git co'* ]]; then
+        _fzf_complete "--reverse --multi" "$@" < <(
+            echo $branches
+        )
+    else
+        eval "zle ${fzf_default_completion:-expand-or-complete}"
+    fi
+}
+
+_fzf_complete_git_post() {
+    awk '{print $1}'
+}
+
 is_in_git_repo() {
   git rev-parse HEAD > /dev/null 2>&1
 }
@@ -48,3 +67,17 @@ gr() {
     --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1} | head -200' |
   cut -d$'\t' -f1
 }
+# A helper function to join multi-line output from fzf
+join-lines() {
+  local item
+  while read item; do
+    echo -n "${(q)item} "
+  done
+}
+
+bindkey '^g^t' fzf-gt-widget
+bindkey '"\er": redraw-current-line'
+bindkey '"^g^f": "$(gf)\e\C-e\er"'
+bindkey '"^g^b": "$(gb)\e\C-e\er"'
+bindkey '"^g^h": "$(gh)\e\C-e\er"'
+bindkey '"^g^r": "$(gr)\e\C-e\er"'
