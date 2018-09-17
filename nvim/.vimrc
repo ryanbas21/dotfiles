@@ -118,7 +118,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'janko-m/vim-test'
 Plug 'yuttie/comfortable-motion.vim'
-Plug 'junegunn/goyo.vim', { 'on': 'GoyoEnter' }
+Plug 'junegunn/goyo.vim'
 call plug#end()
 
 let g:fzf_mru_relative = 1

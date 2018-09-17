@@ -63,4 +63,6 @@ fpath=(./zsh "${fpath[@]}")
 autoload -Uz kp bip bup bcp buu cani 
 # use nvim, but don't make me think about it
 alias vim="nvim"
+alias reload="source ~/dotfiles/zsh/.zshrc"
+
 Fortune | cowsay -f vader 
