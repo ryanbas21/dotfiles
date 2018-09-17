@@ -211,7 +211,7 @@ nnoremap <silent> <Leader><Leader> :FZFMru <CR>
 nnoremap <silent> <Leader>C :Commits<CR>
 nnoremap <silent> <Leader>c :Colors<CR>
 nnoremap <silent> <leader>; :BLines<CR>
-nnoremap <silent> <leader>bs :Lines<CR>
+" nnoremap <silent> <leader>bs :Lines<CR>
 nnoremap <Leader>t :BTags<CR>
 nnoremap <Leader>T :Tags<CR>
 nnoremap <Leader>H :History<CR>
