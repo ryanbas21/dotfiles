@@ -180,8 +180,6 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 let mapleader = "\<Space>"
 
 nnoremap <silent> <Leader>P :ALEFix<CR>
-
-nmap <silent> <leader>ot :split term://zsh<cr>
 nmap <silent> <leader>, :nohl<cr>
 
 "escaping
@@ -213,10 +211,12 @@ nnoremap <silent> <Leader><Leader> :FZFMru <CR>
 nnoremap <silent> <Leader>C :Commits<CR>
 nnoremap <silent> <Leader>c :Colors<CR>
 nnoremap <silent> <leader>; :BLines<CR>
+nnoremap <silent> <leader>bs<CR>
 nnoremap <Leader>t :BTags<CR>
 nnoremap <Leader>T :Tags<CR>
 nnoremap <Leader>H :History<CR>
 nnoremap <Leader>s :Rg<space> 
+nnoremap <C-g> :lgrep<Space>
 nnoremap <Leader>S :Rg<space><C-r><C-w><CR>
 nmap <Leader>b :Buffers <CR>
 
@@ -279,7 +279,8 @@ command! -bang -nargs=* Rg
 
 let g:fzf_nvim_statusline = 0
 
-set grepprg=rg\ --vimgrep
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 " Likewise, Files command with preview window
