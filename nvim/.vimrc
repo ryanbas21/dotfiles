@@ -216,7 +216,6 @@ nnoremap <Leader>t :BTags<CR>
 nnoremap <Leader>T :Tags<CR>
 nnoremap <Leader>H :History<CR>
 nnoremap <Leader>s :Rg<space> 
-nnoremap <C-g> :lgrep<Space>
 nnoremap <Leader>S :Rg<space><C-r><C-w><CR>
 nmap <Leader>b :Buffers <CR>
 
