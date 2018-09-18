@@ -60,9 +60,20 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 fpath=(./zsh "${fpath[@]}")
+
 autoload -Uz kp bip bup bcp buu cani 
+
+# bindkey '^g^t' fzf-gt-widget
+# bindkey '"\er": redraw-current-line'
+# bindkey '"^g^f": "$(gf)\e\C-e\er"'
+# bindkey '"^g^b": "$(gb)\e\C-e\er"'
+# bindkey '"^g^h": "$(gh)\e\C-e\er"'
+# bindkey '"^g^r": "$(gr)\e\C-e\er"'
+
 # use nvim, but don't make me think about it
 alias vim="nvim"
+
+# Alias to reload zshrc 
 alias reload="source ~/dotfiles/zsh/.zshrc"
 
 Fortune | cowsay -f vader 
