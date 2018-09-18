@@ -144,6 +144,32 @@ let g:jsx_ext_required = 0
  let g:ale_linters = { 'javascript': ['prettier'], 'typescript' : ['prettier'] }
 " ************************************************************
 
+"*****************************************************************************
+"" Abbreviations
+"*****************************************************************************
+"" no one is really happy until you have this shortcuts
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+
+"
+noremap YY "+y<CR>
+if has('macunix')
+  " pbcopy for OSX copy/paste
+  vmap <C-x> :!pbcopy<CR>
+  vmap <C-c> :w !pbcopy<CR><CR>
+endif
+
+if has('unnamedplus')
+  set clipboard=unnamed,unnamedplus
+endif
 
 " ********************* NERDTREE ************************************ 
 let g:NERDTreeIndicatorMapCustom = {
