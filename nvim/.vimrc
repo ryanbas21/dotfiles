@@ -77,8 +77,15 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 set termguicolors
-
-" ******** PLUGINS ***********8
+ let g:standard_prettier_settings = {
+              \ 'exe': 'prettier',
+              \ 'args': ['--stdin', '--stdin-filepath', '%:p', '--single-quote'],
+              \ 'stdin': 1,
+              \ }
+  let g:neoformat_vue_prettier = {
+              \ 'exe': 'vue-formatter',
+              \ 'stdin': 1,
+        \}
 call plug#begin('~/.vim/plugged')
 " Color / Themes
 Plug 'rafi/awesome-vim-colorschemes'
@@ -105,6 +112,7 @@ Plug 'tpope/vim-commentary'
 Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'tsx'], 'do': 'sh ./install.sh' }
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
 Plug 'jiangmiao/auto-pairs'
+Plug 'neomake/neomake'
 " Completion
 Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
 Plug 'Shougo/neomru.vim'
@@ -130,14 +138,37 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " ************************************vim-jsx******************
 let g:jsx_ext_required = 0
 " ******************************************************
+" NEOMAKE
+call neomake#configure#automake({
+  \ 'BufWritePost': {'delay': 0},
+  \ 'BufWinEnter': {},
+  \ 'TextChanged': {},
+  \ 'InsertLeave': { },
+  \ }, 1000)
 
+ let g:neomake_warning_sign = {'text': '•'}
+ let g:neomake_error_sign = {'text': '✖'}
+ let g:neomake_info_sign = {'text': '•'}
+ let g:neomake_message_sign = {'text': '•' } 
+ let g:neomake_markdown_enabled_makers = ['alex', 'proselint']
+ let g:markdown_syntax_conceal = 0
+ let g:neoformat_markdown_prettier = g:standard_prettier_settings
+ let g:neoformat_enabled_markdown = ['prettier']
+ let g:neomake_typescript_enabled_makers = []
+ let g:neomake_vue_enabled_makers = []
+ let g:neoformat_typescript_prettier = g:standard_prettier_settings
+ let g:neoformat_enabled_typescript = ['prettier']
+ let g:neoformat_typescriptreact_prettier = g:standard_prettier_settings
+ let g:neoformat_enabled_typescriptreact = ['prettier']
+" ******************************************************
 " ************************ALE Setup******************************
+ hi link ALEError SpellBad
+ hi link ALEWarning SpellBad
  let g:ale_emit_conflict_warnings = 1
+ let g:ale_sign_error = '✖' 
+ let g:ale_sign_warning = '•'
  let g:airline#extensions#ale#enabled = 1
- let g:ale_sign_warning = '~~'
- let g:ale_echo_msg_warning_str = '**warning**'
  let g:ale_lint_on_text_changed = 'never'
- let g:ale_sign_errorle_echo_msg_error_str="✖"
  let g:ale_completion_enabled = 0 
  let g:ale_fix_on_save = 1
  let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['brittany'], 'vue': ['prettier'] }
@@ -252,7 +283,7 @@ nmap <Leader>gp :Gpush origin<space>
 nmap <Leader>gaa :Git add .<CR>
 
 " Typescript
-nmap <buffer> <Leader>ti :TSImport
+map <buffer> <Leader>ti :TSImport
 nmap <C-]> :TSDef<CR>
 nmap <Leader>D :TSDefPreview<CR>
 nmap <C-[> :TSTypeDef<CR>
