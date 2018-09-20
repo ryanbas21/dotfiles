@@ -104,7 +104,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'junegunn/vim-xmark', { 'do': 'make' }
 " Syntax
+Plug 'neovimhaskell/haskell-vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'alx741/vim-hindent'
 Plug 'moll/vim-node'
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'typescript', 'tsx'] }
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
@@ -112,8 +114,8 @@ Plug 'tpope/vim-commentary'
 Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'tsx'], 'do': 'sh ./install.sh' }
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
 Plug 'jiangmiao/auto-pairs'
-Plug 'neomake/neomake'
 " Completion
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': [ 'javascript, jsx'] }
 Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
 Plug 'Shougo/neomru.vim'
 Plug 'w0rp/ale'
@@ -138,29 +140,6 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " ************************************vim-jsx******************
 let g:jsx_ext_required = 0
 " ******************************************************
-" NEOMAKE
-call neomake#configure#automake({
-  \ 'BufWritePost': {'delay': 0},
-  \ 'BufWinEnter': {},
-  \ 'TextChanged': {},
-  \ 'InsertLeave': { },
-  \ }, 1000)
-
- let g:neomake_warning_sign = {'text': '•'}
- let g:neomake_error_sign = {'text': '✖'}
- let g:neomake_info_sign = {'text': '•'}
- let g:neomake_message_sign = {'text': '•' } 
- let g:neomake_markdown_enabled_makers = ['alex', 'proselint']
- let g:markdown_syntax_conceal = 0
- let g:neoformat_markdown_prettier = g:standard_prettier_settings
- let g:neoformat_enabled_markdown = ['prettier']
- let g:neomake_typescript_enabled_makers = []
- let g:neomake_vue_enabled_makers = []
- let g:neoformat_typescript_prettier = g:standard_prettier_settings
- let g:neoformat_enabled_typescript = ['prettier']
- let g:neoformat_typescriptreact_prettier = g:standard_prettier_settings
- let g:neoformat_enabled_typescriptreact = ['prettier']
-" ******************************************************
 " ************************ALE Setup******************************
  hi link ALEError SpellBad
  hi link ALEWarning SpellBad
@@ -174,12 +153,12 @@ call neomake#configure#automake({
  let b:ale_open_list = 1
  let g:ale_set_balloons = 1
  let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['brittany'], 'vue': ['prettier'] }
- let g:ale_linters = { 'javascript': ['prettier'], 'typescript' : ['prettier'] }
 
   augroup CloseLoclistWindowGroup
     autocmd!
     autocmd QuitPre * if empty(&buftype) | lclose | endif
   augroup END
+ let g:ale_linters = { 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['stack-ghc-mod', 'hlint']}
 " ************************************************************
 
 "*****************************************************************************
@@ -290,10 +269,11 @@ nmap <Leader>gp :Gpush origin<space>
 nmap <Leader>gaa :Git add .<CR>
 
 " Typescript
-map <buffer> <Leader>ti :TSImport
-nmap <C-]> :TSDef<CR>
-nmap <Leader>D :TSDefPreview<CR>
-nmap <C-[> :TSTypeDef<CR>
+
+autocmd filetype typescript nmap <buffer> <Leader>ti :TSImport
+autocmd filetype typescript nmap <C-]> :TSDef<CR>
+autocmd filetype typescript nmap <Leader>D :TSDefPreview<CR>
+autocmd filetype typescript nmap <C-[> :TSTypeDef<CR>
 
 " Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
@@ -384,7 +364,7 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 " ***********************************************
-" ************** Haskell Intero ******************
+" ************** Haskell ******************
 augroup interoMaps
   au!
   " Maps for intero. Restrict to Haskell buffers so the bindings don't collide.
@@ -425,13 +405,33 @@ let g:intero_type_on_hover = 1
 set updatetime=100
 
 " ************************************************
-nmap  tN :TestNearest<CR> " t Ctrl+n
-nmap  tF :TestFile<CR>    " t Ctrl+f
-nmap  tS :TestSuite<CR>   " t Ctrl+s
-nmap  tL :TestLast<CR>    " t Ctrl+l
-nmap  tG :TestVisit<CR>   " t Ctrl+g
-let test#strategy = "dispatch_background"
+" " ----- neovimhaskell/haskell-vim -----
+
+" Align 'then' two spaces after 'if'
+let g:haskell_indent_if = 2
+" Indent 'where' block two spaces under previous body
+let g:haskell_indent_before_where = 2
+" Allow a second case indent style (see haskell-vim README)
+let g:haskell_indent_case_alternative = 1
+" Only next under 'let' if there's an equals sign
+let g:haskell_indent_let_no_in = 0
+
+" ----- hindent & stylish-haskell -----
+
+" Indenting on save is too aggressive for me
+let g:hindent_on_save = 0
+
+" Helper function, called below with mappings
+let test#strategy = "dispatch"
 let g:test#preserve_screen = 1
+
+set statusline+=%{gutentags#statusline()}
+let g:gutentags_generate_on_empty_buffer = 1
+augroup MyGutentagsStatusLineRefresher
+  autocmd!
+  autocmd User GutentagsUpdating call lightline#update()
+  autocmd User GutentagsUpdated call lightline#update()
+augroup END
 
 colorscheme deep-space
 syntax on
