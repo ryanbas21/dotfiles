@@ -171,8 +171,15 @@ call neomake#configure#automake({
  let g:ale_lint_on_text_changed = 'never'
  let g:ale_completion_enabled = 0 
  let g:ale_fix_on_save = 1
+ let b:ale_open_list = 1
+ let g:ale_set_balloons = 1
  let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['brittany'], 'vue': ['prettier'] }
  let g:ale_linters = { 'javascript': ['prettier'], 'typescript' : ['prettier'] }
+
+  augroup CloseLoclistWindowGroup
+    autocmd!
+    autocmd QuitPre * if empty(&buftype) | lclose | endif
+  augroup END
 " ************************************************************
 
 "*****************************************************************************
@@ -350,7 +357,7 @@ let g:fzf_buffers_jump = 1
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 " [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R'
+let g:fzf_tags_command = 'ctags . -R'
 
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
