@@ -115,6 +115,7 @@ Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'tsx'], 'do': 'sh ./i
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
 Plug 'jiangmiao/auto-pairs'
 " Completion
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': [ 'javascript, jsx'] }
 Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
 Plug 'Shougo/neomru.vim'
 Plug 'w0rp/ale'
@@ -268,10 +269,11 @@ nmap <Leader>gp :Gpush origin<space>
 nmap <Leader>gaa :Git add .<CR>
 
 " Typescript
-map <buffer> <Leader>ti :TSImport
-nmap <C-]> :TSDef<CR>
-nmap <Leader>D :TSDefPreview<CR>
-nmap <C-[> :TSTypeDef<CR>
+
+autocmd filetype typescript nmap <buffer> <Leader>ti :TSImport
+autocmd filetype typescript nmap <C-]> :TSDef<CR>
+autocmd filetype typescript nmap <Leader>D :TSDefPreview<CR>
+autocmd filetype typescript nmap <C-[> :TSTypeDef<CR>
 
 " Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
@@ -422,6 +424,14 @@ let g:hindent_on_save = 0
 " Helper function, called below with mappings
 let test#strategy = "dispatch"
 let g:test#preserve_screen = 1
+
+set statusline+=%{gutentags#statusline()}
+let g:gutentags_generate_on_empty_buffer = 1
+augroup MyGutentagsStatusLineRefresher
+  autocmd!
+  autocmd User GutentagsUpdating call lightline#update()
+  autocmd User GutentagsUpdated call lightline#update()
+augroup END
 
 colorscheme deep-space
 syntax on
