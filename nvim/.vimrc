@@ -82,6 +82,7 @@ Plug 'itchyny/lightline.vim'
  Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
 " GIT
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 " Movement
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -417,7 +418,6 @@ let g:haskell_indent_case_alternative = 1
 let g:haskell_indent_let_no_in = 0
 
 " ----- hindent & stylish-haskell -----
-
 " Indenting on save is too aggressive for me
 let g:hindent_on_save = 0
 
