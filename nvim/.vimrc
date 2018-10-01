@@ -1,11 +1,9 @@
-set guifont=Source\ Code\ Pro\ for\ Powerline:h20
+filetype plugin indent on
 
+set guifont=Source\ Code\ Pro\ for\ Powerline:h20
 set ttimeout
 set ttimeoutlen=0
-
-filetype plugin indent on
 scriptencoding utf-8
-
 set encoding=utf-8
 set smartindent
 set showmatch
@@ -33,7 +31,6 @@ set ignorecase
  " ctags optimization
 au FileType gitcommit,gitrebase,tags,md,yml,yaml,json,map, let g:gutentags_enabled=0
 
-" autocmd BufEnter * silent! lcd %:p:h
 set tags=tags;
 
 " Stop highlight after searching
@@ -77,15 +74,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 set termguicolors
- let g:standard_prettier_settings = {
-              \ 'exe': 'prettier',
-              \ 'args': ['--stdin', '--stdin-filepath', '%:p', '--single-quote'],
-              \ 'stdin': 1,
-              \ }
-  let g:neoformat_vue_prettier = {
-              \ 'exe': 'vue-formatter',
-              \ 'stdin': 1,
-        \}
 call plug#begin('~/.vim/plugged')
 " Color / Themes
 Plug 'rafi/awesome-vim-colorschemes'
@@ -94,6 +82,7 @@ Plug 'itchyny/lightline.vim'
  Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
 " GIT
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 " Movement
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -108,13 +97,14 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'alx741/vim-hindent'
 Plug 'moll/vim-node'
-Plug 'mxw/vim-jsx', { 'for': ['javascript', 'typescript', 'tsx'] }
+Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx', 'jsx', 'typescript', 'tsx', 'typescript.tsx'] }
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'tpope/vim-commentary'
 Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'tsx'], 'do': 'sh ./install.sh' }
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
 Plug 'jiangmiao/auto-pairs'
 " Completion
+Plug 'mattn/emmet-vim'
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': [ 'javascript, jsx'] }
 Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
 Plug 'Shougo/neomru.vim'
@@ -136,6 +126,19 @@ let g:deoplete#enable_at_startup=1
 let g:deoplete#max_list = 20
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+let g:user_emmet_leader_key='<Tab>'
+let g:user_emmet_settings = {
+  \  'javascript' : {
+  \      'extends' : 'jsx'
+  \  },
+  \  'typescript' : {
+  \      'extends' : 'jsx'
+  \  }
+  \ }
+
+autocmd FileType html,css,javascript, typescript,typescript.tsx,javascript.jsx EmmetInstall
+
 
 " ************************************vim-jsx******************
 let g:jsx_ext_required = 0
@@ -222,12 +225,9 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 " ************** Key Mappings *******************************************  
 let mapleader = "\<Space>"
 
-nnoremap <silent> <Leader>P :ALEFix<CR>
 nmap <silent> <leader>, :nohl<cr>
 
 "escaping
-xnoremap jk <Esc>
-cnoremap jk <C-c>
 inoremap jk <Esc>
 
 augroup DashVim
@@ -262,6 +262,7 @@ nnoremap <Leader>s :Rg<space>
 nnoremap <Leader>S :Rg<space><C-r><C-w><CR>
 nmap <Leader>b :Buffers <CR>
 
+"git 
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gca :Gcommit --amend<CR>
@@ -269,7 +270,6 @@ nmap <Leader>gp :Gpush origin<space>
 nmap <Leader>gaa :Git add .<CR>
 
 " Typescript
-
 autocmd filetype typescript nmap <buffer> <Leader>ti :TSImport
 autocmd filetype typescript nmap <C-]> :TSDef<CR>
 autocmd filetype typescript nmap <Leader>D :TSDefPreview<CR>
@@ -364,6 +364,7 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 " ***********************************************
+"
 " ************** Haskell ******************
 augroup interoMaps
   au!
@@ -391,7 +392,7 @@ augroup interoMaps
   au FileType haskell nnoremap <silent> <leader>it :InteroTypeInsert<CR>
 
   " Navigation
-  au FileType haskell nnoremap <silent> <leader>jd :InteroGoToDef<CR>
+  au FileType haskell nnoremap <silent> <C-]> :InteroGoToDef<CR>
 
   " Managing targets
   " Prompts you to enter targets (no silent):
@@ -417,7 +418,6 @@ let g:haskell_indent_case_alternative = 1
 let g:haskell_indent_let_no_in = 0
 
 " ----- hindent & stylish-haskell -----
-
 " Indenting on save is too aggressive for me
 let g:hindent_on_save = 0
 
