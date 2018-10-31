@@ -100,13 +100,13 @@ Plug 'moll/vim-node'
 Plug 'mxw/vim-jsx', { 'for': ['javascript', 'javascript.jsx', 'jsx', 'typescript', 'tsx', 'typescript.tsx'] }
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'tpope/vim-commentary'
-Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'tsx'], 'do': 'sh ./install.sh' }
+"Plug 'mhartington/nvim-typescript', {'for': ['typescript', 'tsx'], 'do': 'sh ./install.sh' }
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'tsx'] }
 Plug 'jiangmiao/auto-pairs'
 " Completion
-Plug 'mattn/emmet-vim'
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern', 'for': [ 'javascript, jsx'] }
-Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': 'UpdateRemotePlugins', 'for': ['haskell'] }
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'Shougo/neomru.vim'
 Plug 'w0rp/ale'
 " File Tree
@@ -125,43 +125,21 @@ let g:fzf_mru_relative = 1
 let g:deoplete#enable_at_startup=1
 let g:deoplete#max_list = 20
 
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-let g:user_emmet_leader_key='<Tab>'
-let g:user_emmet_settings = {
-  \  'javascript' : {
-  \      'extends' : 'jsx'
-  \  },
-  \  'typescript' : {
-  \      'extends' : 'jsx'
-  \  }
-  \ }
-
-autocmd FileType html,css,javascript, typescript,typescript.tsx,javascript.jsx EmmetInstall
-
+"inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " ************************************vim-jsx******************
 let g:jsx_ext_required = 0
 " ******************************************************
 " ************************ALE Setup******************************
- hi link ALEError SpellBad
- hi link ALEWarning SpellBad
  let g:ale_emit_conflict_warnings = 1
- let g:ale_sign_error = '✖' 
- let g:ale_sign_warning = '•'
- let g:airline#extensions#ale#enabled = 1
- let g:ale_lint_on_text_changed = 'never'
- let g:ale_completion_enabled = 0 
+ let g:ale_sign_error = '❎'
+ let g:ale_sign_warning = '⚠  '
+ let g:airline#extensions#ale#enabled = 0
+ let g:ale_lint_on_text_changed = 'always'
  let g:ale_fix_on_save = 1
  let b:ale_open_list = 1
- let g:ale_set_balloons = 1
  let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['brittany'], 'vue': ['prettier'] }
-
-  augroup CloseLoclistWindowGroup
-    autocmd!
-    autocmd QuitPre * if empty(&buftype) | lclose | endif
-  augroup END
- let g:ale_linters = { 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['stack-ghc-mod', 'hlint']}
+ let g:ale_linters = { 'javascript': ['eslint'], 'typescript' : ['tsserver', 'tslint'], 'haskell': ['stack-ghc-mod', 'hlint']}
 " ************************************************************
 
 "*****************************************************************************
@@ -270,10 +248,29 @@ nmap <Leader>gp :Gpush origin<space>
 nmap <Leader>gaa :Git add .<CR>
 
 " Typescript
-autocmd filetype typescript nmap <buffer> <Leader>ti :TSImport
-autocmd filetype typescript nmap <C-]> :TSDef<CR>
-autocmd filetype typescript nmap <Leader>D :TSDefPreview<CR>
-autocmd filetype typescript nmap <C-[> :TSTypeDef<CR>
+" autocmd filetype typescript nmap <buffer> <Leader>ti :TSImport
+" autocmd filetype typescript nmap <C-]> :TSDef<CR>
+" autocmd filetype typescript nmap <Leader>D :TSDefPreview<CR>
+" autocmd filetype typescript nmap <C-[> :TSTypeDef<CR>
+
+" Coc
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <c-space> coc#refresh()
+imap <silent> <C-x><C-o> <Plug>(coc-complete-custom)
 
 " Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
