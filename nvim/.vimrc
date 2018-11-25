@@ -1,6 +1,5 @@
 filetype plugin indent on
-
-set guifont=Source\ Code\ Pro\ for\ Powerline:h20
+set guifont=Fire\ Code\:h20
 set ttimeout
 set ttimeoutlen=0
 scriptencoding utf-8
@@ -310,6 +309,8 @@ autocmd FileType markdown setlocal spell
 
 
 " ************** FZF *****************************
+let g:fzf_nvim_statusline = 0
+
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
@@ -317,7 +318,11 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
   \   <bang>0)
 
-let g:fzf_nvim_statusline = 0
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel')[0] }), <bang>0)
+
 
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 
