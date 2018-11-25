@@ -15,14 +15,9 @@ export ZSH=~/.oh-my-zsh
 [ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
-POWERLEVEL9K_MODE='awesome-patched'
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(user dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time battery rspec_stats)
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
-POWERLEVEL9K_STATUS_VERBOSE=true
-POWERLEVEL9K_VCS_GIT_GITHUB_ICON='\uE271'
-POWERLEVEL9K_TIME_FOREGROUND="249"
-POWERLEVEL9K_TIME_FORMAT="%D{%H:%M} \uE12E"
+POWERLEVEL9K_MODE='nerdfont-complete'
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir user vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time battery)
 
 # enable the vcs segment in general
 POWERLEVEL9K_SHOW_CHANGESET=true
@@ -37,16 +32,15 @@ source ~/dotfiles/zsh/zsh.keybindings.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
-export FZF_DEFAULT_OPTS='
---color dark,hl:33,hl+:37,fg+:235,bg+:136,fg+:254
---color info:254,prompt:37,spinner:108,pointer:235,marker:235
-'
+
 
 if [ -x ~/.vim/plugged/fzf.vim/bin/preview.rb ]; then
-  export FZF_CTRL_T_OPTS="--preview '~/.vim/plugged/fzf.vim/bin/preview.rb {} | head -200'"
+  # export FZF_CTRL_T_OPTS="--preview '~/.vim/plugged/fzf.vim/bin/preview.rb {} | head -200'"
+  export FZF_CTRL_T_OPTS="--ansi --preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 fi
 
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind '?:toggle-preview' --bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --header 'Press CTRL-Y to copy command into clipboard' --border"
@@ -63,14 +57,6 @@ fpath=(./zsh "${fpath[@]}")
 
 autoload -Uz kp bip bup bcp buu cani 
 
-# bindkey '^g^t' fzf-gt-widget
-# bindkey '"\er": redraw-current-line'
-# bindkey '"^g^f": "$(gf)\e\C-e\er"'
-# bindkey '"^g^b": "$(gb)\e\C-e\er"'
-# bindkey '"^g^h": "$(gh)\e\C-e\er"'
-# bindkey '"^g^r": "$(gr)\e\C-e\er"'
-
-# use nvim, but don't make me think about it
 alias vim="nvim"
 
 # Alias to reload zshrc 
