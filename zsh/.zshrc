@@ -49,7 +49,9 @@ if [[ -f $antigen ]]; then
     zsh-users/zsh-syntax-highlighting 
 EOBUNDLES
 
+  antigen bundle wfxr/forgit
   antigen bundle fzf-zsh
+  antigen bundle jedahan/ripz
 
   # Set theme
   antigen theme bhilburn/powerlevel9k powerlevel9k
