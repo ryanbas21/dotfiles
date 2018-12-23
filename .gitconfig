@@ -1,0 +1,43 @@
+[core]
+	excludesfile = /Users/RyanBas/.gitignore_global
+  editor = 'nvim'
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[user]
+	name = ryanbas21
+	email = ryanbas21@gmail.com
+[commit]
+	template = /Users/RyanBas/.stCommitMsg
+[github]
+	user = ryanbas21
+[credential]
+	helper = osxkeychain
+[alias]
+	log = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  st = status
+  po = push origin
+  co = checkout 
+  cob = checkout -b
+  rb = rebase --autosquash
+  rbd = rebase develop --autosquash
+  
+
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
