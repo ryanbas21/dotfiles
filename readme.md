@@ -23,12 +23,13 @@ gc = git commit
 gca = git commit -- amend
 gb = git blame
 ```
+
 ### FZF 
  FZF is love, its literally an incredible tool
 
  ```
-  <Leader> f  = files
-  <Leader> g = Git files
+  <Leader> F  = files
+  <Leader> f = Git files
   <Leader><Leader> = Recent Files
   <Leader> C = Commits
   <Leader> c = Commands
@@ -40,25 +41,14 @@ gb = git blame
   <Leader> S = grep cursor word
   <Leader> b = buffers
  ```
-### Dash - vim
- I work on OSX currently, and have Dash installed. So here are my current key
- mappings to use Dash with vim.
-
- Again - prefix with `<Leader>`
-
- ```
-  ds = Dash search, will search under cursor  
-  da = will search dash - expecting arguments library:term
- ```
-
 ### Ale
 I use Ale for linting, and fixing. I have it configured for Prettier in
 javascript/typescript. I also have it fix on  save.
 
-Haskell - I am trying out brittany
+Haskell 
 
-### Deoplete
 Deoplete - it works well.
+CoC - use for web development
 
 ### Intero
  Again - all commands are prefixed with `<Leader>`
