@@ -22,16 +22,16 @@ POWERLEVEL9K_MODE='nerdfont-complete'
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir user vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time battery)
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
-
 # enable the vcs segment in general
 POWERLEVEL9K_SHOW_CHANGESET=true
-
 # just show the 6 first characters of changeset
 POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
 
 
 ### Antigen Plugin Management
+
 alias reload="source ~/dotfiles/zsh/.zshrc"
+
 # Antigen
 if [[ -f $antigen ]]; then
   source $antigen
@@ -48,7 +48,6 @@ if [[ -f $antigen ]]; then
     zsh-users/zsh-autosuggestions
     zsh-users/zsh-syntax-highlighting 
 EOBUNDLES
-
   antigen bundle wfxr/forgit
   antigen bundle fzf-zsh
   antigen bundle jedahan/ripz
@@ -86,12 +85,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-fpath=(./zsh "${fpath[@]}")
+fpath=(./ "${fpath[@]}")
 
 autoload -Uz kp bip bup bcp buu cani 
 
 alias vim="nvim"
-
-# Alias to reload zshrc 
-
-Fortune | cowsay -f vader 

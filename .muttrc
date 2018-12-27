@@ -10,6 +10,7 @@ set ssl_starttls = yes
 set ssl_force_tls = yes
 
 # Protocol: smtp for TLS (587), smtps for SSL (465)
+set smtp_authenticators = 'gssapi:login'
 set smtp_url = "smtp://ryanbas21@gmail.com@smtp.gmail.com:587/"
 set from = "ryanbas21@gmail.com"
 set imap_user = "ryanbas21@gmail.com"
@@ -24,6 +25,6 @@ set certificate_file = "~/.mutt/certificates"
 set move = no
 
 # Needed to get and display mail (imap-fetch-mail)
-set editor = "vim"
+set editor = "nvim"
 set charset = "utf-8"
 set record = ""
