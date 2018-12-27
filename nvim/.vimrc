@@ -218,6 +218,10 @@ let mapleader = "\<Space>"
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 nmap <silent> <leader>, :nohl<cr>
 
+" Mappings for easier pasting through registers
+xnoremap ,p "0p
+nnoremap ,p "0p
+
 "escaping
 inoremap jk <Esc>
 
