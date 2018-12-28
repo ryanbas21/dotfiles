@@ -4,6 +4,8 @@ these, trying to perfect it to be better, and as I learn more, I hope I do that.
 
 Please use at your own risk.
 
+
+![](https://raw.githubusercontent.com/ryanbas21/dotfiles/master/startup.png)
 ### Leader
 
 My leader key is Space.
