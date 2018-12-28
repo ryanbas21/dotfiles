@@ -23,10 +23,6 @@
   po = push origin
   co = checkout 
   cob = checkout -b
-  rb = rebase --autosquash
-  rbd = rebase develop --autosquash
-  
-
 [color]
 	ui = true
 [color "diff-highlight"]
