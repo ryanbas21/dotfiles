@@ -85,19 +85,20 @@ Plug 'itchyny/lightline.vim'
 
 " GIT
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
 
 " Movement
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
+
+" Tags
 Plug 'ludovicchabant/vim-gutentags'
 
 " Junegunn
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
-Plug 'junegunn/vim-xmark', { 'do': 'make' }
+Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': 'markdown' }
 
 " Syntax
 Plug 'neovimhaskell/haskell-vim'
@@ -107,9 +108,9 @@ Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
-Plug 'tpope/vim-commentary'
 Plug 'leafgarland/typescript-vim',  {'for': ['typescript', 'typescript.react']}
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-commentary'
 
 " Completion
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
@@ -117,15 +118,12 @@ Plug 'w0rp/ale'
 
 " File Tree
 Plug 'tpope/vim-vinegar' 
-" Documentation
-Plug 'rizzatti/dash.vim'
 
 " Other
 Plug 'tpope/vim-dispatch'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'janko-m/vim-test'
 Plug 'yuttie/comfortable-motion.vim'
-Plug 'junegunn/goyo.vim'
+Plug 'junegunn/goyo.vim'  
 
 call plug#end()
 
@@ -214,15 +212,6 @@ nnoremap ,p "0p
 
 "escaping
 inoremap jk <Esc>
-
-augroup DashVim
-  au! 
-  " Dash
-  " Dash search under cursor
-  nmap <silent> <leader>ds <Plug>DashSearch
-  nmap <silent> <leader>da :Dash!<cr>  
-
-augroup end
 
 nmap <Leader>C :call fzf#run({
 \   'source':
