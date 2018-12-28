@@ -265,6 +265,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
+
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -281,6 +282,9 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 " map Y to yank from cursor to end of line
 noremap <silent> Y y$
+
+" Test File
+nmap <silent> <C-t> :Dispatch<CR>
 
 "*************** LightLine ***********************
   let g:lightline = {
