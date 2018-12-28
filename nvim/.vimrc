@@ -79,18 +79,14 @@ call plug#begin('~/.vim/plugged')
 " Color / Themes
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'itchyny/lightline.vim'
-
 " Haskell
  Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
-
 " GIT
 Plug 'tpope/vim-fugitive'
-
 " Movement
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
 
@@ -98,7 +94,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'pbogut/fzf-mru.vim'
-Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': 'markdown' }
+Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] }
 
 " Syntax
 Plug 'neovimhaskell/haskell-vim'
@@ -109,47 +105,32 @@ Plug 'pangloss/vim-javascript', {'for': ['javascript', 'typescript', 'typescript
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'leafgarland/typescript-vim',  {'for': ['typescript', 'typescript.react']}
+" Completion
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
-
-" Completion
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}, 'for': ['javascript, typescript, javascript.react', 'typescript.react', 'tsx', 'jsx', 'python', 'yaml', 'json']}
 Plug 'w0rp/ale'
-
 " File Tree
 Plug 'tpope/vim-vinegar' 
-
 " Other
 Plug 'tpope/vim-dispatch'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'junegunn/goyo.vim'  
-
 call plug#end()
 
-let g:fzf_mru_relative = 1
 
-"let g:deoplete#enable_at_startup=1
-"let g:deoplete#max_list = 10
-
-" ************************************vim-jsx******************
+"************************vim-jsx******************
 let g:jsx_ext_required = 0
 " ******************************************************
 " ************************ALE Setup******************************
  let b:ale_open_list = 1 
- let g:ale_lint_on_text_changed = 'always'
+ let g:ale_lint_on_text_changed = 'never'
  let g:ale_fix_on_save = 1
- let g:ale_set_quickfix = 0
+ let g:ale_set_quickfix = 1
  let g:ale_emit_conflict_warnings = 1
  let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['brittany'], 'vue': ['prettier'] }
  let g:ale_linters = { 'javascript': ['eslint', 'prettier'], 'typescript' : ['tsserver', 'tslint', 'prettier'], 'haskell': ['stack-ghc-mod', 'hlint']}
-
-
- augroup CloseLoclistWindowGroup
-    autocmd!
-    autocmd QuitPre * if empty(&buftype) | lclose | endif
-  augroup END
-
 " ************************************************************
 
 "*****************************************************************************
@@ -165,6 +146,7 @@ cnoreabbrev wQ wq
 cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
+cnoreabbrev Wall wall 
 cnoreabbrev Qall qall
 
 "
@@ -180,6 +162,8 @@ if has('unnamedplus')
   set clipboard=unnamed,unnamedplus
 endif
 
+" Tree style list
+let g:netrw_liststyle = 3
 " Function for toggle netrw
 function! ToggleVExplorer()
     if exists("t:expl_buf_num")
@@ -203,7 +187,6 @@ function! ToggleVExplorer()
 endfunction
 
 let g:netrw_altv=1
-
 
 " ************** Key Mappings *******************************************  
 let mapleader = "\<Space>"
@@ -233,12 +216,12 @@ nnoremap <silent> <Leader><Leader> :FZFMru<CR>
 nnoremap <silent> <Leader>C :Commits<CR>
 nnoremap <silent> <Leader>c :Colors<CR>
 nnoremap <silent> <leader>; :BLines<CR>
-nmap <Leader>b :Buffers <CR>
+nnoremap <silent> <Leader>b :Buffers <CR>
 nnoremap <Leader>t :BTags<CR>
 nnoremap <Leader>T :Tags<CR>
 nnoremap <Leader>H :History<CR>
-nnoremap <Leader>s :Rg<space> 
-nnoremap <Leader>S :Rg<space><C-r><C-w><CR>
+nnoremap <Leader>s :GGrep<space> 
+nnoremap <Leader>S :GGrep<space><C-r><C-w><CR>
 
 " git 
 nmap <Leader>gs :Gstatus<CR>
@@ -247,7 +230,11 @@ nmap <Leader>gca :Gcommit --amend<CR>
 nmap <Leader>gp :Gpush origin<space>
 nmap <Leader>gaa :Git add .<CR>
 
-" Coc
+" Use MRU
+let g:fzf_mru_relative = 1
+
+" ************Coc******************
+
 " use <tab> for trigger completion and navigate next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -262,6 +249,7 @@ inoremap <silent><expr> <TAB>
 " Use `[c` and `]c` for navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -270,14 +258,10 @@ nmap <silent> gr <Plug>(coc-references)
 
 command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 inoremap <silent><expr> <c-space> coc#refresh()
 imap <silent> <C-x><C-o> <Plug>(coc-complete-custom)
 
+" ***************************************
 " Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
@@ -427,21 +411,12 @@ let g:haskell_indent_case_alternative = 1
 let g:haskell_indent_let_no_in = 0
 
 " ----- hindent & stylish-haskell -----
-" Indenting on save is too aggressive for me
-let g:hindent_on_save = 0
-
-
-
-
-" Helper function, called below with mappings
-let test#strategy = "dispatch"
-let g:test#preserve_screen = 1
-
-nmap <silent> <leader>tf :TestFile<CR>
+let g:hindent_on_save = 1
+" *************************************************
 
 set statusline+=%{gutentags#statusline()}
-
 let g:gutentags_generate_on_empty_buffer = 1
+
 augroup MyGutentagsStatusLineRefresher
   autocmd!
   autocmd User GutentagsUpdating call lightline#update()
@@ -452,4 +427,5 @@ set bg=dark
 
 let g:vim_monokai_tasty_italic = 1
 colorscheme vim-monokai-tasty 
+
 syntax on
