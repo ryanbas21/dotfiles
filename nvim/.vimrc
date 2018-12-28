@@ -113,7 +113,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 
 " Completion
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}, 'for': ['javascript, typescript, javascript.react', 'typescript.react', 'tsx', 'jsx', 'python', 'yaml', 'json']}
 Plug 'w0rp/ale'
 
 " File Tree
@@ -195,7 +195,7 @@ function! ToggleVExplorer()
 
         unlet t:expl_buf_num
     else
-         Vexplore
+         20Vexplore
          let t:expl_buf_num = bufnr("%")
     endif
 endfunction
