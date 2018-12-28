@@ -164,6 +164,8 @@ endif
 
 " Tree style list
 let g:netrw_liststyle = 3
+let g:netrw_localrmdir='rm -r'
+
 " Function for toggle netrw
 function! ToggleVExplorer()
     if exists("t:expl_buf_num")
