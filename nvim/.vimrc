@@ -116,8 +116,7 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'w0rp/ale'
 
 " File Tree
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle', 'off': 'NERDTreeClose' }
-
+Plug 'tpope/vim-vinegar' 
 " Documentation
 Plug 'rizzatti/dash.vim'
 
@@ -182,42 +181,33 @@ if has('unnamedplus')
   set clipboard=unnamed,unnamedplus
 endif
 
-" ********************* NERDTREE ************************************ 
-let g:NERDTreeIndicatorMapCustom = {
-        \ "Modified"  : "✹",
-        \ "Staged"    : "✚",
-        \ "Untracked" : "✭",
-        \ "Renamed"   : "➜",
-        \ "Unmerged"  : "═",
-        \ "Deleted"   : "✖",
-        \ "Dirty"     : "✗",
-        \ "Clean"     : "✔︎",
-        \ 'Ignored'   : '☒',
-        \ "Unknown"   : "?"
-        \ }
-augroup nerd_loader
-  autocmd!
-  autocmd VimEnter * silent! autocmd! FileExplorer
-  autocmd BufEnter,BufNew *
-        \  if isdirectory(expand('<amatch>'))
-        \|   call plug#load('nerdtree')
-        \|   execute 'autocmd! nerd_loader'
-        \| endif
-augroup END
+function! ToggleVExplorer()
+    if exists("t:expl_buf_num")
+        let expl_win_num = bufwinnr(t:expl_buf_num)
+        let cur_win_num = winnr()
 
-let g:NERDTreeShowHidden=1
-let NERDTreeIgnore = ['\.js\.map' ]
+        if expl_win_num != -1
+            while expl_win_num != cur_win_num
+                exec "wincmd w"
+                let cur_win_num = winnr()
+            endwhile
 
-let g:NERDTreeDirArrowExpandable = '▸'
-let g:NERDTreeDirArrowCollapsible = '▾'
+            close
+        endif
 
-" ************************************************************************ 
+        unlet t:expl_buf_num
+    else
+         Vexplore
+         let t:expl_buf_num = bufnr("%")
+    endif
+endfunction
+
 
 " ************** Key Mappings *******************************************  
 let mapleader = "\<Space>"
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 nmap <silent> <leader>, :nohl<cr>
-
+map <silent> <C-n> :call ToggleVExplorer()<CR>
 " Mappings for easier pasting through registers
 xnoremap ,p "0p
 nnoremap ,p "0p
@@ -299,9 +289,6 @@ nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
-
-" NerdTree Toggle
-nmap <silent> <C-n> :NERDTreeToggle<CR>
 
 " map Y to yank from cursor to end of line
 noremap <silent> Y y$
