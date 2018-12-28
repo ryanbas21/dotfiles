@@ -169,6 +169,7 @@ cnoreabbrev Qall qall
 
 "
 noremap YY "+y<CR>
+
 if has('macunix')
   " pbcopy for OSX copy/paste
   vmap <C-x> :!pbcopy<CR>
@@ -179,6 +180,7 @@ if has('unnamedplus')
   set clipboard=unnamed,unnamedplus
 endif
 
+" Function for toggle netrw
 function! ToggleVExplorer()
     if exists("t:expl_buf_num")
         let expl_win_num = bufwinnr(t:expl_buf_num)
@@ -199,6 +201,8 @@ function! ToggleVExplorer()
          let t:expl_buf_num = bufnr("%")
     endif
 endfunction
+
+let g:netrw_altv=1
 
 
 " ************** Key Mappings *******************************************  
