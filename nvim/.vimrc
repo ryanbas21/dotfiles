@@ -79,13 +79,12 @@ call plug#begin('~/.vim/plugged')
 " Color / Themes
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'itchyny/lightline.vim'
-" Haskell
- Plug 'parsonsmatt/intero-neovim', { 'for': ['haskell'] }
 " GIT
 Plug 'tpope/vim-fugitive'
 " Movement
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-unimpaired'
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
@@ -99,7 +98,6 @@ Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] }
 " Syntax
 Plug 'neovimhaskell/haskell-vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'alx741/vim-hindent'
 Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
@@ -108,10 +106,11 @@ Plug 'leafgarland/typescript-vim',  {'for': ['typescript', 'typescript.react']}
 " Completion
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}, 'for': ['javascript, typescript, javascript.react', 'typescript.react', 'tsx', 'jsx', 'python', 'yaml', 'json']}
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}} 
+Plug 'reasonml-editor/vim-reason-plus'
 Plug 'w0rp/ale'
 " File Tree
-Plug 'tpope/vim-vinegar' 
+Plug 'scrooloose/nerdtree'
 " Other
 Plug 'tpope/vim-dispatch'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -124,11 +123,6 @@ call plug#end()
 let g:jsx_ext_required = 0
 " ******************************************************
 " ************************ALE Setup******************************
- let b:ale_open_list = 1 
- let g:ale_lint_on_text_changed = 'never'
- let g:ale_fix_on_save = 1
- let g:ale_set_quickfix = 1
- let g:ale_emit_conflict_warnings = 1
  let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['brittany'], 'vue': ['prettier'] }
  let g:ale_linters = { 'javascript': ['eslint', 'prettier'], 'typescript' : ['tsserver', 'tslint', 'prettier'], 'haskell': ['stack-ghc-mod', 'hlint']}
 " ************************************************************
@@ -255,9 +249,14 @@ nmap <silent> ]c <Plug>(coc-diagnostic-next)
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>qf  <Plug>(coc-fix-current)
+" Use `:Format` for format current buffer
+command! -nargs=0 Format :call CocAction('format')
 
+" Use `:Fold` for fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
 
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -284,7 +283,8 @@ nmap <silent> <C-t> :Dispatch<CR>
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'fugitive#head',
+      \   'cocstatus': 'coc#status'
       \ },
       \ }
 "*************************************************
@@ -300,7 +300,14 @@ autocmd FileType gitcommit setlocal spell
 " Enable spellchecking for Markdown
 autocmd FileType markdown setlocal spell
 
+"NerdTree
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" Easy Motion "
+map <Leader> <Plug>(easymotion-prefix)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 " ************** FZF *****************************
 let g:fzf_nvim_statusline = 0
 
@@ -359,63 +366,6 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 " ***********************************************
-"
-" ************** Haskell ******************
-augroup interoMaps
-  au!
-  " Maps for intero. Restrict to Haskell buffers so the bindings don't collide.
-  " Background process and window management
-  au FileType haskell nnoremap <silent> <leader>is :InteroStart<CR>
-  au FileType haskell nnoremap <silent> <leader>ik :InteroKill<CR>
-
-  " Open intero/GHCi split horizontally
-  au FileType haskell nnoremap <silent> <leader>io :InteroOpen<CR>
-  " Open intero/GHCi split vertically
-  au FileType haskell nnoremap <silent> <leader>iov :InteroOpen<CR><C-W>H
-  au FileType haskell nnoremap <silent> <leader>ih :InteroHide<CR>
-
-  " Automatically reload on save
-  au BufWritePost *.hs InteroReload
-
-  " Load individual modules
-  au FileType haskell nnoremap <silent> <leader>il :InteroLoadCurrentModule<CR>
-  au FileType haskell nnoremap <silent> <leader>if :InteroLoadCurrentFile<CR>
-
-  " Type-related information
-  au FileType haskell map <silent> <leader>t <Plug>InteroGenericType
-  au FileType haskell map <silent> <leader>T <Plug>InteroType
-  au FileType haskell nnoremap <silent> <leader>it :InteroTypeInsert<CR>
-
-  " Navigation
-  au FileType haskell nnoremap <silent> <C-]> :InteroGoToDef<CR>
-
-  " Managing targets
-  " Prompts you to enter targets (no silent):
-  au FileType haskell nnoremap <leader>ist :InteroSetTargets<SPACE>
-augroup end
-
-" Enable type information on hover (when holding cursor at point for ~1 second).
-let g:intero_type_on_hover = 1
-
-" OPTIONAL: Make the update time shorter, so the type info will trigger faster.
-set updatetime=100
-
-" ************************************************
-" " ----- neovimhaskell/haskell-vim -----
-
-" Align 'then' two spaces after 'if'
-let g:haskell_indent_if = 2
-" Indent 'where' block two spaces under previous body
-let g:haskell_indent_before_where = 2
-" Allow a second case indent style (see haskell-vim README)
-let g:haskell_indent_case_alternative = 1
-" Only next under 'let' if there's an equals sign
-let g:haskell_indent_let_no_in = 0
-
-" ----- hindent & stylish-haskell -----
-let g:hindent_on_save = 1
-" *************************************************
-
 set statusline+=%{gutentags#statusline()}
 let g:gutentags_generate_on_empty_buffer = 1
 
