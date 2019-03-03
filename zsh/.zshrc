@@ -1,4 +1,5 @@
 export DEFAULT_USER=`whoami`
+export PATH=$PATH:/Users/RyanBas/.local/bin:/Users/Ryanbas/.npm/purs
 export TERM="xterm-256color"
 export VISUAL=nvim
 export EDITOR='$VISUAL'
@@ -53,8 +54,6 @@ EOBUNDLES
   antigen bundle jedahan/ripz
 
   # Set theme
-  antigen theme bhilburn/powerlevel9k powerlevel9k
-  antigen apply
 
 else
   # Install antigen
@@ -68,7 +67,7 @@ source ~/dotfiles/zsh/functions
 source ~/dotfiles/zsh/zsh.keybindings.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
+ZSH_THEME="agnoster"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
