@@ -162,8 +162,9 @@ let g:netrw_localrmdir='rm -r'
 " ************** Key Mappings *******************************************  
 let mapleader = "\<Space>"
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
+" Remove that dumb search highlight
 nmap <silent> <leader>, :nohl<cr>
-map <silent> <C-n> :call ToggleVExplorer()<CR>
 
 "escaping
 inoremap jk <Esc>
@@ -184,8 +185,6 @@ nnoremap <silent> <Leader><Leader> :FZFMru<CR>
 nnoremap <silent> <Leader>C :Commits<CR>
 nnoremap <silent> <Leader>c :Colors<CR>
 nnoremap <silent> <leader>; :BLines<CR>
-nnoremap <Leader>t :BTags<CR>
-nnoremap <Leader>T :Tags<CR>
 nnoremap <Leader>H :History<CR>
 nnoremap <Leader>s :GGrep<space> 
 nnoremap <Leader>S :GGrep<space><C-r><C-w><CR>
