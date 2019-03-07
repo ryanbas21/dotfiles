@@ -86,6 +86,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-eunuch'
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
 
@@ -123,8 +124,20 @@ call plug#end()
 let g:jsx_ext_required = 0
 " ******************************************************
 " ************************ALE Setup******************************
- let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'haskell': ['brittany'], 'vue': ['prettier'] }
- let g:ale_linters = { 'javascript': ['eslint', 'prettier'], 'typescript' : ['tsserver', 'tslint', 'prettier'], 'haskell': ['stack-ghc-mod', 'hlint']}
+nmap <leader>[ :ALENext<cr>
+nmap <leader>] :ALEPrevious<cr>
+
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
+
+let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'vue': ['prettier'] }
+let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
+let g:ale_linters = { 
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint'], 
+      \ 'typescript' : ['tsserver'], 'haskell': ['stack-ghc-mod', 'hlint']}
+
+let g:ale_fix_on_save = 1
 " ************************************************************
 
 "*****************************************************************************
@@ -140,10 +153,8 @@ cnoreabbrev wQ wq
 cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
-cnoreabbrev Wall wall 
 cnoreabbrev Qall qall
 
-"
 noremap YY "+y<CR>
 
 if has('macunix')
@@ -160,38 +171,11 @@ endif
 let g:netrw_liststyle = 3
 let g:netrw_localrmdir='rm -r'
 
-" Function for toggle netrw
-function! ToggleVExplorer()
-    if exists("t:expl_buf_num")
-        let expl_win_num = bufwinnr(t:expl_buf_num)
-        let cur_win_num = winnr()
-
-        if expl_win_num != -1
-            while expl_win_num != cur_win_num
-                exec "wincmd w"
-                let cur_win_num = winnr()
-            endwhile
-
-            close
-        endif
-
-        unlet t:expl_buf_num
-    else
-         20Vexplore
-         let t:expl_buf_num = bufnr("%")
-    endif
-endfunction
-
-let g:netrw_altv=1
-
 " ************** Key Mappings *******************************************  
 let mapleader = "\<Space>"
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 nmap <silent> <leader>, :nohl<cr>
 map <silent> <C-n> :call ToggleVExplorer()<CR>
-" Mappings for easier pasting through registers
-xnoremap ,p "0p
-nnoremap ,p "0p
 
 "escaping
 inoremap jk <Esc>
@@ -212,7 +196,6 @@ nnoremap <silent> <Leader><Leader> :FZFMru<CR>
 nnoremap <silent> <Leader>C :Commits<CR>
 nnoremap <silent> <Leader>c :Colors<CR>
 nnoremap <silent> <leader>; :BLines<CR>
-nnoremap <silent> <Leader>b :Buffers <CR>
 nnoremap <Leader>t :BTags<CR>
 nnoremap <Leader>T :Tags<CR>
 nnoremap <Leader>H :History<CR>
@@ -245,13 +228,15 @@ inoremap <silent><expr> <TAB>
 " Use `[c` and `]c` for navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> <C-i> <Plug>(coc-implementation)
+
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>qf  <Plug>(coc-fix-current)
+
 " Use `:Format` for format current buffer
 command! -nargs=0 Format :call CocAction('format')
 
@@ -271,10 +256,6 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 " map Y to yank from cursor to end of line
 noremap <silent> Y y$
-
-" Test File
-nmap <silent> <C-t> :Dispatch<CR>
-
 "*************** LightLine ***********************
   let g:lightline = {
       \ 'colorscheme': 'monokai_tasty',
@@ -308,6 +289,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 map <Leader> <Plug>(easymotion-prefix)
 nmap <Leader>L <Plug>(easymotion-overwin-line)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
+
 " ************** FZF *****************************
 let g:fzf_nvim_statusline = 0
 
@@ -334,8 +316,6 @@ command! -bang -nargs=? -complete=dir Files
 
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
-
-" 
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 " [Tags] Command to generate tags file
