@@ -22,32 +22,22 @@ set termencoding=utf-8
 set exrc
 set secure
 set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
-
 " Make Searching Beter
 set gdefault
 set ignorecase
-
  " ctags optimization
 au FileType gitcommit,gitrebase,tags,md,yml,yaml,json,map, let g:gutentags_enabled=0
-
 set tags=tags;
-
 " Stop highlight after searching
 set hlsearch
-
 set cursorline    " highlight the current line
 set visualbell    " stop that ANNOYING beeping
-
 set autowrite     " Automatically :write before running commands
 set autoread      " Reload files changed outside vim
-
 " Trigger autoread when changing buffers or coming back to vim in terminal.
 au FocusGained,BufEnter * :silent! !
-
 set backspace=2   " Backspace deletes like most programs in insert mode
-
 set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
-
 set ruler         " show the cursor position all the time
 
 " Configure Cursor shape based on mode
@@ -87,6 +77,7 @@ Plug 'tpope/vim-surround'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
+
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
 
@@ -143,6 +134,7 @@ let g:ale_fix_on_save = 1
 "*****************************************************************************
 "" Abbreviations
 "*****************************************************************************
+
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -213,7 +205,6 @@ nmap <Leader>gaa :Git add .<CR>
 let g:fzf_mru_relative = 1
 
 " ************Coc******************
-
 " use <tab> for trigger completion and navigate next complete item
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -233,7 +224,6 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> <C-i> <Plug>(coc-implementation)
-
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>qf  <Plug>(coc-fix-current)
 
@@ -323,8 +313,6 @@ let g:fzf_tags_command = 'ctags . -R'
 
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
-" Default fzf layout " - down / up / left / right let g:fzf_layout = { 'up': '~10%' }
-
 " In Neovim, you can set up fzf window using a Vim command
 let g:fzf_layout = { 'window': 'enew' }
 let g:fzf_layout = { 'window': '-tabnew' }
@@ -349,15 +337,7 @@ let g:fzf_colors =
 set statusline+=%{gutentags#statusline()}
 let g:gutentags_generate_on_empty_buffer = 1
 
-augroup MyGutentagsStatusLineRefresher
-  autocmd!
-  autocmd User GutentagsUpdating call lightline#update()
-  autocmd User GutentagsUpdated call lightline#update()
-augroup END
-
 set bg=dark
-
 let g:vim_monokai_tasty_italic = 1
 colorscheme vim-monokai-tasty 
-
 syntax on
