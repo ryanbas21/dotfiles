@@ -1,13 +1,11 @@
 ### Ryan's Dotfilessssssssssss
+
 Here are my dotfiles - these tend to change regularly. I am always tweaking
 these, trying to perfect it to be better, and as I learn more, I hope I do that.
 
 Please use at your own risk.
-
-
 ![](https://raw.githubusercontent.com/ryanbas21/dotfiles/master/startup.png)
 ### Leader
-
 My leader key is Space.
 
 ### Vim - Git
@@ -36,21 +34,17 @@ gb = git blame
   <Leader> C = Commits
   <Leader> c = Commands
   <Leader> ; = Buffer lines
-  <Leader> T = Tags
-  <Leader> t = Buffer Tags
-  <Leader> H = history
   <Leader> s = grep file
   <Leader> S = grep cursor word
-  <Leader> b = buffers
  ```
+
 ### Ale
 I use Ale for linting, and fixing. I have it configured for Prettier in
 javascript/typescript. I also have it fix on  save.
 
 Haskell 
 
-Deoplete - it works well.
-CoC - use for web development
+Coc-nvim - use for web development
 
 ### Intero
  Again - all commands are prefixed with `<Leader>`
@@ -68,15 +62,4 @@ CoC - use for web development
   it : InteroTypeInsert
   jd : InteroGoToDef
  ```
-
-### Lightline
-  I've tried airline - I just found Lightline to be far faster. I don't need any
-  special stuff, I included vim-fugitive and it works on the powerline theme by
-  default
-
-### Plugins 
-Aside from the plugins listed here, I have `vim-plug` setup to run them only
-when triggered by the filetype. A JS plugin shouldn't run if you are writing
-haskell and vice versa. 
-
 
