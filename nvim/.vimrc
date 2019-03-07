@@ -1,5 +1,5 @@
-filetype plugin indent on
-set guifont=Fire\ Code\:h20
+
+set guifont=Fira\ Code\:h20
 set ttimeout
 set ttimeoutlen=0
 scriptencoding utf-8
@@ -65,7 +65,6 @@ endif
 
 set termguicolors
 call plug#begin('~/.vim/plugged')
-
 " Color / Themes
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'itchyny/lightline.vim'
@@ -88,23 +87,22 @@ Plug 'pbogut/fzf-mru.vim'
 Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] }
 
 " Syntax
-Plug 'neovimhaskell/haskell-vim'
+Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
 Plug 'sheerun/vim-polyglot'
-Plug 'moll/vim-node'
 Plug 'pangloss/vim-javascript', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'leafgarland/typescript-vim',  {'for': ['typescript', 'typescript.react']}
+
 " Completion
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}} 
-Plug 'reasonml-editor/vim-reason-plus'
 Plug 'w0rp/ale'
+
 " File Tree
 Plug 'scrooloose/nerdtree'
 " Other
-Plug 'tpope/vim-dispatch'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'junegunn/goyo.vim'  
@@ -114,10 +112,8 @@ call plug#end()
 "************************vim-jsx******************
 let g:jsx_ext_required = 0
 " ******************************************************
-" ************************ALE Setup******************************
-nmap <leader>[ :ALENext<cr>
-nmap <leader>] :ALEPrevious<cr>
 
+" ************************ALE Setup******************************
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
