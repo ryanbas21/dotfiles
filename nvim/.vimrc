@@ -73,6 +73,7 @@ Plug 'tpope/vim-fugitive'
 " Movement
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-projectionist'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
@@ -89,7 +90,6 @@ Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] }
 " Syntax
 Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
 Plug 'sheerun/vim-polyglot'
-Plug 'pangloss/vim-javascript', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'leafgarland/typescript-vim',  {'for': ['typescript', 'typescript.react']}
@@ -332,6 +332,92 @@ let g:fzf_colors =
 set statusline+=%{gutentags#statusline()}
 let g:gutentags_generate_on_empty_buffer = 1
 
+" ****************** Projectionist *************
+"
+let g:projectionist_heuristics = {
+      \   '*': {
+      \     '*.c': {
+      \       'alternate': '{}.h',
+      \       'type': 'source'
+      \     },
+      \     '*.h': {
+      \       'alternate': '{}.c',
+      \       'type': 'header'
+      \     },
+      \
+      \     '*.tsx': {
+      \       'alternate': [
+      \         '{dirname}/{basename}.test.tsx',
+      \         '{dirname}/__tests__/{basename}-test.tsx'
+      \       ],
+      \       'type': 'source'
+      \     },
+      \     '*.test.tsx': {
+      \       'alternate': '{basename}.tsx',
+      \       'type': 'test',
+      \     },
+      \     '*.ts': {
+      \       'alternate': [
+      \         '{dirname}/{basename}.test.ts',
+      \         '{dirname}/__tests__/{basename}-test.ts'
+      \       ],
+      \       'type': 'source'
+      \     },
+      \     '*.test.ts': {
+      \       'alternate': '{basename}.ts',
+      \       'type': 'test',
+      \     },
+      \     '**/__tests__/*-test.ts': {
+      \       'alternate': '{dirname}/{basename}.ts',
+      \       'type': 'test'
+      \     },
+      \
+      \     '*.js': {
+      \       'alternate': [
+      \         '{dirname}/{basename}.test.js',
+      \         '{dirname}/__tests__/{basename}-test.js',
+      \         '{dirname}/__tests__/{basename}-mocha.js'
+      \       ],
+      \       'type': 'source'
+      \     },
+      \     '*.test.js': {
+      \       'alternate': '{basename}.js',
+      \       'type': 'test',
+      \     },
+      \     '**/__tests__/*-mocha.js': {
+      \       'alternate': '{dirname}/{basename}.js',
+      \       'type': 'test'
+      \     },
+      \     '**/__tests__/*-test.js': {
+      \       'alternate': '{dirname}/{basename}.js',
+      \       'type': 'test'
+      \     },
+      \
+      \     'src/*.re': {
+      \       'alternate': [
+      \         '__tests__/{}_test.re',
+      \         'src/{}_test.re',
+      \         'src/{}.rei'
+      \       ],
+      \       'type': 'source'
+      \     },
+      \     'src/*.rei': {
+      \       'alternate': [
+      \         'src/{}.re',
+      \         '__tests__/{}_test.re',
+      \         'src/{}_test.re',
+      \       ],
+      \       'type': 'header'
+      \     },
+      \     '__tests__/*_test.re': {
+      \       'alternate': [
+      \         'src/{}.rei',
+      \         'src/{}.re',
+      \       ],
+      \       'type': 'test'
+      \     }
+      \   }
+      \ }
 set bg=dark
 let g:vim_monokai_tasty_italic = 1
 colorscheme vim-monokai-tasty 
