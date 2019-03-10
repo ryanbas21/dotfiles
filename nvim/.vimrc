@@ -65,49 +65,39 @@ endif
 
 set termguicolors
 call plug#begin('~/.vim/plugged')
-" Color / Themes
 Plug 'patstockwell/vim-monokai-tasty'
 Plug 'itchyny/lightline.vim'
-" GIT
 Plug 'tpope/vim-fugitive'
-" Movement
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-projectionist'
-Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
-
-" Tags
-Plug 'ludovicchabant/vim-gutentags'
-
-" Junegunn
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/vim-slash'
+Plug 'junegunn/goyo.vim'  
+Plug 'junegunn/limelight.vim'  
+Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/fzf.vim'
-Plug 'pbogut/fzf-mru.vim'
 Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] }
-
-" Syntax
-Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
+Plug 'easymotion/vim-easymotion'
 Plug 'sheerun/vim-polyglot'
+Plug 'pbogut/fzf-mru.vim'
+Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'leafgarland/typescript-vim',  {'for': ['typescript', 'typescript.react']}
-
-" Completion
 Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-commentary'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}} 
 Plug 'w0rp/ale'
-
-" File Tree
-Plug 'scrooloose/nerdtree'
-" Other
+Plug 'scrooloose/nerdtree' 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'yuttie/comfortable-motion.vim'
-Plug 'junegunn/goyo.vim'  
 call plug#end()
 
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
 
 "************************vim-jsx******************
 let g:jsx_ext_required = 0
@@ -117,7 +107,8 @@ let g:jsx_ext_required = 0
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
-
+let g:ale_sign_error = '•'
+let g:ale_sign_warning = '•'
 let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'vue': ['prettier'] }
 let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
 let g:ale_linters = { 
@@ -125,12 +116,9 @@ let g:ale_linters = {
       \ 'typescript' : ['tsserver'], 'haskell': ['stack-ghc-mod', 'hlint']}
 
 let g:ale_fix_on_save = 1
+hi link ALEErrorSign    Error
+hi link ALEWarningSign  Warning
 " ************************************************************
-
-"*****************************************************************************
-"" Abbreviations
-"*****************************************************************************
-
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -155,65 +143,35 @@ if has('unnamedplus')
   set clipboard=unnamed,unnamedplus
 endif
 
-" Tree style list
-let g:netrw_liststyle = 3
-let g:netrw_localrmdir='rm -r'
-
 " ************** Key Mappings *******************************************  
+" flip back to last buffer
+nmap ,, <C-^>
 let mapleader = "\<Space>"
+" create a new file
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
 " Remove that dumb search highlight
 nmap <silent> <leader>, :nohl<cr>
-
 "escaping
 inoremap jk <Esc>
-
-nmap <Leader>C :call fzf#run({
-\   'source':
-\     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
-\         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
-\   'sink':    'colo',
-\   'options': '+m',
-\   'left':    30
-\ })<CR>
 
 " FZF Mappings
 nnoremap <silent> <Leader>F :Files<CR>
 nnoremap <silent> <Leader>f :GFiles<CR>
 nnoremap <silent> <Leader><Leader> :FZFMru<CR>
-nnoremap <silent> <Leader>C :Commits<CR>
-nnoremap <silent> <Leader>c :Colors<CR>
 nnoremap <silent> <leader>; :BLines<CR>
-nnoremap <Leader>H :History<CR>
+nnoremap <silent> <Leader>C :Commits<CR>
 nnoremap <Leader>s :GGrep<space> 
 nnoremap <Leader>S :GGrep<space><C-r><C-w><CR>
 
 " git 
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gb :Gblame<CR>
-nmap <Leader>gca :Gcommit --amend<CR>
 nmap <Leader>gp :Gpush origin<space>
-nmap <Leader>gaa :Git add .<CR>
 
 " Use MRU
 let g:fzf_mru_relative = 1
 
 " ************Coc******************
-" use <tab> for trigger completion and navigate next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-" Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -222,11 +180,6 @@ nmap <silent> <C-i> <Plug>(coc-implementation)
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-" Use `:Format` for format current buffer
-command! -nargs=0 Format :call CocAction('format')
-
-" Use `:Fold` for fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
 
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -308,6 +261,7 @@ let g:fzf_tags_command = 'ctags . -R'
 
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
 " In Neovim, you can set up fzf window using a Vim command
 let g:fzf_layout = { 'window': 'enew' }
 let g:fzf_layout = { 'window': '-tabnew' }
@@ -329,8 +283,6 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 " ***********************************************
-set statusline+=%{gutentags#statusline()}
-let g:gutentags_generate_on_empty_buffer = 1
 
 " ****************** Projectionist *************
 "
@@ -418,6 +370,7 @@ let g:projectionist_heuristics = {
       \     }
       \   }
       \ }
+
 set bg=dark
 let g:vim_monokai_tasty_italic = 1
 colorscheme vim-monokai-tasty 
