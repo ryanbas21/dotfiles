@@ -1,4 +1,3 @@
-
 set guifont=Fira\ Code\:h20
 set ttimeout
 set ttimeoutlen=0
@@ -175,6 +174,9 @@ nmap <Leader>gp :Gpush origin<space>
 let g:fzf_mru_relative = 1
 
 " ************Coc******************
+inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
+let g:coc_snippet_next = '<TAB>'
+let g:coc_snippet_prev = '<S-TAB>'
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
 " Remap keys for gotos
