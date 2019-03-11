@@ -163,6 +163,9 @@ nnoremap <silent> <Leader>C :Commits<CR>
 nnoremap <Leader>s :GGrep<space> 
 nnoremap <Leader>S :GGrep<space><C-r><C-w><CR>
 
+let g:coc_status_error_sign = '•'
+let g:coc_status_warning_sign = '••'
+
 " git 
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gb :Gblame<CR>
@@ -172,6 +175,8 @@ nmap <Leader>gp :Gpush origin<space>
 let g:fzf_mru_relative = 1
 
 " ************Coc******************
+let g:coc_status_error_sign = '•'
+let g:coc_status_warning_sign = '••'
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
