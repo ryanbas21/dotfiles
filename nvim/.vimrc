@@ -88,7 +88,7 @@ Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'ja
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'leafgarland/typescript-vim',  {'for': ['typescript', 'typescript.react']}
 Plug 'jiangmiao/auto-pairs'
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}} 
+Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
 Plug 'w0rp/ale'
 Plug 'scrooloose/nerdtree' 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -103,6 +103,7 @@ let g:jsx_ext_required = 0
 " ******************************************************
 
 " ************************ALE Setup******************************
+let g:ale_list_window_size = 5
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
@@ -179,6 +180,18 @@ let g:coc_snippet_next = '<TAB>'
 let g:coc_snippet_prev = '<S-TAB>'
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
