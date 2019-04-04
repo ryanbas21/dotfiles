@@ -1,22 +1,18 @@
-POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
 export DEFAULT_USER=`whoami`
-export PATH=$PATH:/Users/RyanBasmajian/.local/bin:/Users/RyanBasmajian/.npm/purs
 export TERM="xterm-256color"
 export VISUAL=nvim
 export EDITOR='$VISUAL'
-export antigen=$HOME/antigen.zsh
 alias ohmyzsh="mate ~/.oh-my-zsh"
 export TERM="xterm-256color"
-
+export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:/usr/lib:/usr/local/lib"
 export ZSH=~/.oh-my-zsh
-
+export PATH=$PATH:~/.local/bin/
 [ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
 
-alias reload="source ~/dotfiles/zsh/.zshrc"
+alias reload="source ~/.zshrc"
 source $ZSH/oh-my-zsh.sh
 source ~/dotfiles/zsh/functions
 source ~/dotfiles/zsh/zsh.keybindings.sh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ## FZF
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
@@ -30,28 +26,24 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-
 alias vim="nvim"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
   # Set theme
-
 POWERLEVEL9K_MODE='powerlevel9k/powerlevel9k'
-POWERLEVEL9K_SHOW_CHANGESET=true
-POWERLEVEL9K_CHANGESET_HASH_LENGTH=6
-POWERLEVEL9K_VCS_CLEAN_FOREGROUND='076'
-POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='005'
-source $antigen
-  antigen use oh-my-zsh
-  antigen bundle pip
-  antigen bundle cabal
-  antigen bundle dotenv
-  antigen bundle lein
-  antigen bundle command-not-found
-  antigen bundle zsh-users/zsh-autosuggestions
-  antigen bundle zsh-users/zsh-syntax-highlighting 
-  antigen bundle fzf-zsh
-  antigen bundle wfxr/forgit
-  antigen theme bhilburn/powerlevel9k powerlevel9k
 
-antigen apply
+source ~/.zplug/init.zsh
+  zplug "zsh-users/zsh-history-substring-search"
+  zplug "plugins/git",   from:oh-my-zsh
+  zplug 'wfxr/forgit'
+  zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
+  # Install plugins if there are plugins that have not been installed
+  if ! zplug check --verbose; then
+      printf "Install? [y/N]: "
+      if read -q; then
+          echo; zplug install
+      fi
+  fi
+  zplug load 
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
