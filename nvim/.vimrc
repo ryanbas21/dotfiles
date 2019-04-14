@@ -74,7 +74,6 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/vim-slash'
 Plug 'junegunn/goyo.vim'  
 Plug 'junegunn/limelight.vim'  
 Plug 'junegunn/vim-peekaboo'
