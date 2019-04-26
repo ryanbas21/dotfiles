@@ -88,6 +88,7 @@ Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'leafgarland/typescript-vim',  {'for': ['typescript', 'typescript.react']}
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
+Plug 'neoclide/coc-neco'
 Plug 'w0rp/ale'
 Plug 'scrooloose/nerdtree' 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -179,17 +180,24 @@ let g:coc_snippet_next = '<TAB>'
 let g:coc_snippet_prev = '<S-TAB>'
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
-autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+
+
 augroup mygroup
   autocmd!
   " Setup formatexpr specified filetype(s).
   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  autocmd CursorHold * call CocActionAsync('doHover')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -197,6 +205,7 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> <C-i> <Plug>(coc-implementation)
 nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
 
 command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
