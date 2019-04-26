@@ -45,5 +45,8 @@ source ~/.zplug/init.zsh
       fi
   fi
   zplug load 
+  pw() {
+    lpass show -c --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
+  }
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
