@@ -88,6 +88,7 @@ Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'leafgarland/typescript-vim',  {'for': ['typescript', 'typescript.react']}
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
+Plug 'rhysd/git-messenger.vim'
 Plug 'neoclide/coc-neco'
 Plug 'w0rp/ale'
 Plug 'scrooloose/nerdtree' 
