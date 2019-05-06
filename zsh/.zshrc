@@ -1,5 +1,6 @@
 export DEFAULT_USER=`whoami`
 export TERM="xterm-256color"
+export GPG_TTY=$(tty)
 export VISUAL=nvim
 export EDITOR='$VISUAL'
 alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -45,6 +46,7 @@ source ~/.zplug/init.zsh
       fi
   fi
   zplug load 
+
   pw() {
     lpass show -c --password $(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')
   }
