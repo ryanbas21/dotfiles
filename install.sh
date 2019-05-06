@@ -51,6 +51,7 @@ brew install watchman
 brew install cask
 brew install mysql
 brew install openssl
+brew install tmux
 brew install postgresql
 
 brew tap phinze/cask
