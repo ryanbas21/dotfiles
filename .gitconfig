@@ -1,5 +1,5 @@
 [core]
-	excludesfile = /Users/RyanBas/.gitignore_global
+	excludesfile = /Users/batman/.gitignore_global
   editor = 'nvim'
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [difftool "sourcetree"]
@@ -11,8 +11,10 @@
 [user]
 	name = ryanbas21
 	email = ryanbas21@gmail.com
+	signingkey = B39F8686DBD6ACC5
 [commit]
-	template = /Users/RyanBas/.stCommitMsg
+	gpgsign = true
+	template = /Users/batman/.stCommitMsg
 [github]
 	user = ryanbas21
 [credential]
@@ -37,3 +39,21 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[diff]
+	tool = vimdiff3
+[difftool "vimdiff3"]
+	path = nvim
+[merge]
+  ff = only
+	tool = vimdiff3
+[mergetool "vimdiff3"]
+	path = nvim
+[gpg]
+	program = gpg
+[push]
+  followTags = true
+  default = simple
+[status]
+  showUntrackedFiles = all
+
+
