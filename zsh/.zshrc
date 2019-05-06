@@ -10,10 +10,13 @@ export ZSH=~/.oh-my-zsh
 export PATH=$PATH:~/.local/bin/
 [ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
 
+bindkey -v
+
 alias reload="source ~/.zshrc"
 source $ZSH/oh-my-zsh.sh
 source ~/dotfiles/zsh/functions
 source ~/dotfiles/zsh/zsh.keybindings.sh
+source ~/dotfiles/zsh/vi-mode.zsh
 
 ## FZF
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
