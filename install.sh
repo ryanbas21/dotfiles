@@ -1,5 +1,4 @@
-command_exists() {
-    type "$1" > /dev/null 2>&1
+command_exists() {    type "$1" > /dev/null 2>&1
 }
 
 # only perform macOS-specific install
@@ -30,19 +29,53 @@ echo "source ~/dotfiles/zsh/.zshrc" >> ~/.zshrc
 echo "source ~/dotfiles/nvim/.vimrc" >> ~/.vimrc
 mkdir .config/nvim
 cp ~/dotfiles/zsh/init.vim .config/nvim/
+cp ~/dotfiles/zsh/.profile ~/
 
 echo "Restarting terminal"
 echo "Brew installing....."
-echo "Brewing ripgrep"
-brew install neovim
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+brew install neovim --HEAD
 brew install ripgrep
 brew install fd
 brew install bat
 brew install python3
 brew install diff-so-fancy
 brew install powerlevel9k
+brew install gpg-agent pinentry-mac
+brew install htop
+brew install wget
+brew install watch
+brew install go
+brew install git
+brew install watchman
+brew install cask
+brew install mysql
+brew install openssl
+brew install postgresql
+
+brew tap phinze/cask
+brew install brew-cask
+brew cask install spectacle
+brew cask install google-chrome
+brew cask install cakebrew
+brew cask install --appdir="/Applications" alfred
+brew cask install --appdir="~/Applications" iterm2
+brew cask alfred link
+brew cask install caffeine
+brew cask install slack
+
+
+
+# cleanup
+brew cleanup --force
+rm -f -r /Library/Caches/Homebrew/*
+reload
+nvm install --lts
+
+echo 'use-agent' >> ~/.gnupg/gpg.conf
 
 echo "Installing vim plugins...."
 vim +'PlugInstall --sync' +qa
 echo "Installed vim plugins"
+
 echo "Done..."
