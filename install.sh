@@ -65,8 +65,6 @@ brew cask alfred link
 brew cask install caffeine
 brew cask install slack
 
-
-
 # cleanup
 brew cleanup --force
 rm -f -r /Library/Caches/Homebrew/*
