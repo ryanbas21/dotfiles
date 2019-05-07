@@ -3,6 +3,9 @@ if test -f ~/.gnupg/.gpg-agent-info -a -n "$(pgrep gpg-agent)"; then
   export GPG_AGENT_INFO
   GPG_TTY=$(tty)
   export GPG_TTY
-else
-  eval $(gpg-agent --daemon --write-env-file ~/.gnupg/.gpg-agent-info)
 fi
+export PATH="/usr/local/bin:${PATH}"
+export VISUAL=nvim
+export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:/usr/lib:/usr/local/lib"
+export PATH=$PATH:~/.local/bin/
+export EDITOR=nvim

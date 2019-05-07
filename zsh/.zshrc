@@ -1,13 +1,9 @@
 export DEFAULT_USER=`whoami`
 export TERM="xterm-256color"
-export GPG_TTY=$(tty)
-export VISUAL=nvim
-export EDITOR=nvim
 alias ohmyzsh="mate ~/.oh-my-zsh"
 export TERM="xterm-256color"
-export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:/usr/lib:/usr/local/lib"
 export ZSH=~/.oh-my-zsh
-export PATH=$PATH:~/.local/bin/
+
 [ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
 
 bindkey -v

@@ -1,9 +1,0 @@
-### BREW + FZF
-# mnemonic [B]rew [I]nstall [P]lugin
-
-local uninst=$(brew leaves | eval "fzf --header='[brew:uninstall]'") 
-if [[ $uninst ]]; then
-  for prog in $(echo $inst)
-  do brew uninstall $prog
-  done
-fi
