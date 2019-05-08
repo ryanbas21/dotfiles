@@ -116,9 +116,13 @@ let g:ale_linters = {
       \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint'], 
       \ 'typescript' : ['tsserver'], 'haskell': ['stack-ghc-mod', 'hlint']}
 
+nmap <silent> [c <Plug>(ale_previous_wrap)
+nmap <silent> ]c <Plug>(ale_next_wrap)
 let g:ale_fix_on_save = 1
 hi link ALEErrorSign    Error
 hi link ALEWarningSign  Warning
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
 " ************************************************************
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
