@@ -65,6 +65,7 @@ endif
 set termguicolors
 call plug#begin('~/.vim/plugged')
 Plug 'patstockwell/vim-monokai-tasty'
+Plug 'haishanh/night-owl.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -108,8 +109,6 @@ let g:ale_list_window_size = 5
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
-let g:ale_sign_error = '•'
-let g:ale_sign_warning = '•'
 let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'vue': ['prettier'] }
 let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
 let g:ale_linters = { 
@@ -412,5 +411,11 @@ let g:projectionist_heuristics = {
 
 set bg=dark
 let g:vim_monokai_tasty_italic = 1
-colorscheme vim-monokai-tasty 
+if (has("termguicolors"))
+ set termguicolors
+endif
+
+" For Neovim 0.1.3 and 0.1.4
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+colorscheme night-owl
 syntax on
