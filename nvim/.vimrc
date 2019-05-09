@@ -148,6 +148,13 @@ if has('unnamedplus')
 endif
 
 " ************** Key Mappings *******************************************  
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '13%'})
 " flip back to last buffer
 nmap ,, <C-^>
 let mapleader = "\<Space>"
@@ -166,6 +173,7 @@ nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <silent> <Leader>C :Commits<CR>
 nnoremap <Leader>s :GGrep<space> 
 nnoremap <Leader>S :GGrep<space><C-r><C-w><CR>
+nnoremap <Leader>, :Find 
 
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
@@ -269,6 +277,7 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 " ************** FZF *****************************
 let g:fzf_nvim_statusline = 0
 
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
@@ -282,7 +291,21 @@ command! -bang -nargs=* GGrep
   \   fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel')[0] }), <bang>0)
 
 
-set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+function! s:make_sentence(lines)
+      return substitute(join(a:lines), '^.', '\=toupper(submatch(0))', '').'.'
+    endfunction
+
+inoremap <expr> <c-x><c-s> fzf#vim#complete({
+  \ 'source':  'bat /usr/share/dict/words',
+  \ 'reducer': function('<sid>make_sentence'),
+  \ 'options': '--multi --reverse --margin 15%,0',
+  \ 'left':    20})
+
+inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
+      \ 'prefix': '^.*$',
+      \ 'source': 'rg -n ^ --color always',
+      \ 'options': '--ansi --delimiter : --nth 3..',
+      \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
