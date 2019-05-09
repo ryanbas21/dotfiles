@@ -278,22 +278,6 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 let g:fzf_nvim_statusline = 0
 
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-  \   <bang>0)
-
-command! -bang -nargs=* GGrep
-  \ call fzf#vim#grep(
-  \   'git grep --line-number '.shellescape(<q-args>), 0,
-  \   fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel')[0] }), <bang>0)
-
-
-function! s:make_sentence(lines)
-      return substitute(join(a:lines), '^.', '\=toupper(submatch(0))', '').'.'
-    endfunction
 
 inoremap <expr> <c-x><c-s> fzf#vim#complete({
   \ 'source':  'bat /usr/share/dict/words',
