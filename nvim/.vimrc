@@ -72,20 +72,10 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/goyo.vim'  
-Plug 'junegunn/limelight.vim'  
-Plug 'junegunn/vim-peekaboo'
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] }
 Plug 'easymotion/vim-easymotion'
 Plug 'sheerun/vim-polyglot'
-Plug 'pbogut/fzf-mru.vim'
-Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
-Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'leafgarland/typescript-vim',  {'for': ['typescript', 'typescript.react']}
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
@@ -98,10 +88,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'yuttie/comfortable-motion.vim'
 call plug#end()
-
-
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
 
 "************************vim-jsx******************
 let g:jsx_ext_required = 0
@@ -151,13 +137,6 @@ if has('unnamedplus')
 endif
 
 " ************** Key Mappings *******************************************  
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-
-" Advanced customization using autoload functions
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '13%'})
 " flip back to last buffer
 nmap ,, <C-^>
 let mapleader = "\<Space>"
@@ -168,16 +147,13 @@ nmap <silent> <leader>, :nohl<cr>
 "escaping
 inoremap jk <Esc>
 
-" FZF Mappings
-nnoremap <silent> <Leader>F :Files<CR>
-nnoremap <silent> <Leader>f :GFiles<CR>
-nnoremap <silent> <Leader><Leader> :FZFMru<CR>
-nnoremap <silent> <leader>; :BLines<CR>
-nnoremap <silent> <Leader>C :Commits<CR>
-nnoremap <Leader>s :GGrep<space> 
-nnoremap <Leader>S :GGrep<space><C-r><C-w><CR>
-nnoremap <Leader>, :Find 
-
+nnoremap <silent> <C-p> :CocList files<CR>
+nnoremap <silent> <Leader><Leader> :CocList mru<CR>
+nnoremap <silent> <leader>; :CocList --interactive words<CR>
+nnoremap <Leader>s :CocList --interactive grep<CR>
+nnoremap <Leader>q :CocList --interactive quickfix<CR>
+nnoremap <Leader>, :CocList buffers<CR>
+nnoremap <Leader>C :CocList<CR> 
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
 
@@ -185,9 +161,6 @@ let g:coc_status_warning_sign = '••'
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gp :Gpush origin<space>
-
-" Use MRU
-let g:fzf_mru_relative = 1
 
 " ************Coc******************
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
@@ -277,63 +250,8 @@ map <Leader> <Plug>(easymotion-prefix)
 nmap <Leader>L <Plug>(easymotion-overwin-line)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 
-" ************** FZF *****************************
-let g:fzf_nvim_statusline = 0
-
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-
-inoremap <expr> <c-x><c-s> fzf#vim#complete({
-  \ 'source':  'bat /usr/share/dict/words',
-  \ 'reducer': function('<sid>make_sentence'),
-  \ 'options': '--multi --reverse --margin 15%,0',
-  \ 'left':    20})
-
-inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
-      \ 'prefix': '^.*$',
-      \ 'source': 'rg -n ^ --color always',
-      \ 'options': '--ansi --delimiter : --nth 3..',
-      \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
-
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-
-" Likewise, Files command with preview window
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-" [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags . -R'
-
-" [Commands] --expect expression for directly executing the command
-let g:fzf_commands_expect = 'alt-enter,ctrl-x'
-
-" In Neovim, you can set up fzf window using a Vim command
-let g:fzf_layout = { 'window': 'enew' }
-let g:fzf_layout = { 'window': '-tabnew' }
-let g:fzf_layout = { 'window': '10split enew' }
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-" ***********************************************
-
 " ****************** Projectionist *************
-"
 let g:projectionist_heuristics = {
       \   '*': {
       \     '*.c': {
