@@ -87,7 +87,6 @@ Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'leafgarland/typescript-vim',  {'for': ['typescript', 'typescript.react']}
-Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -108,6 +107,7 @@ let g:jsx_ext_required = 0
 " ******************************************************
 
 " ************************ALE Setup******************************
+let g:ale_disable_lsp = 1
 let g:ale_list_window_size = 5
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
@@ -156,8 +156,19 @@ imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
+"Jest 
+" Run jest for current project
+command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
+
+" Run jest for current file
+command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
+
+" Run jest for current test
+nnoremap <leader>te :call CocAction('runCommand', 'jest.singleTest')<CR>
+nnoremap <c-t>c :call CocAction('runCommand', 'jest.fileTest', ['%'])<CR>
+
 " Advanced customization using autoload functions
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '13%'})
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'top': '13%'})
 " flip back to last buffer
 nmap ,, <C-^>
 let mapleader = "\<Space>"
@@ -176,7 +187,6 @@ nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <silent> <Leader>C :Commits<CR>
 nnoremap <Leader>s :GGrep<space> 
 nnoremap <Leader>S :GGrep<space><C-r><C-w><CR>
-nnoremap <Leader>, :Find 
 
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
@@ -191,6 +201,7 @@ let g:fzf_mru_relative = 1
 
 " ************Coc******************
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 let g:coc_snippet_next = '<TAB>'
 let g:coc_snippet_prev = '<S-TAB>'
 let g:coc_status_error_sign = '•'
@@ -333,7 +344,6 @@ let g:fzf_colors =
 " ***********************************************
 
 " ****************** Projectionist *************
-"
 let g:projectionist_heuristics = {
       \   '*': {
       \     '*.c': {
@@ -424,6 +434,8 @@ let g:vim_monokai_tasty_italic = 1
 if (has("termguicolors"))
  set termguicolors
 endif
+
+let g:UltiSnipsExpandTrigger="<tab>"
 
 " For Neovim 0.1.3 and 0.1.4
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
