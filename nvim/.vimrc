@@ -89,6 +89,8 @@ Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'leafgarland/typescript-vim',  {'for': ['typescript', 'typescript.react']}
 Plug 'jiangmiao/auto-pairs'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'rhysd/git-messenger.vim'
 Plug 'neoclide/coc-neco'
 Plug 'w0rp/ale'
@@ -96,6 +98,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'yuttie/comfortable-motion.vim'
 call plug#end()
+
 
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
