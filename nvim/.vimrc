@@ -64,38 +64,35 @@ endif
 
 set termguicolors
 call plug#begin('~/.vim/plugged')
-Plug 'patstockwell/vim-monokai-tasty'
-Plug 'haishanh/night-owl.vim'
-Plug 'itchyny/lightline.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-projectionist'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-eunuch'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/goyo.vim'  
-Plug 'junegunn/limelight.vim'  
-Plug 'junegunn/vim-peekaboo'
+Plug 'haishanh/night-owl.vim' " color scheme
+Plug 'itchyny/lightline.vim'  " status line
+Plug 'tpope/vim-fugitive' " Git 
+Plug 'tpope/vim-repeat' " Make dot command better
+Plug 'tpope/vim-surround' " quotes/blocks/tags and more manipulation
+Plug 'tpope/vim-commentary' " comment out stuff
+Plug 'tpope/vim-projectionist' " switch between test files or create them
+Plug 'tpope/vim-unimpaired' 
+Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " FZF Terminal installation
+Plug 'junegunn/goyo.vim'   " Distraction free writing 
+Plug 'junegunn/limelight.vim'  " highlight the focus area
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] }
+Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] } " markdown previewer
 Plug 'easymotion/vim-easymotion'
 Plug 'sheerun/vim-polyglot'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
-Plug 'leafgarland/typescript-vim',  {'for': ['typescript', 'typescript.react']}
 Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'rhysd/git-messenger.vim'
 Plug 'neoclide/coc-neco'
-Plug 'w0rp/ale'
-Plug 'scrooloose/nerdtree' 
+Plug 'w0rp/ale' " Linting
+Plug 'scrooloose/nerdtree' " file tree
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'yuttie/comfortable-motion.vim'
+Plug 'yuttie/comfortable-motion.vim' " better scrolling
 call plug#end()
 
 
@@ -155,6 +152,8 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+nnoremap <leader>c :CocList -N --top --ignore-case<CR>
+nnoremap <leader>y :CocList -N --top --ignore-case yank<CR>
 
 "Jest 
 " Run jest for current project
@@ -165,6 +164,7 @@ command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['
 
 " Run jest for current test
 nnoremap <leader>te :call CocAction('runCommand', 'jest.singleTest')<CR>
+
 nnoremap <c-t>c :call CocAction('runCommand', 'jest.fileTest', ['%'])<CR>
 
 " Advanced customization using autoload functions
@@ -184,7 +184,6 @@ nnoremap <silent> <Leader>F :Files<CR>
 nnoremap <silent> <Leader>f :GFiles<CR>
 nnoremap <silent> <Leader><Leader> :FZFMru<CR>
 nnoremap <silent> <leader>; :BLines<CR>
-nnoremap <silent> <Leader>C :Commits<CR>
 nnoremap <Leader>s :GGrep<space> 
 nnoremap <Leader>S :GGrep<space><C-r><C-w><CR>
 
@@ -259,7 +258,7 @@ noremap <silent> Y y$
       \ 'colorscheme': 'monokai_tasty',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head',
@@ -436,7 +435,7 @@ if (has("termguicolors"))
 endif
 
 let g:UltiSnipsExpandTrigger="<tab>"
-
+tnoremap <Esc> <C-\><C-n>
 " For Neovim 0.1.3 and 0.1.4
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 colorscheme night-owl
