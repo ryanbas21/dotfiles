@@ -1,4 +1,6 @@
-command_exists() {    type "$1" > /dev/null 2>&1
+#! zsh
+command_exists() {    
+  type "$1" > /dev/null 2>&1
 }
 
 # only perform macOS-specific install
@@ -17,7 +19,7 @@ cp ./nvim/init.vim ~/.config/nvim/
 if ! command_exists zsh; then
     echo "zsh not found. Please install and then re-run installation scripts"
     sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    chsh -s "$(which zsh)"
+    chsh -s "$(command -v zsh)"
     exit 1
 elif ! [[ $SHELL =~ .*zsh.* ]]; then
     echo "Configuring zsh as default shell"
@@ -27,7 +29,7 @@ echo "Moving .zshrc and .vimrc"
 echo "source ~/dotfiles/zsh/.zshrc" >> ~/.zshrc
 echo "source ~/dotfiles/nvim/.vimrc" >> ~/.vimrc
 mkdir .config/nvim
-cp ~/dotfiles/zsh/init.vim .config/nvim/
+cp ~/dotfiles/zsh/init.vim ~/.config/nvim/
 cp ~/dotfiles/zsh/.profile ~/
 
 echo "Restarting terminal"
@@ -37,6 +39,7 @@ brew install neovim --HEAD
 brew install ripgrep
 brew install fd
 brew install bat
+brew install python2
 brew install python3
 brew install diff-so-fancy
 brew install powerlevel9k
@@ -55,20 +58,19 @@ brew install postgresql
 
 brew tap phinze/cask
 brew install brew-cask
-brew cask install spectacle
-brew cask install google-chrome
+brew cask install --appdir="/Applications" spectacle
 brew cask install cakebrew
+brew cask install --appdir="/Applications" google-chrome
 brew cask install --appdir="/Applications" alfred
 brew cask install --appdir="~/Applications" iterm2
 brew cask alfred link
-brew cask install caffeine
-brew cask install slack
+brew cask install --appdir="/Applications" caffeine
+brew cask install --appdir="/Applications" slack
 
 # cleanup
 brew cleanup --force
 rm -f -r /Library/Caches/Homebrew/*
 reload
-nvm install --lts
 
 echo 'use-agent' >> ~/.gnupg/gpg.conf
 
