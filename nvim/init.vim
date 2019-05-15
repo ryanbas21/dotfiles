@@ -251,7 +251,7 @@ nmap <silent> <c-l> :wincmd l<CR>
 noremap <silent> Y y$
 "*************** LightLine ***********************
   let g:lightline = {
-      \ 'colorscheme': 'monokai_tasty',
+      \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
