@@ -26,9 +26,12 @@ set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 set exrc
 set secure
+set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
+" Make Searching Beter
 set gdefault
 set ignorecase
  " ctags optimization
+au FileType gitcommit,gitrebase,tags,md,yml,yaml,json,map, let g:gutentags_enabled=0
 set tags=tags;
 " Stop highlight after searching
 set hlsearch
@@ -50,10 +53,12 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
   " When editing a file, always jump to the last known cursor position.
   " Don't do it for commit messages, when the position is invalid, or when
   " inside an event handler (happens when dropping a file on gvim).
-autocmd BufReadPost *
-  \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
-  \   exe "normal g`\"" |
-  \ endif
+  autocmd BufReadPost *
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+
 " Set syntax highlighting for specific file types
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 
@@ -66,34 +71,36 @@ endif
 set termguicolors
 call plug#begin('~/.vim/plugged')
 Plug 'haishanh/night-owl.vim' " color scheme
-Plug 'tpope/vim-fugitive' " Git plugin
+Plug 'itchyny/lightline.vim'  " status line
+Plug 'tpope/vim-fugitive' " Git 
 Plug 'tpope/vim-repeat' " Make dot command better
 Plug 'tpope/vim-surround' " quotes/blocks/tags and more manipulation
 Plug 'tpope/vim-commentary' " comment out stuff
 Plug 'tpope/vim-projectionist' " switch between test files or create them
-Plug 'tpope/vim-unimpaired' "  mappings for moving things around easier
+Plug 'tpope/vim-unimpaired' 
 Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " FZF Terminal installation
-Plug 'junegunn/goyo.vim', { 'on': 'GoyoEnter' }   " Distraction free writing 
-Plug 'junegunn/limelight.vim', { 'on': 'GoyoEnter' }  " highlight the focus area
-Plug 'junegunn/fzf.vim' " Fuzzy
+Plug 'junegunn/goyo.vim'   " Distraction free writing 
+Plug 'junegunn/limelight.vim'  " highlight the focus area
+Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] } " markdown previewer
-Plug 'sheerun/vim-polyglot' " huge syntax library
-"""""""""""""
-" syntax stuff
+Plug 'easymotion/vim-easymotion'
+Plug 'sheerun/vim-polyglot'
+Plug 'pbogut/fzf-mru.vim'
 Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
-"""""""""""""
-Plug 'neoclide/coc.nvim', {'do': 'yarn install' } " LSP client + more
-Plug 'SirVer/ultisnips' " Snippet management
-Plug 'honza/vim-snippets' " A lot of default snippets
-Plug 'rhysd/git-messenger.vim' " enable git in neovim popup
-Plug 'neoclide/coc-neco', { 'for': ['vim'] } " Vim auto complete lib
-Plug 'w0rp/ale' " Linting
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " file tree
+Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'rhysd/git-messenger.vim'
+Plug 'neoclide/coc-neco'
+" Plug 'w0rp/ale' " Linting
+Plug 'scrooloose/nerdtree' " file tree
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'yuttie/comfortable-motion.vim' " better scrolling
 call plug#end()
+
 
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
@@ -102,26 +109,26 @@ autocmd! User GoyoLeave Limelight!
 let g:jsx_ext_required = 0
 " ******************************************************
 
-" ************************ALE Setup******************************
-let g:ale_disable_lsp = 1
-let g:ale_list_window_size = 5
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
-let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'vue': ['prettier'] }
-let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
-let g:ale_linters = { 
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint'], 
-      \ 'typescript' : ['tsserver'], 'haskell': ['stack-ghc-mod', 'hlint']}
+" " ************************ALE Setup******************************
+" let g:ale_disable_lsp = 1
+" let g:ale_list_window_size = 5
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 1
+" let g:ale_open_list = 1
+" let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'vue': ['prettier'] }
+" let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
+" let g:ale_linters = { 
+"       \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint'], 
+"       \ 'typescript' : ['tsserver'], 'haskell': ['stack-ghc-mod', 'hlint']}
 
-nmap <silent> [c <Plug>(ale_previous_wrap)
-nmap <silent> ]c <Plug>(ale_next_wrap)
-let g:ale_fix_on_save = 1
-hi link ALEErrorSign    Error
-hi link ALEWarningSign  Warning
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
-" ************************************************************
+" nmap <silent> [c <Plug>(ale_previous_wrap)
+" nmap <silent> ]c <Plug>(ale_next_wrap)
+" let g:ale_fix_on_save = 1
+" hi link ALEErrorSign    Error
+" hi link ALEWarningSign  Warning
+" let g:ale_sign_error = '❌'
+" let g:ale_sign_warning = '⚠️'
+" " ************************************************************
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -181,10 +188,10 @@ inoremap jk <Esc>
 " FZF Mappings
 nnoremap <silent> <Leader>F :Files<CR>
 nnoremap <silent> <Leader>f :GFiles<CR>
-nnoremap <silent> <Leader><Leader> :History<CR>
+nnoremap <silent> <Leader><Leader> :FZFMru<CR>
 nnoremap <silent> <leader>; :BLines<CR>
-nnoremap <silent> <leader>: :Lines<CR>
 nnoremap <Leader>s :GGrep<space> 
+nnoremap <Leader>S :GGrep<space><C-r><C-w><CR>
 
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
@@ -193,6 +200,9 @@ let g:coc_status_warning_sign = '••'
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gp :Gpush origin<space>
+
+" Use MRU
+let g:fzf_mru_relative = 1
 
 " ************Coc******************
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
@@ -251,7 +261,7 @@ nmap <silent> <c-l> :wincmd l<CR>
 noremap <silent> Y y$
 "*************** LightLine ***********************
   let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'monokai_tasty',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -277,6 +287,11 @@ autocmd FileType markdown setlocal spell
 "NerdTree
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Easy Motion "
+map <Leader> <Plug>(easymotion-prefix)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " ************** FZF *****************************
 let g:fzf_nvim_statusline = 0
@@ -419,6 +434,7 @@ let g:projectionist_heuristics = {
       \   }
       \ }
 
+set bg=dark
 let g:vim_monokai_tasty_italic = 1
 if (has("termguicolors"))
  set termguicolors
