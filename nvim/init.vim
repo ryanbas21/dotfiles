@@ -80,13 +80,12 @@ Plug 'tpope/vim-projectionist' " switch between test files or create them
 Plug 'tpope/vim-unimpaired' 
 Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " FZF Terminal installation
+Plug 'junegunn/fzf.vim' " FZF Installation
+Plug 'pbogut/fzf-mru.vim'
 Plug 'junegunn/goyo.vim'   " Distraction free writing 
 Plug 'junegunn/limelight.vim'  " highlight the focus area
-Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] } " markdown previewer
-Plug 'easymotion/vim-easymotion'
 Plug 'sheerun/vim-polyglot'
-Plug 'pbogut/fzf-mru.vim'
 Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
 Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
@@ -97,7 +96,6 @@ Plug 'rhysd/git-messenger.vim'
 Plug 'neoclide/coc-neco'
 " Plug 'w0rp/ale' " Linting
 Plug 'scrooloose/nerdtree' " file tree
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'yuttie/comfortable-motion.vim' " better scrolling
 call plug#end()
 
@@ -287,11 +285,6 @@ autocmd FileType markdown setlocal spell
 "NerdTree
 map <C-n> :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" Easy Motion "
-map <Leader> <Plug>(easymotion-prefix)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " ************** FZF *****************************
 let g:fzf_nvim_statusline = 0
