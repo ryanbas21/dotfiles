@@ -89,7 +89,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'rhysd/git-messenger.vim'
 Plug 'neoclide/coc-neco'
-Plug 'w0rp/ale' " Linting
+" Plug 'w0rp/ale' " Linting
 Plug 'scrooloose/nerdtree' " file tree
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 Plug 'yuttie/comfortable-motion.vim' " better scrolling
@@ -103,26 +103,26 @@ autocmd! User GoyoLeave Limelight!
 let g:jsx_ext_required = 0
 " ******************************************************
 
-" ************************ALE Setup******************************
-let g:ale_disable_lsp = 1
-let g:ale_list_window_size = 5
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
-let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'vue': ['prettier'] }
-let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
-let g:ale_linters = { 
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint'], 
-      \ 'typescript' : ['tsserver'], 'haskell': ['stack-ghc-mod', 'hlint']}
+" " ************************ALE Setup******************************
+" let g:ale_disable_lsp = 1
+" let g:ale_list_window_size = 5
+" let g:ale_set_loclist = 0
+" let g:ale_set_quickfix = 1
+" let g:ale_open_list = 1
+" let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'vue': ['prettier'] }
+" let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
+" let g:ale_linters = { 
+"       \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint'], 
+"       \ 'typescript' : ['tsserver'], 'haskell': ['stack-ghc-mod', 'hlint']}
 
-nmap <silent> [c <Plug>(ale_previous_wrap)
-nmap <silent> ]c <Plug>(ale_next_wrap)
-let g:ale_fix_on_save = 1
-hi link ALEErrorSign    Error
-hi link ALEWarningSign  Warning
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
-" ************************************************************
+" nmap <silent> [c <Plug>(ale_previous_wrap)
+" nmap <silent> ]c <Plug>(ale_next_wrap)
+" let g:ale_fix_on_save = 1
+" hi link ALEErrorSign    Error
+" hi link ALEWarningSign  Warning
+" let g:ale_sign_error = '❌'
+" let g:ale_sign_warning = '⚠️'
+" " ************************************************************
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
