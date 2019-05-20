@@ -72,6 +72,7 @@ set termguicolors
 call plug#begin('~/.vim/plugged')
 Plug 'haishanh/night-owl.vim' " color scheme
 Plug 'itchyny/lightline.vim'  " status line
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-fugitive' " Git 
 Plug 'tpope/vim-repeat' " Make dot command better
 Plug 'tpope/vim-surround' " quotes/blocks/tags and more manipulation
@@ -198,6 +199,8 @@ let g:coc_status_warning_sign = '••'
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gp :Gpush origin<space>
+nmap <Leader>gb :Gbrowse<CR>
+nmap <Leader>glb :.Gbrowse<CR>
 
 " Use MRU
 let g:fzf_mru_relative = 1
