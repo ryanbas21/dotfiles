@@ -76,6 +76,9 @@ reload
 
 echo 'use-agent' >> ~/.gnupg/gpg.conf
 
+# Install TPM
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 echo "Installing vim plugins...."
 vim +'PlugInstall --sync' +qa
 nvim +'CocInstall coc-tsserver coc-json coc-css coc-html coc-jest coc-emmet coc-tslint-plugin coc-eslint coc-prettier coc-yaml coc-yank coc-git coc-python coc-snippets coc-lists coc-dictionary coc-omni coc-ultisnips coc-syntax' +qa
