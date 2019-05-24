@@ -81,7 +81,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo "Installing vim plugins...."
 vim +'PlugInstall --sync' +qa
-nvim +'CocInstall coc-tsserver coc-json coc-css coc-html coc-jest coc-emmet coc-tslint-plugin coc-eslint coc-prettier coc-yaml coc-yank coc-git coc-python coc-snippets coc-lists coc-dictionary coc-omni coc-ultisnips coc-syntax' +qa
+nvim +'CocInstall coc-pairs coc-rls coc-solargraph coc-highlight coc-java coc-tsserver coc-json coc-css coc-html coc-jest coc-emmet coc-tslint-plugin coc-eslint coc-prettier coc-yaml coc-yank coc-git coc-python coc-snippets coc-lists coc-dictionary coc-omni coc-ultisnips coc-syntax' +qa
 nvim +'CocInstall https://github.com/andys8/vscode-jest-snippets#master' +qa
 nvim +'CocInstall https://github.com/xabikos/vscode-react#master' +qa
 echo "Installed vim plugins"

@@ -73,6 +73,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'haishanh/night-owl.vim' " color scheme
 Plug 'itchyny/lightline.vim'  " status line
 Plug 'tpope/vim-rhubarb'
+Plug 'chemzqm/vim-jsx-improve'
 Plug 'tpope/vim-fugitive' " Git 
 Plug 'tpope/vim-repeat' " Make dot command better
 Plug 'tpope/vim-surround' " quotes/blocks/tags and more manipulation
@@ -88,7 +89,7 @@ Plug 'junegunn/limelight.vim'  " highlight the focus area
 Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] } " markdown previewer
 Plug 'sheerun/vim-polyglot'
 Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
-Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
+" Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
 Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
 Plug 'SirVer/ultisnips'
