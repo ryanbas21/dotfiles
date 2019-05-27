@@ -59,7 +59,6 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
     \ endif
 
 
-" Set syntax highlighting for specific file types
 autocmd BufRead,BufNewFile *.md set filetype=markdown
 
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -67,7 +66,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-
 set termguicolors
 call plug#begin('~/.vim/plugged')
 Plug 'haishanh/night-owl.vim' " color scheme
@@ -96,7 +94,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'rhysd/git-messenger.vim'
 Plug 'neoclide/coc-neco'
-" Plug 'w0rp/ale' " Linting
+Plug 'w0rp/ale' " Linting
 Plug 'scrooloose/nerdtree' " file tree
 Plug 'yuttie/comfortable-motion.vim' " better scrolling
 call plug#end()
@@ -110,22 +108,18 @@ let g:jsx_ext_required = 0
 " ******************************************************
 
 " " ************************ALE Setup******************************
-" let g:ale_disable_lsp = 1
-" let g:ale_list_window_size = 5
-" let g:ale_set_loclist = 0
-" let g:ale_set_quickfix = 1
-" let g:ale_open_list = 1
-" let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'vue': ['prettier'] }
-" let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
-" let g:ale_linters = { 
-"       \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint'], 
-"       \ 'typescript' : ['tsserver'], 'haskell': ['stack-ghc-mod', 'hlint']}
+let g:ale_disable_lsp = 1
+let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'vue': ['prettier'] }
+let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
+let g:ale_linters = { 
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint'], 
+      \ 'typescript' : ['tsserver'], 'haskell': ['stack-ghc-mod', 'hlint']}
 
 " nmap <silent> [c <Plug>(ale_previous_wrap)
 " nmap <silent> ]c <Plug>(ale_next_wrap)
-" let g:ale_fix_on_save = 1
-" hi link ALEErrorSign    Error
-" hi link ALEWarningSign  Warning
+let g:ale_fix_on_save = 1
+hi link ALEErrorSign    Error
+hi link ALEWarningSign  Warning
 " let g:ale_sign_error = '❌'
 " let g:ale_sign_warning = '⚠️'
 " " ************************************************************
@@ -442,4 +436,3 @@ tnoremap <Esc> <C-\><C-n>
 " For Neovim 0.1.3 and 0.1.4
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 colorscheme night-owl
-syntax on

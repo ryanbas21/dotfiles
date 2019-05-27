@@ -15,8 +15,8 @@ echo "Installing Vim Plug."
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-echo "move init vim to .config/nvim"
-cp ./nvim/init.vim ~/.config/nvim/ 
+cp -r ./.tmux  ~/
+cp ./.tmux.conf ~/
 
 if ! command_exists zsh; then
     echo "zsh not found. Please install and then re-run installation scripts"
@@ -30,6 +30,9 @@ fi
 echo "Moving .zshrc and .vimrc"
 echo "source ~/dotfiles/zsh/.zshrc" >> ~/.zshrc
 echo "source ~/dotfiles/nvim/.vimrc" >> ~/.vimrc
+
+echo "move init vim to .config/nvim"
+cp ./nvim/init.vim ~/.config/nvim/ 
 mkdir .config/nvim
 cp ~/dotfiles/zsh/init.vim ~/.config/nvim/
 cp ~/dotfiles/zsh/.profile ~/
@@ -86,4 +89,5 @@ nvim +'CocInstall https://github.com/andys8/vscode-jest-snippets#master' +qa
 nvim +'CocInstall https://github.com/xabikos/vscode-react#master' +qa
 
 echo "Installed vim plugins"
+sh ./git/install.sh
 echo "Done..."
