@@ -201,6 +201,8 @@ nmap <Leader>glb :.Gbrowse<CR>
 let g:fzf_mru_relative = 1
 
 " ************Coc******************
+let g:coc_global_extensions = ["coc-pairs", "coc-rls", "coc-solargraph", "coc-highlight", "coc-java", "coc-tsserver", "coc-json", "coc-css", "coc-html", "coc-jest", "coc-emmet", "coc-tslint-plugin", "coc-eslint", "coc-prettier", "coc-yaml", "coc-yank", "coc-git", "coc-python", "coc-snippets", "coc-lists", "coc-dictionary", "coc-omni", "coc-ultisnips", "coc-syntax", "coc-github"], 
+
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 let g:coc_snippet_next = '<TAB>'
