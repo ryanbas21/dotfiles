@@ -82,6 +82,7 @@ Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " FZF Terminal installation
 Plug 'junegunn/fzf.vim' " FZF Installation
 Plug 'pbogut/fzf-mru.vim'
+Plug 'fszymanski/fzf-quickfix'
 Plug 'junegunn/goyo.vim'   " Distraction free writing 
 Plug 'junegunn/limelight.vim'  " highlight the focus area
 Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] } " markdown previewer
@@ -121,6 +122,7 @@ hi link ALEErrorSign    Error
 hi link ALEWarningSign  Warning
 let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
+let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
 " " ************************************************************
 "" no one is really happy until you have this shortcuts
@@ -432,6 +434,7 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
+nmap <Leader>q <Plug>(fzf-quickfix)
 let g:UltiSnipsExpandTrigger="<tab>"
 tnoremap <Esc> <C-\><C-n>
 " For Neovim 0.1.3 and 0.1.4
