@@ -8,6 +8,7 @@ set guifont=Fira\ Code\:h20
 set ttimeout
 set ttimeoutlen=0
 scriptencoding utf-8
+set splitright
 set encoding=utf-8
 set smartindent
 set showmatch
@@ -439,6 +440,7 @@ let g:UltiSnipsExpandTrigger="<tab>"
 tnoremap <Esc> <C-\><C-n>
 " For Neovim 0.1.3 and 0.1.4
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 colorscheme night-owl
 
 set bg=dark
