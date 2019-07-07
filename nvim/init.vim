@@ -109,19 +109,19 @@ let g:jsx_ext_required = 0
 
 " " ************************ALE Setup******************************
 let g:ale_disable_lsp = 1
-let g:ale_fixers = { 'css': ['prettier'], 'javascript': ['prettier'], 'typescript' : ['prettier'], 'vue': ['prettier'] }
 let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
 let g:ale_linters = { 
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint'], 
+      \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint', 'prettier'], 
       \ 'typescript' : ['tsserver'], 'haskell': ['stack-ghc-mod', 'hlint']}
 
-" nmap <silent> [c <Plug>(ale_previous_wrap)
-" nmap <silent> ]c <Plug>(ale_next_wrap)
+nmap <silent> [c <Plug>(ale_previous_wrap)
+nmap <silent> ]c <Plug>(ale_next_wrap)
 let g:ale_fix_on_save = 1
 hi link ALEErrorSign    Error
 hi link ALEWarningSign  Warning
-" let g:ale_sign_error = '❌'
-" let g:ale_sign_warning = '⚠️'
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
+let g:ale_open_list = 1
 " " ************************************************************
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
@@ -184,8 +184,8 @@ nnoremap <silent> <Leader>F :Files<CR>
 nnoremap <silent> <Leader>f :GFiles<CR>
 nnoremap <silent> <Leader><Leader> :FZFMru<CR>
 nnoremap <silent> <leader>; :BLines<CR>
-nnoremap <Leader>s :GGrep<space> 
-nnoremap <Leader>S :GGrep<space><C-r><C-w><CR>
+nnoremap <Leader>s :Rg<space> 
+nnoremap <Leader>S :Rg<space><C-r><C-w><CR>
 
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
@@ -201,7 +201,6 @@ nmap <Leader>glb :.Gbrowse<CR>
 let g:fzf_mru_relative = 1
 
 " ************Coc******************
-let g:coc_global_extensions = ["coc-pairs", "coc-rls", "coc-solargraph", "coc-highlight", "coc-java", "coc-tsserver", "coc-json", "coc-css", "coc-html", "coc-jest", "coc-emmet", "coc-tslint-plugin", "coc-eslint", "coc-prettier", "coc-yaml", "coc-yank", "coc-git", "coc-python", "coc-snippets", "coc-lists", "coc-dictionary", "coc-omni", "coc-ultisnips", "coc-syntax", "coc-github"], 
 
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
@@ -259,7 +258,7 @@ nmap <silent> <c-l> :wincmd l<CR>
 noremap <silent> Y y$
 "*************** LightLine ***********************
   let g:lightline = {
-      \ 'colorscheme': 'monokai_tasty',
+      \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -270,7 +269,9 @@ noremap <silent> Y y$
       \ },
       \ }
 "*************************************************
-
+"*************************************************
+let g:fugitive_github_domains = ['github.homeawaycorp.com']
+"*************************************************
 " **************** GIT ********************
 
 " Automatically wrap at 100 characters and spell check git commit messages
@@ -427,8 +428,6 @@ let g:projectionist_heuristics = {
       \   }
       \ }
 
-set bg=dark
-let g:vim_monokai_tasty_italic = 1
 if (has("termguicolors"))
  set termguicolors
 endif
@@ -438,3 +437,5 @@ tnoremap <Esc> <C-\><C-n>
 " For Neovim 0.1.3 and 0.1.4
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 colorscheme night-owl
+
+set bg=dark
