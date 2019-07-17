@@ -70,34 +70,34 @@ endif
 set termguicolors
 call plug#begin('~/.vim/plugged')
 Plug 'haishanh/night-owl.vim' " color scheme
-Plug 'itchyny/lightline.vim'  " status line
-Plug 'tpope/vim-rhubarb'
-Plug 'chemzqm/vim-jsx-improve'
+if has('nvim')
+  Plug 'itchyny/lightline.vim'  " status line
+  Plug 'chemzqm/vim-jsx-improve'
+  Plug 'neoclide/coc-neco'
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " FZF Terminal installation
+  Plug 'fszymanski/fzf-quickfix'
+  Plug 'junegunn/fzf.vim' " FZF Installation
+  Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
+  Plug 'scrooloose/nerdtree' " file tree
+  Plug 'w0rp/ale' " Linting
+  Plug 'pbogut/fzf-mru.vim'
+endif
 Plug 'tpope/vim-fugitive' " Git 
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-repeat' " Make dot command better
 Plug 'tpope/vim-surround' " quotes/blocks/tags and more manipulation
 Plug 'tpope/vim-commentary' " comment out stuff
 Plug 'tpope/vim-projectionist' " switch between test files or create them
 Plug 'tpope/vim-unimpaired' 
 Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " FZF Terminal installation
-Plug 'junegunn/fzf.vim' " FZF Installation
-Plug 'pbogut/fzf-mru.vim'
-Plug 'fszymanski/fzf-quickfix'
 Plug 'junegunn/goyo.vim'   " Distraction free writing 
 Plug 'junegunn/limelight.vim'  " highlight the focus area
 Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] } " markdown previewer
 Plug 'sheerun/vim-polyglot'
-Plug 'neovimhaskell/haskell-vim', { 'for': ['haskell'] }
-" Plug 'mxw/vim-jsx', {'for': ['javascript', 'typescript', 'typescript.react', 'javascript.react']}
 Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
-Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'rhysd/git-messenger.vim'
-Plug 'neoclide/coc-neco'
-Plug 'w0rp/ale' " Linting
-Plug 'scrooloose/nerdtree' " file tree
 Plug 'yuttie/comfortable-motion.vim' " better scrolling
 call plug#end()
 
@@ -105,17 +105,12 @@ call plug#end()
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
-"************************vim-jsx******************
-let g:jsx_ext_required = 0
-" ******************************************************
-
 " " ************************ALE Setup******************************
-let g:ale_disable_lsp = 1
 let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
 let g:ale_linters = { 
       \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint', 'prettier'], 
       \ 'typescript' : ['tsserver'], 'haskell': ['stack-ghc-mod', 'hlint']}
-
+let g:ale_fixers = { 'javascript': ['eslint'] }
 nmap <silent> [c <Plug>(ale_previous_wrap)
 nmap <silent> ]c <Plug>(ale_next_wrap)
 let g:ale_fix_on_save = 1
@@ -125,6 +120,7 @@ let g:ale_sign_error = '❌'
 let g:ale_sign_warning = '⚠️'
 let g:ale_set_quickfix = 1
 let g:ale_open_list = 1
+let g:ale_disable_lsp = 1
 " " ************************************************************
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
@@ -164,9 +160,6 @@ command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
 
 " Run jest for current file
 command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
-
-" Run jest for current test
-nnoremap <leader>te :call CocAction('runCommand', 'jest.singleTest')<CR>
 
 nnoremap <c-t>c :call CocAction('runCommand', 'jest.fileTest', ['%'])<CR>
 
@@ -248,7 +241,6 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
 
 inoremap <silent><expr> <c-space> coc#refresh()
-imap <silent> <C-x><C-o> <Plug>(coc-complete-custom)
 
 " ***************************************
 " Use ctrl-[hjkl] to select the active split!
@@ -435,7 +427,6 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
-nmap <Leader>q <Plug>(fzf-quickfix)
 let g:UltiSnipsExpandTrigger="<tab>"
 tnoremap <Esc> <C-\><C-n>
 " For Neovim 0.1.3 and 0.1.4

@@ -5,6 +5,7 @@ export TERM="xterm-256color"
 export ZSH=~/.oh-my-zsh
 export NODE_PROJECTS_PATH="/Users/rbasmajian/programming"
 
+export GPG_TTY=$(tty)
 [ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
 
 alias reload="source ~/.zshrc"
