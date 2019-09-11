@@ -252,6 +252,7 @@ nnoremap <c-t>c :call CocAction('runCommand', 'jest.fileTest', ['%'])<CR>
 
 " flip back to last buffer
 nmap ,, <C-^>
+
 let mapleader = "\<Space>"
 " create a new file
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
@@ -259,6 +260,7 @@ map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 " Remove that dumb search highlight
 nmap <silent> <leader>, :nohl<cr>
+
 "escaping
 inoremap jk <Esc>
 
@@ -270,6 +272,7 @@ nmap <Leader>gp :Gpush origin<space>
 
 " ************Coc******************
 
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 let g:coc_snippet_next = '<TAB>'
@@ -296,7 +299,6 @@ vnoremap <leader>g :<C-u>call <SID>GrepFromSelected(visualmode())<CR>
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
 " Use tab and shift tab to navigate completion
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -327,6 +329,8 @@ nmap <silent> <C-i> <Plug>(coc-implementation)
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>l :CocList<space>
+nmap <leader>d :CocList diagnostics<CR>
 
 command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
 
@@ -435,11 +439,15 @@ let g:projectionist_heuristics = {
       \     '*.js': {
       \       'alternate': [
       \         '{dirname}/{basename}.test.js',
-      \         '{dirname}/__tests__/{basename}-test.js',
+      \         '{dirname}/__tests__/{basename}.spec.js',
       \       ],
       \       'type': 'source'
       \     },
       \     '*.test.js': {
+      \       'alternate': '{basename}.js',
+      \       'type': 'test',
+      \     },
+      \     '*.spec.js': {
       \       'alternate': '{basename}.js',
       \       'type': 'test',
       \     },
