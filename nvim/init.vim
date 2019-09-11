@@ -68,17 +68,16 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+au BufRead,BufNewFile *.sbt set filetype=scala
 set termguicolors
 call plug#begin('~/.vim/plugged')
-Plug 'haishanh/night-owl.vim' " color scheme
 if has('nvim')
   Plug 'itchyny/lightline.vim'  " status line
+  Plug 'derekwyatt/vim-scala'
   Plug 'chemzqm/vim-jsx-improve'
   Plug 'neoclide/coc-neco'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " FZF Terminal installation
-  Plug 'fszymanski/fzf-quickfix'
-  Plug 'junegunn/fzf.vim' " FZF Installation
-  Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
+  Plug 'zxqfl/tabnine-vim'
   Plug 'scrooloose/nerdtree' " file tree
   Plug 'w0rp/ale' " Linting
   Plug 'junegunn/goyo.vim'   " Distraction free writing 
@@ -148,6 +147,7 @@ autocmd! User GoyoLeave Limelight!
   let g:ale_open_list = 1
   let g:ale_disable_lsp = 1
 " " ************************************************************
+
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -173,12 +173,6 @@ if has('unnamedplus')
 endif
 
 " ************** Key Mappings *******************************************  
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-nnoremap <leader>c :CocList -N --top --ignore-case<CR>
-nnoremap <leader>y :CocList -N --top --ignore-case yank<CR>
 
 "Jest 
 " Run jest for current project
@@ -189,8 +183,6 @@ command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['
 
 nnoremap <c-t>c :call CocAction('runCommand', 'jest.fileTest', ['%'])<CR>
 
-" Advanced customization using autoload functions
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'top': '13%'})
 " flip back to last buffer
 nmap ,, <C-^>
 let mapleader = "\<Space>"
@@ -203,26 +195,11 @@ nmap <silent> <leader>, :nohl<cr>
 "escaping
 inoremap jk <Esc>
 
-" FZF Mappings
-nnoremap <silent> <Leader>F :Files<CR>
-nnoremap <silent> <Leader>f :GFiles<CR>
-nnoremap <silent> <Leader><Leader> :FZFMru<CR>
-nnoremap <silent> <leader>; :BLines<CR>
-nnoremap <Leader>s :Rg<space> 
-nnoremap <Leader>S :Rg<space><C-r><C-w><CR>
-
-let g:coc_status_error_sign = '•'
-let g:coc_status_warning_sign = '••'
 
 " git 
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gp :Gpush origin<space>
-nmap <Leader>gb :Gbrowse<CR>
-nmap <Leader>glb :.Gbrowse<CR>
-
-" Use MRU
-let g:fzf_mru_relative = 1
 
 " ************Coc******************
 
@@ -232,7 +209,21 @@ let g:coc_snippet_next = '<TAB>'
 let g:coc_snippet_prev = '<S-TAB>'
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
+nmap <leader>d :CocList diagnostics<CR>
+nmap <leader>l :CocList
 
+nnoremap <silent> <Leader>F :CocList --top --ignore-case files<CR>
+nnoremap <silent> <Leader>f :CocList --top --ignore-case gfiles<CR>
+nnoremap <silent> <Leader><Leader> :CocList --top --ignore-case mru<CR>
+nnoremap <silent> <leader>; :CocList --top --ignore-case lines<CR>
+nnoremap <Leader>s :CocList --top --ignore-case grep<space> 
+nnoremap <Leader>S :CocList --top --ignore-case grep<space><C-r><C-w><CR>
+nnoremap <leader>c :CocList -N --top --ignore-case<CR>
+nnoremap <leader>y :CocList -N --top --ignore-case yank<CR>
+nmap <leader>m :CocList marks --top<CR>
+
+let g:coc_status_error_sign = '•'
+let g:coc_status_warning_sign = '••'
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Use tab and shift tab to navigate completion
@@ -294,9 +285,9 @@ noremap <silent> Y y$
       \ },
       \ }
 "*************************************************
-"*************************************************
+
 let g:fugitive_github_domains = ['github.homeawaycorp.com']
-"*************************************************
+
 " **************** GIT ********************
 
 " Automatically wrap at 100 characters and spell check git commit messages
@@ -412,7 +403,6 @@ let g:projectionist_heuristics = {
       \       'alternate': [
       \         '{dirname}/{basename}.test.js',
       \         '{dirname}/__tests__/{basename}-test.js',
-      \         '{dirname}/__tests__/{basename}-mocha.js'
       \       ],
       \       'type': 'source'
       \     },
