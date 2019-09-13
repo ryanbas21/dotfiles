@@ -77,7 +77,6 @@ if has('nvim')
   Plug 'chemzqm/vim-jsx-improve'
   Plug 'neoclide/coc-neco'
   Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
-  Plug 'zxqfl/tabnine-vim'
   Plug 'scrooloose/nerdtree' " file tree
   Plug 'w0rp/ale' " Linting
   Plug 'junegunn/goyo.vim'   " Distraction free writing 
@@ -122,7 +121,7 @@ Plug 'sheerun/vim-polyglot' " all the syntax highlighting
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'joshdick/onedark.vim'
-
+call plug#end()
 
 
 autocmd! User GoyoEnter Limelight
@@ -211,16 +210,18 @@ let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
 nmap <leader>d :CocList diagnostics<CR>
 nmap <leader>l :CocList
-
-nnoremap <silent> <Leader>F :CocList --top --ignore-case files<CR>
-nnoremap <silent> <Leader>f :CocList --top --ignore-case gfiles<CR>
-nnoremap <silent> <Leader><Leader> :CocList --top --ignore-case mru<CR>
-nnoremap <silent> <leader>; :CocList --top --ignore-case lines<CR>
-nnoremap <Leader>s :CocList --top --ignore-case grep<space> 
-nnoremap <Leader>S :CocList --top --ignore-case grep<space><C-r><C-w><CR>
-nnoremap <leader>c :CocList -N --top --ignore-case<CR>
-nnoremap <leader>y :CocList -N --top --ignore-case yank<CR>
-nmap <leader>m :CocList marks --top<CR>
+nnoremap <silent> <Leader>F :CocList  --ignore-case files<CR>
+nnoremap <silent> <Leader>f :CocList  --ignore-case gfiles<CR>
+nnoremap <silent> <Leader><Leader> :CocList  --ignore-case mru<CR>
+nnoremap <silent> <leader>; :CocList --interactive  --ignore-case lines<CR>
+nnoremap <Leader>s :CocList  --ignore-case grep<space> 
+nnoremap <Leader>S :CocList  --ignore-case grep<space><C-r><C-w><CR>
+nnoremap <leader>c :CocList -N  --ignore-case<CR>
+nnoremap <leader>y :CocList -N  --ignore-case yank<CR>
+nnoremap <leader>cmd :CocList -N  --ignore-case cmdhistory<CR>
+nnoremap <leader>c :CocList -N  --ignore-case commands<CR>
+nnoremap <leader>a :CocList -N  --ignore-case actions<CR>
+nnoremap <leader>m :CocList marks<CR>
 
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
@@ -305,60 +306,7 @@ map <C-n> :NERDTreeToggle<CR>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" ************** FZF *****************************
-let g:fzf_nvim_statusline = 0
-
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-
-inoremap <expr> <c-x><c-s> fzf#vim#complete({
-  \ 'source':  'bat /usr/share/dict/words',
-  \ 'reducer': function('<sid>make_sentence'),
-  \ 'options': '--multi --reverse --margin 15%,0',
-  \ 'left':    20})
-
-inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
-      \ 'prefix': '^.*$',
-      \ 'source': 'rg -n ^ --color always',
-      \ 'options': '--ansi --delimiter : --nth 3..',
-      \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
-
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-
-" Likewise, Files command with preview window
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-" [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags . -R'
-
-" [Commands] --expect expression for directly executing the command
-let g:fzf_commands_expect = 'alt-enter,ctrl-x'
-
-" In Neovim, you can set up fzf window using a Vim command
-let g:fzf_layout = { 'window': 'enew' }
-let g:fzf_layout = { 'window': '-tabnew' }
-let g:fzf_layout = { 'window': '10split enew' }
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-" ***********************************************
 
 " ****************** Projectionist *************
 let g:projectionist_heuristics = {
