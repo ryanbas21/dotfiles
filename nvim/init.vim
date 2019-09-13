@@ -73,9 +73,7 @@ set termguicolors
 call plug#begin('~/.vim/plugged')
 if has('nvim')
   Plug 'itchyny/lightline.vim'  " status line
-  Plug 'derekwyatt/vim-scala'
   Plug 'chemzqm/vim-jsx-improve'
-  Plug 'neoclide/coc-neco'
   Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
   Plug 'scrooloose/nerdtree' " file tree
   Plug 'w0rp/ale' " Linting
@@ -222,6 +220,10 @@ nnoremap <leader>cmd :CocList -N  --ignore-case cmdhistory<CR>
 nnoremap <leader>c :CocList -N  --ignore-case commands<CR>
 nnoremap <leader>a :CocList -N  --ignore-case actions<CR>
 nnoremap <leader>m :CocList marks<CR>
+
+" grep selected visual group
+vnoremap <leader>g :<C-u>call <SID>GrepFromSelected(visualmode())<CR> 
+
 
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
