@@ -33,6 +33,7 @@ set gdefault
 set ignorecase
  " ctags optimization
 au FileType gitcommit,gitrebase,tags,md,yml,yaml,json,map, let g:gutentags_enabled=0
+
 set tags=tags;
 " Stop highlight after searching
 set hlsearch
@@ -80,47 +81,72 @@ if has('nvim')
   Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
   Plug 'scrooloose/nerdtree' " file tree
   Plug 'w0rp/ale' " Linting
-  Plug 'pbogut/fzf-mru.vim'
+  Plug 'junegunn/goyo.vim'   " Distraction free writing 
+
+  Plug 'junegunn/limelight.vim'  " highlight the focus area
+  Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] } " markdown previewer
+  " Coc Extension management"
+  Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile', 'for': ['js', 'ts', 'javascript', 'typescript', 'jsx', 'tsx', 'vue']}
+  Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-neco', { 'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile', 'for': ['rls', 'rust']}
+  Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile', 'for': ['json']}
+  Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile', 'for': ['js', 'javascript', 'jsx', 'tsx']}
+  Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile', 'for': ['html']}
+  Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile', 'for': ['vue']}
+  Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile', 'for': ['py', 'python']}
+  Plug 'neoclide/coc-stylelint', {'do': 'yarn install --frozen-lockfile', 'for': ['less', 'css', 'scss']}
+  Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile', 'for': ['ruby', 'rb']}
+  Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-smartf', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile', 'for': ['java']}
+  Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
+  Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile', 'for': ['css']}
+  Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile', 'for': ['yaml']}
+  Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile', 'for': ['javascript', 'typescript', 'js', 'ts', 'tsx', 'jsx']}
+  Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile', 'for': ['html']}
 endif
 Plug 'tpope/vim-fugitive' " Git 
-Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-repeat' " Make dot command better
+
 Plug 'tpope/vim-surround' " quotes/blocks/tags and more manipulation
 Plug 'tpope/vim-commentary' " comment out stuff
 Plug 'tpope/vim-projectionist' " switch between test files or create them
 Plug 'tpope/vim-unimpaired' 
 Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
-Plug 'junegunn/goyo.vim'   " Distraction free writing 
-Plug 'junegunn/limelight.vim'  " highlight the focus area
-Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] } " markdown previewer
-Plug 'sheerun/vim-polyglot'
-Plug 'parsonsmatt/vim2hs', { 'for': ['haskell'] }
+Plug 'sheerun/vim-polyglot' " all the syntax highlighting
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'rhysd/git-messenger.vim'
-Plug 'yuttie/comfortable-motion.vim' " better scrolling
-call plug#end()
+Plug 'joshdick/onedark.vim'
+
 
 
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
 " " ************************ALE Setup******************************
-let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
-let g:ale_linters = { 
-      \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint', 'prettier'], 
-      \ 'typescript' : ['tsserver'], 'haskell': ['stack-ghc-mod', 'hlint']}
-let g:ale_fixers = { 'javascript': ['eslint'] }
-nmap <silent> [c <Plug>(ale_previous_wrap)
-nmap <silent> ]c <Plug>(ale_next_wrap)
-let g:ale_fix_on_save = 1
-hi link ALEErrorSign    Error
-hi link ALEWarningSign  Warning
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
-let g:ale_set_quickfix = 1
-let g:ale_open_list = 1
-let g:ale_disable_lsp = 1
+  let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
+
+  let g:ale_linters = { 
+        \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint', 'prettier'], 
+        \  'haskell': ['stack-ghc-mod', 'hlint']
+        \ }
+
+  let g:ale_fixers = { 'javascript': ['prettier'] }
+
+  nmap <silent> [c <Plug>(ale_previous_wrap)
+  nmap <silent> ]c <Plug>(ale_next_wrap)
+  hi link ALEErrorSign    Error
+  hi link ALEWarningSign  Warning
+  let g:ale_set_quickfix = 1
+  let g:ale_fix_on_save = 1
+  let g:ale_open_list = 1
+  let g:ale_disable_lsp = 1
 " " ************************************************************
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
@@ -170,6 +196,8 @@ nmap ,, <C-^>
 let mapleader = "\<Space>"
 " create a new file
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
+
 " Remove that dumb search highlight
 nmap <silent> <leader>, :nohl<cr>
 "escaping
@@ -250,10 +278,12 @@ nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
 " map Y to yank from cursor to end of line
+
+
 noremap <silent> Y y$
 "*************** LightLine ***********************
   let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'onedark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -280,6 +310,8 @@ autocmd FileType markdown setlocal spell
 
 "NerdTree
 map <C-n> :NERDTreeToggle<CR>
+
+
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " ************** FZF *****************************
@@ -429,9 +461,22 @@ endif
 
 let g:UltiSnipsExpandTrigger="<tab>"
 tnoremap <Esc> <C-\><C-n>
-" For Neovim 0.1.3 and 0.1.4
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-
-colorscheme night-owl
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+syntax on
+colorscheme onedark
 
 set bg=dark
