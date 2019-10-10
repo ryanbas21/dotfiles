@@ -53,4 +53,3 @@ zplug load
 
 source ~/dotfiles/zsh/forgit.zsh
 source ~/dotfiles/zsh/git-bindings.zsh
-source ~/dotfiles/zsh/hub.zsh
