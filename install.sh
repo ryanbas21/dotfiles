@@ -61,6 +61,11 @@ brew install mysql
 brew install openssl
 brew install tmux
 brew install postgresql
+brew install hub
+brew install graphviz
+npm install -g madge
+brew install jq
+brew install jez/formulae/git-madge
 
 brew tap phinze/cask
 brew install brew-cask
