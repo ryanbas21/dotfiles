@@ -71,7 +71,7 @@ endif
 au BufRead,BufNewFile *.sbt set filetype=scala
 set termguicolors
 call plug#begin('~/.vim/plugged')
-if has('nvim')
+iY2ppy43WMnvWCuvua38f has('nvim')
   Plug 'itchyny/lightline.vim'  " status line
   Plug 'chemzqm/vim-jsx-improve'
   Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
@@ -109,7 +109,6 @@ if has('nvim')
 endif
 Plug 'tpope/vim-fugitive' " Git 
 Plug 'tpope/vim-repeat' " Make dot command better
-
 Plug 'tpope/vim-surround' " quotes/blocks/tags and more manipulation
 Plug 'tpope/vim-commentary' " comment out stuff
 Plug 'tpope/vim-projectionist' " switch between test files or create them
@@ -119,6 +118,7 @@ Plug 'sheerun/vim-polyglot' " all the syntax highlighting
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'joshdick/onedark.vim'
+
 call plug#end()
 
 
@@ -278,6 +278,7 @@ noremap <silent> Y y$
 "*************** LightLine ***********************
   let g:lightline = {
       \ 'colorscheme': 'onedark',
+
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -416,7 +417,9 @@ if (empty($TMUX))
     set termguicolors
   endif
 endif
+
 syntax on
 colorscheme onedark
+
 
 set bg=dark
