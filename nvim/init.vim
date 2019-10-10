@@ -68,17 +68,13 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+au BufRead,BufNewFile *.sbt set filetype=scala
 set termguicolors
 call plug#begin('~/.vim/plugged')
-Plug 'haishanh/night-owl.vim' " color scheme
 if has('nvim')
   Plug 'itchyny/lightline.vim'  " status line
   Plug 'chemzqm/vim-jsx-improve'
-  Plug 'neoclide/coc-neco'
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " FZF Terminal installation
-  Plug 'fszymanski/fzf-quickfix'
-  Plug 'junegunn/fzf.vim' " FZF Installation
-  Plug 'neoclide/coc.nvim', {'do': 'yarn install' } 
+  Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
   Plug 'scrooloose/nerdtree' " file tree
   Plug 'w0rp/ale' " Linting
   Plug 'junegunn/goyo.vim'   " Distraction free writing 
@@ -123,7 +119,7 @@ Plug 'sheerun/vim-polyglot' " all the syntax highlighting
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'joshdick/onedark.vim'
-
+call plug#end()
 
 
 autocmd! User GoyoEnter Limelight
@@ -148,6 +144,7 @@ autocmd! User GoyoLeave Limelight!
   let g:ale_open_list = 1
   let g:ale_disable_lsp = 1
 " " ************************************************************
+
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -173,12 +170,6 @@ if has('unnamedplus')
 endif
 
 " ************** Key Mappings *******************************************  
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
-nnoremap <leader>c :CocList -N --top --ignore-case<CR>
-nnoremap <leader>y :CocList -N --top --ignore-case yank<CR>
 
 "Jest 
 " Run jest for current project
@@ -189,8 +180,6 @@ command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['
 
 nnoremap <c-t>c :call CocAction('runCommand', 'jest.fileTest', ['%'])<CR>
 
-" Advanced customization using autoload functions
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'top': '13%'})
 " flip back to last buffer
 nmap ,, <C-^>
 let mapleader = "\<Space>"
@@ -203,26 +192,11 @@ nmap <silent> <leader>, :nohl<cr>
 "escaping
 inoremap jk <Esc>
 
-" FZF Mappings
-nnoremap <silent> <Leader>F :Files<CR>
-nnoremap <silent> <Leader>f :GFiles<CR>
-nnoremap <silent> <Leader><Leader> :FZFMru<CR>
-nnoremap <silent> <leader>; :BLines<CR>
-nnoremap <Leader>s :Rg<space> 
-nnoremap <Leader>S :Rg<space><C-r><C-w><CR>
-
-let g:coc_status_error_sign = '•'
-let g:coc_status_warning_sign = '••'
 
 " git 
 nmap <Leader>gs :Gstatus<CR>
 nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gp :Gpush origin<space>
-nmap <Leader>gb :Gbrowse<CR>
-nmap <Leader>glb :.Gbrowse<CR>
-
-" Use MRU
-let g:fzf_mru_relative = 1
 
 " ************Coc******************
 
@@ -232,7 +206,27 @@ let g:coc_snippet_next = '<TAB>'
 let g:coc_snippet_prev = '<S-TAB>'
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
+nmap <leader>d :CocList diagnostics<CR>
+nmap <leader>l :CocList
+nnoremap <silent> <Leader>F :CocList  --ignore-case files<CR>
+nnoremap <silent> <Leader>f :CocList  --ignore-case gfiles<CR>
+nnoremap <silent> <Leader><Leader> :CocList  --ignore-case mru<CR>
+nnoremap <silent> <leader>; :CocList --interactive  --ignore-case lines<CR>
+nnoremap <Leader>s :CocList  --ignore-case grep<space> 
+nnoremap <Leader>S :CocList  --ignore-case grep<space><C-r><C-w><CR>
+nnoremap <leader>c :CocList -N  --ignore-case<CR>
+nnoremap <leader>y :CocList -N  --ignore-case yank<CR>
+nnoremap <leader>cmd :CocList -N  --ignore-case cmdhistory<CR>
+nnoremap <leader>c :CocList -N  --ignore-case commands<CR>
+nnoremap <leader>a :CocList -N  --ignore-case actions<CR>
+nnoremap <leader>m :CocList marks<CR>
 
+" grep selected visual group
+vnoremap <leader>g :<C-u>call <SID>GrepFromSelected(visualmode())<CR> 
+
+
+let g:coc_status_error_sign = '•'
+let g:coc_status_warning_sign = '••'
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Use tab and shift tab to navigate completion
@@ -294,9 +288,9 @@ noremap <silent> Y y$
       \ },
       \ }
 "*************************************************
-"*************************************************
+
 let g:fugitive_github_domains = ['github.homeawaycorp.com']
-"*************************************************
+
 " **************** GIT ********************
 
 " Automatically wrap at 100 characters and spell check git commit messages
@@ -314,60 +308,7 @@ map <C-n> :NERDTreeToggle<CR>
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" ************** FZF *****************************
-let g:fzf_nvim_statusline = 0
-
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-
-inoremap <expr> <c-x><c-s> fzf#vim#complete({
-  \ 'source':  'bat /usr/share/dict/words',
-  \ 'reducer': function('<sid>make_sentence'),
-  \ 'options': '--multi --reverse --margin 15%,0',
-  \ 'left':    20})
-
-inoremap <expr> <c-x><c-l> fzf#vim#complete(fzf#wrap({
-      \ 'prefix': '^.*$',
-      \ 'source': 'rg -n ^ --color always',
-      \ 'options': '--ansi --delimiter : --nth 3..',
-      \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
-
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
-
-" Likewise, Files command with preview window
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-" [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags . -R'
-
-" [Commands] --expect expression for directly executing the command
-let g:fzf_commands_expect = 'alt-enter,ctrl-x'
-
-" In Neovim, you can set up fzf window using a Vim command
-let g:fzf_layout = { 'window': 'enew' }
-let g:fzf_layout = { 'window': '-tabnew' }
-let g:fzf_layout = { 'window': '10split enew' }
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-" ***********************************************
 
 " ****************** Projectionist *************
 let g:projectionist_heuristics = {
@@ -412,7 +353,6 @@ let g:projectionist_heuristics = {
       \       'alternate': [
       \         '{dirname}/{basename}.test.js',
       \         '{dirname}/__tests__/{basename}-test.js',
-      \         '{dirname}/__tests__/{basename}-mocha.js'
       \       ],
       \       'type': 'source'
       \     },
