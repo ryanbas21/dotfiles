@@ -4,6 +4,7 @@ alias ohmyzsh="mate ~/.oh-my-zsh"
 export TERM="xterm-256color"
 export ZSH=~/.oh-my-zsh
 export NODE_PROJECTS_PATH="/Users/rbasmajian/programming"
+export REVIEW_BASE=master git review
 
 
 export GPG_TTY=$(tty)

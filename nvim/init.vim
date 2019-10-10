@@ -71,45 +71,42 @@ endif
 au BufRead,BufNewFile *.sbt set filetype=scala
 set termguicolors
 call plug#begin('~/.vim/plugged')
-if has('nvim')
-  Plug 'itchyny/lightline.vim'  " status line
-  Plug 'chemzqm/vim-jsx-improve'
-  Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
-  Plug 'scrooloose/nerdtree' " file tree
-  Plug 'w0rp/ale' " Linting
-  Plug 'junegunn/goyo.vim'   " Distraction free writing 
+Plug 'itchyny/lightline.vim'  " status line
+Plug 'chemzqm/vim-jsx-improve'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
+Plug 'scrooloose/nerdtree' " file tree
+Plug 'w0rp/ale' " Linting
+Plug 'junegunn/goyo.vim'   " Distraction free writing 
 
-  Plug 'junegunn/limelight.vim'  " highlight the focus area
-  Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] } " markdown previewer
-  " Coc Extension management"
-  Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile', 'for': ['js', 'ts', 'javascript', 'typescript', 'jsx', 'tsx', 'vue']}
-  Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-neco', { 'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile', 'for': ['rls', 'rust']}
-  Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile', 'for': ['json']}
-  Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile', 'for': ['js', 'javascript', 'jsx', 'tsx']}
-  Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile', 'for': ['html']}
-  Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile', 'for': ['vue']}
-  Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile', 'for': ['py', 'python']}
-  Plug 'neoclide/coc-stylelint', {'do': 'yarn install --frozen-lockfile', 'for': ['less', 'css', 'scss']}
-  Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile', 'for': ['ruby', 'rb']}
-  Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-smartf', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile', 'for': ['java']}
-  Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile', 'for': ['css']}
-  Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile', 'for': ['yaml']}
-  Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile', 'for': ['javascript', 'typescript', 'js', 'ts', 'tsx', 'jsx']}
-  Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile', 'for': ['html']}
-endif
+Plug 'junegunn/limelight.vim'  " highlight the focus area
+Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] } " markdown previewer
+" Coc Extension management"
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile', 'for': ['js', 'ts', 'javascript', 'typescript', 'jsx', 'tsx', 'vue']}
+Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-neco', { 'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile', 'for': ['rls', 'rust']}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile', 'for': ['json']}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile', 'for': ['js', 'javascript', 'jsx', 'tsx']}
+Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile', 'for': ['html']}
+Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile', 'for': ['vue']}
+Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile', 'for': ['py', 'python']}
+Plug 'neoclide/coc-stylelint', {'do': 'yarn install --frozen-lockfile', 'for': ['less', 'css', 'scss']}
+Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile', 'for': ['ruby', 'rb']}
+Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-smartf', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile', 'for': ['java']}
+Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile', 'for': ['css']}
+Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile', 'for': ['yaml']}
+Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile', 'for': ['javascript', 'typescript', 'js', 'ts', 'tsx', 'jsx']}
+Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile', 'for': ['html']}
 Plug 'tpope/vim-fugitive' " Git 
 Plug 'tpope/vim-repeat' " Make dot command better
-
 Plug 'tpope/vim-surround' " quotes/blocks/tags and more manipulation
 Plug 'tpope/vim-commentary' " comment out stuff
 Plug 'tpope/vim-projectionist' " switch between test files or create them
@@ -119,6 +116,7 @@ Plug 'sheerun/vim-polyglot' " all the syntax highlighting
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'joshdick/onedark.vim'
+
 call plug#end()
 
 
@@ -416,7 +414,9 @@ if (empty($TMUX))
     set termguicolors
   endif
 endif
+
 syntax on
 colorscheme onedark
+
 
 set bg=dark
