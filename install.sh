@@ -32,8 +32,9 @@ echo "source ~/dotfiles/zsh/.zshrc" >> ~/.zshrc
 echo "source ~/dotfiles/nvim/.vimrc" >> ~/.vimrc
 
 echo "move init vim to .config/nvim"
+mkdir ~/.config/nvim
+
 cp ./nvim/init.vim ~/.config/nvim/ 
-mkdir .config/nvim
 cp ~/dotfiles/zsh/init.vim ~/.config/nvim/
 cp ~/dotfiles/zsh/.profile ~/
 
@@ -72,6 +73,7 @@ brew cask alfred link
 brew cask install --appdir="/Applications" caffeine
 brew cask install --appdir="/Applications" slack
 
+npm install neovim -g
 # cleanup
 brew cleanup --force
 rm -f -r /Library/Caches/Homebrew/*
@@ -84,9 +86,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo "Installing vim plugins...."
 vim +'PlugInstall --sync' +qa
-nvim +'CocInstall coc-pairs coc-rls coc-solargraph coc-highlight coc-java coc-tsserver coc-json coc-css coc-html coc-jest coc-emmet coc-tslint-plugin coc-eslint coc-prettier coc-yaml coc-yank coc-git coc-python coc-snippets coc-lists coc-dictionary coc-omni coc-ultisnips coc-syntax coc-github' +qa
-nvim +'CocInstall https://github.com/andys8/vscode-jest-snippets#master' +qa
-nvim +'CocInstall https://github.com/xabikos/vscode-react#master' +qa
+nvim +'CocInstall coc-eslint coc-pairs coc-rls coc-solargraph coc-highlight coc-java coc-tsserver coc-json coc-css coc-html coc-jest coc-emmet coc-tslint-plugin coc-eslint coc-prettier coc-yaml coc-yank coc-git coc-python coc-snippets coc-lists coc-dictionary coc-omni coc-ultisnips coc-syntax coc-github' +qa
 
 echo "Installed vim plugins"
 sh ./git/install.sh
