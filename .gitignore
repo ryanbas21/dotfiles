@@ -2,4 +2,9 @@ node_modules
 tags
 gems.tags
 EOT
+
+# Session
+Session.vim
+Sessionx.vim
+
 tags.temp

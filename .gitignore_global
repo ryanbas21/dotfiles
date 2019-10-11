@@ -5,3 +5,7 @@ gems.tags
 EOT
 node_modules
 
+# Session
+Session.vim
+Sessionx.vim
+
