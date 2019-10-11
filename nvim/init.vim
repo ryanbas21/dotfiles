@@ -106,6 +106,7 @@ Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile', 'for': ['yaml
 Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile', 'for': ['javascript', 'typescript', 'js', 'ts', 'tsx', 'jsx']}
 Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile', 'for': ['html']}
 Plug 'tpope/vim-fugitive' " Git 
+Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat' " Make dot command better
 Plug 'tpope/vim-surround' " quotes/blocks/tags and more manipulation
 Plug 'tpope/vim-commentary' " comment out stuff
@@ -271,6 +272,9 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 " map Y to yank from cursor to end of line
 
+function! LightlineObsession()
+    return '%{ObsessionStatus()}'
+endfunction
 
 noremap <silent> Y y$
 "*************** LightLine ***********************
@@ -278,12 +282,16 @@ noremap <silent> Y y$
       \ 'colorscheme': 'onedark',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'fugitive', 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ],
+      \   'right': [ ['percent', 'lineinfo'], [ 'fileformat', 'fileencoding', 'filetype', 'filesize' ],['obsession']],
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head',
       \   'cocstatus': 'coc#status'
       \ },
+      \ 'component_expand': {
+      \   'obsession': 'LightlineObsession'
+      \}
       \ }
 "*************************************************
 
