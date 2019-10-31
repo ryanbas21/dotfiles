@@ -74,12 +74,12 @@ call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'  " status line
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
-Plug 'scrooloose/nerdtree' " file tree
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
 Plug 'w0rp/ale' " Linting
-Plug 'junegunn/goyo.vim'   " Distraction free writing 
+Plug 'junegunn/goyo.vim', { 'on': 'GoyoEnter' }   " Distraction free writing 
 
-Plug 'junegunn/limelight.vim'  " highlight the focus area
-Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ] } " markdown previewer
+Plug 'junegunn/limelight.vim', { 'on': 'GoyoEnter' }  " highlight the focus area
+Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ], 'on': 'XmarkEnter' } " markdown previewer
 " Coc Extension management"
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile', 'for': ['js', 'ts', 'javascript', 'typescript', 'jsx', 'tsx', 'vue']}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
@@ -94,7 +94,6 @@ Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile', 'for': ['html']}
 Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile', 'for': ['vue']}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile', 'for': ['py', 'python']}
 Plug 'neoclide/coc-stylelint', {'do': 'yarn install --frozen-lockfile', 'for': ['less', 'css', 'scss']}
 Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile', 'for': ['ruby', 'rb']}
 Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
@@ -102,6 +101,7 @@ Plug 'neoclide/coc-smartf', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile', 'for': ['java']}
 Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile', 'for': ['css']}
+Plug 'wix/import-cost'
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile', 'for': ['yaml']}
 Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile', 'for': ['javascript', 'typescript', 'js', 'ts', 'tsx', 'jsx']}
 Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile', 'for': ['html']}
@@ -117,6 +117,8 @@ Plug 'sheerun/vim-polyglot' " all the syntax highlighting
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'joshdick/onedark.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
@@ -124,6 +126,75 @@ call plug#end()
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
+
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+"
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R'
+
+" [Commands] --expect expression for directly executing the command
+let g:fzf_commands_expect = 'alt-enter,ctrl-x'
+
+" Command for git grep
+" - fzf#vim#grep(command, with_column, [options], [fullscreen])
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   { 'dir': systemlist('git rev-parse --show-toplevel')[0] }, <bang>0)
+
+" Override Colors command. You can safely do this in your .vimrc as fzf.vim
+" will not override existing commands.
+command! -bang Colors
+  \ call fzf#vim#colors({'left': '15%', 'options': '--reverse --margin 30%,0'}, <bang>0)
+
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 " " ************************ALE Setup******************************
   let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
 
@@ -207,16 +278,14 @@ let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
 nmap <leader>d :CocList diagnostics<CR>
 nmap <leader>l :CocList
-nnoremap <silent> <Leader>F :CocList  --ignore-case files<CR>
-nnoremap <silent> <Leader>f :CocList  --ignore-case gfiles<CR>
-nnoremap <silent> <Leader><Leader> :CocList  --ignore-case mru<CR>
-nnoremap <silent> <leader>; :CocList --interactive  --ignore-case lines<CR>
-nnoremap <Leader>s :CocList  --ignore-case grep<space> 
-nnoremap <Leader>S :CocList  --ignore-case grep<space><C-r><C-w><CR>
-nnoremap <leader>c :CocList -N  --ignore-case<CR>
+nnoremap <silent> <Leader>f :Files<CR>
+nnoremap <silent> <Leader><Leader> :GFiles<CR>
+nnoremap <silent> <leader>; :BLines<CR>
+nnoremap <Leader>s :GGrep<space>
+nnoremap <Leader>S :Rg <space><C-r><C-w><CR>
 nnoremap <leader>y :CocList -N  --ignore-case yank<CR>
-nnoremap <leader>cmd :CocList -N  --ignore-case cmdhistory<CR>
-nnoremap <leader>c :CocList -N  --ignore-case commands<CR>
+nnoremap <leader>h :History: <CR>
+nnoremap <leader>c :History/ <CR>
 nnoremap <leader>a :CocList -N  --ignore-case actions<CR>
 nnoremap <leader>m :CocList marks<CR>
 
@@ -271,7 +340,15 @@ nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
 " map Y to yank from cursor to end of line
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
 
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
 function! LightlineObsession()
     return '%{ObsessionStatus()}'
 endfunction
@@ -287,7 +364,7 @@ noremap <silent> Y y$
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head',
-      \   'cocstatus': 'coc#status'
+      \   'cocstatus': 'coc#status',
       \ },
       \ 'component_expand': {
       \   'obsession': 'LightlineObsession'
@@ -406,7 +483,7 @@ if (has("termguicolors"))
 endif
 
 let g:UltiSnipsExpandTrigger="<tab>"
-tnoremap <Esc> <C-\><C-n>
+
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
 "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
