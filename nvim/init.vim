@@ -61,7 +61,6 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
     \ endif
 
 
-autocmd BufRead,BufNewFile *.md set filetype=markdown
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -76,10 +75,12 @@ Plug 'chemzqm/vim-jsx-improve'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
 Plug 'w0rp/ale' " Linting
-Plug 'junegunn/goyo.vim', { 'on': 'GoyoEnter' }   " Distraction free writing 
 
-Plug 'junegunn/limelight.vim', { 'on': 'GoyoEnter' }  " highlight the focus area
+Plug 'junegunn/limelight.vim'  " highlight the focus area
+Plug 'junegunn/goyo.vim'   " Distraction free writing 
 Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ], 'on': 'XmarkEnter' } " markdown previewer
+Plug 'reedes/vim-pencil', { 'for': [ 'markdown'  ] }
+
 " Coc Extension management"
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile', 'for': ['js', 'ts', 'javascript', 'typescript', 'jsx', 'tsx', 'vue']}
 Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
@@ -98,13 +99,12 @@ Plug 'neoclide/coc-stylelint', {'do': 'yarn install --frozen-lockfile', 'for': [
 Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile', 'for': ['ruby', 'rb']}
 Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-smartf', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-java', {'do': 'yarn install --frozen-lockfile', 'for': ['java']}
 Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile', 'for': ['css']}
 Plug 'wix/import-cost'
 Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile', 'for': ['yaml']}
 Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile', 'for': ['javascript', 'typescript', 'js', 'ts', 'tsx', 'jsx']}
 Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile', 'for': ['html']}
+
 Plug 'tpope/vim-fugitive' " Git 
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat' " Make dot command better
@@ -121,12 +121,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 call plug#end()
-
-
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
-
-
 
 " This is the default extra key bindings
 let g:fzf_action = {
@@ -381,13 +375,14 @@ let g:fugitive_github_domains = ['github.homeawaycorp.com']
 " **************** GIT ********************
 
 " Automatically wrap at 100 characters and spell check git commit messages
-autocmd FileType gitcommit setlocal textwidth=100
-autocmd FileType gitcommit setlocal spell
+augroup Git
+  autocmd!
+  autocmd FileType gitcommit setlocal textwidth=100
+  autocmd FileType gitcommit setlocal spell
+augroup end
 
 " ************************************************
 
-" Enable spellchecking for Markdown
-autocmd FileType markdown setlocal spell
 
 "NerdTree
 map <C-n> :NERDTreeToggle<CR>
@@ -511,5 +506,41 @@ endif
 syntax on
 colorscheme onedark
 
+function! s:goyo_enter()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status off
+    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
+  endif
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  Limelight
+  " ...
+endfunction
+
+function! s:goyo_leave()
+  if executable('tmux') && strlen($TMUX)
+    silent !tmux set status on
+    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
+  endif
+  set showmode
+  set showcmd
+  set scrolloff=5
+  Limelight!
+  " ...
+endfunction
+
+augroup writing
+  autocmd!
+  let g:goyo_width = 200
+  let g:goyo_height = 90
+  autocmd FileType markdown setlocal spell
+  autocmd BufRead,BufNewFile markdown set filetype=markdown
+  autocmd BufLeave markdown call <SID>goyo_leave()
+  autocmd BufNewFile,BufRead markdown call <SID>goyo_enter() 
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+augroup end
 
 set bg=dark

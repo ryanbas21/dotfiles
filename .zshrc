@@ -51,5 +51,15 @@ fi
 
 zplug load 
 
+function vim() {
+  if test $# -gt 0; then
+    env nvim "$@"
+  elif test -f Session.vim; then
+    env nvim -S
+  else
+    env nvim -c Obsession
+  fi
+}
+
 source ~/dotfiles/zsh/forgit.zsh
 source ~/dotfiles/zsh/git-bindings.zsh
