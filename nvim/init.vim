@@ -104,6 +104,8 @@ Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile', 'for': ['yaml
 Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile', 'for': ['javascript', 'typescript', 'js', 'ts', 'tsx', 'jsx']}
 Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile', 'for': ['html']}
 
+Plug 'psliwka/vim-smoothie' " smooth scrolling
+
 Plug 'tpope/vim-fugitive' " Git 
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat' " Make dot command better
