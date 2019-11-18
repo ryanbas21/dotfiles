@@ -11,6 +11,7 @@ if [ "$(uname)" == "Darwin" ]; then
     echo -e "\\n\\nInstalling Brew...."
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
+
 echo "Installing Vim Plug."
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -35,13 +36,12 @@ echo "move init vim to .config/nvim"
 mkdir ~/.config/nvim
 
 cp ./nvim/init.vim ~/.config/nvim/ 
-cp ~/dotfiles/zsh/init.vim ~/.config/nvim/
+cp ~/dotfiles/nvim/init.vim ~/.config/nvim/
 cp ~/dotfiles/zsh/.profile ~/
 
-echo "Restarting terminal"
 echo "Brew installing....."
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
-brew install neovim --HEAD
+brew install neovim 
 brew install ripgrep
 brew install fd
 brew install bat
@@ -78,10 +78,13 @@ brew cask alfred link
 brew cask install --appdir="/Applications" caffeine
 brew cask install --appdir="/Applications" slack
 
+npm instal yarn -g
 npm install neovim -g
+
 # cleanup
 brew cleanup --force
 rm -f -r /Library/Caches/Homebrew/*
+
 reload
 
 echo 'use-agent' >> ~/.gnupg/gpg.conf
@@ -91,8 +94,8 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo "Installing vim plugins...."
 vim +'PlugInstall --sync' +qa
-nvim +'CocInstall coc-eslint coc-pairs coc-rls coc-solargraph coc-highlight coc-java coc-tsserver coc-json coc-css coc-html coc-jest coc-emmet coc-tslint-plugin coc-eslint coc-prettier coc-yaml coc-yank coc-git coc-python coc-snippets coc-lists coc-dictionary coc-omni coc-ultisnips coc-syntax coc-github' +qa
 
 echo "Installed vim plugins"
 sh ./git/install.sh
+
 echo "Done..."
