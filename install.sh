@@ -41,6 +41,7 @@ cp ~/dotfiles/zsh/.profile ~/
 
 echo "Brew installing....."
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+
 brew install neovim 
 brew install ripgrep
 brew install fd
