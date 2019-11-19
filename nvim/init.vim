@@ -1,13 +1,6 @@
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
-   if !has('nvim')
-        set termguicolors
-        set ttymouse=xterm2
-   endif
-set guifont=Fira\ Code\:h20
+scriptencoding utf-8
 set ttimeout
 set ttimeoutlen=0
-scriptencoding utf-8
 set splitright
 set encoding=utf-8
 set smartindent
@@ -23,26 +16,22 @@ set number
 set tabstop=2
 set shiftwidth=2
 set expandtab
-set fillchars+=stl:\ ,stlnc:\
 set termencoding=utf-8
 set exrc
 set secure
-set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
 " Make Searching Beter
 set gdefault
 set ignorecase
- " ctags optimization
-au FileType gitcommit,gitrebase,tags,md,yml,yaml,json,map, let g:gutentags_enabled=0
-
-set tags=tags;
 " Stop highlight after searching
 set hlsearch
 set cursorline    " highlight the current line
 set visualbell    " stop that ANNOYING beeping
 set autowrite     " Automatically :write before running commands
 set autoread      " Reload files changed outside vim
+
 " Trigger autoread when changing buffers or coming back to vim in terminal.
 au FocusGained,BufEnter * :silent! !
+
 set backspace=2   " Backspace deletes like most programs in insert mode
 set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
 set ruler         " show the cursor position all the time
@@ -71,15 +60,17 @@ au BufRead,BufNewFile *.sbt set filetype=scala
 set termguicolors
 call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'  " status line
-Plug 'chemzqm/vim-jsx-improve'
+
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
+Plug 'chemzqm/vim-jsx-improve'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
+
 Plug 'w0rp/ale' " Linting
 
-Plug 'junegunn/limelight.vim'  " highlight the focus area
-Plug 'junegunn/goyo.vim'   " Distraction free writing 
-Plug 'junegunn/vim-xmark', { 'do': 'make', 'for': [ 'markdown', 'md' ], 'on': 'XmarkEnter' } " markdown previewer
-Plug 'reedes/vim-pencil', { 'for': [ 'markdown'  ] }
+Plug 'junegunn/limelight.vim', { 'for': ['markdown', 'md'] }  " highlight the focus area
+Plug 'junegunn/goyo.vim',   " Distraction free writing 
+Plug 'junegunn/vim-xmark', { 'do': 'make' } " markdown previewer
+Plug 'reedes/vim-pencil', { 'for': [ 'markdown' ] }
 
 " Coc Extension management"
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile', 'for': ['js', 'ts', 'javascript', 'typescript', 'jsx', 'tsx', 'vue']}
@@ -114,13 +105,16 @@ Plug 'tpope/vim-commentary' " comment out stuff
 Plug 'tpope/vim-projectionist' " switch between test files or create them
 Plug 'tpope/vim-unimpaired' 
 Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
+
 Plug 'sheerun/vim-polyglot' " all the syntax highlighting
+
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+
 Plug 'joshdick/onedark.vim'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
 call plug#end()
 
 " This is the default extra key bindings
@@ -286,6 +280,7 @@ nnoremap <leader>h :History: <CR>
 nnoremap <leader>c :History/ <CR>
 nnoremap <leader>a :CocList -N  --ignore-case actions<CR>
 nnoremap <leader>m :CocList marks<CR>
+nnoremap <C-p> :CocList mru<CR>
 
 " grep selected visual group
 vnoremap <leader>g :<C-u>call <SID>GrepFromSelected(visualmode())<CR> 
@@ -387,7 +382,6 @@ augroup end
 
 "NerdTree
 map <C-n> :NERDTreeToggle<CR>
-
 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
