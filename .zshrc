@@ -5,11 +5,11 @@ export TERM="xterm-256color"
 export ZSH=~/.oh-my-zsh
 export NODE_PROJECTS_PATH="/Users/rbasmajian/programming"
 export REVIEW_BASE=master git review
+export MYVIMRC="/Users/rbasmajian/dotfiles/nvim/init.vim"
 
 
 export GPG_TTY=$(tty)
 [ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
-
 alias reload="source ~/.zshrc"
 source $ZSH/oh-my-zsh.sh
 
@@ -51,7 +51,8 @@ fi
 
 zplug load 
 
-function vim() {
+# start vim with vim-obsession
+function nvim() {
   if test $# -gt 0; then
     env nvim "$@"
   elif test -f Session.vim; then

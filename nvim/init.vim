@@ -8,7 +8,6 @@ set showmatch
 set relativenumber
 set textwidth=80
 set formatoptions=qrn1
-set wrapmargin=0
 set autoindent
 set wrapmargin=0
 set cc=0
@@ -117,6 +116,9 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 call plug#end()
 
+autocmd! User GoyoEnter Limelight
+autocmd! User GoyoLeave Limelight!
+
 " This is the default extra key bindings
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -147,8 +149,8 @@ let g:fzf_colors =
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
 " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
-"
 let g:fzf_history_dir = '~/.local/share/fzf-history'
+
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
@@ -177,7 +179,7 @@ command! -bang Colors
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \   <bang>0 ? fzf#vim#with_preview('down:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
@@ -188,8 +190,9 @@ command! -bang -nargs=? -complete=dir Files
   let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
 
   let g:ale_linters = { 
-        \ '*': ['remove_trailing_lines', 'trim_whitespace'], 'js': ['eslint', 'prettier'], 
-        \  'haskell': ['stack-ghc-mod', 'hlint']
+        \ '*': ['remove_trailing_lines', 'trim_whitespace'], 
+        \ 'js': ['eslint', 'prettier'], 
+        \  'haskell': ['stack-ghc-mod',  'hlint']
         \ }
 
   let g:ale_fixers = { 'javascript': ['prettier'] }
@@ -268,8 +271,10 @@ let g:coc_snippet_next = '<TAB>'
 let g:coc_snippet_prev = '<S-TAB>'
 let g:coc_status_error_sign = '•'
 let g:coc_status_warning_sign = '••'
+
 nmap <leader>d :CocList diagnostics<CR>
 nmap <leader>l :CocList
+
 nnoremap <silent> <Leader>f :Files<CR>
 nnoremap <silent> <Leader><Leader> :GFiles<CR>
 nnoremap <silent> <leader>; :BLines<CR>
@@ -277,17 +282,12 @@ nnoremap <Leader>s :GGrep<space>
 nnoremap <Leader>S :Rg <space><C-r><C-w><CR>
 nnoremap <leader>y :CocList -N  --ignore-case yank<CR>
 nnoremap <leader>h :History: <CR>
+nnoremap <leader>p :History <CR>
 nnoremap <leader>c :History/ <CR>
 nnoremap <leader>a :CocList -N  --ignore-case actions<CR>
 nnoremap <leader>m :CocList marks<CR>
 nnoremap <C-p> :CocList mru<CR>
 
-" grep selected visual group
-vnoremap <leader>g :<C-u>call <SID>GrepFromSelected(visualmode())<CR> 
-
-
-let g:coc_status_error_sign = '•'
-let g:coc_status_warning_sign = '••'
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Use tab and shift tab to navigate completion
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -343,6 +343,7 @@ function! s:fzf_statusline()
 endfunction
 
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
 function! LightlineObsession()
     return '%{ObsessionStatus()}'
 endfunction
@@ -361,7 +362,8 @@ noremap <silent> Y y$
       \   'cocstatus': 'coc#status',
       \ },
       \ 'component_expand': {
-      \   'obsession': 'LightlineObsession'
+      \   'obsession': 'LightlineObsession',
+      \   'fzf': 'FzfStatusLine'
       \}
       \ }
 "*************************************************
@@ -493,42 +495,5 @@ endif
 
 syntax on
 colorscheme onedark
-
-function! s:goyo_enter()
-  if executable('tmux') && strlen($TMUX)
-    silent !tmux set status off
-    silent !tmux list-panes -F '\#F' | grep -q Z || tmux resize-pane -Z
-  endif
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
-  Limelight
-  " ...
-endfunction
-
-function! s:goyo_leave()
-  if executable('tmux') && strlen($TMUX)
-    silent !tmux set status on
-    silent !tmux list-panes -F '\#F' | grep -q Z && tmux resize-pane -Z
-  endif
-  set showmode
-  set showcmd
-  set scrolloff=5
-  Limelight!
-  " ...
-endfunction
-
-augroup writing
-  autocmd!
-  let g:goyo_width = 200
-  let g:goyo_height = 90
-  autocmd FileType *.md setlocal spell
-  autocmd BufRead,BufNewFile *.md set filetype=markdown
-  au BufEnter,BufRead *.md call <SID>goyo_enter() 
-  au BufLeave *.md call <SID>goyo_leave()
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
-augroup end
 
 set bg=dark
