@@ -33,7 +33,7 @@ echo "source ~/dotfiles/zsh/.zshrc" >> ~/.zshrc
 echo "source ~/dotfiles/nvim/.vimrc" >> ~/.vimrc
 
 echo "move init vim to .config/nvim"
-mkdir ~/.config/nvim
+mkdir -p ~/.config/nvim
 
 cp ./nvim/init.vim ~/.config/nvim/ 
 cp ~/dotfiles/nvim/init.vim ~/.config/nvim/
@@ -67,7 +67,7 @@ brew install graphviz
 npm install -g madge
 brew install jq
 brew install jez/formulae/git-madge
-
+brew install ghc
 brew tap phinze/cask
 brew install brew-cask
 brew cask install --appdir="/Applications" spectacle
@@ -78,6 +78,8 @@ brew cask install --appdir="~/Applications" iterm2
 brew cask alfred link
 brew cask install --appdir="/Applications" caffeine
 brew cask install --appdir="/Applications" slack
+brew cask install --appdir="/Applications" 1password
+brew cask install 1password-cli
 
 npm instal yarn -g
 npm install neovim -g
@@ -98,5 +100,8 @@ vim +'PlugInstall --sync' +qa
 
 echo "Installed vim plugins"
 sh ./git/install.sh
+
+echo "Installing Tmux Plugins"
+~/.tmux/plugins/tpm/scripts/install_plugins.sh
 
 echo "Done..."

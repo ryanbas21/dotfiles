@@ -3,9 +3,9 @@ export TERM="xterm-256color"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 export TERM="xterm-256color"
 export ZSH=~/.oh-my-zsh
-export NODE_PROJECTS_PATH="/Users/rbasmajian/programming"
+export NODE_PROJECTS_PATH="/Users/$DEFAULT_USER/programming"
 export REVIEW_BASE=master git review
-export MYVIMRC="/Users/rbasmajian/dotfiles/nvim/init.vim"
+export MYVIMRC="/Users/$DEFAULT_USER/dotfiles/nvim/init.vim"
 
 
 export GPG_TTY=$(tty)
@@ -26,7 +26,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 alias vim="nvim"
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$HOME/.local/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
