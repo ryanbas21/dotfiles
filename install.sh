@@ -100,6 +100,10 @@ vim +'PlugInstall --sync' +qa
 
 echo "Installed vim plugins"
 sh ./git/install.sh
+cp  ~/dotfiles/.gitignore_global ~/
+cp  ~/dotfiles/.editorconfig ~/
+
+cp -r ~/dotfiles/coc-settings.json ~/.config/nvim/
 
 echo "Installing Tmux Plugins"
 ~/.tmux/plugins/tpm/scripts/install_plugins.sh
