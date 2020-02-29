@@ -57,45 +57,41 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 au BufRead,BufNewFile *.sbt set filetype=scala
 set termguicolors
+
 call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'  " status line
-
+Plug 'sdiehl/vim-ormolu'
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
-
-Plug 'w0rp/ale' " Linting
-
-Plug 'junegunn/limelight.vim', { 'for': ['markdown', 'md'] }  " highlight the focus area
-Plug 'junegunn/goyo.vim',   " Distraction free writing 
-Plug 'junegunn/vim-xmark', { 'do': 'make' } " markdown previewer
-Plug 'reedes/vim-pencil', { 'for': [ 'markdown' ] }
+Plug 'junegunn/limelight.vim'  " highlight the focus area
+Plug 'junegunn/goyo.vim'   " Distraction free writing 
+Plug 'junegunn/vim-xmark' " markdown previewer
+Plug 'reedes/vim-pencil'
 
 " Coc Extension management"
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile', 'for': ['js', 'ts', 'javascript', 'typescript', 'jsx', 'tsx', 'vue']}
-Plug 'neoclide/coc-git', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-neco', { 'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile', 'for': ['rls', 'rust']}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile', 'for': ['json']}
+Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile', 'for': ['js', 'javascript', 'jsx', 'tsx']}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile', 'for': ['html']}
-Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile', 'for': ['vue']}
-Plug 'neoclide/coc-stylelint', {'do': 'yarn install --frozen-lockfile', 'for': ['less', 'css', 'scss']}
-Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile', 'for': ['ruby', 'rb']}
+Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-stylelint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-smartf', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile', 'for': ['yaml']}
-Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile', 'for': ['javascript', 'typescript', 'js', 'ts', 'tsx', 'jsx']}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile', 'for': ['html']}
+Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'psliwka/vim-smoothie' " smooth scrolling
-
 Plug 'tpope/vim-fugitive' " Git 
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat' " Make dot command better
@@ -104,16 +100,14 @@ Plug 'tpope/vim-commentary' " comment out stuff
 Plug 'tpope/vim-projectionist' " switch between test files or create them
 Plug 'tpope/vim-unimpaired' 
 Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
-
 Plug 'sheerun/vim-polyglot' " all the syntax highlighting
-
+Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-
-Plug 'joshdick/onedark.vim'
-
+Plug 'rafi/awesome-vim-colorschemes'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+
 call plug#end()
 
 autocmd! User GoyoEnter Limelight
@@ -126,12 +120,11 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit' }
 
 " Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
 " Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
+let g:fzf_colors = { 
+  \ 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
   \ 'hl':      ['fg', 'Comment'],
   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
@@ -143,7 +136,8 @@ let g:fzf_colors =
   \ 'pointer': ['fg', 'Exception'],
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+  \ 'header':  ['fg', 'Comment'] 
+  \ }
 
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
@@ -186,26 +180,6 @@ command! -bang -nargs=* Rg
 " Likewise, Files command with preview window
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-" " ************************ALE Setup******************************
-  let g:ale_linter_aliases = {'js': ['jsx',  'typescript', 'tsx', 'vue', 'javascript']}
-
-  let g:ale_linters = { 
-        \ '*': ['remove_trailing_lines', 'trim_whitespace'], 
-        \ 'js': ['eslint', 'prettier'], 
-        \  'haskell': ['stack-ghc-mod',  'hlint']
-        \ }
-
-  let g:ale_fixers = { 'javascript': ['prettier'] }
-
-  nmap <silent> [c <Plug>(ale_previous_wrap)
-  nmap <silent> ]c <Plug>(ale_next_wrap)
-  hi link ALEErrorSign    Error
-  hi link ALEWarningSign  Warning
-  let g:ale_set_quickfix = 1
-  let g:ale_fix_on_save = 1
-  let g:ale_open_list = 1
-  let g:ale_disable_lsp = 1
-" " ************************************************************
 
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
@@ -270,7 +244,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 let g:coc_snippet_next = '<TAB>'
 let g:coc_snippet_prev = '<S-TAB>'
 let g:coc_status_error_sign = '•'
-let g:coc_status_warning_sign = '••'
+let g:coc_status_warning_sign = '*'
 
 nmap <leader>d :CocList diagnostics<CR>
 nmap <leader>l :CocList
@@ -287,6 +261,9 @@ nnoremap <leader>c :History/ <CR>
 nnoremap <leader>a :CocList -N  --ignore-case actions<CR>
 nnoremap <leader>m :CocList marks<CR>
 nnoremap <C-p> :CocList mru<CR>
+
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Use tab and shift tab to navigate completion
@@ -312,10 +289,10 @@ function! s:show_documentation()
 endfunction
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gd <Plug>(coc-definition) 
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
-nmap <silent> <C-i> <Plug>(coc-implementation)
+nmap <leader> i <Plug>(coc-implementation)
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>ac  <Plug>(coc-codeaction)
 nmap <leader>qf  <Plug>(coc-fix-current)
@@ -368,7 +345,7 @@ noremap <silent> Y y$
       \ }
 "*************************************************
 
-let g:fugitive_github_domains = ['github.homeawaycorp.com']
+" let g:fugitive_github_domains = ['github.homeawaycorp.com']
 
 " **************** GIT ********************
 
@@ -478,6 +455,8 @@ let g:projectionist_heuristics = {
       \   }
       \ }
 
+
+
 if (has("termguicolors"))
  set termguicolors
 endif
@@ -494,6 +473,5 @@ if (empty($TMUX))
 endif
 
 syntax on
-colorscheme onedark
-
 set bg=dark
+colorscheme onedark
