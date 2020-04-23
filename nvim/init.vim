@@ -289,15 +289,16 @@ function! s:show_documentation()
 endfunction
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition) 
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader> i <Plug>(coc-implementation)
+nmap <silent>gd <Plug>(coc-definition)
+nmap <silent>gy <Plug>(coc-type-definition)
+nmap <silent>gi <Plug>(coc-implementation)
+nmap <silent>gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>ac  <Plug>(coc-codeaction)
+nnoremap <leader>ca  :<C-U>:call CocActionAsync('codeLensAction')<CR>
 nmap <leader>qf  <Plug>(coc-fix-current)
-nmap <leader>l :CocList<space>
-nmap <leader>d :CocList diagnostics<CR>
+nnoremap <leader>l :CocList<space>
+nnoremap <leader>d :CocList diagnostics<CR>
 
 command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
 
@@ -407,7 +408,7 @@ let g:projectionist_heuristics = {
       \
       \     '*.js': {
       \       'alternate': [
-      \         '{dirname}/{basename}.test.js',
+      \         '{dirname}/{basename}.spec.js',
       \         '{dirname}/__tests__/{basename}.spec.js',
       \       ],
       \       'type': 'source'
@@ -474,4 +475,5 @@ endif
 
 syntax on
 set bg=dark
-colorscheme onedark
+
+colorscheme minimalist
