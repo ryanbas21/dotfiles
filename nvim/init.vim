@@ -56,12 +56,14 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 au BufRead,BufNewFile *.sbt set filetype=scala
+au BufRead,BufNewFile JENKINSFILE set filetype=groovy
 set termguicolors
 
 call plug#begin('~/.vim/plugged')
+Plug 'danilamihailov/beacon.nvim'
 Plug 'itchyny/lightline.vim'  " status line
 Plug 'sdiehl/vim-ormolu'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
 Plug 'junegunn/limelight.vim'  " highlight the focus area
@@ -69,28 +71,7 @@ Plug 'junegunn/goyo.vim'   " Distraction free writing
 Plug 'junegunn/vim-xmark' " markdown previewer
 Plug 'reedes/vim-pencil'
 
-" Coc Extension management"
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-neco', { 'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-stylelint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-smartf', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-
+Plug 'haishanh/night-owl.vim'
 Plug 'psliwka/vim-smoothie' " smooth scrolling
 Plug 'tpope/vim-fugitive' " Git 
 Plug 'tpope/vim-obsession'
@@ -101,14 +82,19 @@ Plug 'tpope/vim-projectionist' " switch between test files or create them
 Plug 'tpope/vim-unimpaired' 
 Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
 Plug 'sheerun/vim-polyglot' " all the syntax highlighting
-Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'rafi/awesome-vim-colorschemes'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'MarcWeber/vim-addon-manager'
 
 call plug#end()
+
+set nocompatible | filetype indent plugin on | syn on
+set runtimepath+=/path/to/vam
+call vam#ActivateAddons(['ultisnips'])
 
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
@@ -237,7 +223,9 @@ nmap <Leader>gb :Gblame<CR>
 nmap <Leader>gp :Gpush origin<space>
 
 " ************Coc******************
-
+nmap <Leader>tt <Plug>(coc-terminal-toggle)
+nmap <Leader>td <Plug>(coc-terminal-destroy)
+nmap <Leader>tr <Plug>(coc-terminal-repl)
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
@@ -248,6 +236,7 @@ let g:coc_status_warning_sign = '*'
 
 nmap <leader>d :CocList diagnostics<CR>
 nmap <leader>l :CocList
+nmap <leader>m :CocList marketplace<CR>
 
 nnoremap <silent> <Leader>f :Files<CR>
 nnoremap <silent> <Leader><Leader> :GFiles<CR>
@@ -255,12 +244,9 @@ nnoremap <silent> <leader>; :BLines<CR>
 nnoremap <Leader>s :GGrep<space>
 nnoremap <Leader>S :Rg <space><C-r><C-w><CR>
 nnoremap <leader>y :CocList -N  --ignore-case yank<CR>
-nnoremap <leader>h :History: <CR>
-nnoremap <leader>p :History <CR>
-nnoremap <leader>c :History/ <CR>
-nnoremap <leader>a :CocList -N  --ignore-case actions<CR>
-nnoremap <leader>m :CocList marks<CR>
-nnoremap <C-p> :CocList mru<CR>
+nnoremap <leader>p :CocList mru <CR>
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
@@ -476,4 +462,4 @@ endif
 syntax on
 set bg=dark
 
-colorscheme minimalist
+colorscheme night-owl

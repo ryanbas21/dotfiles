@@ -1,0 +1,22 @@
+<<<<<<<<<<<<<<<<<<
+You are currently using Stack version 2.3.1, but version 2.3.3 is available
+You can try to upgrade by running 'stack upgrade'
+Tired of seeing this? Add 'recommend-stack-upgrade: false' to /home/ryan/.stack/config.yaml
+>>>>>>>>>>>>>>>>>>
+
+
+
+xmonad.hs:563:24: error:
+    • Couldn't match expected type ‘ManageHook
+                                    -> Query (Endo WindowSet)’
+                  with actual type ‘Query (Endo WindowSet)’
+    • The function ‘isFullscreen --> doFullFloat’
+      is applied to one argument,
+      but its type ‘Query (Endo WindowSet)’ has none
+      In the first argument of ‘(<+>)’, namely
+        ‘(isFullscreen --> doFullFloat) manageSpawn’
+      In the first argument of ‘(<+>)’, namely
+        ‘(isFullscreen --> doFullFloat) manageSpawn <+> myManageHook’
+    |
+563 |         { manageHook = ( isFullscreen --> doFullFloat ) manageSpawn <+> myManageHook <+> manageDocks 
+    |                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
