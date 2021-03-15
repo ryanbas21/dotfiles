@@ -1,9 +1,11 @@
 export DEFAULT_USER=`whoami`
+export DOTENVENC_KEY='basded';
 export TERM="xterm-256color"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 export TERM="xterm-256color"
 export ZSH=~/.oh-my-zsh
 export NODE_PROJECTS_PATH="/Users/$DEFAULT_USER/programming"
+export COC_GIST_TOKEN="ef4139e4fe21eb56ccfb883489719fead54a4270"
 export REVIEW_BASE=master git review
 export MYVIMRC="/Users/$DEFAULT_USER/dotfiles/nvim/init.vim"
 

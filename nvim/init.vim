@@ -2,9 +2,9 @@ scriptencoding utf-8
 set ttimeout
 set ttimeoutlen=0
 set splitright
-set encoding=utf-8
 set smartindent
 set showmatch
+set encoding=utf8
 set relativenumber
 set textwidth=80
 set formatoptions=qrn1
@@ -59,38 +59,13 @@ au BufRead,BufNewFile *.sbt set filetype=scala
 set termguicolors
 
 call plug#begin('~/.vim/plugged')
+Plug 'janko/vim-test'
+Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+Plug 'akinsho/nvim-bufferline.lua'
 Plug 'itchyny/lightline.vim'  " status line
-Plug 'sdiehl/vim-ormolu'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release' }
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
-Plug 'junegunn/limelight.vim'  " highlight the focus area
-Plug 'junegunn/goyo.vim'   " Distraction free writing 
-Plug 'junegunn/vim-xmark' " markdown previewer
-Plug 'reedes/vim-pencil'
-
-" Coc Extension management"
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-neco', { 'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-emmet', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-vetur', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-stylelint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-smartf', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-
 Plug 'psliwka/vim-smoothie' " smooth scrolling
 Plug 'tpope/vim-fugitive' " Git 
 Plug 'tpope/vim-obsession'
@@ -102,16 +77,24 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
 Plug 'sheerun/vim-polyglot' " all the syntax highlighting
 Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 
 call plug#end()
 
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+let test#python#pytest#options = "--color=yes"
+let test#javascript#jest#options = "--color=always"
+
+nmap ]t <Plug>(ultest-next-fail)
+nmap [t <Plug>(ultest-prev-fail)
+
+augroup UltestRunner
+    au!
+    au BufWritePost * UltestNearest
+augroup END
 
 " This is the default extra key bindings
 let g:fzf_action = {
@@ -208,28 +191,17 @@ endif
 " ************** Key Mappings *******************************************  
 
 "Jest 
-" Run jest for current project
-command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
-
-" Run jest for current file
-command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
-
 nnoremap <c-t>c :call CocAction('runCommand', 'jest.fileTest', ['%'])<CR>
-
-" flip back to last buffer
 nmap ,, <C-^>
 
 let mapleader = "\<Space>"
+
 " create a new file
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-
 " Remove that dumb search highlight
 nmap <silent> <leader>, :nohl<cr>
-
 "escaping
 inoremap jk <Esc>
-
 
 " git 
 nmap <Leader>gs :Gstatus<CR>
@@ -241,14 +213,9 @@ nmap <Leader>gp :Gpush origin<space>
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-let g:coc_snippet_next = '<TAB>'
-let g:coc_snippet_prev = '<S-TAB>'
-let g:coc_status_error_sign = '•'
-let g:coc_status_warning_sign = '*'
 
 nmap <leader>d :CocList diagnostics<CR>
 nmap <leader>l :CocList
-
 nnoremap <silent> <Leader>f :Files<CR>
 nnoremap <silent> <Leader><Leader> :GFiles<CR>
 nnoremap <silent> <leader>; :BLines<CR>
@@ -256,14 +223,11 @@ nnoremap <Leader>s :GGrep<space>
 nnoremap <Leader>S :Rg <space><C-r><C-w><CR>
 nnoremap <leader>y :CocList -N  --ignore-case yank<CR>
 nnoremap <leader>h :History: <CR>
-nnoremap <leader>p :History <CR>
+nnoremap <leader>p :CocList mru <CR>
 nnoremap <leader>c :History/ <CR>
 nnoremap <leader>a :CocList -N  --ignore-case actions<CR>
 nnoremap <leader>m :CocList marks<CR>
 nnoremap <C-p> :CocList mru<CR>
-
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Use tab and shift tab to navigate completion
@@ -272,29 +236,13 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Use Enter for coc completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-augroup mygroup
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  autocmd CursorHold * call CocActionAsync('doHover')
-  " Update signature help on jump placeholder
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition) 
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gr <Plug>(coc-references)
-nmap <leader> i <Plug>(coc-implementation)
 nmap <leader>rn <Plug>(coc-rename)
 nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>A   <Plug>(coc-codelens-action)
 nmap <leader>qf  <Plug>(coc-fix-current)
 nmap <leader>l :CocList<space>
 nmap <leader>d :CocList diagnostics<CR>
@@ -310,7 +258,6 @@ nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
-" map Y to yank from cursor to end of line
 function! s:fzf_statusline()
   " Override statusline as you like
   highlight fzf1 ctermfg=161 ctermbg=251
@@ -352,7 +299,7 @@ noremap <silent> Y y$
 " Automatically wrap at 100 characters and spell check git commit messages
 augroup Git
   autocmd!
-  autocmd FileType gitcommit setlocal textwidth=100
+  autocmd FileType gitcommit setlocal textwidth=120
   autocmd FileType gitcommit setlocal spell
 augroup end
 
@@ -454,23 +401,6 @@ let g:projectionist_heuristics = {
       \     }
       \   }
       \ }
-
-
-
-if (has("termguicolors"))
- set termguicolors
-endif
-
-let g:UltiSnipsExpandTrigger="<tab>"
-
-if (empty($TMUX))
-  if (has("nvim"))
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
 
 syntax on
 set bg=dark
