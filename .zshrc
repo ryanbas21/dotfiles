@@ -1,5 +1,5 @@
 export DEFAULT_USER=`whoami`
-export DOTENVENC_KEY='basded';
+export DOTENVENC_KEY='';
 export TERM="xterm-256color"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 export TERM="xterm-256color"
