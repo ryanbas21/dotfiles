@@ -59,11 +59,14 @@ au BufRead,BufNewFile *.sbt set filetype=scala
 set termguicolors
 
 call plug#begin('~/.vim/plugged')
+Plug 'chriskempson/base16-vim'
+Plug 'wadackel/vim-dogrun'
 Plug 'janko/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'itchyny/lightline.vim'  " status line
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
 Plug 'psliwka/vim-smoothie' " smooth scrolling
@@ -75,8 +78,9 @@ Plug 'tpope/vim-commentary' " comment out stuff
 Plug 'tpope/vim-projectionist' " switch between test files or create them
 Plug 'tpope/vim-unimpaired' 
 Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
-Plug 'sheerun/vim-polyglot' " all the syntax highlighting
-Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
+Plug 'neovimhaskell/haskell-vim' , { 'for': 'haskell' }
+Plug 'elm-tooling/elm-vim' , { 'for': 'elm' }
+Plug 'andys8/vim-elm-syntax' , { 'for': 'elm' }
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -95,7 +99,6 @@ augroup UltestRunner
     au!
     au BufWritePost * UltestNearest
 augroup END
-
 " This is the default extra key bindings
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
@@ -275,7 +278,7 @@ endfunction
 noremap <silent> Y y$
 "*************** LightLine ***********************
   let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'dogrun',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ],
@@ -403,5 +406,4 @@ let g:projectionist_heuristics = {
       \ }
 
 syntax on
-set bg=dark
-colorscheme onedark
+colorscheme base16-onedark
