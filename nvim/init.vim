@@ -64,8 +64,12 @@ Plug 'wadackel/vim-dogrun'
 Plug 'janko/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'akinsho/nvim-bufferline.lua'
+Plug 'projekt0n/github-nvim-theme'
 Plug 'itchyny/lightline.vim'  " status line
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
@@ -125,6 +129,20 @@ let g:fzf_colors = {
   \ 'header':  ['fg', 'Comment'] 
   \ }
 
+" Example config in VimScript
+lua << EOF
+require("github-theme").setup({
+  themeStyle = "dimmed",
+  functionStyle = "italic",
+  sidebars = {"qf", "vista_kind", "terminal", "packer"},
+  hideInactiveStatusline = true,
+  darkSidebar = false,
+  darkFloat = true,
+
+  -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+  colors = { hint = "orange", error = "#ff0000" }
+})
+EOF
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
 " previous-history instead of down and up. If you don't like the change,
@@ -191,6 +209,52 @@ if has('unnamedplus')
   set clipboard=unnamed,unnamedplus
 endif
 
+lua << EOF
+require('telescope').setup{
+  defaults = {
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case'
+    },
+    prompt_prefix = "> ",
+    selection_caret = "> ",
+    entry_prefix = "  ",
+    initial_mode = "insert",
+    selection_strategy = "reset",
+    sorting_strategy = "descending",
+    layout_strategy = "horizontal",
+    layout_config = {
+      horizontal = {
+        mirror = false,
+      },
+      vertical = {
+        mirror = false,
+      },
+    },
+    file_sorter =  require'telescope.sorters'.get_fuzzy_file,
+    file_ignore_patterns = {},
+    generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
+    winblend = 0,
+    border = {},
+    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+    color_devicons = true,
+    use_less = true,
+    path_display = {},
+    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+    file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+    qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+
+    -- Developer configurations: Not meant for general override
+    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
+  }
+}
+EOF
 " ************** Key Mappings *******************************************  
 
 "Jest 
@@ -219,9 +283,17 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 
 nmap <leader>d :CocList diagnostics<CR>
 nmap <leader>l :CocList
-nnoremap <silent> <Leader>f :Files<CR>
-nnoremap <silent> <Leader><Leader> :GFiles<CR>
-nnoremap <silent> <leader>; :BLines<CR>
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>f <cmd>Telescope find_files<cr>
+nnoremap <leader><leader> :Telescope git_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+
+
+" nnoremap <silent> <Leader>f :Files<CR>
+" nnoremap <silent> <Leader><Leader> :GFiles<CR>
+nnoremap <leader>; <cmd>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <Leader>s :GGrep<space>
 nnoremap <Leader>S :Rg <space><C-r><C-w><CR>
 nnoremap <leader>y :CocList -N  --ignore-case yank<CR>
@@ -230,7 +302,7 @@ nnoremap <leader>p :CocList mru <CR>
 nnoremap <leader>c :History/ <CR>
 nnoremap <leader>a :CocList -N  --ignore-case actions<CR>
 nnoremap <leader>m :CocList marks<CR>
-nnoremap <C-p> :CocList mru<CR>
+nnoremap <C-p> <cmd>Telescope old-files<CR>
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Use tab and shift tab to navigate completion
@@ -406,4 +478,3 @@ let g:projectionist_heuristics = {
       \ }
 
 syntax on
-colorscheme base16-onedark
