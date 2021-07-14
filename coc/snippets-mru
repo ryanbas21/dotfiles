@@ -1,0 +1,62 @@
+log
+clg
+cas
+get
+imp
+inst
+ap
+where
+sing
+fun
+anf
+cla
+con
+ISC
+doc
+data
+desc
+mat
+todo
+des
+exp
+desco
+desce
+input
+diso
+if "Boolean conditional" !w
+main
+data "Algebraic data type" !b
+newtype
+in "Instance definition" !b
+main "Main module" !b
+module
+mod "Module declaration" !b
+containers "Import modules for data structures, qualified" !b
+case
+rec "Data record" !b
+te
+test
+ret
+ime
+RifElse
+us
+conc
+edf
+import statement
+Rmean
+uuid
+rcfc
+rsf
+it
+itt
+rsfp
+RforEachObjIndexed
+descs
+class
+BEERWARE
+box
+header
+qual "Qualified import, name by last module" !b
+inlinable "INLINABLE pragma" !b
+rpc
+Rpick
