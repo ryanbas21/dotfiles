@@ -59,13 +59,11 @@ au BufRead,BufNewFile *.sbt set filetype=scala
 set termguicolors
 
 call plug#begin('~/.vim/plugged')
-Plug 'chriskempson/base16-vim'
-Plug 'wadackel/vim-dogrun'
 Plug 'janko/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'akinsho/nvim-bufferline.lua'
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'projekt0n/github-nvim-theme'
-Plug 'itchyny/lightline.vim'  " status line
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -90,53 +88,53 @@ Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
 Plug 'neovimhaskell/haskell-vim' , { 'for': 'haskell' }
 Plug 'elm-tooling/elm-vim' , { 'for': 'elm' }
 Plug 'andys8/vim-elm-syntax' , { 'for': 'elm' }
-Plug 'rafi/awesome-vim-colorschemes'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-telescope/telescope-media-files.nvim'
+Plug 'glepnir/dashboard-nvim'
 Plug 'ryanoasis/vim-devicons'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }  " We recommend updating the parsers on update
 
 call plug#end()
 
+let g:dashboard_default_executive = 'telescope'
+let g:dashboard_custom_header = [
+    \'',
+     \'⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣠⣤⣤⣴⣦⣤⣤⣄⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ',
+     \'⠀⠀⠀⠀⠀⠀⢀⣤⣾⣿⣿⣿⣿⠿⠿⠿⠿⣿⣿⣿⣿⣶⣤⡀⠀⠀⠀⠀⠀⠀ ',
+     \'⠀⠀⠀⠀⣠⣾⣿⣿⡿⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⢿⣿⣿⣶⡀⠀⠀⠀⠀ ',
+     \'⠀⠀⠀⣴⣿⣿⠟⠁⠀⠀⠀⣶⣶⣶⣶⡆⠀⠀⠀⠀⠀⠀⠈⠻⣿⣿⣦⠀⠀⠀ ',
+     \'⠀⠀⣼⣿⣿⠋⠀⠀⠀⠀⠀⠛⠛⢻⣿⣿⡀⠀⠀⠀⠀⠀⠀⠀⠙⣿⣿⣧⠀⠀ ',
+     \'⠀⢸⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⢀⣿⣿⣷⠀⠀⠀⠀⠀⠀⠀⠀⠸⣿⣿⡇⠀ ',
+     \'⠀⣿⣿⡿⠀⠀⠀⠀⠀⠀⠀⠀⢀⣾⣿⣿⣿⣇⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⠀ ',
+     \'⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⢠⣿⣿⡟⢹⣿⣿⡆⠀⠀⠀⠀⠀⠀⠀⣹⣿⣿⠀ ',
+     \'⠀⣿⣿⣷⠀⠀⠀⠀⠀⠀⣰⣿⣿⠏⠀⠀⢻⣿⣿⡄⠀⠀⠀⠀⠀⠀⣿⣿⡿⠀ ',
+     \'⠀⢸⣿⣿⡆⠀⠀⠀⠀⣴⣿⡿⠃⠀⠀⠀⠈⢿⣿⣷⣤⣤⡆⠀⠀⣰⣿⣿⠇⠀ ',
+     \'⠀⠀⢻⣿⣿⣄⠀⠀⠾⠿⠿⠁⠀⠀⠀⠀⠀⠘⣿⣿⡿⠿⠛⠀⣰⣿⣿⡟⠀⠀ ',
+     \'⠀⠀⠀⠻⣿⣿⣧⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣾⣿⣿⠏⠀⠀⠀ ',
+     \'⠀⠀⠀⠀⠈⠻⣿⣿⣷⣤⣄⡀⠀⠀⠀⠀⠀⠀⢀⣠⣴⣾⣿⣿⠟⠁⠀⠀⠀⠀ ',
+     \'⠀⠀⠀⠀⠀⠀⠈⠛⠿⣿⣿⣿⣿⣿⣶⣶⣿⣿⣿⣿⣿⠿⠋⠁⠀⠀⠀⠀⠀⠀ ',
+     \'⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠉⠛⠛⠛⠛⠛⠛⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ ',
+     \]
+
+lua << EOF
+vim.g.dashboard_custom_section = {
+        a = {description = {"  Find File                 SPC f"}, command = "Telescope find_files"},
+        b = {description = {"  Git Files                 SPC SPC"}, command = "Telescope git_files"},
+        c = {description = {"  Recents                   Ctrl P"}, command = "Telescope frecency"},
+        d = {description = {"  Find Word                 SPC s"}, command = "Telescope live_grep"},
+        e = {description = {"  Find In Buffer            SPC ;"}, command = "Telescope current_buffer_fuzzy_find"},
+    }
+
+EOF
 let test#python#pytest#options = "--color=yes"
 let test#javascript#jest#options = "--color=always"
 
-" Example config in VimScript
-lua << EOF
-require("telescope").setup({
-  pickers = {
-    buffers = {
-      sort_lastused = true,
-      theme = "dropdown",
-      mappings = {
-        i = {
-          ["<C-j>"] = require('telescope.actions').move_selection_next,
-          ["<C-k>"] = require('telescope.actions').move_selection_previous,
-        },
-      }
-    },
-    find_files = {
-      theme = "dropdown"
-    }
-  },
-})
-
-require"telescope".load_extension("frecency")
-require("github-theme").setup({
-  themeStyle = "dark",
-  functionStyle = "italic",
-  sidebars = {"qf", "vista_kind", "terminal", "packer"},
-
-  -- Change the "hint" color to the "orange" color, and make the "error" color bright red
-  colors = {hint = "orange", error = "#ff0000"}
-})
-EOF
-
 lua require'bufferline'.setup{}
-
 augroup UltestRunner
     au!
     au BufWritePost * UltestNearest
@@ -169,6 +167,251 @@ let g:fzf_colors = {
 
 " Example config in VimScript
 lua << EOF
+local gl = require('galaxyline')
+local gls = gl.section
+gl.short_line_list = {'LuaTree','vista','dbui'}
+
+local colors = {
+  bg = '#282c34',
+  yellow = '#fabd2f',
+  cyan = '#008080',
+  darkblue = '#081633',
+  green = '#afd700',
+  orange = '#FF8800',
+  purple = '#5d4d7a',
+  magenta = '#d16d9e',
+  grey = '#c0c0c0',
+  blue = '#0087d7',
+  red = '#ec5f67'
+}
+
+local buffer_not_empty = function()
+  if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
+    return true
+  end
+  return false
+end
+
+local function lsp_status(status)
+    shorter_stat = ''
+    for match in string.gmatch(status, "[^%s]+")  do
+        err_warn = string.find(match, "^[WE]%d+", 0)
+        if not err_warn then
+            shorter_stat = shorter_stat .. ' ' .. match
+        end
+    end
+    return shorter_stat
+end
+
+local function get_coc_lsp()
+  local status = vim.fn['coc#status']()
+  if not status or status == '' then
+      return ''
+  end
+  return lsp_status(status)
+end
+
+function get_diagnostic_info()
+  if vim.fn.exists('*coc#rpc#start_server') == 1 then
+    return get_coc_lsp()
+    end
+  return ''
+end
+
+local function get_current_func()
+  local has_func, func_name = pcall(vim.fn.nvim_buf_get_var,0,'coc_current_function')
+  if not has_func then return end
+      return func_name
+  end
+
+function get_function_info()
+  if vim.fn.exists('*coc#rpc#start_server') == 1 then
+    return get_current_func()
+    end
+  return ''
+end
+
+local function trailing_whitespace()
+    local trail = vim.fn.search("\\s$", "nw")
+    if trail ~= 0 then
+        return ' '
+    else
+        return nil
+    end
+end
+
+CocStatus = get_diagnostic_info
+CocFunc = get_current_func
+TrailingWhiteSpace = trailing_whitespace
+gls.left[1] = {
+  FirstElement = {
+    provider = function() return '▋' end,
+    highlight = {colors.blue,colors.yellow}
+  },
+}
+gls.left[2] = {
+  ViMode = {
+    provider = function()
+      local alias = {n = 'NORMAL',i = 'INSERT',c= 'COMMAND',v= 'VISUAL',V= 'VISUAL LINE', [''] = 'VISUAL BLOCK'}
+      return alias[vim.fn.mode()]
+    end,
+    separator = '',
+    separator_highlight = {colors.purple,function()
+      if not buffer_not_empty() then
+        return colors.purple
+      end
+      return colors.darkblue
+    end},
+    highlight = {colors.darkblue,colors.purple,'bold'},
+  },
+}
+gls.left[3] ={
+  FileIcon = {
+    provider = 'FileIcon',
+    condition = buffer_not_empty,
+    highlight = {require('galaxyline.provider_fileinfo').get_file_icon_color,colors.darkblue},
+  },
+}
+gls.left[4] = {
+  FileName = {
+    provider = {'FileName','FileSize'},
+    condition = buffer_not_empty,
+    separator = '',
+    separator_highlight = {colors.purple,colors.darkblue},
+    highlight = {colors.magenta,colors.darkblue}
+  }
+}
+
+gls.left[5] = {
+  GitIcon = {
+    provider = function() return '  ' end,
+    condition = buffer_not_empty,
+    highlight = {colors.orange,colors.purple},
+  }
+}
+gls.left[6] = {
+  GitBranch = {
+    provider = 'GitBranch',
+    condition = buffer_not_empty,
+    highlight = {colors.grey,colors.purple},
+  }
+}
+
+local checkwidth = function()
+  local squeeze_width  = vim.fn.winwidth(0) / 2
+  if squeeze_width > 40 then
+    return true
+  end
+  return false
+end
+
+gls.left[7] = {
+  DiffAdd = {
+    provider = 'DiffAdd',
+    condition = checkwidth,
+    icon = ' ',
+    highlight = {colors.green,colors.purple},
+  }
+}
+gls.left[8] = {
+  DiffModified = {
+    provider = 'DiffModified',
+    condition = checkwidth,
+    icon = ' ',
+    highlight = {colors.orange,colors.purple},
+  }
+}
+gls.left[9] = {
+  DiffRemove = {
+    provider = 'DiffRemove',
+    condition = checkwidth,
+    icon = ' ',
+    highlight = {colors.red,colors.purple},
+  }
+}
+gls.left[10] = {
+  LeftEnd = {
+    provider = function() return '' end,
+    separator = '',
+    separator_highlight = {colors.purple,colors.bg},
+    highlight = {colors.purple,colors.purple}
+  }
+}
+gls.left[11] = {
+  DiagnosticError = {
+    provider = 'DiagnosticError',
+    icon = '  ',
+    highlight = {colors.red,colors.bg}
+  }
+}
+gls.left[12] = {
+  CocStatus = {
+     provider = CocStatus,
+     highlight = {colors.green,colors.bg},
+  }
+}
+gls.left[13] = {
+  CocFunc = {
+    provider = CocFunc,
+    highlight = {colors.yellow,colors.bg},
+  }
+}
+gls.left[14] = {
+  DiagnosticWarn = {
+    provider = 'DiagnosticWarn',
+    icon = '  ',
+    highlight = {colors.blue,colors.bg},
+  }
+}
+gls.right[1]= {
+  FileFormat = {
+    provider = 'FileFormat',
+    separator = '',
+    separator_highlight = {colors.bg,colors.purple},
+    highlight = {colors.grey,colors.purple},
+  }
+}
+gls.right[2] = {
+  LineInfo = {
+    provider = 'LineColumn',
+    separator = ' | ',
+    separator_highlight = {colors.darkblue,colors.purple},
+    highlight = {colors.grey,colors.purple},
+  },
+}
+gls.right[3] = {
+  PerCent = {
+    provider = 'LinePercent',
+    separator = '',
+    separator_highlight = {colors.darkblue,colors.purple},
+    highlight = {colors.grey,colors.darkblue},
+  }
+}
+gls.right[4] = {
+  ScrollBar = {
+    provider = 'ScrollBar',
+    highlight = {colors.yellow,colors.purple},
+  }
+}
+
+gls.short_line_left[1] = {
+  BufferType = {
+    provider = 'FileTypeName',
+    separator = '',
+    separator_highlight = {colors.purple,colors.bg},
+    highlight = {colors.grey,colors.purple}
+  }
+}
+
+
+gls.short_line_right[1] = {
+  BufferIcon = {
+    provider= 'BufferIcon',
+    separator = '',
+    separator_highlight = {colors.purple,colors.bg},
+    highlight = {colors.grey,colors.purple}
+  }
+}
 require("github-theme").setup({
   themeStyle = "dimmed",
   functionStyle = "italic",
@@ -180,6 +423,7 @@ require("github-theme").setup({
   -- Change the "hint" color to the "orange" color, and make the "error" color bright red
   colors = { hint = "orange", error = "#ff0000" }
 })
+
 EOF
 " Enable per-command history.
 " CTRL-N and CTRL-P will be automatically bound to next-history and
@@ -245,7 +489,7 @@ if has('unnamedplus')
 endif
 
 lua << EOF
-require('telescope').setup{
+require('telescope').setup({
   defaults = {
     vimgrep_arguments = {
       'rg',
@@ -256,20 +500,48 @@ require('telescope').setup{
       '--column',
       '--smart-case'
     },
-    prompt_prefix = "> ",
-    selection_caret = "> ",
+    pickers = {
+      buffers = {
+        mappings = {
+          i = {
+            ["<C-j>"] = require('telescope.actions').move_selection_next,
+            ["<C-k>"] = require('telescope.actions').move_selection_previous,
+          },
+        }
+      }
+    },
+    extensions = {
+        fzf = {
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = false, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = "smart_case" -- or "ignore_case" or "respect_case"
+            -- the default case_mode is "smart_case"
+        },
+        media_files = {
+            filetypes = {"png", "webp", "jpg", "jpeg"},
+            find_cmd = "rg" -- find command (defaults to `fd`)
+        }
+    },
+    prompt_prefix = "   ",
+    selection_caret = "  ",
     entry_prefix = "  ",
     initial_mode = "insert",
     selection_strategy = "reset",
     sorting_strategy = "descending",
     layout_strategy = "horizontal",
     layout_config = {
-      horizontal = {
-        mirror = false,
-      },
-      vertical = {
-        mirror = false,
-      },
+        horizontal = {
+            prompt_position = "top",
+            preview_width = 0.55,
+            results_width = 0.8
+        },
+        vertical = {
+            mirror = false
+        },
+        width = 0.87,
+        height = 0.80,
+        preview_cutoff = 120
     },
     file_sorter =  require'telescope.sorters'.get_fuzzy_file,
     file_ignore_patterns = {},
@@ -288,7 +560,9 @@ require('telescope').setup{
     -- Developer configurations: Not meant for general override
     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
   }
-}
+})
+require("telescope").load_extension("fzf")
+require"telescope".load_extension("frecency")
 EOF
 " ************** Key Mappings *******************************************  
 
@@ -318,21 +592,6 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 
 nmap <leader>d :CocList diagnostics<CR>
 nmap <leader>l :CocList
-<<<<<<< HEAD
-
-" Find files using Telescope command-line sugar.
-nnoremap <leader>f <cmd>Telescope find_files<cr>
-nnoremap <leader><leader> :Telescope git_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-
-
-" nnoremap <silent> <Leader>f :Files<CR>
-" nnoremap <silent> <Leader><Leader> :GFiles<CR>
-nnoremap <leader>; <cmd>Telescope current_buffer_fuzzy_find<CR>
-nnoremap <Leader>s :GGrep<space>
-nnoremap <Leader>S :Rg <space><C-r><C-w><CR>
-=======
 nnoremap <silent> <Leader>f <cmd>Telescope file_browser<CR>
 nnoremap <silent> <Leader><Leader> <cmd>Telescope git_files<CR>
 nnoremap <silent> <leader>; <cmd>Telescope current_buffer_fuzzy_find<CR>
@@ -389,22 +648,22 @@ endfunction
 
 noremap <silent> Y y$
 "*************** LightLine ***********************
-  let g:lightline = {
-      \ 'colorscheme': 'dogrun',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'fugitive', 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ],
-      \   'right': [ ['percent', 'lineinfo'], [ 'fileformat', 'fileencoding', 'filetype', 'filesize' ],['obsession']],
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \   'cocstatus': 'coc#status',
-      \ },
-      \ 'component_expand': {
-      \   'obsession': 'LightlineObsession',
-      \   'fzf': 'FzfStatusLine'
-      \}
-      \ }
+  " let g:lightline = {
+  "     \ 'colorscheme': 'dogrun',
+  "     \ 'active': {
+  "     \   'left': [ [ 'mode', 'paste' ],
+  "     \             [ 'fugitive', 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ],
+  "     \   'right': [ ['percent', 'lineinfo'], [ 'fileformat', 'fileencoding', 'filetype', 'filesize' ],['obsession']],
+  "     \ },
+  "     \ 'component_function': {
+  "     \   'gitbranch': 'fugitive#head',
+  "     \   'cocstatus': 'coc#status',
+  "     \ },
+  "     \ 'component_expand': {
+  "     \   'obsession': 'LightlineObsession',
+  "     \   'fzf': 'FzfStatusLine'
+  "     \}
+  "     \ }
 "*************************************************
 
 " **************** GIT ********************
