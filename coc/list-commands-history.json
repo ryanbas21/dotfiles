@@ -1,0 +1,15 @@
+{
+  "L1VzZXJzL2JhdG1hbi9wcm9ncmFtbWluZy9oYXNrZWxsL2Rpc2NvcmRib3Q=": [
+    "create.",
+    "create"
+  ],
+  "L1VzZXJzL2JhdG1hbi9wcm9ncmFtbWluZy9jaGlnZ2luc3BpY2tz": [
+    "pure",
+    "purescript.buil",
+    "build",
+    "purescript.build"
+  ],
+  "L1VzZXJzL2JhdG1hbi9wcm9ncmFtbWluZy93ZWIvZnAtdHMtYm9pbGVycGxhdGU=": [
+    "eslint"
+  ]
+}

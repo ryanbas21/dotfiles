@@ -1,0 +1,525 @@
+{
+  "snippets": {
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fryan_blog": [
+      "rpc",
+      "ramda"
+    ],
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "uuid",
+      "let"
+    ]
+  },
+  "commands": {
+    "%2FUsers%2Fbatman": [
+      ":CocCon",
+      "git.show",
+      "import",
+      "impor",
+      "gh"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fryan_blog": [
+      "jest.p",
+      "git.chunk",
+      "jest",
+      "inl",
+      "inlin",
+      "inline",
+      "je",
+      "prettier",
+      "prett"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Falgo": [
+      "prettier",
+      "prett",
+      "prette"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fchiggins_picks": [
+      "prettier"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fcheckr": [
+      "rett",
+      "jk",
+      "retter",
+      "rmat",
+      "format",
+      "rettier",
+      "prettier",
+      "pretter"
+    ],
+    "%2FUsers%2Fbatman%2Frefactoring-exercise-master": [
+      "ttier"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fext": [
+      "prettier"
+    ],
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "inline"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fprelude": [
+      "jest"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fdiscordbot": [
+      "market"
+    ]
+  },
+  "lists": {
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fryan_blog": [
+      "8?",
+      "symbl",
+      "buf",
+      "maps",
+      "comm",
+      "files",
+      "com",
+      "cmd"
+    ],
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "fil",
+      "?:h",
+      "sym",
+      "exten",
+      "wojkjk",
+      "location",
+      "words",
+      "file",
+      "grep",
+      "snipp",
+      "search",
+      "cmdhi",
+      "helpt",
+      "commits",
+      "comm",
+      "diagn",
+      "jk",
+      "files",
+      "erverice",
+      "folders",
+      "maps"
+    ],
+    "%2FUsers%2Fbatman": [
+      "search",
+      "fil",
+      "buff",
+      "cmd",
+      "links",
+      "actions"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fvalidate-course": [
+      "issues"
+    ]
+  },
+  "symbols": {
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fryan_blog": [
+      "card"
+    ]
+  },
+  "files": {
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fryan_blog": [
+      "ls",
+      "index",
+      "jest",
+      "test"
+    ],
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "nvi",
+      "jkjk",
+      "init.vim",
+      "initv",
+      ".vimrc",
+      "ins",
+      "init",
+      "readme.md",
+      "ha",
+      "passo",
+      "tmux",
+      "read"
+    ],
+    "%2FUsers%2Fbatman": [
+      "coursier",
+      "init.vim"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fcheckr": [
+      "package.json"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Freact-karaoke-homework": [
+      "index.css"
+    ]
+  },
+  "locationlist": {
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "gq"
+    ]
+  },
+  "grep": {
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "wordgqi",
+      "'gq",
+      "word",
+      "nmap",
+      "let",
+      "hello",
+      "words",
+      "cask",
+      "list",
+      "dotfiles"
+    ],
+    "%2FUsers%2Fbatman": [
+      "let g:",
+      "haskell ide",
+      "jkk"
+    ]
+  },
+  "extensions": {
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "jk",
+      "jkijk"
+    ],
+    "%2FUsers%2Fbatman": [
+      "tsli",
+      "ts"
+    ]
+  },
+  "location": {
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "kiq",
+      "ji"
+    ]
+  },
+  "words": {
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "dark",
+      "mapleader",
+      "jk",
+      "gitbranc",
+      "hello",
+      "nnoremap",
+      "nvim",
+      "words",
+      "install.sh",
+      "brew",
+      "brew cask",
+      "ma",
+      "CocL",
+      "let",
+      "word",
+      "fzf",
+      "FZF",
+      "snippet_prev",
+      "snippe",
+      "coc"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fryan_blog": [
+      "tags"
+    ],
+    "%2FUsers%2Fbatman": [
+      "nnoremap",
+      "<Leader>gs"
+    ]
+  },
+  "mru": {
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      ".vimr",
+      "vim",
+      "vimrc",
+      "jjk",
+      ".zshrc",
+      "init.vim",
+      "init."
+    ],
+    "%2FUsers%2Fbatman%2Fhaskell-ide-engine": [
+      "jk"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Felm%2Felm-todo": [
+      "jjjkjk"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fchiggins_picks%2Fserver": [
+      "icla",
+      "kjkjkjkj"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fprogramming_in_haskell": [
+      "ch",
+      "jj"
+    ],
+    "%2FUsers%2Fbatman": [
+      "k:",
+      "tmux.con"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fryan_blog": [
+      "package.json",
+      "blo",
+      " find",
+      "jk"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fcheckr": [
+      "package",
+      ".babe",
+      ".babel",
+      "db",
+      "index",
+      "package.json",
+      "preti",
+      "pretti",
+      "prettier",
+      "Todos",
+      "schem",
+      "todos",
+      ".env",
+      "server"
+    ],
+    "%2FUsers%2Fbatman%2Frefactoring-exercise-master": [
+      "package"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Felm%2Fcats": [
+      "  "
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Freact-karaoke-homework": [
+      "test",
+      "index",
+      "index.test.js",
+      "data",
+      "index.js",
+      "utils",
+      "styles"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Felm%2Fryanblog": [
+      "jjk"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Felm%2Fmealapi": [
+      "Get"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fwebpack": [
+      "webp",
+      "webpack"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2FHaskell%2Flists": [
+      "coc"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fpurescript%2Freact-basic-starter": [
+      "App",
+      "package"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fweather-cli": [
+      "caba"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fmma-api": [
+      "caba",
+      "reader"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2FHaskell%2Fparsing": [
+      ":q"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fcoinbase-buyer": [
+      ".env"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fdiscordbot": [
+      "package",
+      ".env"
+    ]
+  },
+  "quickfix": {
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "jk"
+    ]
+  },
+  "maps": {
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fryan_blog": [
+      ":q",
+      "Plug coc-def",
+      "<Plug>rename"
+    ],
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "definition",
+      "gd",
+      "Plug<coc>",
+      "coc",
+      "Plug",
+      "fzfjki"
+    ]
+  },
+  "cmdhistory": {
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fryan_blog": [
+      "call",
+      "singleT",
+      "codelens",
+      "codel"
+    ],
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "shellcheck"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Felm%2Felm-0": {
+      "19-workshop%2Fintro%2Fpart1": [
+        "make"
+      ],
+      "19-workshop%2Fintro%2Fpart2": [
+        "jk",
+        "make"
+      ]
+    },
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Felm%2Felm-todo": [
+      "make elm/"
+    ],
+    "%2FUsers%2Fbatman": [
+      "git push ori",
+      "without",
+      "import",
+      "Ghcid "
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fext": [
+      "pret"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fadvent-of-code": [
+      "Ghcid",
+      "ghci"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell": [
+      "ghcid",
+      "Ghcid"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fhaskell_compose_type": [
+      "Ghcid",
+      "Ghcid stack",
+      "stack ghci",
+      "stack"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2FHaskell%2Fparsing": [
+      "stack",
+      "stack ghci",
+      "stack ghic"
+    ]
+  },
+  "helptags": {
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "lig"
+    ]
+  },
+  "yank": {
+    "%2FUsers%2Fbatman": [
+      "jkj"
+    ],
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "plug",
+      "jki",
+      "g:"
+    ]
+  },
+  "lines": {
+    "%2FUsers%2Fbatman": [
+      "Leaderjki",
+      "main",
+      "putS",
+      "leader",
+      "fzf",
+      "fugitive",
+      "coc",
+      "lightline"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fvalidate-course": [
+      "display",
+      "rbasmajian",
+      "nameLength"
+    ],
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      ":Coc",
+      "join",
+      "plug tpope",
+      "lightline",
+      "python"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fcheckr": [
+      "env",
+      "formatONsave",
+      "coc.preferences.",
+      "ale",
+      "fixers",
+      "javascript",
+      "prettier"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fryan_blog": [
+      "import"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fstore": [
+      "coc"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fwebpack": [
+      "path",
+      "url"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2FHaskell%2Flists": [
+      "files"
+    ]
+  },
+  "gfiles": {
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fvalidate-course": [
+      "main."
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fryan_blog": [
+      "package.jso",
+      "storysho",
+      "index"
+    ],
+    "%2FUsers%2Fbatman": [
+      "tmux.conf"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fwebpack": [
+      "eslintr"
+    ]
+  },
+  "marks": {
+    "%2FUsers%2Fbatman": [
+      "bg"
+    ]
+  },
+  "actions": {
+    "%2FUsers%2Fbatman": [
+      "jk"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fadvent-of-code": [
+      "jk"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fmma-api": [
+      "kkkk"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fweb%2Fryan_blog": [
+      "jk:"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fdiscordbot": [
+      "kkk",
+      "kk"
+    ]
+  },
+  "diagnostics": {
+    "%2FUsers%2Fbatman%2F": {
+      "vim%2Fplugged%2Flightline": {
+        "vim%2Fautoload%2Flightline%2Fcolorscheme": [
+          "jk:"
+        ]
+      }
+    },
+    "%2FUsers%2Fbatman%2Fprogramming%2Fpurescript%2Fpurescript-todo": [
+      "jkjk"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fdiscordbot": [
+      "jkjk",
+      "jkk"
+    ]
+  },
+  "colors": {
+    "%2FUsers%2Fbatman%2Fdotfiles": [
+      "onedark"
+    ],
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fmma-api": [
+      "lucid",
+      "atom",
+      "hyb",
+      "hybri",
+      "hy",
+      "gotham",
+      "onedark"
+    ]
+  },
+  "marketplace": {
+    "%2FUsers%2Fbatman%2Fprogramming%2Fhaskell%2Fdiscordbot": [
+      "gist"
+    ]
+  }
+}
