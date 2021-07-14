@@ -1,0 +1,12 @@
+eslint.executeAutofix
+eslint.showOutputChannel
+gist.create
+marketplace
+prettier.formatFile
+inlineJest.toggle
+importCost.toggle
+python.sortImports
+prettier.open-output
+git.showCommit
+git.chunkInfo
+jest.projectTest

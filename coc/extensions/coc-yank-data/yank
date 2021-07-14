@@ -1,0 +1,832 @@
+193cfc9be3b995831c6af2fea6650e60|file:///Users/batman/programming/elm/pancakes/src/Main.elm|96|12|v|elm
+	Page
+38555d7eed1cbb7058bbd3cffbc43680|file:///Users/batman/programming/elm/pancakes/src/Main.elm|84|17|V|elm
+	                _ ->
+eec31d2599cc93f990423367a8d9ce42|file:///Users/batman/programming/elm/pancakes/src/Main.elm|84|17|v|elm
+	Debug.todo
+e458bc457948177d320a7a3aef51c470|file:///Users/batman/programming/elm/pancakes/src/Main.elm|110|9|v|elm
+	LoginMsg
+d5f76100a936867422b880b5062b98ee|file:///Users/batman/programming/elm/pancakes/src/Main.elm|110|11|v|elm
+	msg 
+8ff0dd19642226a0f0478deadc53b4de|file:///Users/batman/programming/elm/pancakes/src/Main.elm|67|1|V|elm
+	fst : { a | init : Model }
+fe772601313848439d3eeb45dc88ca16|file:///Users/batman/programming/elm/pancakes/src/Main.elm|67|1|V|elm
+	fst =
+5230e8bb669ad7b3579a49bd759117ee|file:///Users/batman/programming/elm/pancakes/src/Main.elm|77|44|v|elm
+	Cmd.map LoginMsg pageCmds 
+a8baec3739ba9be9517f87d9fb1ebdb5|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|1|1|v|elm
+	module Login.Login exposing (..)
+	
+	import Html exposing (Html, div, text)
+	
+	
+	type Model
+	    = Success
+	    | Failure
+	    | Loading
+	    | Loaded
+	
+	
+	type Msg
+	    = None
+	
+	
+	model : ( Model, Cmd Msg )
+	model =
+	    ( Loading, Cmd.none )
+	
+	
+	init : ( Model, Cmd Msg )
+	init =
+	    ( Loaded, Cmd.none )
+	
+	
+	update : Msg -> Model -> ( Model, Cmd Msg )
+	update msg _ =
+	    case msg of
+	        None ->
+	            ( Loaded, Cmd.none )
+	
+	
+	view : Model -> Html Msg
+	view _ =
+	    div [] [ text "Login" ]
+7edc184d155ec90064403f93195d15b1|file:///Users/batman/programming/elm/pancakes/src/Main.elm|81|38|v|elm
+	existingCmds
+008f71cd9caf2d5f17b93a1b9195c48d|file:///Users/batman/programming/elm/pancakes/src/Register/Register.elm|2|1|V|elm
+	module Login.Login exposing (..)
+6c1ca327e076e334f3bd2a891c979ac0|file:///Users/batman/programming/elm/pancakes/src/Register/Register.elm|1|1|v|elm
+	module Register.Register exposing (..)
+	
+	import Html exposing (Html, div, text)
+	
+	
+	type Model
+	    = Success
+	    | Failure
+	    | Loading
+	    | Loaded
+	
+	
+	type Msg
+	    = None
+	
+	
+	model : ( Model, Cmd Msg )
+	model =
+	    ( Loading, Cmd.none )
+	
+	
+	init : ( Model, Cmd Msg )
+	init =
+	    ( Loaded, Cmd.none )
+	
+	
+	update : Msg -> Model -> ( Model, Cmd Msg )
+	update msg _ =
+	    case msg of
+	        None ->
+	            ( Loaded, Cmd.none )
+	
+	
+	view : Model -> Html Msg
+	view _ =
+	    div [] [ text "Register" ]
+0ba7583639a274c434bbe6ef797115a4|file:///Users/batman/programming/elm/pancakes/src/Home/Home.elm|1|8|v|elm
+	Register
+fcafef37e9ea059712b84ff6b3f0836b|file:///Users/batman/programming/elm/pancakes/src/Main.elm|61|22|v|elm
+	LoginPage Login.Loading
+c1756c986aa71a9b63081415a42f1908|file:///Users/batman/programming/elm/pancakes/src/Main.elm|92|23|v|elm
+	HomePage
+0910e09931f83ef42e3155c9335515e7|file:///Users/batman/programming/elm/pancakes/src/Main.elm|92|42|v|elm
+	Cmd.none
+904afc43f7e78cc8acb0ca2cdcab950a|file:///Users/batman/programming/elm/pancakes/src/Main.elm|95|25|V|elm
+	                        (pageModel, pageCmds) = 
+3c68944bf69a2151084d3e1f90726ea9|file:///Users/batman/programming/elm/pancakes/src/Main.elm|95|21|V|elm
+	                    ( { model | page = currentPage }
+09534e5317b59ec446153081c9457e89|file:///Users/batman/programming/elm/pancakes/src/Main.elm|95|21|V|elm
+	                    , Cmd.batch [ existingCmds, mappedPageCmds ]
+675cda06a68fb97ac40e8440e57b67c1|file:///Users/batman/programming/elm/pancakes/src/Main.elm|94|17|v|elm
+	_ -> ()
+5004aa3f0c077506a2ab9c8d7d50ae6d|file:///Users/batman/programming/elm/pancakes/src/Main.elm|97|22|v|elm
+	Route.
+884912637157a61f9e3a55c093d4810b|file:///Users/batman/programming/elm/pancakes/src/NotFound.elm|6|12|v|elm
+	: {} 
+4f18f0d7fd8e34b657561d7f91f221de|file:///Users/batman/programming/elm/pancakes/src/NotFound.elm|9|1|V|elm
+	update : Msg -> Model 
+723eb71a6738ffe2a564743f4493a849|file:///Users/batman/programming/elm/pancakes/src/NotFound.elm|9|1|V|elm
+	update _ -> None
+256812627361912fef4ddfd0f7263324|file:///Users/batman/programming/elm/pancakes/src/NotFound.elm|20|17|v|elm
+	Browser.Document
+32e1b7f3ec38764c6c5a8994fe0781a9|file:///Users/batman/programming/elm/pancakes/src/NotFound.elm|22|5|V|elm
+	    { title = "Pancake Not Found"
+6db16810964aa451caac3a2fa3ffd1fc|file:///Users/batman/programming/elm/pancakes/src/NotFound.elm|22|5|V|elm
+	    , body = "Not Found Page"
+6adf97f83acf6453d4a6a4b1070f3754|file:///Users/batman/programming/elm/pancakes/src/NotFound.elm|17|5|v|elm
+	None
+4d9291ad4c9c2e0f4d689ce103ab0798|file:///Users/batman/programming/elm/pancakes/src/Main.elm|148|18|v|elm
+	 div [] [ text "Hello World" ] 
+b7efa8f85f93a9fcd5af191c301225ef|file:///Users/batman/programming/elm/pancakes/src/Main.elm|147|26|v|elm
+	pagemode
+21a779b9c2b5ff20374ea2d7ed88e9a6|file:///Users/batman/programming/elm/pancakes/src/Main.elm|147|13|v|elm
+	RegiseterPage
+77deac8e600b2fad8834d0764f74619b|file:///Users/batman/programming/elm/pancakes/src/Main.elm|147|1|V|elm
+	            [ CDN.stylesheet
+	            , Grid.row [] []
+	            , Grid.row []
+	                [
+	                ]
+	            ]
+f33dbc8ad8df59f9149a38b3b1a2acc3|file:///Users/batman/programming/elm/pancakes/src/Main.elm|147|1|v|elm
+	 case model.page of
+	                    LoginPage pageModel ->
+	                        [ Login.view pageModel |> Html.map LoginMsg ]
+	
+	                    RegisterPage pageModel ->
+	                        [ Register.view pageModel |> Html.map RegisterMsg ]
+	
+	                    HomePage pageModel ->
+	                        [ Home.view pageModel |> Html.map HomeMsg ]
+	
+	                    NotFoundPage pageModel ->
+	                        [ NotFound.view pageModel |> Html.map NotFoundMsg ]
+1afd32818d1c9525f82aff4c09efd254|file:///Users/batman/programming/elm/pancakes/src/Main.elm|149|22|v|elm
+	column
+285558d16e77d4b171487c847c992409|file:///Users/batman/programming/elm/pancakes/src/Main.elm|146|12|v|elm
+	 CDN.stylesheet
+	            , Grid.row [] []
+	            , Grid.row []
+	                [ Grid.col
+	                    []
+	                    [ case model.page of
+	                        LoginPage pageModel ->
+	                            [ Login.view pageModel |> Html.map LoginMsg ]
+	
+	                        RegisterPage pageModel ->
+	                            [ Register.view pageModel |> Html.map RegisterMsg ]
+	
+	                        HomePage pageModel ->
+	                            [ Home.view pageModel |> Html.map HomeMsg ]
+	
+	                        NotFoundPage pageModel ->
+	                            [ NotFound.view pageModel |> Html.map NotFoundMsg ]
+	                    ]
+	                ]
+14a1e764d211bbb59eac4e8c3515c914|file:///Users/batman/programming/elm/pancakes/src/Main.elm|165|13|V|elm
+	            ]
+82cfbd0bf5cfd4dfbfd601e7c0114c46|file:///Users/batman/programming/elm/pancakes/src/Main.elm|163|21|V|elm
+	                    ]
+d2a43db8f0529f4428d3f6943a223640|file:///Users/batman/programming/elm/pancakes/src/Main.elm|156|13|v|elm
+	[
+	                ]
+8de0073eb5e347334b94402142727089|file:///Users/batman/programming/elm/pancakes/src/Main.elm|156|27|v|elm
+	Navbar.config NavbarMsg
+	                |> Navbar.withAnimation
+	                |> Navbar.brand [ href "#" ] [ text "Brand" ]
+	                |> Navbar.items
+	                    [ Navbar.itemLink [ href "#" ] [ text "Item 1" ]
+	                    , Navbar.itemLink [ href "#" ] [ text "Item 2" ]
+	                    ]
+	                |> Navbar.view state.basicState
+	
+5cd3ca2e062758fe57b0e688eba0668d|file:///Users/batman/programming/elm/pancakes/src/Main.elm|156|28|v|elm
+	
+	                
+0509a714b6c17b055a88b9c2b0cff708|file:///Users/batman/programming/elm/pancakes/src/Main.elm|9|42|v|elm
+	href,
+9ed39e2ea931586b6a985a6942ef573e|file:///Users/batman/programming/elm/pancakes/src/Main.elm|164|32|v|elm
+	state
+74c4e2881edaba72e59db2247ca9afff|file:///Users/batman/programming/elm/pancakes/src/Main.elm|164|50|v|elm
+	basicState
+46a2a41cc6e552044816a2d04634545d|file:///Users/batman/programming/elm/pancakes/src/Main.elm|74|36|v|elm
+	State
+1e1fdef4a70b12e2c940881abe33dc1b|file:///Users/batman/programming/elm/pancakes/src/Main.elm|74|13|V|elm
+	            , navbarState = Navbar.initialState
+94ebd6c1f098f3d957027c8417df54c9|file:///Users/batman/programming/elm/pancakes/src/Main.elm|76|47|v|elm
+	navbarState
+8b6c0f8610ac269b4b5b78a99aed195b|file:///Users/batman/programming/elm/pancakes/src/Main.elm|67|9|V|elm
+	        ( navbarState, navbarCmd ) =
+94d36d08ab0c398fbe9ec15996e2f80a|file:///Users/batman/programming/elm/pancakes/src/Main.elm|67|13|V|elm
+	            Navbar.initialState NavbarMsg
+ed27126af2bcaa193074fef150ed8f38|file:///Users/batman/programming/elm/pancakes/src/Main.elm|76|47|v|elm
+	Navbar.State
+f5b38475902446bfc84547ced0a45d77|file:///Users/batman/programming/elm/pancakes/src/Main.elm|77|31|v|elm
+	| navbarState = navbarState
+9fea94aab3fc0169e336e86e9da96a94|file:///Users/batman/programming/elm/pancakes/src/Main.elm|77|23|v|elm
+	 model
+c084639e3dab3b673286713477f8f440|file:///Users/batman/programming/elm/pancakes/src/Main.elm|68|1|V|elm
+	
+	        model =
+3e7cb369524c52ae370e1a524dfc6656|file:///Users/batman/programming/elm/pancakes/src/Main.elm|74|9|v|elm
+	(model, _) -> model  
+bb277a5f5344d4b17cc6119acbb5bdf2|file:///Users/batman/programming/elm/pancakes/src/Main.elm|69|17|V|elm
+	                { route = Route.parseUrl url
+81bfea92c6cc10145eecad6085562123|file:///Users/batman/programming/elm/pancakes/src/Main.elm|69|17|V|elm
+	                , page = HomePage Home.Loading
+d9b2fb93ac3c7d6dad7b664dda75fcbd|file:///Users/batman/programming/elm/pancakes/src/Main.elm|69|17|V|elm
+	                , navKey = key
+2972b50862a4edb2e0c5fcd22e557b60|file:///Users/batman/programming/elm/pancakes/src/Main.elm|69|17|V|elm
+	                , navbarState = navbarState
+81789648c34c70b46164eb7a6f015c95|file:///Users/batman/programming/elm/pancakes/src/Main.elm|69|17|V|elm
+	                }
+40d39f18035d97af93d28afc97c36ca5|file:///Users/batman/programming/elm/pancakes/src/Main.elm|170|22|v|elm
+	case model.page of
+	                        LoginPage pageModel ->
+	                            [ Login.view pageModel |> Html.map LoginMsg ]
+	
+	                        RegisterPage pageModel ->
+	                            [ Register.view pageModel |> Html.map RegisterMsg ]
+	
+	                        HomePage pageModel ->
+	                            [ Home.view pageModel |> Html.map HomeMsg ]
+	
+	                        NotFoundPage pageModel ->
+	                            [ NotFound.view pageModel |> Html.map NotFoundMsg ]
+e2899c0a691b9dbd84c12bcddf643036|file:///Users/batman/programming/elm/pancakes/src/Main.elm|180|13|v|elm
+	 Login.view pageModel |> Html.map LoginMsg 
+185ed6d446a111b4379c20018940c7b6|file:///Users/batman/programming/elm/pancakes/src/Main.elm|183|13|v|elm
+	 Register.view pageModel |> Html.map RegisterMsg 
+92589d43c1798af40bde10857a45c387|file:///Users/batman/programming/elm/pancakes/src/Main.elm|186|13|v|elm
+	 Home.view pageModel |> Html.map HomeMsg 
+5999194037e1b2dff225906d3481b039|file:///Users/batman/programming/elm/pancakes/src/Main.elm|189|13|v|elm
+	 NotFound.view pageModel |> Html.map NotFoundMsg 
+707ab42a59c5604cb479e2c69ef32ec0|file:///Users/batman/programming/elm/pancakes/src/Main.elm|170|21|v|elm
+	[handleRoutes model]
+f90b74fa8cc26a03ef5235755c2e574d|file:///Users/batman/programming/elm/pancakes/src/Main.elm|166|13|V|elm
+	            , Grid.row []
+2d919de77a4641043a757e1a1f042457|file:///Users/batman/programming/elm/pancakes/src/Main.elm|71|33|v|elm
+	first 
+5e0bde34b6d7fc9d15eeb6ee55724f11|file:///Users/batman/programming/elm/pancakes/src/Main.elm|17|1|V|elm
+	import Tuple
+d8a636afd3878b37756b6701750bb98a|file:///Users/batman/programming/elm/pancakes/src/Main.elm|71|32|v|elm
+	Home.model
+68365b5556fbdbdcd8a4b9ce2ef2d0f2|file:///Users/batman/programming/elm/pancakes/src/Main.elm|71|32|v|elm
+	Home.Model
+55cd093ee13c40fe814447e20c26e5f1|file:///Users/batman/programming/elm/pancakes/src/Main.elm|71|23|v|elm
+	HomePage Home.Loading
+a0e089acb687b30cbce0c89a0cf1598c|file:///Users/batman/programming/elm/pancakes/src/Main.elm|72|43|v|elm
+	.model
+1be6f9eb563f3bf85c78b4219bf09de9|file:///Users/batman/programming/elm/pancakes/src/Main.elm|160|58|v|elm
+	Brand
+7d74f3b92b19da5e606d737d339a9679|file:///Users/batman/programming/elm/pancakes/src/Main.elm|162|65|v|elm
+	Item
+1ed5093f6735059db64ef62ab0b63f45|file:///Users/batman/programming/elm/pancakes/src/Main.elm|163|68|v|elm
+	jlkx 2
+1b3fde24b1a88d59e50f6781ea41657e|file:///Users/batman/programming/elm/pancakes/src/Main.elm|136|18|v|elm
+	UrlRequest
+148b4dcb46e47f0c90d77333c71700f4|file:///Users/batman/programming/elm/pancakes/src/Main.elm|135|9|v|elm
+	ChangedUrl
+a6ae6c2afaef5d54f3bf938ec871a367|file:///Users/batman/programming/elm/pancakes/src/Main.elm|145|9|v|elm
+	ClickedLink
+75d1cdb152c630a10fb0bc16757df7a2|file:///Users/batman/programming/elm/pancakes/src/Routing.elm|10|7|v|elm
+	RegisterRoute
+e0923c4c27e2a3926cefcc27f35e6075|file:///Users/batman/programming/elm/pancakes/src/Routing.elm|11|7|v|elm
+	HomeRoute
+b785dd11f7fd18bc93f9f24d25343183|file:///Users/batman/programming/elm/pancakes/src/Routing.elm|28|21|v|elm
+	(s "login")
+cba8a17c4fb5a318e7bf2e1a14a35345|file:///Users/batman/programming/elm/pancakes/src/Routing.elm|29|9|V|elm
+	        , map Register top
+a66d6cac91a234ab9f36ff95fbea226a|file:///Users/batman/programming/elm/pancakes/src/Routing.elm|29|9|V|elm
+	        , map Home top
+adb58842f04a1dd08021c2326cd2ea87|file:///Users/batman/programming/elm/pancakes/src/Routing.elm|29|9|V|elm
+	        , map NotFound top
+420734df4d0ac81f4874a2bf736f825b|file:///Users/batman/programming/elm/pancakes/src/Routing.elm|27|5|V|elm
+	    oneOf
+43519db78b9bfca0a95e8a4d146faabd|file:///Users/batman/programming/elm/pancakes/src/Routing.elm|27|9|V|elm
+	        [ map fragment identity
+8cf04a9734132302f96da8e113e80ce5|file:///Users/batman/programming/elm/pancakes/src/Routing.elm|30|15|v|elm
+	Home
+333e56240f766743d6c9a8a57aed7db9|file:///Users/batman/programming/elm/pancakes/src/Routing.elm|28|1|V|elm
+	        [ map Home top
+9405c3aff9112c3c60d03b94792877dc|file:///Users/batman/programming/elm/pancakes/src/Main.elm|85|36|v|elm
+	Route
+0faa7fb52fac2f3e2c2120bf3ea9b1e6|file:///Users/batman/programming/elm/pancakes/src/Main.elm|85|44|V|elm
+	                ( LoginMsg subMsg, LoginPage) ->
+	                    let
+e37f0136aa3ffaf149b351f6a4c948e9|file:///Users/batman/programming/elm/pancakes/src/Main.elm|88|35|v|elm
+	init
+674facaec6dd02dddb42774e453fcc9c|file:///Users/batman/programming/elm/pancakes/src/Main.elm|135|9|v|elm
+	LinkClicked url ->
+	            case url of
+	                Browser.Internal internalUrl ->
+	                    ( model, Nav.pushUrl model.navKey (Url.toString internalUrl) )
+	
+	                Browser.External externalUrl ->
+	                    ( model
+	                    , Nav.load externalUrl
+	                    )
+	
+	        UrlChanged url ->
+	            let
+	                newRoute =
+	                    Route.parseUrl url
+	            in
+	            ( { model | route = newRoute }, Cmd.none )
+	                |> initCurrentPage
+	
+	
+ef15fd2f45e6bb5ce57587895ba64f93|file:///Users/batman/programming/elm/pancakes/src/Main.elm|143|13|v|elm
+	Browser
+29779eb355c355b22259d78b7d75d75a|file:///Users/batman/programming/elm/pancakes/src/Main.elm|135|33|v|elm
+	state 
+3fdd783a8d061744a27128f134832700|file:///Users/batman/programming/elm/pancakes/src/Main.elm|150|17|v|elm
+	newRoute =
+5c11415e356c7a9601e2b688ee13703e|file:///Users/batman/programming/elm/pancakes/src/Main.elm|149|21|v|elm
+	Route.parseUrl url
+a5e4cdc74aef1e90926d7a0716b04ff4|file:///Users/batman/programming/elm/pancakes/src/Main.elm|150|51|v|elm
+	newRoute 
+7bc1be694e088fb0bd327c16548c09ef|file:///Users/batman/programming/elm/pancakes/src/Main.elm|149|6|V|elm
+	                    
+8221f0f6d14c26132bb078bb14edda11|file:///Users/batman/programming/elm/pancakes/src/Home/Home.elm|32|15|v|elm
+	 model, msg
+7381d487d18845b379422325c0a768d6|file:///Users/batman/programming/elm/pancakes/src/Home/Home.elm|25|7|v|elm
+	Loaded
+e3b73132b9163cd41e91e61823e331de|file:///Users/batman/programming/elm/pancakes/src/Home/Home.elm|25|7|v|elm
+	oaded
+03937134cedab9078be39a77ee3a48a0|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|5|28|v|elm
+	Group
+126615d47d51c552f02742a24f6243df|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|6|1|V|elm
+	import Bootstrap.Grid.Col
+3c9d6c414e6fdd9da89e884708f298fb|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|40|5|V|elm
+	    div [] [ text "Login" ]
+5a7aefe7ada59bdd1343e43281e44854|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|7|22|v|elm
+	.Row
+a5771b27609a9e169875a75807c387c3|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|7|1|V|elm
+	import Bootstrap.Grid
+23fa8f5b02942a9484e497e4152c644d|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|39|9|v|elm
+	Input.text 
+e9647bbbb7c7c781c8a8f23e3fb5e417|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|4|1|V|elm
+	import Bootstrap.Form as Form
+e1f45f8f9f111127cc794bf8e51e6ed8|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|4|1|V|elm
+	import Bootstrap.Form.Input as Input
+eab74e9b2e8fc6d7df3be6a0f52c49e7|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|4|1|V|elm
+	import Bootstrap.Grid as Grid
+2197cf66d62b0b1504a1b30f54818e43|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|44|5|V|elm
+	    Grid.container []
+c4695fbbc6fca41a3a3fb9501437736c|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|44|8|v|elm
+	 Form.formGroup []
+059f37f9b257781692ba7faa4f51465c|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|44|8|v|elm
+	Form.formGroup
+fd2128144eafa87723b5fc965f43d160|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|49|12|V|elm
+	           ,
+f6039d44b29456b20f8f373155ae4973|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|51|74|v|elm
+	Username
+eb9b37c261a6e087d03e300e3f0d0afd|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|53|54|v|elm
+	[ text "Password" ]
+dd6ce573ded3c47b62fcf50208298216|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|52|44|v|elm
+	placeholder "Password" 
+f7a9250990fbd976eb3d5f5d8bc75428|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|47|44|v|elm
+	placeholder "Username" 
+b9732cc5c8bff08a548b58295f36efd0|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|48|47|v|elm
+	placeholder "Username" ]
+a4d3b161ce1309df1c4e25df28694b7b|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|55|52|v|elm
+	Submit
+0834253c5ae25026d03d7e4fbe4a75d4|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|55|1|V|elm
+	        , Button.button [ Button.primary ] [ text "Log in" ]
+a559b87068921eec05086ce5485e9784|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|15|6|v|elm
+	Model
+20f35e630daf44dbfa4c3f68f5399d8c|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|45|6|v|elm
+	model
+0362dde201b6fcbbae3372367da103d4|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|35|8|v|elm
+	 loading = Loading
+	      , usernmae = ""
+	      , password = ""
+fc251817da89168394101e245ea9c85d|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|57|13|V|elm
+	            ( model, Cmd.none )
+3ad81fdeeab2d1ca65d51597f3b1cfa4|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|46|9|v|elm
+	usernmae
+efa02ac3ac2a8efc471ba48127b3f582|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|66|43|v|elm
+	handleUsername
+d9e8a86a7f93b893caeb9365f6033143|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|66|43|v|elm
+	HandleUsername 
+30260e6915ad1ed07531aac79f41121c|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|61|1|V|elm
+	            ( { m | username = s }, Cmd.none )
+14c4b06b824ec593239362517f538b29|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|63|21|v|elm
+	username
+4cb3e2cf0b8e3fd4a9110be40e93eca9|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|77|58|v|elm
+	for "
+5f4dcc3b5aa765d61d8327deb882cf99|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|77|57|v|elm
+	password
+01bd55df4baaefc2ea061be7c0beb868|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|77|28|v|elm
+	Input.onInput HandlePassword,
+6dfb5f565f1ac919876eedb33f96b3ff|file:///Users/batman/programming/elm/pancakes/src/Main.elm|157|28|v|elm
+	 Cmd.none
+d0f75350db9746c05376328b8a2cd130|file:///Users/batman/programming/elm/pancakes/src/Main.elm|154|19|v|elm
+	model 
+00cd2d71b7b633b51abdad45bf3c3a5c|file:///Users/batman/programming/elm/pancakes/src/Main.elm|154|17|v|elm
+	 updatedModel, pageCmd 
+d3f6b93f9dbfc19ebb2be8789a140afb|file:///Users/batman/programming/elm/pancakes/src/Main.elm|157|62|v|elm
+	LoginPageCmd
+b2f76d01efda9b45d8a699def73c751a|file:///Users/batman/programming/elm/pancakes/src/Main.elm|152|9|v|elm
+	( LoginMsg pageMsg, LoginPage pageModel ) ->
+	            let
+	                ( updatedModel, pageCmd ) =
+	                    Login.update pageMsg pageModel
+	            in
+	            ( { model
+	                | page = LoginPage updatedModel
+	              }
+	            , Cmd.map LoginMsg pageCmd
+	            )
+	
+	
+eea8283c86b1bc46aace6593ac8654cf|file:///Users/batman/programming/elm/pancakes/src/Main.elm|163|1|v|elm
+	        ( RegisterMsg pageMsg, RegisterPage pageModel ) ->
+	            let
+	                ( updatedModel, pageCmd ) =
+	                    Register.update pageMsg pageModel
+	            in
+	            ( { model
+	                | page = RegisterPage updatedModel
+	              }
+	            , Cmd.map RegisterMsg pageCmd
+	            )
+ef7b584c4c03084b57aa81cfa5b88740|file:///Users/batman/programming/elm/pancakes/src/Main.elm|174|11|v|elm
+	RegisterMsg
+d45733e0a65182b16644695f5ce8ed34|file:///Users/batman/programming/elm/pancakes/src/Main.elm|174|28|v|elm
+	RegisterPage
+20e2342035bc81480c3ee943bf28ab41|file:///Users/batman/programming/elm/pancakes/src/Main.elm|174|9|v|elm
+	( HomeMsg pageMsg, HomePage pageModel ) ->
+	            let
+	                ( updatedModel, pageCmd ) =
+	                    Home.update pageMsg pageModel
+	            in
+	            ( { model
+	                | page = HomePage updatedModel
+	              }
+	            , Cmd.map HomeMsg pageCmd
+	            )
+787059d838b1b5781caf9fc53da55f0e|file:///Users/batman/programming/elm/pancakes/src/Main.elm|184|11|v|elm
+	HomeMsg
+36f264e97ff69748ee30de500fcab801|file:///Users/batman/programming/elm/pancakes/src/Main.elm|185|17|V|elm
+	                ( updatedModel, pageCmd ) =
+6fe3ec1ed73b502c5cb589091eb6bf7b|file:///Users/batman/programming/elm/pancakes/src/Main.elm|185|21|V|elm
+	                    Home.update pageMsg pageModel
+c30da1635b570d2eb3362c86ef26bfc0|file:///Users/batman/programming/elm/pancakes/src/Main.elm|185|13|V|elm
+	            ( { model
+5ce913f1ea8b2cd760c68e9cb2251b3a|file:///Users/batman/programming/elm/pancakes/src/Main.elm|185|17|V|elm
+	                | page = HomePage updatedModel
+456a7a06be5c7d6e52f26dcf2c80a042|file:///Users/batman/programming/elm/pancakes/src/Main.elm|185|15|V|elm
+	              }
+ca919defc95f25293a2d3fd8b49a2d7e|file:///Users/batman/programming/elm/pancakes/src/Main.elm|185|13|V|elm
+	            , Cmd.map HomeMsg pageCmd
+2c213e570dc0b80e3f6ca997c3ec5cb4|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|3|1|v|elm
+	import Bootstrap.Button as Button
+	import Bootstrap.Form as Form
+	import Bootstrap.Form.Checkbox as Checkbox
+	import Bootstrap.Form.Fieldset as Fieldset
+	import Bootstrap.Form.Input as Input
+	import Bootstrap.Form.Radio as Radio
+	import Bootstrap.Form.Select as Select
+	import Bootstrap.Form.Textarea as Textarea
+	
+6f684d72988301b3f954c76f03c9c70f|file:///Users/batman/programming/elm/pancakes/src/Register/Register.elm|44|5|V|elm
+	    div [] [ text "Register" ]
+8ea6f835a54c46f538e6df5c18c2c9bd|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|73|13|v|elm
+	, Input.email [ Input.onInput HandleUsername, Input.id "email" ]
+	            , Form.help [] [ text "We'll never share your email with anyone else." ]
+	            ]
+	        , Form.group []
+	            [ Form.label [ for "password" ] [ text "Password" ]
+	            , Input.password [ Input.onInput HandlePassword, Input.id "password" ]
+	            ]
+358f49a48a5f85368d6e7325004c4a34|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|72|14|v|elm
+	 Form.label [ for "username" ] [ text "Username" ]
+	            , Input.email [ Input.onInput HandleUsername, Input.id "email" ]
+	            , Form.help [] [ text "We'll never share your email with anyone else." ]
+3ffc9038679f37efab40b56c19c8358c|file:///Users/batman/programming/elm/pancakes/src/Register/Register.elm|48|43|v|elm
+	HandleUsername
+27e04fc065e670d3ff46763beb7d8c7a|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|76|11|v|elm
+	Form.group []
+	            [ Form.label [ for "password" ] [ text "Password" ]
+	            , Input.password [ Input.onInput HandlePassword, Input.id "password" ]
+	            ]
+	        , Button.button [ Button.primary ] [ text "Log in" ]
+	
+eff1c27ccadb943c67b45a4c755aebc0|file:///Users/batman/programming/elm/pancakes/src/Register/Register.elm|41|9|v|elm
+	None 
+bffe9a3c9a7e00ba00a11749e022d911|file:///Users/batman/programming/elm/pancakes/src/Register/Register.elm|72|52|v|elm
+	Log in
+b80c069eb9e3091d9d0d446ec4d079d0|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|78|1|V|elm
+	            , Input.password [ Input.onInput HandlePassword, Input.id "password" ]
+0fb3a2c1bffa8a756605ac8589eceb49|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|60|9|V|elm
+	        None ->
+6ef41c46c7e496a47ac8a0627de55ef5|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|60|13|V|elm
+	            ( m, Cmd.none )
+f5bc7094cf621d0e035fcd2d22bf0d19|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|63|9|v|elm
+	HandlePassword p ->
+	            ( { m | password = p }, Cmd.none )
+	
+b2ad8b032e18e5fd44781b6cc17206e7|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|65|9|v|elm
+	HandlePassword
+cce67c9859de5723398699ee790c9e73|file:///Users/batman/programming/elm/pancakes/src/Register/Register.elm|13|1|V|elm
+	import Login.Login exposing (Msg(..))
+d5b49871357d2db2993fa2a2ba2ca6f4|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|82|9|V|elm
+	            , Input.password [ Input.onInput ConfirmPassword, Input.id "confirm password" ]
+ab631f56b3fd951010152c65c4a80cb3|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|33|5|V|elm
+	    | ConfirmPassword String
+75135d6ac9b9775318ecc22c03fa9006|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|40|1|V|elm
+	      , confirmPassword = ""
+5f9459e370215f2d61aea74984af605e|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|64|9|V|elm
+	        ConfirmPassword p ->
+dfb58240d4bed1496c7ce606d8f381fb|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|64|9|v|elm
+	ConfirmPassword p ->
+	            ( { m | confirmPassword = p }, Cmd.none )
+	
+7bb0edd98f22430a03b67f853e83c2ca|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|64|8|V|elm
+	        
+640f93987e1b641ca7c143b5947fa3af|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|26|1|V|elm
+	    , confirmPassword : String
+0290216c1cbc672722a25aa1ac50c2c1|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|62|9|V|elm
+	        Loading
+505a83f220c02df2f85c3810cd9ceb38|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|16|7|v|elm
+	Success
+0cbe48c5b716199999eedd26c277e693|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|17|5|V|elm
+	    | Failure
+cb5e100e5a9a3e7f6d1fd97512215282|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|31|27|v|elm
+	error
+260ca9dd8a4577fc00b7bd5810298076|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|31|27|v|elm
+	success
+27118326006d3829667a400ad23d5d98|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|31|27|v|elm
+	String
+74e49a092f9b0401e4582ddc66f01257|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|65|9|v|elm
+	Loading ->
+	            ( { m | loadingState = Loading }, Cmd.none )
+	
+	        Failure ->
+	            { m | loadingState = Failure }
+	
+	        Success ->
+	            { m | loadingState = Success }
+	
+	
+e139a585510a502bbf1841cf589f5086|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|68|9|v|elm
+	Failure
+997f26ac2e1f5cdee69eaa534563573e|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|69|14|v|elm
+	 m | loadingState = Failure 
+d8ab220274b3233264032511705f2211|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|72|14|v|elm
+	 m | loadingState = Success 
+f6f9d784e919cc252dfbb7795df2b7cb|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|72|13|v|elm
+	m, cmd.none
+9d8e27f2fc61533c3f95772adbe4abd8|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|69|13|v|elm
+	m, Cmd.none
+af7c8795b48be2067e1f9b1319ebfd12|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|71|9|V|elm
+	        Success ->
+5ea9d05aa35a827dd166141a37de2934|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|71|13|V|elm
+	            ( m, cmd.none )
+4ebc7571af7a71abf77e342e31391d21|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|65|9|v|elm
+	Loading ->
+	            ( { m | loadingState = Loading }, Cmd.none )
+	
+aa5e1b5ed9817bb67fa48ca327659261|file:///Users/batman/programming/elm/pancakes/src/Login/Login.elm|71|21|v|elm
+	loadingState
+8538c40153ecc4e564ec0c65c2ead53a|file:///Users/batman/programming/elm/pancakes/src/Register/Register.elm|74|1|V|elm
+	            [ Form.label [ for "password" ] [ text "Password" ]
+019b22fcde58e5efe212b132a55b12ea|file:///Users/batman/programming/elm/pancakes/src/Register/Register.elm|71|1|V|elm
+	            , Form.help [] [ text "We'll never share your email with anyone else." ]
+8ad18513dc7f2c66d9dc27e77eb0e674|file:///Users/batman/programming/elm/pancakes/src/Register/Register.elm|77|36|v|elm
+	We'll never share your email with anyone else.
+9a884c0e2585b84d6ae342e9e8d01367|file:///Users/batman/programming/elm/pancakes/src/Register/Register.elm|77|36|v|elm
+	Password should be 6 characters
+81e2977d8984a5409f1f1236ca850f1c|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|7|1|V|haskell
+	import Lib
+9e922fa4a46091eddfd39d5f1db8d81e|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|12|8|v|haskell
+	someFunc
+b068931cc450442b63f5b3d276ea4297|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|12|3|v|haskell
+	name
+32b1977d32eedabd30e386488d2bc8e4|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|12|2|V|haskell
+	   :: String,
+4aef46a159e84ddd37127d22b29ae450|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|12|3|V|haskell
+	  age :: Int,
+cc4b3cd02c3e29c8507e82142b2e7bca|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|11|27|v|haskell
+	QueryParam "sortby" SortBy 
+8f9bfe9d1345237cb3b2b205864da075|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|11|39|v|haskell
+	User
+26eceabdf95d3fd86a6da83f989ba5c3|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|11|6|v|haskell
+	UserAPI
+9bc65c2abec141778ffaa729489f3e87|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|11|21|v|haskell
+	users
+4bfd6c31846108a6914d3a18823eaac1|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|23|13|v|haskell
+	email 
+9f961034ee4de758baf4de09ceeb1a75|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|26|14|v|haskell
+	password 
+2e003ff8099e00c939c9cfcc59911d70|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|27|14|v|haskell
+	registration_date 
+78f79590fa9c6794cf91da567a62a0fb|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|27|37|v|haskell
+	registration_date
+1884356b9c398217b16192aad387c7f4|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|19|24|v|haskell
+	UTCTime
+7007a91dd5b0e797a63ad8527b73f108|file:///Users/batman/programming/haskell/pancakes/hie.yaml|2|3|v|yaml
+	cabal
+fac2a47adace059aff113283a03f6760|file:///Users/batman/programming/haskell/pancakes/hie.yaml|1|1|v|yaml
+	stack
+88de31d088c9f2667d3634555f73a715|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|34|10|v|haskell
+	"Isaac Newton"    372 "isaac@newton.co.uk"
+87e804f596bbeae0c14bb3661112a41a|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|3|V|haskell
+	  , User "Albert Einstein" 136 "ae@mc2.org"         (fromGregorian 1905 12 1)
+2a437c8d034ed82ab7e4a0608385cfe4|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|34|2|v|haskell
+	 User { 
+	      email = "test@gmail.com", 
+	      password = "abc", 
+	      registration_date = (fromGregorian 1683  3 1)
+	    }
+53d301235313b00b649c634a60a039dd|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|40|3|V|haskell
+	  []
+9ebde3fabee114d779351ba9bb949158|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|9|19|v|haskell
+	(ToJson)
+f6068daa29dbb05a7ead1e3b5a48bbee|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|11|8|v|haskell
+	Data
+9c7c60a8db5bda026c0bdbbc718d4f7f|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|43|18|v|haskell
+	UserAPI1
+438d8804bb353f10aca8d2c159015bfa|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|21|1|V|haskell
+	type LoginApi
+c25f05d309d46bb780560b425b4a5480|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|19|33|v|haskell
+	ClientInfo
+cd2648abcb58766315d1b2e78b559f0d|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|19|33|v|haskell
+	registrationInfo
+a6dfe7c8f2760cd829187764783c44a2|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|3|V|haskell
+	  User
+1455b6cbcc461099c39a2a8e89fa8bd4|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|5|V|haskell
+	    { email = "test@gmail.com",
+86904961e668603fa0d8865a60faa160|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|7|V|haskell
+	      password = "abc",
+d6c85e7eaf66f94da541006e7b931fcd|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|7|V|haskell
+	      registration_date = (fromGregorian 1683 3 1)
+ea5a1cbe764918679997181a3ea281d3|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|5|V|haskell
+	    }
+33b65b648835409c82aceee171fad894|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|14|1|V|haskell
+	import Network.Wai
+beb8a9630aa4ef43b821c0762f6d3339|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|14|1|V|haskell
+	import Network.Wai.Handler.Warp
+54ec4d3ac9013cf03fec29648f92f3a6|file:///Users/batman/programming/haskell/pancakes/package.yaml|25|1|V|yaml
+	- servant
+e29be587e713e0bd607acab49624ebf7|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|31|16|v|haskell
+	email, password, registration_date
+f91740c576d8a80ed879f2964f653bb0|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|46|9|v|haskell
+	user 
+e6bc2a9f5b41e14cf7b0777b4a89e6c7|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|46|11|v|haskell
+	return 
+ee11cbb19052e40b07aac0ca060c23ee|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|40|10|v|haskell
+	user
+5e543256c480ac577d30f76f9120eb74|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|44|17|v|haskell
+	undefined
+a924d7048ded27cf6dcf6562d9f60893|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|11|v|haskell
+	Monad m => User -> m User
+a735a825e48c2e11ed168536a42e918e|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|1|V|haskell
+	users1 :: Server API
+5ed100f2761ac8b16b44a8dcd8b6017e|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|1|V|haskell
+	users1 =
+850f8fe1561fefa50478be010b327cb5|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|3|V|haskell
+	  registerUser
+9af660d56bb82f5c953bd963c74f542a|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|5|V|haskell
+	    :<|> loginUser
+4c4cd16a5823a91ae9e86f2a9d95266d|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|3|V|haskell
+	  where
+1d439dd01572d6664524db6103772d50|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|5|V|haskell
+	    loginUser = pure
+e733a444a0ea242c3f5f1bfad0537c15|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|39|5|V|haskell
+	    registerUser usr = pure usr
+b2255c5d029d69e44374a99e9d03921d|file:///Users/batman/programming/haskell/pancakes/app/Main.hs|43|11|v|haskell
+	users1
+c30b7a98aa9b3d777e0526f44569ae25|file:///Users/batman/dotfiles/nvim/init.vim|5|1|V|vim
+	set encoding=utf-8
+4b8bfd03737948a2cbee778f7672d5dd|file:///Users/batman/dotfiles/nvim/init.vim|5|1|V|vim
+	set encoding=UTF-8
+b4376320872694ea442f200c9b380809|file:///Users/batman/dotfiles/nvim/init.vim|7|1|V|vim
+	set guifont=DroidSansMono\ Nerd\ Font\ 11
+189c567bfde56f2dde5b7339bcc6ae89|file:///Users/batman/dotfiles/nvim/init.vim|8|1|V|vim
+	set guifont=DroidSansMono_Nerd_Font:h11
+f98bba632744693c2dc6d1032a18180e|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+03dccac960e301acadd838072983e65b|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+68ae355ab98d235624bc25db023b5cc0|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-neco', { 'do': 'yarn install --frozen-lockfile'}
+0d31610ca2c6aa7c7afe8f3618634e63|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
+a2ef2e8fcb9a11df600f77d66fb827ad|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+f060d092ea4119ec68089a3974c44b46|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+62b1069c44902f7c452d6906a7d0bcfc|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
+881e624efe1ac2e14e7727e99809b10f|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+cc212d30e12bfbb17530bff7f5575621|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
+c769238936fada46fe290a0875158848|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-stylelint', {'do': 'yarn install --frozen-lockfile'}
+d3835abe7cd18a9652e365b40fc4062b|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
+169261e7d01ee940eb300bee5dacfb5a|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-yank', {'do': 'yarn install --frozen-lockfile'}
+aaac94a23aacb792a08400543d8b6ce5|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-smartf', {'do': 'yarn install --frozen-lockfile'}
+411115ee977be0c2b5c917724f1c6524|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-sources', {'do': 'yarn install --frozen-lockfile'}
+99aa09fc6a9ab9d9e3567e4679128cce|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-yaml', {'do': 'yarn install --frozen-lockfile'}
+6c7d43632f58f2bdc35ba5cc3db44a07|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-jest', {'do': 'yarn install --frozen-lockfile'}
+a2fc5130d97d667ae93dceff890844dd|file:///Users/batman/dotfiles/nvim/init.vim|74|1|V|vim
+	Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+a30e25792f9c1af718d4eed541f105fc|file:///Users/batman/dotfiles/nvim/init.vim|73|1|V|vim
+	" Coc Extension management"
+1d406f0010e017c5f2011de774285c15|file:///Users/batman/dotfiles/nvim/init.vim|72|1|V|vim
+	Plug 'reedes/vim-pencil'
+3a75430669b14c6e26b7abeabd6f1121|file:///Users/batman/dotfiles/nvim/init.vim|71|1|V|vim
+	Plug 'junegunn/vim-xmark' " markdown previewer
+abb975c02f3edc914ef5884c738234ba|file:///Users/batman/dotfiles/nvim/init.vim|70|1|V|vim
+	Plug 'junegunn/goyo.vim'   " Distraction free writing 
+7f5fbea8bc1364ddf088e58347ebc657|file:///Users/batman/dotfiles/nvim/init.vim|69|1|V|vim
+	Plug 'junegunn/limelight.vim'  " highlight the focus area
+778856e9c453eb8e0fc5ce635b14216e|file:///Users/batman/dotfiles/nvim/init.vim|67|1|V|vim
+	Plug 'chemzqm/vim-jsx-improve'
+f2d8e002521a38c255db05b21593cf7c|file:///Users/batman/dotfiles/nvim/init.vim|80|1|V|vim
+	" Plug 'SirVer/ultisnips'
+7e44d65b7cca172785db423490e530c4|file:///Users/batman/dotfiles/nvim/init.vim|80|1|V|vim
+	" Plug 'honza/vim-snippets'
+46d4bff8c203f28b71477d0edfb26a02|file:///Users/batman/dotfiles/nvim/init.vim|65|1|V|vim
+	Plug 'sdiehl/vim-ormolu'
+772221d67a8d2ee8bfdedb98978f39eb|file:///Users/batman/dotfiles/nvim/init.vim|86|1|V|vim
+	autocmd! User GoyoEnter Limelight
+c08a0e4d7680c9aaebf45de1ca62207a|file:///Users/batman/dotfiles/nvim/init.vim|86|1|V|vim
+	autocmd! User GoyoLeave Limelight!
+a974190024b547c7b57f4bf32dcdce33|file:///Users/batman/dotfiles/nvim/init.vim|192|1|V|vim
+	" Run jest for current project
+d85b3a9348a161659d81ca51fe1fe274|file:///Users/batman/dotfiles/nvim/init.vim|192|1|V|vim
+	command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
+8ee833564e905b339b5c1db07e358d53|file:///Users/batman/dotfiles/nvim/init.vim|192|1|V|vim
+	" Run jest for current file
+270fd79fe5caddcf6e12ac4024facb47|file:///Users/batman/dotfiles/nvim/init.vim|192|1|V|vim
+	command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
+3a513bbee82fd830fafdd08376e977d7|file:///Users/batman/dotfiles/nvim/init.vim|193|1|V|vim
+	
+	" flip back to last buffer
+33caa4b7be3b3e590491455c2b558d2a|file:///Users/batman/dotfiles/nvim/init.vim|214|1|V|vim
+	let g:coc_snippet_next = '<TAB>'
+167870fe67c5c3c497d81a9d07776eca|file:///Users/batman/dotfiles/nvim/init.vim|214|1|V|vim
+	let g:coc_snippet_prev = '<S-TAB>'
+d4042020b8020c8b8c22957847f5e50b|file:///Users/batman/dotfiles/nvim/init.vim|214|1|V|vim
+	let g:coc_status_error_sign = '•'
+3390b2b2f750d1a0af3544fc9b43574b|file:///Users/batman/dotfiles/nvim/init.vim|214|1|V|vim
+	let g:coc_status_warning_sign = '*'
+16d2b386b2034b9488996466aaae0b57|file:///Users/batman/dotfiles/nvim/init.vim|224|21|v|vim
+	History
+0b6a3c991465500015c5d341e5d71583|file:///Users/batman/dotfiles/nvim/init.vim|230|1|V|vim
+	nmap <silent> [c <Plug>(coc-diagnostic-prev)
+b586fbc61493846493847aa7e1a304bf|file:///Users/batman/dotfiles/nvim/init.vim|230|1|V|vim
+	nmap <silent> ]c <Plug>(coc-diagnostic-next)
+707e92c70dfefd980575b0fe3aed3201|file:///Users/batman/dotfiles/nvim/init.vim|237|1|v|vim
+	" augroup mygroup
+	"   " Setup formatexpr specified filetype(s).
+	"   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+	"   autocmd CursorHold * call CocActionAsync('doHover')
+	"   " Update signature help on jump placeholder
+	 " autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+	" augroup end
+	
+	" function! s:show_documentation()
+	"   if (index(['vim','help'], &filetype) >= 0)
+	"     execute 'h '.expand('<cword>')
+	"   else
+	"     call CocAction('doHover')
+	"   endif
+	" endfunction
+	
+7b12df65f3b7fcf1497962e634702839|file:///Users/batman/dotfiles/nvim/init.vim|237|1|V|vim
+	nmap <leader>: <Plug>coc-float-jump
+3cb95920b45a846668eec20cc9d7735d|file:///Users/batman/dotfiles/nvim/init.vim|237|1|V|vim
+	nmap  <leader>t <Plug>(coc-terminal-toggle)
+0aaeb27d7cac685f9a357986b3e62583|file:///Users/batman/dotfiles/nvim/init.vim|259|1|V|vim
+	" map Y to yank from cursor to end of line
+0e98f401a2dc16d40ba00e2854437411|file:///Users/batman/dotfiles/nvim/init.vim|269|1|V|vim
+	function! LightlineObsession()
+13e44d6d903e56fd65e963ee41c3796f|file:///Users/batman/dotfiles/nvim/init.vim|405|1|V|vim
+	if (has("termguicolors"))
+bd7b2dc908f2496bcb9a429af3e2603b|file:///Users/batman/dotfiles/nvim/init.vim|405|2|V|vim
+	 set termguicolors
+e96d8afc259593a20838480dfb84400b|file:///Users/batman/dotfiles/nvim/init.vim|405|1|V|vim
+	endif
+350f46d4004c6cc4d60d4eb7a905fc46|file:///Users/batman/dotfiles/nvim/init.vim|405|1|V|vim
+	let g:UltiSnipsExpandTrigger="<tab>"
+536139aae166ccaa42c842ea46e1af69|file:///Users/batman/dotfiles/nvim/init.vim|403|1|V|vim
+	if (empty($TMUX))
+7e0329cba04f0a1adf6efab99bb0fea5|file:///Users/batman/dotfiles/nvim/init.vim|403|3|V|vim
+	  if (has("nvim"))
+4494b7616b6c381f4cdabc55c1af8564|file:///Users/batman/dotfiles/nvim/init.vim|403|5|V|vim
+	    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+ee943172a9748155e757620e2392c886|file:///Users/batman/dotfiles/nvim/init.vim|403|3|V|vim
+	  endif
+3f6b0d27d269370ab0cd119a1848b4d2|file:///Users/batman/dotfiles/nvim/init.vim|403|3|V|vim
+	  if (has("termguicolors"))
+1c72f6ba94610b01118e47367d74bf84|file:///Users/batman/dotfiles/nvim/init.vim|403|5|V|vim
+	    set termguicolors
+0535f9988656725e00ba421d8ef12947|file:///Users/batman/test.js|1|1|V|javascript
+	export de
+d571566e024ca4a83810561f02d61ffd|file:///Users/batman/test.js|1|1|V|javascript
+	"hello".bold
+9f12fb2e70dae807e1c98c5657b19420|file:///Users/batman/dotfiles/nvim/init.vim|84|1|V|vim
+	Plug 'kyazdani42/nvim-web-devicons' 
+b345b59e351c5f4ce2d9182916745544|file:///Users/batman/dotfiles/.zshrc|2|1|V|zsh
+	export DOTENVENC_KEY='basded';

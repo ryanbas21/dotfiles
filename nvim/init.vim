@@ -72,8 +72,13 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
 Plug 'chemzqm/vim-jsx-improve'
+Plug 'liquidz/vim-iced', {'for': 'clojure', 'branch': 'main'}
+Plug 'liquidz/vim-iced-coc-source', {'for': 'clojure'}
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
 Plug 'psliwka/vim-smoothie' " smooth scrolling
+Plug 'projekt0n/github-nvim-theme', { 'branch': 'main' }
+Plug 'tami5/sql.nvim'
+Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'tpope/vim-fugitive' " Git 
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat' " Make dot command better
@@ -88,6 +93,9 @@ Plug 'andys8/vim-elm-syntax' , { 'for': 'elm' }
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 
@@ -96,8 +104,38 @@ call plug#end()
 let test#python#pytest#options = "--color=yes"
 let test#javascript#jest#options = "--color=always"
 
-nmap ]t <Plug>(ultest-next-fail)
-nmap [t <Plug>(ultest-prev-fail)
+" Example config in VimScript
+lua << EOF
+require("telescope").setup({
+  pickers = {
+    buffers = {
+      sort_lastused = true,
+      theme = "dropdown",
+      mappings = {
+        i = {
+          ["<C-j>"] = require('telescope.actions').move_selection_next,
+          ["<C-k>"] = require('telescope.actions').move_selection_previous,
+        },
+      }
+    },
+    find_files = {
+      theme = "dropdown"
+    }
+  },
+})
+
+require"telescope".load_extension("frecency")
+require("github-theme").setup({
+  themeStyle = "dark",
+  functionStyle = "italic",
+  sidebars = {"qf", "vista_kind", "terminal", "packer"},
+
+  -- Change the "hint" color to the "orange" color, and make the "error" color bright red
+  colors = {hint = "orange", error = "#ff0000"}
+})
+EOF
+
+lua require'bufferline'.setup{}
 
 augroup UltestRunner
     au!
@@ -154,9 +192,6 @@ let g:fzf_buffers_jump = 1
 
 " [[B]Commits] Customize the options used by 'git log':
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-" [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R'
 
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
@@ -283,6 +318,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 
 nmap <leader>d :CocList diagnostics<CR>
 nmap <leader>l :CocList
+<<<<<<< HEAD
 
 " Find files using Telescope command-line sugar.
 nnoremap <leader>f <cmd>Telescope find_files<cr>
@@ -296,13 +332,17 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>; <cmd>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <Leader>s :GGrep<space>
 nnoremap <Leader>S :Rg <space><C-r><C-w><CR>
+=======
+nnoremap <silent> <Leader>f <cmd>Telescope file_browser<CR>
+nnoremap <silent> <Leader><Leader> <cmd>Telescope git_files<CR>
+nnoremap <silent> <leader>; <cmd>Telescope current_buffer_fuzzy_find<CR>
+nnoremap <leader>S <cmd>Telescope grep_string<CR> 
+nnoremap <leader>s <cmd>Telescope live_grep<CR>
 nnoremap <leader>y :CocList -N  --ignore-case yank<CR>
-nnoremap <leader>h :History: <CR>
-nnoremap <leader>p :CocList mru <CR>
-nnoremap <leader>c :History/ <CR>
 nnoremap <leader>a :CocList -N  --ignore-case actions<CR>
 nnoremap <leader>m :CocList marks<CR>
-nnoremap <C-p> <cmd>Telescope old-files<CR>
+nnoremap <C-p> <cmd>Telescope frecency<CR>
+nnoremap <leader>p <cmd>Telescope frecency<CR>
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " Use tab and shift tab to navigate completion
@@ -366,8 +406,6 @@ noremap <silent> Y y$
       \}
       \ }
 "*************************************************
-
-" let g:fugitive_github_domains = ['github.homeawaycorp.com']
 
 " **************** GIT ********************
 
@@ -476,5 +514,3 @@ let g:projectionist_heuristics = {
       \     }
       \   }
       \ }
-
-syntax on
