@@ -64,7 +64,7 @@ Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'liquidz/vim-iced', {'for': 'clojure', 'branch': 'main'}
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
-Plug 'psliwka/vim-smoothie' " smooth scrolling
+Plug 'karb94/neoscroll.nvim'
 Plug 'projekt0n/github-nvim-theme', { 'branch': 'main' }
 Plug 'tami5/sql.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
