@@ -2,22 +2,15 @@ scriptencoding utf-8
 set ttimeout
 set ttimeoutlen=0
 set splitright
+set completeopt=menuone,noselect
 set smartindent
 set showmatch
-set encoding=utf8
-set relativenumber
-set textwidth=80
-set formatoptions=qrn1
-set autoindent
-set wrapmargin=0
 set cc=0
 set number
 set tabstop=2
 set shiftwidth=2
 set expandtab
 set termencoding=utf-8
-set exrc
-set secure
 " Make Searching Beter
 set gdefault
 set ignorecase
@@ -64,14 +57,12 @@ Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'projekt0n/github-nvim-theme'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'liquidz/vim-iced', {'for': 'clojure', 'branch': 'main'}
-Plug 'liquidz/vim-iced-coc-source', {'for': 'clojure'}
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
 Plug 'psliwka/vim-smoothie' " smooth scrolling
 Plug 'projekt0n/github-nvim-theme', { 'branch': 'main' }
@@ -98,9 +89,13 @@ Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }  " We recommend updating the parsers on update
-
+Plug 'hrsh7th/nvim-compe'
+Plug 'windwp/nvim-autopairs'
+Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
 call plug#end()
 
+" Neovim LSP Setup
 let g:dashboard_default_executive = 'telescope'
 let g:dashboard_custom_header = [
     \'',
@@ -122,7 +117,159 @@ let g:dashboard_custom_header = [
      \]
 
 let g:indentLine_fileTypeExclude = ['dashboard']
+
 lua << EOF
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  resolve_timeout = 800;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = {
+    border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
+    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+    max_width = 120,
+    min_width = 60,
+    max_height = math.floor(vim.o.lines * 0.3),
+    min_height = 1,
+  };
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    vsnip = true;
+    ultisnips = true;
+    luasnip = true;
+  };
+}
+
+
+-- keymaps
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  -- Mappings.
+  local opts = { noremap=true, silent=false }
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+
+  -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  elseif client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+  end
+
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+    vim.api.nvim_exec([[
+    augroup lsp_document_highlight
+    autocmd! * <buffer>
+    autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+    augroup END
+    ]], false)
+  end
+end
+
+-- Configure lua language server for neovim development
+local lua_settings = {
+  Lua = {
+    runtime = {
+      -- LuaJIT in the case of Neovim
+      version = 'LuaJIT',
+      path = vim.split(package.path, ';'),
+    },
+    diagnostics = {
+      -- Get the language server to recognize the `vim` global
+      globals = {'vim'},
+    },
+    workspace = {
+      -- Make the server aware of Neovim runtime files
+      library = {
+        [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+        [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+      },
+    },
+  }
+}
+
+-- config that activates keymaps and enables snippet support
+local function make_config()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  return {
+    -- enable snippet support
+    capabilities = capabilities,
+    -- map buffer local keybindings when the language server attaches
+    on_attach = on_attach,
+  }
+end
+
+-- lsp-install
+local function setup_servers()
+  require'lspinstall'.setup()
+
+  -- get all installed servers
+  local servers = require'lspinstall'.installed_servers()
+  -- ... and add manually installed servers
+  table.insert(servers, "clangd")
+  table.insert(servers, "sourcekit")
+
+  for _, server in pairs(servers) do
+    local config = make_config()
+
+    -- language specific config
+    if server == "lua" then
+      config.settings = lua_settings
+    end
+    if server == "sourcekit" then
+      config.filetypes = {"swift", "objective-c", "objective-cpp"}; -- we don't want c and cpp!
+    end
+    if server == "clangd" then
+      config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
+    end
+
+    require'lspconfig'[server].setup(config)
+  end
+end
+
+setup_servers()
+-- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+require'lspinstall'.post_install_hook = function ()
+  setup_servers() -- reload installed servers
+  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
+require('nvim-autopairs').setup({
+  map_cr = true,
+  map_complete = true
+})
 vim.g.dashboard_custom_section = {
         a = {description = {"  Find File                 SPC f"}, command = "Telescope find_files"},
         b = {description = {"   Git Files                 SPC SPC"}, command = "Telescope git_files"},
@@ -204,34 +351,6 @@ local function lsp_status(status)
     return shorter_stat
 end
 
-local function get_coc_lsp()
-  local status = vim.fn['coc#status']()
-  if not status or status == '' then
-      return ''
-  end
-  return lsp_status(status)
-end
-
-function get_diagnostic_info()
-  if vim.fn.exists('*coc#rpc#start_server') == 1 then
-    return get_coc_lsp()
-    end
-  return ''
-end
-
-local function get_current_func()
-  local has_func, func_name = pcall(vim.fn.nvim_buf_get_var,0,'coc_current_function')
-  if not has_func then return end
-      return func_name
-  end
-
-function get_function_info()
-  if vim.fn.exists('*coc#rpc#start_server') == 1 then
-    return get_current_func()
-    end
-  return ''
-end
-
 local function trailing_whitespace()
     local trail = vim.fn.search("\\s$", "nw")
     if trail ~= 0 then
@@ -241,8 +360,6 @@ local function trailing_whitespace()
     end
 end
 
-CocStatus = get_diagnostic_info
-CocFunc = get_current_func
 TrailingWhiteSpace = trailing_whitespace
 gls.left[1] = {
   FirstElement = {
@@ -346,18 +463,29 @@ gls.left[11] = {
   }
 }
 gls.left[12] = {
-  CocStatus = {
-     provider = CocStatus,
-     highlight = {colors.green,colors.bg},
+  DiagnosticInfo = {
+    provider = 'DiagnosticInfo',
+    icon = '  ',
+    highlight = {colors.red,colors.bg}
   }
 }
+
 gls.left[13] = {
-  CocFunc = {
-    provider = CocFunc,
-    highlight = {colors.yellow,colors.bg},
+  DiagnosticHint = {
+    provider = 'DiagnosticHint',
+    icon = '  ',
+    highlight = {colors.cyan,colors.bg},
   }
 }
 gls.left[14] = {
+  ShowLspClient = {
+     provider = 'GetLspClient',
+     highlight = {colors.green,colors.bg},
+  }
+}
+
+
+gls.left[12] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
     icon = '  ',
@@ -568,7 +696,7 @@ EOF
 " ************** Key Mappings *******************************************  
 
 "Jest 
-nnoremap <c-t>c :call CocAction('runCommand', 'jest.fileTest', ['%'])<CR>
+" nnoremap <c-t>c :call CocAction('runCommand', 'jest.fileTest', ['%'])<CR>
 nmap ,, <C-^>
 
 let mapleader = "\<Space>"
@@ -594,6 +722,7 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR
 nmap <leader>d :CocList diagnostics<CR>
 nmap <leader>l :CocList
 nnoremap <silent> <Leader>f <cmd>Telescope file_browser<CR>
+nnoremap <silent> <Leader>b <cmd>Telescope buffers<CR>
 nnoremap <silent> <Leader><Leader> <cmd>Telescope git_files<CR>
 nnoremap <silent> <leader>; <cmd>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <leader>S <cmd>Telescope grep_string<CR> 
@@ -603,30 +732,8 @@ nnoremap <leader>a :CocList -N  --ignore-case actions<CR>
 nnoremap <leader>m :CocList marks<CR>
 nnoremap <C-p> <cmd>Telescope frecency<CR>
 nnoremap <leader>p <cmd>Telescope frecency<CR>
-
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-" Use tab and shift tab to navigate completion
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" Use Enter for coc completion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition) 
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gr <Plug>(coc-references)
-nmap <leader>rn <Plug>(coc-rename)
-nmap <leader>ac  <Plug>(coc-codeaction)
-nmap <leader>A   <Plug>(coc-codelens-action)
-nmap <leader>qf  <Plug>(coc-fix-current)
-nmap <leader>l :CocList<space>
-nmap <leader>d :CocList diagnostics<CR>
-
-command! -nargs=0 Tsc :call CocAction('runCommand', 'tsserver.watchBuild')
-
-inoremap <silent><expr> <c-space> coc#refresh()
-
 " ***************************************
+"
 " Use ctrl-[hjkl] to select the active split!
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
@@ -648,27 +755,8 @@ function! LightlineObsession()
 endfunction
 
 noremap <silent> Y y$
-"*************** LightLine ***********************
-  " let g:lightline = {
-  "     \ 'colorscheme': 'dogrun',
-  "     \ 'active': {
-  "     \   'left': [ [ 'mode', 'paste' ],
-  "     \             [ 'fugitive', 'gitbranch', 'cocstatus', 'readonly', 'filename', 'modified' ] ],
-  "     \   'right': [ ['percent', 'lineinfo'], [ 'fileformat', 'fileencoding', 'filetype', 'filesize' ],['obsession']],
-  "     \ },
-  "     \ 'component_function': {
-  "     \   'gitbranch': 'fugitive#head',
-  "     \   'cocstatus': 'coc#status',
-  "     \ },
-  "     \ 'component_expand': {
-  "     \   'obsession': 'LightlineObsession',
-  "     \   'fzf': 'FzfStatusLine'
-  "     \}
-  "     \ }
-"*************************************************
 
 " **************** GIT ********************
-
 " Automatically wrap at 100 characters and spell check git commit messages
 augroup Git
   autocmd!
