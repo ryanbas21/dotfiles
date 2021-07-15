@@ -6,7 +6,7 @@ set completeopt=menuone,noselect
 set smartindent
 set showmatch
 set cc=0
-set number
+set relativenumber
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -40,8 +40,6 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
     \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
-
-
 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -87,6 +85,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'glepnir/dashboard-nvim'
+Plug 'onsails/lspkind-nvim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }  " We recommend updating the parsers on update
 Plug 'hrsh7th/nvim-compe'
@@ -95,6 +94,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
 call plug#end()
 
+lua require('neoscroll').setup()
 " Neovim LSP Setup
 let g:dashboard_default_executive = 'telescope'
 let g:dashboard_custom_header = [
@@ -119,6 +119,45 @@ let g:dashboard_custom_header = [
 let g:indentLine_fileTypeExclude = ['dashboard']
 
 lua << EOF
+require('lspkind').init({
+    -- enables text annotations
+    --
+    -- default: true
+    with_text = true,
+
+    -- default symbol map
+    -- can be either 'default' or
+    -- 'codicons' for codicon preset (requires vscode-codicons font installed)
+    --
+    -- default: 'default'
+    preset = 'codicons',
+
+    -- override preset symbols
+    --
+    -- default: {}
+    symbol_map = {
+      Text = '',
+      Method = 'ƒ',
+      Function = '',
+      Constructor = '',
+      Variable = '',
+      Class = '',
+      Interface = 'ﰮ',
+      Module = '',
+      Property = '',
+      Unit = '',
+      Value = '',
+      Enum = '了',
+      Keyword = '',
+      Snippet = '﬌',
+      Color = '',
+      File = '',
+      Folder = '',
+      EnumMember = '',
+      Constant = '',
+      Struct = ''
+    },
+})
 require'compe'.setup {
   enabled = true;
   autocomplete = true;
@@ -652,9 +691,6 @@ require('telescope').setup({
             find_cmd = "rg" -- find command (defaults to `fd`)
         }
     },
-    prompt_prefix = "   ",
-    selection_caret = "  ",
-    entry_prefix = "  ",
     initial_mode = "insert",
     selection_strategy = "reset",
     sorting_strategy = "descending",
@@ -709,27 +745,18 @@ nmap <silent> <leader>, :nohl<cr>
 inoremap jk <Esc>
 
 " git 
-nmap <Leader>gs :Gstatus<CR>
-nmap <Leader>gb :Gblame<CR>
-nmap <Leader>gp :Gpush origin<space>
+nmap <Leader>gs :Git<CR>
+nmap <Leader>gb :Git blame<CR>
+nmap <Leader>gp :Git push origin<space>
 
 " ************Coc******************
 
-autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
-inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
-
-nmap <leader>d :CocList diagnostics<CR>
-nmap <leader>l :CocList
 nnoremap <silent> <Leader>f <cmd>Telescope file_browser<CR>
 nnoremap <silent> <Leader>b <cmd>Telescope buffers<CR>
 nnoremap <silent> <Leader><Leader> <cmd>Telescope git_files<CR>
 nnoremap <silent> <leader>; <cmd>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <leader>S <cmd>Telescope grep_string<CR> 
 nnoremap <leader>s <cmd>Telescope live_grep<CR>
-nnoremap <leader>y :CocList -N  --ignore-case yank<CR>
-nnoremap <leader>a :CocList -N  --ignore-case actions<CR>
-nnoremap <leader>m :CocList marks<CR>
 nnoremap <C-p> <cmd>Telescope frecency<CR>
 nnoremap <leader>p <cmd>Telescope frecency<CR>
 " ***************************************
@@ -739,21 +766,6 @@ nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
-
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
-
-function! LightlineObsession()
-    return '%{ObsessionStatus()}'
-endfunction
-
 noremap <silent> Y y$
 
 " **************** GIT ********************
