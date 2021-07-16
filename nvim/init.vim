@@ -99,24 +99,10 @@ Plug 'rhysd/git-messenger.vim'
 call plug#end()
 
 function! s:setup_git_messenger_popup() abort
-    " Your favorite configuration here
-
-    " For example, set go back/forward history to <C-o>/<C-i>
     nmap <buffer><C-o> o
     nmap <buffer><C-i> O
 endfunction
 
-autocmd FileType gitmessengerpopup call <SID>setup_git_messenger_popup()
-let g:git_messenger_floating_win_opts = { 'border': 'single' }
-let g:git_messenger_popup_content_margins = v:false
-
-
-lua << EOF 
-require('neoscroll').setup()
-require('gitsigns').setup()
-EOF
-
-" Neovim LSP Setup
 let g:dashboard_default_executive = 'telescope'
 let g:dashboard_custom_header = [
     \'',
@@ -139,7 +125,15 @@ let g:dashboard_custom_header = [
 
 let g:indentLine_fileTypeExclude = ['dashboard']
 
+autocmd FileType gitmessengerpopup call <SID>setup_git_messenger_popup()
+let g:git_messenger_floating_win_opts = { 'border': 'single' }
+let g:git_messenger_popup_content_margins = v:false
+
+
 lua << EOF
+require('neoscroll').setup()
+require('gitsigns').setup()
+
 require('lspkind').init({
     -- enables text annotations
     --
