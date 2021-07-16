@@ -67,8 +67,6 @@ Plug 'karb94/neoscroll.nvim'
 Plug 'projekt0n/github-nvim-theme', { 'branch': 'main' }
 Plug 'tami5/sql.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
-" Plug 'tpope/vim-fugitive' " Git 
-" Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat' " Make dot command better
 Plug 'tpope/vim-surround' " quotes/blocks/tags and more manipulation
 Plug 'tpope/vim-commentary' " comment out stuff
