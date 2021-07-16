@@ -75,6 +75,7 @@ Plug 'tpope/vim-commentary' " comment out stuff
 Plug 'tpope/vim-projectionist' " switch between test files or create them
 Plug 'tpope/vim-unimpaired' 
 Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'neovimhaskell/haskell-vim' , { 'for': 'haskell' }
 Plug 'elm-tooling/elm-vim' , { 'for': 'elm' }
 Plug 'andys8/vim-elm-syntax' , { 'for': 'elm' }
@@ -110,7 +111,11 @@ let g:git_messenger_floating_win_opts = { 'border': 'single' }
 let g:git_messenger_popup_content_margins = v:false
 
 
-lua require('neoscroll').setup()
+lua << EOF 
+require('neoscroll').setup()
+require('gitsigns').setup()
+EOF
+
 " Neovim LSP Setup
 let g:dashboard_default_executive = 'telescope'
 let g:dashboard_custom_header = [
