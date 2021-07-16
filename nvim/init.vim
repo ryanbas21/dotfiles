@@ -50,6 +50,7 @@ au BufRead,BufNewFile *.sbt set filetype=scala
 set termguicolors
 
 call plug#begin('~/.vim/plugged')
+Plug 'kevinhwang91/nvim-bqf'
 Plug 'janko/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'akinsho/nvim-bufferline.lua'
@@ -66,8 +67,8 @@ Plug 'karb94/neoscroll.nvim'
 Plug 'projekt0n/github-nvim-theme', { 'branch': 'main' }
 Plug 'tami5/sql.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
-Plug 'tpope/vim-fugitive' " Git 
-Plug 'tpope/vim-obsession'
+" Plug 'tpope/vim-fugitive' " Git 
+" Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat' " Make dot command better
 Plug 'tpope/vim-surround' " quotes/blocks/tags and more manipulation
 Plug 'tpope/vim-commentary' " comment out stuff
@@ -92,7 +93,22 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'windwp/nvim-autopairs'
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
+Plug 'TimUntersberger/neogit'
+Plug 'rhysd/git-messenger.vim'
 call plug#end()
+
+function! s:setup_git_messenger_popup() abort
+    " Your favorite configuration here
+
+    " For example, set go back/forward history to <C-o>/<C-i>
+    nmap <buffer><C-o> o
+    nmap <buffer><C-i> O
+endfunction
+
+autocmd FileType gitmessengerpopup call <SID>setup_git_messenger_popup()
+let g:git_messenger_floating_win_opts = { 'border': 'single' }
+let g:git_messenger_popup_content_margins = v:false
+
 
 lua require('neoscroll').setup()
 " Neovim LSP Setup
@@ -238,6 +254,16 @@ local on_attach = function(client, bufnr)
   end
 end
 
+local lspconfig = require('lspconfig')
+
+lspconfig.hls.setup {
+        settings = {
+            languageServerHaskell = {
+                hlintOn = false,
+            }
+        }
+    }
+
 -- Configure lua language server for neovim development
 local lua_settings = {
   Lua = {
@@ -353,7 +379,12 @@ let g:fzf_colors = {
   \ 'header':  ['fg', 'Comment'] 
   \ }
 
-" Example config in VimScript
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
 lua << EOF
 local gl = require('galaxyline')
 local gls = gl.section
@@ -727,8 +758,9 @@ require('telescope').setup({
     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
   }
 })
+require("telescope").load_extension("frecency")
 require("telescope").load_extension("fzf")
-require"telescope".load_extension("frecency")
+
 EOF
 " ************** Key Mappings *******************************************  
 
@@ -745,11 +777,50 @@ nmap <silent> <leader>, :nohl<cr>
 "escaping
 inoremap jk <Esc>
 
-" git 
-nmap <Leader>gs :Git<CR>
-nmap <Leader>gb :Git blame<CR>
-nmap <Leader>gp :Git push origin<space>
+lua  << EOF
+local neogit = require("neogit")
 
+neogit.setup {
+  disable_signs = false,
+  disable_context_highlighting = false,
+  disable_commit_confirmation = false,
+  -- customize displayed signs
+  signs = {
+    -- { CLOSED, OPENED }
+    section = { ">", "v" },
+    item = { ">", "v" },
+    hunk = { "", "" },
+  },
+  integrations = {
+    -- Neogit only provides inline diffs. If you want a more traditional way to look at diffs, you can use `sindrets/diffview.nvim`.
+    -- The diffview integration enables the diff popup, which is a wrapper around `sindrets/diffview.nvim`.
+    --
+    -- Requires you to have `sindrets/diffview.nvim` installed.
+    -- use { 
+    --   'TimUntersberger/neogit', 
+    --   requires = { 
+    --     'nvim-lua/plenary.nvim',
+    --     'sindrets/diffview.nvim' 
+    --   }
+    -- }
+    --
+    diffview = false  
+  },
+  -- override/add mappings
+  mappings = {
+    -- modify status buffer mappings
+    status = {
+      -- Adds a mapping with "B" as key that does the "BranchPopup" command
+      ["B"] = "BranchPopup",
+      -- Removes the default mapping of "s"
+      ["-"] = "Stage",
+    }
+  }
+}
+EOF
+
+" git 
+nmap <Leader>gs :Neogit<CR>
 " ************Coc******************
 
 nnoremap <silent> <Leader>f <cmd>Telescope file_browser<CR>
