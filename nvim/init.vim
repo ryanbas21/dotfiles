@@ -3,30 +3,18 @@ set ttimeoutlen=0
 set splitright
 set completeopt=menuone,noselect
 set smartindent
-set showmatch
-set cc=0
 set relativenumber
-set tabstop=2
 set shiftwidth=2
-set expandtab
-set termencoding=utf-8
 
-set cursorline    " highlight the current line
 set visualbell    " stop that ANNOYING beeping
 set autowrite     " Automatically :write before running commands
 set autoread      " Reload files changed outside vim
-
 " Trigger autoread when changing buffers or coming back to vim in terminal.
 au FocusGained,BufEnter * :silent! !
 
 set backspace=2   " Backspace deletes like most programs in insert mode
 set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
 set ruler         " show the cursor position all the time
-
-" Configure Cursor shape based on mode
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it for commit messages, when the position is invalid, or when
@@ -49,7 +37,7 @@ Plug 'kevinhwang91/nvim-bqf'
 Plug 'janko/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'akinsho/nvim-bufferline.lua'
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+Plug 'glepnir/galaxyline.nvim'
 Plug 'projekt0n/github-nvim-theme'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -62,11 +50,10 @@ Plug 'karb94/neoscroll.nvim'
 Plug 'projekt0n/github-nvim-theme', { 'branch': 'main' }
 Plug 'tami5/sql.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
-Plug 'tpope/vim-repeat' " Make dot command better
-Plug 'tpope/vim-surround' " quotes/blocks/tags and more manipulation
-Plug 'tpope/vim-commentary' " comment out stuff
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-projectionist' " switch between test files or create them
-Plug 'tpope/vim-unimpaired' 
 Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'neovimhaskell/haskell-vim' , { 'for': 'haskell' }
@@ -91,7 +78,56 @@ Plug 'TimUntersberger/neogit'
 Plug 'sindrets/diffview.nvim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'glepnir/lspsaga.nvim'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 call plug#end()
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  textobjects = {
+    lsp_interop = {
+      enable = true,
+      border = 'none',
+      peek_definition_code = {
+        ["df"] = "@function.outer",
+        ["dF"] = "@class.outer",
+      },
+    },
+    select = {
+      enable = true,
+
+      -- Automatically jump forward to textobj, similar to targets.vim 
+      lookahead = true,
+
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+
+        -- Or you can define your own textobjects like this
+        ["iF"] = {
+          typescript = "(function_definition) @function",
+          javascript = "(function_definition) @function",
+          python = "(function_definition) @function",
+          cpp = "(function_definition) @function",
+          c = "(function_definition) @function",
+          java = "(method_declaration) @function",
+        },
+      },
+     swap = {
+        enable = true,
+        swap_next = {
+          ["<leader>a"] = "@parameter.inner",
+        },
+        swap_previous = {
+          ["<leader>A"] = "@parameter.inner",
+        },
+      },
+    },
+  },
+}
+EOF
 
 function! s:setup_git_messenger_popup() abort
     nmap <buffer><C-o> o
@@ -126,6 +162,20 @@ let g:git_messenger_popup_content_margins = v:false
 
 
 lua << EOF
+require'nvim-web-devicons'.setup {
+ -- your personnal icons can go here (to override)
+ -- DevIcon will be appended to `name`
+ override = {
+  zsh = {
+    icon = "",
+    color = "#428850",
+    name = "Zsh"
+  }
+ };
+ -- globally enable default icons (default to false)
+ -- will get overriden by `get_icons` option
+ default = true;
+}
 require('nvim-treesitter.configs').setup({
     ensure_installed = "maintained",
     highlight = {
@@ -174,7 +224,6 @@ require'diffview'.setup({
     }
   }
 })
-require'nvim-web-devicons'.setup()
 require('neoscroll').setup()
 require('gitsigns').setup()
 require('lspsaga').init_lsp_saga()
