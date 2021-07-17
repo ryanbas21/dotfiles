@@ -1,10 +1,22 @@
 ### Ryan's Dotfiles
 
-Here are my dotfiles - these tend to change regularly. I am always tweaking
-these, trying to perfect it to be better, and as I learn more, I hope I do that.
+## Setup
+Need to install LSP
+```
+:LspInstall typescript
+:LspInstall <language>
+
+```
+<Leader>gp = go to definition preview, s for split, o for open 
+<leader>gd = go to definition
+[d = prev diagonstic
+]d = next diagonstic
+<leader>gr = rename
 
 
-### Leader
-My leader key is Space.
+<leader>gm = Git Messaenger Floating Window
+o / O to go through commits 
 
+
+<leader>gs for Neogit { on screen instructions }
 
