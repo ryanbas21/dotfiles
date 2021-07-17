@@ -43,18 +43,16 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'chemzqm/vim-jsx-improve'
 Plug 'liquidz/vim-iced', {'for': 'clojure', 'branch': 'main'}
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
 Plug 'karb94/neoscroll.nvim'
 Plug 'projekt0n/github-nvim-theme', { 'branch': 'main' }
 Plug 'tami5/sql.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
-Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-projectionist' " switch between test files or create them
-Plug 'tpope/vim-eunuch' " Added Unix command capability for vim
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-eunuch'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'neovimhaskell/haskell-vim' , { 'for': 'haskell' }
 Plug 'elm-tooling/elm-vim' , { 'for': 'elm' }
@@ -852,8 +850,6 @@ require('telescope').setup({
     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
   }
 })
-require('telescope').load_extension('frecency')
-require('telescope').load_extension('fzf')
 
 EOF
 " ************** Key Mappings *******************************************  
@@ -902,6 +898,10 @@ neogit.setup {
     }
   }
 }
+
+
+require('telescope').load_extension('frecency')
+require('telescope').load_extension('fzf')
 EOF
 
 " git 
