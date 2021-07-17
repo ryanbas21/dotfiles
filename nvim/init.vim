@@ -961,7 +961,6 @@ nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_sag
 nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
 " -- show signature help
 nnoremap <silent> <C-k> <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
-nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
 nnoremap <silent> gp <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
 nnoremap <silent> gd <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
 nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
@@ -970,6 +969,6 @@ nnoremap <silent><leader>cd <cmd>lua require'lspsaga.diagnostic'.show_line_diagn
 " -- jump diagnostic
 nnoremap <silent> [d <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
 nnoremap <silent> ]d <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
-nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
+nnoremap <silent><leader>rn <cmd>lua require('lspsaga.rename').rename()<CR>
 
 
