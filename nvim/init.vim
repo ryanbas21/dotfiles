@@ -1,4 +1,3 @@
-scriptencoding utf-8
 set ttimeout
 set ttimeoutlen=0
 set splitright
@@ -11,11 +10,7 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 set termencoding=utf-8
-" Make Searching Beter
-set gdefault
-set ignorecase
-" Stop highlight after searching
-set hlsearch
+
 set cursorline    " highlight the current line
 set visualbell    " stop that ANNOYING beeping
 set autowrite     " Automatically :write before running commands
@@ -130,6 +125,17 @@ let g:git_messenger_popup_content_margins = v:false
 
 
 lua << EOF
+require('nvim-treesitter.configs').setup {
+    ensure_installed = "maintained",
+    highlight = {
+      enable = true,
+      disable = {},
+      use_languagetree=true
+    },
+    indent = {
+      enable = true
+    }
+  }
 require('neoscroll').setup()
 require('gitsigns').setup()
 require('lspsaga').init_lsp_saga()
@@ -947,6 +953,7 @@ let g:projectionist_heuristics = {
       \   }
       \ }
 
+" LSP Key Bindings
 nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
 " -- scroll down hover doc or scroll in definition preview
 nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
@@ -956,7 +963,7 @@ nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_sag
 nnoremap <silent> <C-k> <cmd>lua require('lspsaga.signaturehelp').signature_help()<CR>
 nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
 nnoremap <silent> gp <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
-nnoremap <silent> gp <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
+nnoremap <silent> gd <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
 nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
 " -- show
 nnoremap <silent><leader>cd <cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>
