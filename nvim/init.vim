@@ -866,6 +866,7 @@ let mapleader = "\<Space>"
 
 " create a new file
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
+
 " Remove that dumb search highlight
 nmap <silent> <leader>, :nohl<cr>
 "escaping
@@ -924,7 +925,6 @@ nnoremap <silent> <leader>; <cmd>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <leader>S <cmd>Telescope grep_string<CR> 
 nnoremap <leader>s <cmd>Telescope live_grep<CR>
 nnoremap <C-p> <cmd>Telescope frecency<CR>
-nnoremap <leader>p <cmd>Telescope frecency<CR>
 " ***************************************
 "
 " Use ctrl-[hjkl] to select the active split!
@@ -977,6 +977,7 @@ let g:projectionist_heuristics = {
       \     },
       \     '*.ts': {
       \       'alternate': [
+      \         '{dirname}/{basename}.test.ts',
       \         '{dirname}/{basename}.test.ts',
       \         '{dirname}/__tests__/{basename}-test.ts'
       \       ],
