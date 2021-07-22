@@ -72,6 +72,7 @@ Plug 'sindrets/diffview.nvim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'purescript-contrib/purescript-vim'
 call plug#end()
 
 lua require('settings')
