@@ -1,12 +1,20 @@
 set splitright
-set completeopt=menuone,noselect
+set ttimeoutlen=0
+set completeopt=menuone,noselect,noinsert
+set shiftwidth=2
 set relativenumber
 set visualbell    " stop that ANNOYING beeping
 set number
 set autowrite     " Automatically :write before running commands
 set autoread      " Reload files changed outside vim
+
+" Autocomplete menu options
+set noshowmode
+set shortmess+=c
+
 " Trigger autoread when changing buffers or coming back to vim in terminal.
 au FocusGained,BufEnter * :silent! !
+
 set backspace=2   " Backspace deletes like most programs in insert mode
 set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
 
@@ -35,24 +43,26 @@ Plug 'glepnir/galaxyline.nvim'
 Plug 'projekt0n/github-nvim-theme'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'sbdchd/neoformat'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'liquidz/vim-iced', {'for': 'clojure', 'branch': 'main'}
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
 Plug 'karb94/neoscroll.nvim'
-Plug 'projekt0n/github-nvim-theme', { 'branch': 'main' }
+Plug 'EdenEast/nightfox.nvim'
 Plug 'tami5/sql.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'neovimhaskell/haskell-vim' , { 'for': 'haskell' }
 Plug 'elm-tooling/elm-vim' , { 'for': 'elm' }
 Plug 'andys8/vim-elm-syntax' , { 'for': 'elm' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf.vim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -62,8 +72,13 @@ Plug 'glepnir/dashboard-nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'projekt0n/circles.nvim' 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }  " We recommend updating the parsers on update
-Plug 'hrsh7th/nvim-compe'
+" Plug 'hrsh7th/nvim-compe'
+" Plug 'onsails/vimway-lsp-diag.nvim'
+" Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+Plug 'folke/trouble.nvim'
+Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
 Plug 'windwp/nvim-autopairs'
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
@@ -72,10 +87,12 @@ Plug 'sindrets/diffview.nvim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-Plug 'purescript-contrib/purescript-vim'
+Plug 'purescript-contrib/purescript-vim', { 'for': 'purescript' }
 call plug#end()
 
 lua require('settings')
+
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html Neoformat prettier
 
 function! s:setup_git_messenger_popup() abort
     nmap <buffer><C-o> o
@@ -169,6 +186,27 @@ nnoremap <silent> <leader>; <cmd>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <leader>S <cmd>Telescope grep_string<CR> 
 nnoremap <leader>s <cmd>Telescope live_grep<CR>
 nnoremap <C-p> <cmd>Telescope frecency<CR>
+
+" Set recommended to false
+let g:coq_settings = {  
+      \ 'auto_start': v:true,
+      \ "keymap.recommended": v:false,
+      \ "keymap.bigger_preview": "<C-.>",
+      \ "keymap.jump_to_mark": "<C-b>",
+   \ }
+
+
+" Keybindings
+ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
+ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
+ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
+ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
+ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
+
+
+
+
 " ***************************************
 "
 " Use ctrl-[hjkl] to select the active split!
@@ -275,4 +313,5 @@ let g:projectionist_heuristics = {
       \   }
       \ }
 
-autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
+nnoremap <silent>[b :BufferLineCycleNext<CR>
+nnoremap <silent>]b :BufferLineCyclePrev<CR>
