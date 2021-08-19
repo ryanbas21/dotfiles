@@ -1,6 +1,4 @@
-local neogit = require'neogit'
-
-neogit.setup {
+require'neogit'.setup {
   disable_signs = false,
   disable_context_highlighting = false,
   disable_commit_confirmation = false,
@@ -22,8 +20,6 @@ neogit.setup {
     status = {
       -- Adds a mapping with "B" as key that does the "BranchPopup" command
       ["B"] = "BranchPopup",
-      -- Removes the default mapping of "s"
-      ["-"] = "Stage",
     }
   }
 }
