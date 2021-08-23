@@ -47,7 +47,8 @@ Plug 'sbdchd/neoformat'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'liquidz/vim-iced', {'for': 'clojure', 'branch': 'main'}
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
+" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'karb94/neoscroll.nvim'
 Plug 'EdenEast/nightfox.nvim'
 Plug 'tami5/sql.nvim'
@@ -78,6 +79,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }  " We recommend upd
 " Plug 'onsails/vimway-lsp-diag.nvim'
 " Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'folke/trouble.nvim'
+Plug 'Pocco81/Catppuccino.nvim'
 Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
 Plug 'windwp/nvim-autopairs'
 Plug 'neovim/nvim-lspconfig'
@@ -187,15 +189,6 @@ nnoremap <leader>S <cmd>Telescope grep_string<CR>
 nnoremap <leader>s <cmd>Telescope live_grep<CR>
 nnoremap <C-p> <cmd>Telescope frecency<CR>
 
-" Set recommended to false
-let g:coq_settings = {  
-      \ 'auto_start': v:true,
-      \ "keymap.recommended": v:false,
-      \ "keymap.bigger_preview": "<C-.>",
-      \ "keymap.jump_to_mark": "<C-b>",
-   \ }
-
-
 " Keybindings
 ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
 ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
@@ -204,6 +197,7 @@ ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C
 ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
 
+nnoremap <C-n> :NvimTreeToggle<CR>
 
 
 
@@ -215,11 +209,6 @@ nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 noremap <silent> Y y$
-
-"NerdTree
-map <C-n> :NERDTreeToggle<CR>
-
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 
