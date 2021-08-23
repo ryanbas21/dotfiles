@@ -110,6 +110,17 @@ local function setup_servers()
   require'lspinstall'.setup()
   local coq = require'coq'()
 
+  vim.g.coq_settings = {
+    ['auto_start'] = true,
+    ['keymap.bigger_preview'] = "<c-/>",
+    ['keymap.jump_to_mark'] = "<c-b>",
+  }
+  -- let g:coq_settings = {
+  --     \ 'auto_start': v:true,
+  --     \ "keymap.bigger_preview": "<C-.>",
+  --     \ "keymap.jump_to_mark": "<C-b>",
+  --  \ }
+
   -- get all installed servers
   local servers = require'lspinstall'.installed_servers()
   -- ... and add manually installed servers
