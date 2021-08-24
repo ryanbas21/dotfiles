@@ -65,13 +65,17 @@ require("trouble").setup {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
+
 vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>",
   {silent = true, noremap = true}
 )
+
 vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>",
   {silent = true, noremap = true}
 )
+
 saga.init_lsp_saga()
+
 local lua_settings = {
   Lua = {
     runtime = {
@@ -105,9 +109,10 @@ local function make_config()
   }
 end
 
+local lspinstall =require'lspinstall'.setup()
 -- lsp-install
 local function setup_servers()
-  require'lspinstall'.setup()
+  local servers = lspinstall.installed_servers()
   local coq = require'coq'()
 
   vim.g.coq_settings = {
@@ -115,14 +120,6 @@ local function setup_servers()
     ['keymap.bigger_preview'] = "<c-/>",
     ['keymap.jump_to_mark'] = "<c-b>",
   }
-  -- let g:coq_settings = {
-  --     \ 'auto_start': v:true,
-  --     \ "keymap.bigger_preview": "<C-.>",
-  --     \ "keymap.jump_to_mark": "<C-b>",
-  --  \ }
-
-  -- get all installed servers
-  local servers = require'lspinstall'.installed_servers()
   -- ... and add manually installed servers
   table.insert(servers, "clangd")
   table.insert(servers, "sourcekit")
@@ -141,7 +138,7 @@ local function setup_servers()
       config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
     end
 
-    require'lspconfig'[server].setup(coq.lsp_ensure_capabilities(config))
+    lspconfig[server].setup(coq.lsp_ensure_capabilities(config))
   end
 end
 
@@ -149,8 +146,39 @@ setup_servers()
 -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
 require'lspinstall'.post_install_hook = function ()
   setup_servers() -- reload installed servers
-
   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+end
+
+-- replace the default lsp diagnostic symbols
+local function lspSymbol(name, icon)
+   vim.fn.sign_define("LspDiagnosticsSign" .. name, { text = icon, numhl = "LspDiagnosticsDefaul" .. name })
+end
+
+lspSymbol("Error", "")
+lspSymbol("Information", "")
+lspSymbol("Hint", "")
+lspSymbol("Warning", "")
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+   virtual_text = {
+      prefix = "",
+      spacing = 0,
+   },
+   signs = true,
+   underline = true,
+   update_in_insert = false, -- update diagnostics insert mode
+})
+
+-- suppress error messages from lang servers
+vim.notify = function(msg, log_level, _opts)
+   if msg:match "exit code" then
+      return
+   end
+   if log_level == vim.log.levels.ERROR then
+      vim.api.nvim_err_writeln(msg)
+   else
+      vim.api.nvim_echo({ { msg } }, true, {})
+   end
 end
 
 require('lspkind').init({
