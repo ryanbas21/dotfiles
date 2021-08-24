@@ -4,7 +4,7 @@ local on_attach = function(client, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
+  require "lsp_signature".on_attach()
   -- Mappings.
   local opts = { noremap=true, silent=false }
 
@@ -109,17 +109,18 @@ local function make_config()
   }
 end
 
-local lspinstall =require'lspinstall'.setup()
+local lspinstall = require'lspinstall'
 -- lsp-install
 local function setup_servers()
+  lspinstall.setup()
   local servers = lspinstall.installed_servers()
-  local coq = require'coq'()
 
   vim.g.coq_settings = {
-    ['auto_start'] = true,
-    ['keymap.bigger_preview'] = "<c-/>",
-    ['keymap.jump_to_mark'] = "<c-b>",
+    ['auto_start'] = 'shut-up',
   }
+
+  local coq = require'coq'()
+
   -- ... and add manually installed servers
   table.insert(servers, "clangd")
   table.insert(servers, "sourcekit")

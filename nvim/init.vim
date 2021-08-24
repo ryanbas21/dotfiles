@@ -47,7 +47,6 @@ Plug 'sbdchd/neoformat'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'liquidz/vim-iced', {'for': 'clojure', 'branch': 'main'}
-" Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle'} " file tree
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'karb94/neoscroll.nvim'
 Plug 'EdenEast/nightfox.nvim'
@@ -71,13 +70,14 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'onsails/lspkind-nvim'
+Plug 'ray-x/lsp_signature.nvim'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'projekt0n/circles.nvim' 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }  " We recommend updating the parsers on update
 " Plug 'hrsh7th/nvim-compe'
 " Plug 'onsails/vimway-lsp-diag.nvim'
-" Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'folke/trouble.nvim'
 Plug 'Pocco81/Catppuccino.nvim'
 Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
@@ -301,6 +301,5 @@ let g:projectionist_heuristics = {
       \     }
       \   }
       \ }
-
 nnoremap <silent>[b :BufferLineCycleNext<CR>
 nnoremap <silent>]b :BufferLineCyclePrev<CR>
