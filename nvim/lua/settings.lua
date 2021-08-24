@@ -13,6 +13,7 @@ require 'neoscroll'.setup()
 require 'gitsigns'.setup()
 require 'lspsaga'.init_lsp_saga()
 require 'nvim-autopairs'.setup({ map_cr = true, map_complete = true })
+
  vim.g.dashboard_custom_section = {
         a = {description = {"  Find File                 SPC f"}, command = "Telescope find_files"},
         b = {description = {"   Git Files                 SPC SPC"}, command = "Telescope git_files"},
