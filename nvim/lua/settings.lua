@@ -1,16 +1,17 @@
 require 'treesitter'
-require'colors'
-require'_dashboard'
-require'nvimtree'
-require'bufferline'.setup{
+require 'colors'
+require '_dashboard'
+require 'nvimtree'
+require 'bufferline'.setup{
    diagnostics = "nvim_lsp"
   }
 require 'telescope_config'
 require '_devicons'
 require '_diffview'
-require'_galaxy_line'
+require '_galaxy_line'
 require '_neogit'
 require 'lsp'
+require '_compe'
 require 'neoscroll'.setup()
 require 'gitsigns'.setup()
 require 'lspsaga'.init_lsp_saga()

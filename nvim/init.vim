@@ -1,6 +1,6 @@
 set splitright
 set ttimeoutlen=0
-set completeopt=menuone,noselect,noinsert
+set completeopt=menu, menuone,noselect
 set shiftwidth=2
 set relativenumber
 set visualbell    " stop that ANNOYING beeping
@@ -39,8 +39,7 @@ Plug 'kevinhwang91/nvim-bqf'
 Plug 'janko/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'akinsho/nvim-bufferline.lua'
-Plug 'glepnir/galaxyline.nvim'
-Plug 'projekt0n/github-nvim-theme'
+Plug 'glepnir/galaxyline.nvim', { 'branch': 'main' } 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'sbdchd/neoformat'
@@ -62,7 +61,6 @@ Plug 'neovimhaskell/haskell-vim' , { 'for': 'haskell' }
 Plug 'elm-tooling/elm-vim' , { 'for': 'elm' }
 Plug 'andys8/vim-elm-syntax' , { 'for': 'elm' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
@@ -75,12 +73,9 @@ Plug 'neovimhaskell/haskell-vim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'projekt0n/circles.nvim' 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }  " We recommend updating the parsers on update
-" Plug 'hrsh7th/nvim-compe'
-" Plug 'onsails/vimway-lsp-diag.nvim'
-Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
+Plug 'hrsh7th/nvim-compe'
 Plug 'folke/trouble.nvim'
 Plug 'Pocco81/Catppuccino.nvim'
-Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
 Plug 'windwp/nvim-autopairs'
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
@@ -92,7 +87,7 @@ Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'purescript-contrib/purescript-vim', { 'for': 'purescript' }
 call plug#end()
 
-lua require('settings')
+lua require 'settings'
 
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html Neoformat prettier
 

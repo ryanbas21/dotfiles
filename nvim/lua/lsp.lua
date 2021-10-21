@@ -119,8 +119,6 @@ local function setup_servers()
     ['auto_start'] = 'shut-up',
   }
 
-  local coq = require'coq'()
-
   -- ... and add manually installed servers
   table.insert(servers, "clangd")
   table.insert(servers, "sourcekit")
@@ -138,9 +136,13 @@ local function setup_servers()
     if server == "clangd" then
       config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
     end
-
-    lspconfig[server].setup(coq.lsp_ensure_capabilities(config))
-  end
+    if server == 'denols' then
+      config.init_options = {
+	  lint = true,
+      }
+    end 
+    lspconfig[server].setup(config)
+    end
 end
 
 setup_servers()

@@ -15,7 +15,6 @@ local catppuccino = require("catppuccino")
 -- configure it
 catppuccino.setup(
     {
-		colorscheme = "catppuccino",
 		transparency = false,
 		styles = {
 			comments = "italic",
@@ -40,9 +39,15 @@ catppuccino.setup(
 			gitgutter = false,
 			gitsigns = true,
 			telescope = true,
-			nvimtree = false,
+			nvimtree = {
+			  enabled = true,
+			  show_root = true
+			},
 			which_key = false,
-			indent_blankline = true,
+			indent_blankline = {
+			  enabled = true,
+			  colored_indent_levels = true
+			},
 			dashboard = true,
 			neogit = true,
 			vim_sneak = false,
