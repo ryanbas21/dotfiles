@@ -54,14 +54,3 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
-require("github-theme").setup({
-  themeStyle = "dimmed",
-  functionStyle = "italic",
-  sidebars = {"qf", "vista_kind", "terminal", "packer"},
-  hideInactiveStatusline = true,
-  darkSidebar = false,
-  darkFloat = true,
-
-  -- Change the "hint" color to the "orange" color, and make the "error" color bright red
-  colors = { hint = "orange", error = "#ff0000" }
-})
