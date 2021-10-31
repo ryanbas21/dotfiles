@@ -1,6 +1,7 @@
 require 'treesitter'
 require 'colors'
 require '_dashboard'
+require 'neoscroll'.setup()
 require 'nvimtree'
 require 'bufferline'.setup{
    diagnostics = "nvim_lsp"
@@ -11,8 +12,7 @@ require '_diffview'
 require '_galaxy_line'
 require '_neogit'
 require 'lsp'
-require '_compe'
-require 'neoscroll'.setup()
+-- require '_compe'
 require 'gitsigns'.setup()
 require 'lspsaga'.init_lsp_saga()
 require 'nvim-autopairs'.setup({ map_cr = true, map_complete = true })

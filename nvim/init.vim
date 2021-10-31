@@ -1,6 +1,7 @@
 set splitright
 set ttimeoutlen=0
-set completeopt=menu, menuone,noselect
+set completeopt=menu,menuone,noselect
+set expandtab
 set shiftwidth=2
 set relativenumber
 set visualbell    " stop that ANNOYING beeping
@@ -45,10 +46,11 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'sbdchd/neoformat'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'kristijanhusak/orgmode.nvim', { 'branch' : 'tree-sitter' }
 Plug 'liquidz/vim-iced', {'for': 'clojure', 'branch': 'main'}
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'karb94/neoscroll.nvim'
-Plug 'EdenEast/nightfox.nvim'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'tami5/sql.nvim'
 Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'tpope/vim-surround'
@@ -57,9 +59,8 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'neovimhaskell/haskell-vim' , { 'for': 'haskell' }
+" Plug 'neovimhaskell/haskell-vim' , { 'for': 'haskell' }
 Plug 'elm-tooling/elm-vim' , { 'for': 'elm' }
-Plug 'andys8/vim-elm-syntax' , { 'for': 'elm' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -69,13 +70,12 @@ Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'ray-x/lsp_signature.nvim'
-Plug 'neovimhaskell/haskell-vim'
 Plug 'kyazdani42/nvim-web-devicons'
-Plug 'projekt0n/circles.nvim' 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }  " We recommend updating the parsers on update
-Plug 'hrsh7th/nvim-compe'
+Plug 'ms-jpq/coq.thirdparty', { 'branch': '3p' }
+Plug 'ms-jpq/coq_nvim'
+Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'folke/trouble.nvim'
-Plug 'Pocco81/Catppuccino.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
@@ -83,14 +83,13 @@ Plug 'TimUntersberger/neogit'
 Plug 'sindrets/diffview.nvim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'glepnir/lspsaga.nvim'
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-Plug 'purescript-contrib/purescript-vim', { 'for': 'purescript' }
+Plug 'purescript-contrib/purescript-vim', { 'for': ['purescript', 'purs'] }
 call plug#end()
 
+let mapleader = "\<Space>"
+let g:coq_settings = {'auto_start': 'shut-up' }
 lua require 'settings'
-
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html Neoformat prettier
-
 function! s:setup_git_messenger_popup() abort
     nmap <buffer><C-o> o
     nmap <buffer><C-i> O
@@ -132,12 +131,6 @@ augroup UltestRunner
     au BufWritePost * UltestNearest
 augroup END
 
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-
 "" no one is really happy until you have this shortcuts
 cnoreabbrev W! w!
 cnoreabbrev Q! q!
@@ -165,7 +158,6 @@ endif
 
 nmap ,, <C-^>
 
-let mapleader = "\<Space>"
 
 " create a new file
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
