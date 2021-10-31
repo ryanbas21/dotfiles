@@ -1,5 +1,6 @@
 local lspinstall = require'lspinstall'
 local lspconfig = require('lspconfig')
+local coq = require "coq" -- add this
 local saga = require 'lspsaga'
 
 -- keymaps
@@ -8,10 +9,13 @@ local on_attach = function(client, bufnr)
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-  require "lsp_signature".on_attach()
+  require "lsp_signature".on_attach(client, bufnr)
   -- Mappings.
   local opts = { noremap=true, silent=false }
-
+  if client.resolved_capabilities.code_lens then
+    buf_set_keymap('n', '<leader>lcld', '<cmd>lua vim.lsp.codelens.refresh()<CR>', { noremap=true, silent = true })
+    buf_set_keymap('n', '<leader>lclr', '<cmd>lua vim.lsp.codelens.run()<CR>', { noremap=true, silent = true  })
+  end
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
   buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
   buf_set_keymap('n', 'gy', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
@@ -23,8 +27,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<C-f>', '<Cmd>lua require("lspsaga.action").smart_scroll_with_saga(1)<CR>', opts)
   buf_set_keymap('n', '<space>rn', '<Cmd>lua require("lspsaga.rename").rename()<CR>', opts)
   buf_set_keymap('n', '<C-k>', '<cmd>lua require("lspsaga.signaturehelp").signature_help()<CR>', opts)
-  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts) buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
@@ -52,13 +55,7 @@ local on_attach = function(client, bufnr)
   end
 end
 
-lspconfig.hls.setup {
-        settings = {
-            languageServerHaskell = {
-                hlintOn = false,
-            }
-        }
-    }
+
 
 -- Configure lua language server for neovim development
 require("trouble").setup {
@@ -67,11 +64,11 @@ require("trouble").setup {
     -- refer to the configuration section below
   }
 
-vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>",
+vim.api.nvim_set_keymap("n", "<space>xx", "<cmd>Trouble<cr>",
   {silent = true, noremap = true}
 )
 
-vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>",
+vim.api.nvim_set_keymap("n", "<space>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>",
   {silent = true, noremap = true}
 )
 
@@ -106,7 +103,12 @@ local function make_config()
     -- enable snippet support
     capabilities = capabilities,
     -- map buffer local keybindings when the language server attaches
+    init_options = {documentFormatting = true},
     on_attach = on_attach,
+    root_dir = vim.loop.cwd,
+    settings = {
+      rootMarkers = {"./git/"}
+    }
   }
 end
 
@@ -120,13 +122,23 @@ local function setup_servers()
   }
 
   -- ... and add manually installed servers
-  table.insert(servers, "clangd")
-  table.insert(servers, "sourcekit")
+  -- table.insert(servers, "sourcekit")
 
   for _, server in pairs(servers) do
     local config = make_config()
 
     -- language specific config
+    if server == 'purescript' then
+      config.filetypes = {"purs", "purescript" }
+      config.settings = {
+        purescript = {
+          addSpagoSources = true -- e.g. any purescript language-server config here
+        }
+      }
+      config.flags = {
+        debounce_text_changes = 150,
+      }
+    end
     if server == "lua" then
       config.settings = lua_settings
     end
@@ -136,12 +148,7 @@ local function setup_servers()
     if server == "clangd" then
       config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
     end
-    if server == 'denols' then
-      config.init_options = {
-	  lint = true,
-      }
-    end 
-    lspconfig[server].setup(config)
+    lspconfig[server].setup(coq.lsp_ensure_capabilities(config))
     end
 end
 
