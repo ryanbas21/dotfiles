@@ -35,10 +35,9 @@ local list = {
     }
 
 require'nvim-tree'.setup {
-  lsp_diagnostics     = true,
   update_focused_file = {
     -- enables the feature
-    enable      = true,
+    enable      = false,
     ignore_list = {}
   },
   view = {
@@ -58,26 +57,27 @@ require'nvim-tree'.setup {
   }
 }
 vim.g.nvim_tree_icons = {
-     default = '',
-     symlink = '',
-     git = {
-     unstaged = "✗",
-     staged = "✓",
-     unmerged = "",
-     renamed = "➜",
-     untracked = "★",
-     deleted = "",
-     ignored = "◌"
-     },
+       default = '',
+       symlink = '',
+       -- {
+       --   unstaged = "✗",
+       --   staged = "✓",
+       --   unmerged = "",
+       --   renamed = "➜",
+       --   untracked = "★",
+       --   deleted = "",
+       --   ignored = "◌"
+     -- },
+     git = false,
      older = {
-     arrow_open = "",
-     arrow_closed = "",
-     default = "",
-     open = "",
-     empty = "",
-     empty_open = "",
-     symlink = "",
-     symlink_open = "",
+       arrow_open = "",
+       arrow_closed = "",
+       default = "",
+       open = "",
+       empty = "",
+       empty_open = "",
+       symlink = "",
+       symlink_open = "",
      },
      lsp = {
        hint = "",
