@@ -11,9 +11,9 @@ require '_devicons'
 require '_diffview'
 require '_galaxy_line'
 require '_neogit'
-require 'lsp'
 -- require '_compe'
 require 'gitsigns'.setup()
+require 'lsp'
 require 'lspsaga'.init_lsp_saga()
 require 'nvim-autopairs'.setup({ map_cr = true, map_complete = true })
 
