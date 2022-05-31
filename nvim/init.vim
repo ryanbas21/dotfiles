@@ -78,7 +78,7 @@ Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'folke/trouble.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'neovim/nvim-lspconfig'
-Plug 'kabouzeid/nvim-lspinstall'
+Plug 'williamboman/nvim-lsp-installer'
 Plug 'TimUntersberger/neogit'
 Plug 'sindrets/diffview.nvim'
 Plug 'rhysd/git-messenger.vim'

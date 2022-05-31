@@ -1,7 +1,18 @@
-local lspinstall = require'lspinstall'
-local lspconfig = require('lspconfig')
-local coq = require "coq" -- add this
+local coq = require 'coq' -- add this
 local saga = require 'lspsaga'
+
+
+local lsp_installer_servers = require "nvim-lsp-installer.servers"
+require("nvim-lsp-installer").setup {
+  automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+      ui = {
+          icons = {
+              server_installed = "✓",
+              server_pending = "➜",
+              server_uninstalled = "✗"
+          }
+      }
+  }
 
 -- keymaps
 local on_attach = function(client, bufnr)
@@ -54,7 +65,6 @@ local on_attach = function(client, bufnr)
     ]], false)
   end
 end
-
 
 
 -- Configure lua language server for neovim development
@@ -114,8 +124,8 @@ end
 
 -- lsp-install
 local function setup_servers()
-  lspinstall.setup()
-  local servers = lspinstall.installed_servers()
+  local servers = lsp_installer_servers
+  local lspconfig = require'lspconfig'
 
   vim.g.coq_settings = {
     ['auto_start'] = 'shut-up',
