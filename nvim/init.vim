@@ -8,6 +8,8 @@ set visualbell    " stop that ANNOYING beeping
 set number
 set autowrite     " Automatically :write before running commands
 set autoread      " Reload files changed outside vim
+set pumheight=20
+set encoding=utf8
 
 " Autocomplete menu options
 set noshowmode
@@ -36,7 +38,6 @@ au BufRead,BufNewFile *.sbt set filetype=scala
 set termguicolors
 
 call plug#begin('~/.vim/plugged')
-Plug 'kevinhwang91/nvim-bqf'
 Plug 'janko/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'akinsho/nvim-bufferline.lua'
@@ -45,49 +46,57 @@ Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'sbdchd/neoformat'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-project.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do' : 'make' }
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'kristijanhusak/orgmode.nvim', { 'branch' : 'tree-sitter' }
-Plug 'liquidz/vim-iced', {'for': 'clojure', 'branch': 'main'}
+Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'EdenEast/nightfox.nvim'
+Plug 'projekt0n/github-nvim-theme'
 Plug 'karb94/neoscroll.nvim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
-Plug 'tami5/sql.nvim'
-Plug 'nvim-telescope/telescope-frecency.nvim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
+Plug 'b0o/SchemaStore.nvim'
 Plug 'lewis6991/gitsigns.nvim'
-" Plug 'neovimhaskell/haskell-vim' , { 'for': 'haskell' }
 Plug 'elm-tooling/elm-vim' , { 'for': 'elm' }
+Plug 'folke/lua-dev.nvim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'onsails/lspkind-nvim'
-Plug 'ray-x/lsp_signature.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }  " We recommend updating the parsers on update
-Plug 'ms-jpq/coq.thirdparty', { 'branch': '3p' }
-Plug 'ms-jpq/coq_nvim'
-Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
 Plug 'folke/trouble.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'David-Kunz/cmp-npm'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'SirVer/ultisnips'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'TimUntersberger/neogit'
 Plug 'sindrets/diffview.nvim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'purescript-contrib/purescript-vim', { 'for': ['purescript', 'purs'] }
+Plug 'ray-x/lsp_signature.nvim'
+Plug 'simrat39/rust-tools.nvim',
+Plug 'jose-elias-alvarez/null-ls.nvim',
+Plug 'jose-elias-alvarez/typescript.nvim',
 call plug#end()
 
 let mapleader = "\<Space>"
-let g:coq_settings = {'auto_start': 'shut-up' }
 lua require 'settings'
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html Neoformat prettier
 function! s:setup_git_messenger_popup() abort
