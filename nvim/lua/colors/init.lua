@@ -1,25 +1,57 @@
-local catppuccin = require("catppuccin")
-catppuccin.setup()
+-- require('nightfox').set()
+require "github-theme".setup()
+local catppuccino = require("catppuccin")
 
+-- configure it
+catppuccino.setup(
+    {
+		transparency = false,
+		styles = {
+			comments = "italic",
+			functions = "italic",
+			keywords = "italic",
+			strings = "NONE",
+			variables = "NONE",
+		},
+		integrations = {
+			treesitter = true,
+			native_lsp = {
+				enabled = true,
+				styles = {
+					errors = "italic",
+					hints = "italic",
+					warnings = "italic",
+					information = "italic"
+				}
+			},
+			lsp_trouble = true,
+			lsp_saga = true,
+			gitgutter = false,
+			gitsigns = true,
+			telescope = true,
+			nvimtree = {
+			  enabled = true,
+			  show_root = true
+			},
+			which_key = false,
+			indent_blankline = {
+			  enabled = true,
+			  colored_indent_levels = true
+			},
+			dashboard = true,
+			neogit = true,
+			vim_sneak = false,
+			fern = false,
+			barbar = false,
+			bufferline = true,
+			markdown = true,
+		}
+	}
+)
 
-require "github-theme".setup({
-  theme_style = "dark",
-  function_style = "italic",
-  sidebars = {"qf", "vista_kind", "terminal", "packer"},
-
-  -- Change the "hint" color to the "orange" color, and make the "error" color bright red
-  colors = {hint = "orange", error = "#ff0000"},
-
-  -- Overwrite the highlight groups
-  overrides = function(c)
-    return {
-      htmlTag = {fg = c.red, bg = "#282c34", sp = c.hint, style = "underline"},
-      DiagnosticHint = {link = "LspDiagnosticsDefaultHint"},
-      -- this will remove the highlight groups
-      TSField = {},
-    }
-  end
-})
+-- load it
+catppuccino.load()
 
 vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
 vim.cmd[[colorscheme catppuccin]]
+

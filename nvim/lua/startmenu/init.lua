@@ -1,4 +1,4 @@
- vim.g.dashboard_custom_section = {
+vim.g.dashboard_custom_section = {
         a = {description = {"  Find File                 SPC f"}, command = "Telescope find_files"},
         b = {description = {"   Git Files                 SPC SPC"}, command = "Telescope git_files"},
         d = {description = {"  Find Word                 SPC s"}, command = "Telescope live_grep"},

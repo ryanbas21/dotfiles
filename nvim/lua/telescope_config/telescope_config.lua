@@ -29,8 +29,7 @@ require'telescope'.setup {
         },
         media_files = {
             filetypes = {"png", "webp", "jpg", "jpeg"},
-            find_cmd = "rg" -- find command (defaults to `fd`)
-        }
+            find_cmd = "rg" -- find command (defaults to `fd`) }
     },
     initial_mode = "insert",
     selection_strategy = "reset",
@@ -66,4 +65,5 @@ require'telescope'.setup {
     -- Developer configurations: Not meant for general override
     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
   }
+}
 }
