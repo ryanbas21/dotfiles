@@ -42,6 +42,7 @@ Plug 'janko/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'glepnir/galaxyline.nvim', { 'branch': 'main' } 
+
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'sbdchd/neoformat'
@@ -67,16 +68,19 @@ Plug 'folke/lua-dev.nvim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }  " We recommend updating the parsers on update
+
 Plug 'folke/trouble.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'neovim/nvim-lspconfig'
+Plug 'glepnir/lspsaga.nvim'
+Plug 'ray-x/lsp_signature.nvim'
 Plug 'williamboman/nvim-lsp-installer'
+
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -88,9 +92,7 @@ Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'TimUntersberger/neogit'
 Plug 'sindrets/diffview.nvim'
 Plug 'rhysd/git-messenger.vim'
-Plug 'glepnir/lspsaga.nvim'
 Plug 'purescript-contrib/purescript-vim', { 'for': ['purescript', 'purs'] }
-Plug 'ray-x/lsp_signature.nvim'
 Plug 'simrat39/rust-tools.nvim',
 Plug 'jose-elias-alvarez/null-ls.nvim',
 Plug 'jose-elias-alvarez/typescript.nvim',
@@ -167,7 +169,6 @@ endif
 
 nmap ,, <C-^>
 
-
 " create a new file
 map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
@@ -183,7 +184,6 @@ nnoremap <silent> <Leader><Leader> <cmd>Telescope git_files<CR>
 nnoremap <silent> <leader>; <cmd>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <leader>S <cmd>Telescope grep_string<CR> 
 nnoremap <leader>s <cmd>Telescope live_grep<CR>
-nnoremap <C-p> <cmd>Telescope frecency<CR>
 
 " Keybindings
 ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"

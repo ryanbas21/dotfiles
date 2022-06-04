@@ -1,19 +1,12 @@
+require 'colors'
+require 'completion'
 require 'vimtest'
 require 'telescope_config'.setup()
 require 'nvim-treesitter'
-require 'colors'
-require '_dashboard'
 require 'neoscroll'.setup()
-require 'nvimtree'
-require 'bufferline'.setup{
-   diagnostics = "nvim_lsp"
-  }
-require '_devicons'
-require '_diffview'
-require '_galaxy_line'
-require '_neogit'
-require '_compe'
-require 'gitsigns'.setup()
+require 'filetree'
+require 'git'
+require 'statusbar'
 require 'nvim-autopairs'.setup({ map_cr = true, map_complete = true })
 
 
