@@ -1,6 +1,6 @@
 require 'colors'
 require 'completion'
-require 'vimtest'
+require 'neotest'
 require 'telescope_config'.setup()
 require 'nvim-treesitter'
 require 'neoscroll'.setup()

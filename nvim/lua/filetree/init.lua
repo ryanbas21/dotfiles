@@ -14,6 +14,7 @@ local list = {
       { key = "K",                            cb = tree_cb("first_sibling") },
       { key = "J",                            cb = tree_cb("last_sibling") },
       { key = "I",                            cb = tree_cb("toggle_ignored") },
+      { key = "i",                            cb = tree_cb("toggle_git_ignored") },
       { key = "H",                            cb = tree_cb("toggle_dotfiles") },
       { key = "R",                            cb = tree_cb("refresh") },
       { key = "a",                            cb = tree_cb("create") },
@@ -47,6 +48,9 @@ require'nvim-tree'.setup {
     side = 'left',
     -- if true the tree will resize itself after opening a file
     auto_resize = true,
+    filters = {
+      hidden = true,
+    },
     mappings = {
       -- custom only false will merge the list with the default mappings
       -- if true, it will only use your list to set the mappings
@@ -56,26 +60,3 @@ require'nvim-tree'.setup {
     }
   }
 }
-vim.g.nvim_tree_icons = {
-       default = '',
-       symlink = '',
-     git = false,
-     older = {
-       arrow_open = "",
-       arrow_closed = "",
-       default = "",
-       open = "",
-       empty = "",
-       empty_open = "",
-       symlink = "",
-       symlink_open = "",
-     },
-     lsp = {
-       hint = "",
-       info = "",
-       warning = "",
-       error = "",
-     }
-    }
-
-
