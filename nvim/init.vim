@@ -38,8 +38,6 @@ au BufRead,BufNewFile *.sbt set filetype=scala
 set termguicolors
 
 call plug#begin('~/.vim/plugged')
-Plug 'janko/vim-test'
-Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 Plug 'akinsho/nvim-bufferline.lua'
 Plug 'glepnir/galaxyline.nvim', { 'branch': 'main' } 
 
@@ -58,6 +56,7 @@ Plug 'karb94/neoscroll.nvim'
 Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'github/copilot.vim'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-eunuch'
@@ -80,6 +79,13 @@ Plug 'glepnir/lspsaga.nvim'
 Plug 'ray-x/lsp_signature.nvim'
 Plug 'williamboman/nvim-lsp-installer'
 
+Plug 'janko/vim-test'
+Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'rcarriga/neotest'
+Plug 'rcarriga/neotest-vim-test'
+Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
+
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -101,7 +107,9 @@ call plug#end()
 
 let mapleader = "\<Space>"
 lua require 'settings'
+  
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html Neoformat prettier
+
 function! s:setup_git_messenger_popup() abort
     nmap <buffer><C-o> o
     nmap <buffer><C-i> O
@@ -128,7 +136,6 @@ let g:dashboard_custom_header = [
      \]
 
 let g:indentLine_fileTypeExclude = ['dashboard']
-
 
 autocmd FileType gitmessengerpopup call <SID>setup_git_messenger_popup()
 let g:git_messenger_floating_win_opts = { 'border': 'single' }
@@ -175,6 +182,7 @@ map <leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 " Remove that dumb search highlight
 nmap <silent> <leader>, :nohl<cr>
+
 "escaping
 inoremap jk <Esc>
 
@@ -186,17 +194,7 @@ nnoremap <silent> <leader>; <cmd>Telescope current_buffer_fuzzy_find<CR>
 nnoremap <leader>S <cmd>Telescope grep_string<CR> 
 nnoremap <leader>s <cmd>Telescope live_grep<CR>
 
-" Keybindings
-ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
-ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
-ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
-ino <silent><expr> <CR>    pumvisible() ? (complete_info().selected == -1 ? "\<C-e><CR>" : "\<C-y>") : "\<CR>"
-ino <silent><expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-ino <silent><expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<BS>"
-
 nnoremap <C-n> :NvimTreeToggle<CR>
-
-
 
 " ***************************************
 "
@@ -209,94 +207,5 @@ noremap <silent> Y y$
 
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
 
-" ****************** Projectionist *************
-let g:projectionist_heuristics = {
-      \   '*': {
-      \     '*.c': {
-      \       'alternate': '{}.h',
-      \       'type': 'source'
-      \     },
-      \     '*.h': {
-      \       'alternate': '{}.c',
-      \       'type': 'header'
-      \     },
-      \
-      \     '*.tsx': {
-      \       'alternate': [
-      \         '{dirname}/{basename}.test.tsx',
-      \         '{dirname}/__tests__/{basename}-test.tsx'
-      \       ],
-      \       'type': 'source'
-      \     },
-      \     '*.test.tsx': {
-      \       'alternate': '{basename}.tsx',
-      \       'type': 'test',
-      \     },
-      \     '*.ts': {
-      \       'alternate': [
-      \         '{dirname}/{basename}.test.ts',
-      \         '{dirname}/{basename}.test.ts',
-      \         '{dirname}/__tests__/{basename}-test.ts'
-      \       ],
-      \       'type': 'source'
-      \     },
-      \     '*.test.ts': {
-      \       'alternate': '{basename}.ts',
-      \       'type': 'test',
-      \     },
-      \     '**/__tests__/*-test.ts': {
-      \       'alternate': '{dirname}/{basename}.ts',
-      \       'type': 'test'
-      \     },
-      \
-      \     '*.js': {
-      \       'alternate': [
-      \         '{dirname}/{basename}.test.js',
-      \         '{dirname}/__tests__/{basename}.spec.js',
-      \       ],
-      \       'type': 'source'
-      \     },
-      \     '*.test.js': {
-      \       'alternate': '{basename}.js',
-      \       'type': 'test',
-      \     },
-      \     '*.spec.js': {
-      \       'alternate': '{basename}.js',
-      \       'type': 'test',
-      \     },
-      \     '**/__tests__/*-mocha.js': {
-      \       'alternate': '{dirname}/{basename}.js',
-      \       'type': 'test'
-      \     },
-      \     '**/__tests__/*-test.js': {
-      \       'alternate': '{dirname}/{basename}.js',
-      \       'type': 'test'
-      \     },
-      \
-      \     'src/*.re': {
-      \       'alternate': [
-      \         '__tests__/{}_test.re',
-      \         'src/{}_test.re',
-      \         'src/{}.rei'
-      \       ],
-      \       'type': 'source'
-      \     },
-      \     'src/*.rei': {
-      \       'alternate': [
-      \         'src/{}.re',
-      \         '__tests__/{}_test.re',
-      \         'src/{}_test.re',
-      \       ],
-      \       'type': 'header'
-      \     },
-      \     '__tests__/*_test.re': {
-      \       'alternate': [
-      \         'src/{}.rei',
-      \         'src/{}.re',
-      \       ],
-      \       'type': 'test'
-      \     }
-      \   }
-      \ }
 nnoremap <silent>[b :BufferLineCycleNext<CR>
 nnoremap <silent>]b :BufferLineCyclePrev<CR>

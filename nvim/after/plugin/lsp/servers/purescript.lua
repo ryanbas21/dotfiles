@@ -3,4 +3,4 @@ if not ok then
     return
 end
 
-lspconfig.purescript.setup {}
+lspconfig.purescriptls.setup {}
