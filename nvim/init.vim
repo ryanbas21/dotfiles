@@ -71,9 +71,8 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-media-files.nvim'
 Plug 'glepnir/dashboard-nvim'
 Plug 'onsails/lspkind-nvim'
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate' }  " We recommend updating the parsers on update
-
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'folke/trouble.nvim'
 Plug 'windwp/nvim-autopairs'
 Plug 'neovim/nvim-lspconfig'
@@ -87,8 +86,10 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'David-Kunz/cmp-npm'
 Plug 'hrsh7th/nvim-cmp'
+
 Plug 'SirVer/ultisnips'
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+
 Plug 'TimUntersberger/neogit'
 Plug 'sindrets/diffview.nvim'
 Plug 'rhysd/git-messenger.vim'
