@@ -3,4 +3,4 @@ if not ok then
     return
 end
 
-lspconfig.purescriptls.setup {}
+lspconfig.svelte.setup {}
