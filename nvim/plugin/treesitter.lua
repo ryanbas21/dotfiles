@@ -9,14 +9,6 @@ require("nvim-treesitter.configs").setup {
             updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
             persist_queries = false, -- Whether the query persists across vim sessions
         },
-        incremental_selection = {
-            enable = true,
-            keymaps = {
-                init_selection = "<S-Tab>", -- normal mode
-                node_incremental = "<Tab>", -- visual mode
-                node_decremental = "<S-Tab>", -- visual mode
-            },
-        },
         -- extensions
         textobjects = {
             select = {
@@ -28,7 +20,7 @@ require("nvim-treesitter.configs").setup {
             },
         },
         autotag = { enable = true },
-        rainbow = { enable = true },
+        -- rainbow = { enable = true },
         context_commentstring = {
             enable = true,
             config = {
