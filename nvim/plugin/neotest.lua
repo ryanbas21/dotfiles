@@ -16,10 +16,11 @@ neotest.setup({
       require("neotest-jest")({
         dap = { justMyCode = false, console = "integratedTerminal" },
       }),
+      require('neotest-vitest'),
       require("neotest-plenary"),
       require("neotest-go"),
       require("neotest-vim-test")({
-        allow_file_types = { "ruby", "typescript" },
+        ignore_file_types = { "python", "vim", "lua" },
       }),
     },
   })
@@ -40,9 +41,6 @@ neotest.setup({
       neotest.run.stop()
     end,
     ["<leader>nn"] = neotest.run.run,
-    ["<leader>nd"] = function()
-      neotest.run.run({ strategy = "dap" })
-    end,
     ["<leader>nl"] = neotest.run.run_last,
     ["<leader>nD"] = function()
       neotest.run.run_last({ strategy = "dap" })

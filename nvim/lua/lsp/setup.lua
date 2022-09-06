@@ -19,10 +19,11 @@ end
 
 util.on_setup = util.add_hook_after(util.on_setup, function(config)
     if config.on_attach then
-        config.on_attach = util.add_hook_after(config.on_attach, require "wb.lsp.on-attach")
+        config.on_attach = util.add_hook_after(config.on_attach, require "lsp.on-attach")
     else
-        config.on_attach = require "wb.lsp.on-attach"
+        config.on_attach = require "lsp.on-attach"
     end
+
     config.capabilities = vim.tbl_deep_extend("force", create_capabilities(), config.capabilities or {})
 end)
 
@@ -30,8 +31,6 @@ require("mason-lspconfig").setup {}
 require("mason-lspconfig").setup_handlers {
     function(server_name)
         lspconfig[server_name].setup {}
-        require("lsp-format").setup {}
-        lspconfig[server_name].setup { on_attach = require "lsp-format".on_attach }
     end,
     ["jdtls"] = function()
         local function progress_handler()
