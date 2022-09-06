@@ -43,7 +43,7 @@ require'nvim-tree'.setup {
   },
   view = {
     -- width of the window, can be either a number (columns) or a string in `%`
-    width = 20,
+    width = 40,
     -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
     side = 'left',
     -- if true the tree will resize itself after opening a file
@@ -56,3 +56,5 @@ require'nvim-tree'.setup {
     }
   }
 }
+
+    vim.keymap.set("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { noremap = true })

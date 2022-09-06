@@ -1,7 +1,7 @@
 local ok, lspkind = pcall(require, "lspkind")
 
 if not ok then
-    return
+	return
 end
 
 lspkind.init()

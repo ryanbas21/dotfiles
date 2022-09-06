@@ -33,31 +33,31 @@ require'diffview'.setup {
   }
 }
 
-require'neogit'.setup {
-  disable_signs = false,
-  disable_context_highlighting = false,
-  disable_commit_confirmation = false,
-  -- customize displayed signs
-  signs = {
-    -- { CLOSED, OPENED }
-    section = { ">", "v" },
-    item = { ">", "v" },
-    hunk = { "", "" },
-  },
-  integrations = {
-    -- Neogit only provides inline diffs. If you want a more traditional way to look at diffs, you can use `sindrets/diffview.nvim`.
-    -- The diffview integration enables the diff popup, which is a wrapper around `sindrets/diffview.nvim`.
-    diffview = true
-  },
-  -- override/add mappings
-  mappings = {
-    -- modify status buffer mappings
-    status = {
-      -- Adds a mapping with "B" as key that does the "BranchPopup" command
-      ["B"] = "BranchPopup",
-    }
-  }
-}
+-- require'neogit'.setup {
+--   disable_signs = false,
+--   disable_context_highlighting = false,
+--   disable_commit_confirmation = false,
+--   -- customize displayed signs
+--   signs = {
+--     -- { CLOSED, OPENED }
+--     section = { ">", "v" },
+--     item = { ">", "v" },
+--     hunk = { "", "" },
+--   },
+--   integrations = {
+--     -- Neogit only provides inline diffs. If you want a more traditional way to look at diffs, you can use `sindrets/diffview.nvim`.
+--     -- The diffview integration enables the diff popup, which is a wrapper around `sindrets/diffview.nvim`.
+--     diffview = true
+--   },
+--   -- override/add mappings
+--   mappings = {
+--     -- modify status buffer mappings
+--     status = {
+--       -- Adds a mapping with "B" as key that does the "BranchPopup" command
+--       ["B"] = "BranchPopup",
+--     }
+--   }
+-- }
 local ok, gitsigns = pcall(require, "gitsigns")
 if not ok then
     return
@@ -70,14 +70,14 @@ gitsigns.setup {
         delay = vim.o.updatetime,
     },
 }
+local opt = { noremap = true }
+vim.keymap.set("n", "]c", gitsigns.next_hunk, opt)
+vim.keymap.set("n", "[c", gitsigns.prev_hunk, opt)
 
-vim.keymap.set("n", "]c", gitsigns.next_hunk)
-vim.keymap.set("n", "[c", gitsigns.prev_hunk)
+vim.keymap.set("n", "<leader>ga", gitsigns.stage_hunk, opt)
+vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, opt)
+vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk, opt)
+vim.keymap.set("n", "<leader>gu", gitsigns.undo_stage_hunk, opt)
 
-vim.keymap.set("n", "<leader>ga", gitsigns.stage_hunk)
-vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk)
-vim.keymap.set("n", "<leader>gp", gitsigns.preview_hunk)
-vim.keymap.set("n", "<leader>gu", gitsigns.undo_stage_hunk)
-
-vim.keymap.set("o", "ah", gitsigns.select_hunk)
-vim.keymap.set("v", "ah", gitsigns.select_hunk)
+vim.keymap.set("o", "ah", gitsigns.select_hunk, opt)
+vim.keymap.set("v", "ah", gitsigns.select_hunk, opt)
