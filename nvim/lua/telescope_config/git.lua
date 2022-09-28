@@ -2,15 +2,13 @@ local builtin = require "telescope.builtin"
 
 local M = {}
 
+M.buffer_commits = function()
+  builtin.git_bcommits{}
+end
 M.status = function()
     builtin.git_status()
 end
-M.commit = function()
-  builtin.git_commits{}
-end
-M.buffer_commits = function()
-  builtin.buffer_commits{}
-end
+
 M.stash = function()
     builtin.git_stash {
         layout_strategy = "flex",
@@ -29,5 +27,4 @@ M.stash = function()
         },
     }
 end
-
 return M

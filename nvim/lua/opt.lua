@@ -3,6 +3,7 @@ local opt = vim.opt
 opt.title = true
 opt.clipboard = "unnamedplus"
 opt.cursorline = true
+opt.swapfile = false
 
 opt.expandtab = true
 opt.shiftwidth = 2

@@ -1,10 +1,10 @@
 local ok, aerial = pcall(require, "aerial")
+
 if not ok then
   return
 end
 
 aerial.setup({
-  max_width = { 40, 0.25 },
   on_attach = function(bufnr)
     -- Toggle the aerial window with <leader>a
     vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>la", "<cmd>AerialToggle!<CR>", {})

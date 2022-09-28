@@ -1,36 +1,76 @@
-local ok, lspconfig = pcall(require, "lspconfig")
-if not ok then
+local deps_ok, lspconfig, util, cmp_lsp = pcall(function()
+    return require "lspconfig", require "lspconfig.util", require "cmp_nvim_lsp"
+end)
+if not deps_ok then
     return
 end
 
-local util = require "lspconfig.util"
-local cmp_lsp = require "cmp_nvim_lsp"
-
-local function create_capabilities()
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-    vim.list_extend(capabilities.textDocument.completion.completionItem.resolveSupport.properties, {
-        "documentation",
-        "detail",
-        "additionalTextEdits",
-    })
-    return cmp_lsp.update_capabilities(capabilities)
+local capabilities
+do
+    local default_capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = {
+        textDocument = {
+            completion = {
+                completionItem = {
+                    snippetSupport = true,
+                },
+            },
+            codeAction = {
+                resolveSupport = {
+                    properties = vim.list_extend(default_capabilities.textDocument.codeAction.resolveSupport.properties, {
+                        "documentation",
+                        "detail",
+                        "additionalTextEdits",
+                    }),
+                },
+            },
+        },
+    }
 end
 
-util.on_setup = util.add_hook_after(util.on_setup, function(config)
-    if config.on_attach then
-        config.on_attach = util.add_hook_after(config.on_attach, require "lsp.on-attach")
-    else
-        config.on_attach = require "lsp.on-attach"
-    end
-
-    config.capabilities = vim.tbl_deep_extend("force", create_capabilities(), config.capabilities or {})
-end)
+util.default_config = vim.tbl_deep_extend("force", util.default_config, {
+    capabilities = vim.tbl_deep_extend(
+        "force",
+        vim.lsp.protocol.make_client_capabilities(),
+        cmp_lsp.default_capabilities(capabilities)
+    ),
+})
 
 require("mason-lspconfig").setup {}
+
 require("mason-lspconfig").setup_handlers {
     function(server_name)
         lspconfig[server_name].setup {}
+    end,
+    ["tsserver"] = function()
+        require("typescript").setup {
+            server = {
+                settings = {
+                    typescript = {
+                        inlayHints = {
+                            includeInlayParameterNameHints = "all",
+                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                            includeInlayFunctionParameterTypeHints = true,
+                            includeInlayVariableTypeHints = true,
+                            includeInlayPropertyDeclarationTypeHints = true,
+                            includeInlayFunctionLikeReturnTypeHints = true,
+                            includeInlayEnumMemberValueHints = true,
+                        },
+                    },
+                    javascript = {
+                        inlayHints = {
+                            includeInlayParameterNameHints = "all",
+                            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                            includeInlayFunctionParameterTypeHints = true,
+                            includeInlayVariableTypeHints = true,
+                            includeInlayPropertyDeclarationTypeHints = true,
+                            includeInlayFunctionLikeReturnTypeHints = true,
+                            includeInlayEnumMemberValueHints = true,
+                        },
+                    },
+                },
+            },
+        }
     end,
     ["jdtls"] = function()
         local function progress_handler()
@@ -40,7 +80,6 @@ require("mason-lspconfig").setup_handlers {
             local ready_projects = {}
             ---@param result {type:"Starting"|"Started"|"ServiceReady", message:string}
             return function(_, result, ctx)
-                lspconfig["jdtls"].setup { on_attach = require "lsp-format".on_attach }
                 local cwd = vim.loop.cwd()
                 if ready_projects[cwd] then
                     return
@@ -111,23 +150,29 @@ require("mason-lspconfig").setup_handlers {
                 },
             },
         }
-        lspconfig["jsonls"].setup { on_attach = require "lsp-format".on_attach }
     end,
     ["rust_analyzer"] = function()
         require("rust-tools").setup {
             tools = {
-                autoSetHints = false,
+                inlay_hints = { auto = false },
                 executor = require("rust-tools/executors").toggleterm,
                 hover_actions = { border = "solid" },
+            },
+            dap = {
+                adapter = require("rust-tools.dap").get_codelldb_adapter(
+                    "codelldb",
+                    require("mason-registry").get_package("codelldb"):get_install_path()
+                        .. "/extension/lldb/lib/liblldb.dylib"
+                ),
             },
         }
     end,
     ["sumneko_lua"] = function()
-        lspconfig.sumneko_lua.setup(require("lua-dev").setup {
+        lspconfig.sumneko_lua.setup {
             settings = {
                 Lua = {
                     format = {
-                        enable = false,
+                        enable = true,
                     },
                     hint = {
                         enable = true,
@@ -143,7 +188,7 @@ require("mason-lspconfig").setup_handlers {
                     },
                 },
             },
-        })
+        }
     end,
     ["yamlls"] = function()
         lspconfig.yamlls.setup {
@@ -158,3 +203,4 @@ require("mason-lspconfig").setup_handlers {
         }
     end,
 }
+

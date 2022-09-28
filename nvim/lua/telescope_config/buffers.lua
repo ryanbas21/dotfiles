@@ -18,4 +18,8 @@ M.buffers = function()
     builtin.buffers {}
 end
 
+M.buffer_commits = function()
+  builtin.git_commits {}
+end
+
 return M
