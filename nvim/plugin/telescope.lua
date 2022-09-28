@@ -1,7 +1,6 @@
 local telescope = require("telescope")
 local actions = require "telescope.actions"
 local layout_actions = require "telescope.actions.layout"
-local trouble = require("trouble.providers.telescope")
 local files = require "telescope_config.find_files"
 local buffers = require "telescope_config.buffers"
 local git = require "telescope_config.git"
@@ -13,9 +12,9 @@ local function keymaps()
     vim.keymap.set("n", "<leader>b", files.buffers, { noremap = true })
     vim.keymap.set("n", "<Leader>;", buffers.buffer_fuzzy_find, { noremap = true })
     vim.keymap.set("n", "<leader>bc", git.buffer_commits, { noremap = true })
-    vim.keymap.set("n", "<leader>bg", git.commit, { noremap = true })
     vim.keymap.set("n", "<leader>S", buffers.grep_cursor, { noremap = true })
     vim.keymap.set("n", "<leader>s", buffers.search_string, { noremap = true })
+    vim.keymap.set("n", "<leader>;", buffers.buffer_fuzzy_find, { noremap = true })
 end
 
   local is_win = vim.fn.has "win32" == 1
@@ -37,9 +36,7 @@ end
               "--glob=!.git/",
           },
           mappings = {
-              n = { ["<c-t>"] = trouble.open_with_trouble },
               i = {
-                   ["<c-t>"] = trouble.open_with_trouble,
                   ["<C-w>"] = function()
                       vim.api.nvim_input "<c-s-w>"
                   end,

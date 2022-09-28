@@ -18,6 +18,10 @@ M.definitions = function()
     builtin.lsp_definitions()
 end
 
+M.type_definition = function()
+    builtin.lsp_type_definitions()
+end
+
 M.references = function()
     builtin.lsp_references()
 end
@@ -51,15 +55,17 @@ M.buffer_references = function(opts)
             return
         end
 
-        pickers.new(opts, {
-            prompt_title = "LSP References (filtered)",
-            finder = finders.new_table {
-                results = locations,
-                entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
-            },
-            previewer = conf.qflist_previewer(opts),
-            sorter = conf.generic_sorter(opts),
-        }):find()
+        pickers
+            .new(opts, {
+                prompt_title = "LSP References (filtered)",
+                finder = finders.new_table {
+                    results = locations,
+                    entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
+                },
+                previewer = conf.qflist_previewer(opts),
+                sorter = conf.generic_sorter(opts),
+            })
+            :find()
     end)
 end
 
@@ -70,7 +76,7 @@ end
 M.workspace_symbols = function()
     local query = vim.fn.input "Query >"
     if query ~= "" then
-        vim.cmd("Telescope lsp_workspace_symbols query=" .. query)
+        vim.cmd.Telescope { "lsp_workspace_symbols", "query=" .. query }
     else
         builtin.lsp_workspace_symbols()
     end

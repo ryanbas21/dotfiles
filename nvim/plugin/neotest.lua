@@ -7,6 +7,19 @@ neotest.setup({
       virtual_text = true,
       signs = false,
     },
+   icons = {
+      expanded = "",
+      child_prefix = "",
+      child_indent = "",
+      final_child_prefix = "",
+      non_collapsible = "",
+      collapsed = "",
+
+      passed = "",
+      running = "",
+      failed = "",
+      unknown = ""
+    },
     strategies = {
       integrated = {
         width = 180,
@@ -14,14 +27,15 @@ neotest.setup({
     },
     adapters = {
       require("neotest-jest")({
-        dap = { justMyCode = false, console = "integratedTerminal" },
+            jestCommand = "npm test --",
+            jestConfigFile = "jest.config.ts",
+            env = { CI = true },
+            cwd = function(path)
+                return vim.loop.cwd()
+            end,
       }),
       require('neotest-vitest'),
       require("neotest-plenary"),
-      require("neotest-go"),
-      require("neotest-vim-test")({
-        ignore_file_types = { "python", "vim", "lua" },
-      }),
     },
   })
 
