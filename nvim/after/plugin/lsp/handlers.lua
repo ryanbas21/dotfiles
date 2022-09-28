@@ -1,5 +1,6 @@
 local rename = vim.lsp.handlers["textDocument/rename"]
 
+
 local function parse_edits(entries, bufnr, text_edits)
     for _, edit in ipairs(text_edits) do
         local start_line = edit.range.start.line + 1
@@ -40,6 +41,3 @@ vim.lsp.handlers["textDocument/rename"] = function(err, result, ...)
     vim.fn.setqflist(entries)
 end
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "solid",
-})

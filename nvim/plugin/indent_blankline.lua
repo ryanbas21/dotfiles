@@ -6,7 +6,6 @@ end
 local opt = vim.opt
 local cmd = vim.cmd
 
-opt.list = true
 opt.listchars:append "space:⋅"
 opt.listchars:append "eol:↴"
 opt.termguicolors = true
@@ -18,7 +17,7 @@ cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
 cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
 cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
 
-require("indent_blankline").setup {
+indent_blankline.setup {
     space_char_blankline = " ",
     char_highlight_list = {
         "IndentBlanklineIndent1",
