@@ -1,4 +1,20 @@
 return {
+  -- {
+  --   "trunk-io/neovim-trunk",
+  --   lazy = false,
+  --   -- optionally pin a version
+  --   tag = "v0.1.0",
+  --   -- these are optional config arguments (defaults shown)
+  --   config = {
+  --     -- trunkPath = "trunk",
+  --     -- lspArgs = {},
+  --     formatOnSave = true,
+  --     -- formatOnSaveTimeout = 10, -- seconds
+  --     -- logLevel = "info"
+  --   },
+  --   main = "trunk",
+  --   dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+  -- },
   { "dmmulroy/ts-error-translator.nvim" },
   {
     "chrisgrieser/nvim-rulebook",
@@ -82,7 +98,7 @@ return {
         "lua-language-server",
         "stylua",
         "html-lsp",
-        "css-lsp",
+        "cssls",
         "prettier",
       },
     },
