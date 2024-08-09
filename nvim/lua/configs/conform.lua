@@ -1,12 +1,12 @@
 local options = {
   formatters_by_ft = {
     lua = { "stylua" },
-    css = { "prettierd" },
-    html = { "prettierd" },
-    typescript = { "prettierd" },
-    javascript = { "prettierd" },
-    typescriptreact = { "prettierd" },
-    javascriptreact = { "prettierd" },
+    css = { "prettierd", "biome" },
+    html = { "prettierd", "biome" },
+    typescript = { "prettierd", "biome" },
+    javascript = { "prettierd", "biome" },
+    typescriptreact = { "prettierd", "biome" },
+    javascriptreact = { "prettierd", "biome" },
     luals = { "stylua " },
     -- Use the "*" filetype to run formatters on all filetypes.
     ["*"] = { "codespell" },
