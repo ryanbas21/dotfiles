@@ -4,7 +4,7 @@ return {
   "marilari88/twoslash-queries.nvim",
   {
     "stevearc/conform.nvim",
-    event = "BufWritePre", -- uncomment for format on save
+    event = "BufWritePre", -- this makes format on save
     config = function()
       require "configs.conform"
     end,
@@ -78,7 +78,7 @@ return {
       },
     },
   },
-  "lewis6991/hover.nvim",
+  -- "lewis6991/hover.nvim",
   {
     "nvim-neotest/neotest",
     dependencies = {
@@ -107,66 +107,8 @@ return {
   -- tpope
   { "tpope/vim-repeat", lazy = true, event = "BufEnter" },
   { "tpope/vim-surround", lazy = true, event = "BufEnter" },
-  { "tpope/vim-dispatch", lazy = true, event = "BufEnter" },
-  "radenling/vim-dispatch-neovim",
-  { "rhysd/git-messenger.vim", cmd = "GitMessenger", lazy = true },
   { "lewis6991/gitsigns.nvim", event = "BufEnter", lazy = true },
-  {
-    "ruifm/gitlinker.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    keys = { "<leader>go" },
-    lazy = true,
-  },
-  {
-    "stevearc/aerial.nvim",
-    event = "LspAttach",
-    lazy = true,
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
-    },
-  },
   { "VidocqH/lsp-lens.nvim", event = "LspAttach", lazy = true },
   "b0o/schemastore.nvim",
-  {
-    "LukasPietzschmann/boo.nvim",
-    keys = {
-      {
-        "<C-a>",
-        function()
-          require("boo").boo()
-        end,
-      },
-    },
-    opts = {
-      focus_on_open = false,
-      close_on_mouse_move = true,
-      win_opts = {
-        title = "",
-      },
-    },
-  },
-  {
-    "ray-x/lsp_signature.nvim",
-    event = "VeryLazy",
-    opts = {},
-    config = function(_, opts)
-      require("lsp_signature").setup(opts)
-    end,
-  },
-  {
-    "mfussenegger/nvim-dap",
-    dependencies = {
-      "rcarriga/nvim-dap-ui",
-      "theHamsta/nvim-dap-virtual-text",
-      "williamboman/nvim-dap-vscode-js",
-    },
-  },
   "lewis6991/gitsigns.nvim",
-  {
-    "luckasRanarison/clear-action.nvim",
-    opts = {},
-  },
 }
