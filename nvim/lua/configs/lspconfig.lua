@@ -61,19 +61,12 @@ local servers = {
 for lsp in pairs(servers) do
   lspconfig[lsp].setup {
     on_attach = function(client, bufnr)
+      if lsp == "ts_ls" then
+        require("twoslash-queries").attach(client, bufnr)
+      end
       return on_attach(client, bufnr)
     end,
     on_init = on_init,
     capabilities = capabilities,
   }
 end
-
--- typescript
-lspconfig.ts_ls.setup {
-  on_attach = function(client, bufnr)
-    on_attach(client, bufnr)
-    require("twoslash-queries").attach(client, bufnr)
-  end,
-  on_init = on_init,
-  capabilities = capabilities,
-}
