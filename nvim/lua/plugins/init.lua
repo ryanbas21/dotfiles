@@ -1,4 +1,18 @@
 return {
+{
+   "nvchad/ui",
+    config = function()
+      require "nvchad" 
+    end
+ },
+
+ {
+    "nvchad/base46",
+    lazy = true,
+    build = function()
+      require("base46").load_all_highlights()
+    end,
+ },
   { "dmmulroy/ts-error-translator.nvim" },
   { "folke/neodev.nvim" },
   "marilari88/twoslash-queries.nvim",
@@ -8,6 +22,7 @@ return {
     config = function()
       require "configs.conform"
     end,
+    lazy = true,
   },
   {
     "neovim/nvim-lspconfig",
@@ -23,12 +38,14 @@ return {
       ensure_installed = {
         "lua-language-server",
         "stylua",
+        "ts_ls",
         "html-lsp",
         "cssls",
-        "prettier",
+        "prettierd",
       },
     },
   },
+  "mfussenegger/nvim-lint",
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
@@ -78,7 +95,6 @@ return {
       },
     },
   },
-  -- "lewis6991/hover.nvim",
   {
     "nvim-neotest/neotest",
     dependencies = {
@@ -91,6 +107,8 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     config = true,
+    lazy = true,
+    cmd = "Neotest",
   },
   {
     "NeogitOrg/neogit",

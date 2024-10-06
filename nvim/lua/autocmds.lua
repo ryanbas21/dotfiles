@@ -1,4 +1,5 @@
 local autocmd = vim.api.nvim_create_autocmd
+local lint = require "lint"
 
 -- user event that loads after UIEnter + only if file buf is there
 autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
@@ -23,5 +24,13 @@ autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
         end
       end)
     end
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "BufEnter" }, {
+  callback = function()
+    -- try_lint without arguments runs the linters defined in `linters_by_ft`
+    -- for the current filetype
+    lint.try_lint()
   end,
 })

@@ -25,9 +25,13 @@ o.tabstop = 2
 o.softtabstop = 2
 
 opt.fillchars = { eob = " " }
+opt.swapfile = false
+opt.relativenumber = true
+
 o.ignorecase = true
 o.smartcase = true
 o.mouse = "a"
+o.mousemoveevent = true
 
 -- Numbers
 o.number = true
