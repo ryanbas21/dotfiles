@@ -1,21 +1,90 @@
 return {
-{
-   "nvchad/ui",
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+    },
+  },
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+    keys = {
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter_search()
+        end,
+        desc = "Treesitter Search",
+      },
+      {
+        "<c-s>",
+        mode = { "c" },
+        function()
+          require("flash").toggle()
+        end,
+        desc = "Toggle Flash Search",
+      },
+    },
+  },
+  {
+    "vuki656/package-info.nvim",
+    requires = "MunifTanjim/nui.nvim",
+    config = true,
+    lazy = true,
+    event = "BufEnter package.json",
+  },
+  {
+    "nvchad/ui",
     config = function()
-      require "nvchad" 
-    end
- },
-
- {
+      require "nvchad"
+    end,
+  },
+  {
     "nvchad/base46",
     lazy = true,
     build = function()
       require("base46").load_all_highlights()
     end,
- },
-  { "dmmulroy/ts-error-translator.nvim" },
+  },
+  { "dmmulroy/ts-error-translator.nvim", lazy = true, ft = { "typescript", "typescriptreact" } },
   { "folke/neodev.nvim" },
-  "marilari88/twoslash-queries.nvim",
+  { "marilari88/twoslash-queries.nvim", lazy = true, event = "LSPAttach" },
   {
     "stevearc/conform.nvim",
     event = "BufWritePre", -- this makes format on save
@@ -35,14 +104,7 @@ return {
   {
     "williamboman/mason.nvim",
     opts = {
-      ensure_installed = {
-        "lua-language-server",
-        "stylua",
-        "ts_ls",
-        "html-lsp",
-        "cssls",
-        "prettierd",
-      },
+      automatic_installation = true,
     },
   },
   "mfussenegger/nvim-lint",
@@ -98,10 +160,10 @@ return {
   {
     "nvim-neotest/neotest",
     dependencies = {
-      "nvim-neotest/neotest-jest",
-      "marilari88/neotest-vitest",
-      "nvim-neotest/nvim-nio",
-      "thenbe/neotest-playwright",
+      { "nvim-neotest/neotest-jest", lazy = true, cmd = "Neotest" },
+      { "marilari88/neotest-vitest", lazy = true, cmd = "Neotest" },
+      { "nvim-neotest/nvim-nio", lazy = true, cmd = "Neotest" },
+      { "thenbe/neotest-playwright", lazy = true, cmd = "Neotest" },
       "nvim-lua/plenary.nvim",
       "antoinemadec/FixCursorHold.nvim",
       "nvim-treesitter/nvim-treesitter",
@@ -120,6 +182,8 @@ return {
       "nvim-telescope/telescope.nvim", -- optional
       -- "ibhagwan/fzf-lua", -- optional
     },
+    lazy = true,
+    cmd = "Neogit",
     config = true,
   },
   -- tpope
