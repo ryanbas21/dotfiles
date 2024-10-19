@@ -11,14 +11,12 @@
 [user]
 	name = ryanbas21
 	email = ryanbas21@gmail.com
-	signingkey = B39F8686DBD6ACC5
+	signingkey = BC61286F16E2817B5D453271B9C7231C78D00063
 [commit]
 	gpgsign = true
 	template = /Users/batman/.stCommitMsg
 [github]
 	user = ryanbas21
-[credential]
-	helper = osxkeychain
 [alias]
 
   # list files which have changed since REVIEW_BASE
