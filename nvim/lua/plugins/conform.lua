@@ -1,17 +1,15 @@
 return {
   "stevearc/conform.nvim",
-  event = "BufWritePre", -- this makes format on save
-  lazy = true,
   opt = {
     formatters_by_ft = {
       lua = { "stylua" },
-      css = { "prettierd", "biome" },
-      html = { "prettierd", "biome" },
-      typescript = { "prettierd", "biome" },
-      javascript = { "prettierd", "biome" },
-      typescriptreact = { "prettierd", "biome" },
-      javascriptreact = { "prettierd", "biome" },
-      luals = { "stylua " },
+      css = { "prettier", stop_after_first = true },
+      html = { "prettierd", "prettier", stop_after_first = true },
+      typescript = { "prettierd", "prettier", stop_after_first = true },
+      javascript = { "prettierd", "prettier", stop_after_first = true },
+      typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+      javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+      luals = { "stylua" },
       -- Use the "*" filetype to run formatters on all filetypes.
       ["*"] = { "codespell" },
       -- Use the "_" filetype to run formatters on filetypes that don't
@@ -22,7 +20,6 @@ return {
       -- These options will be passed to conform.format()
       timeout_ms = 500,
       lsp_fallback = true,
-    }
-  }
+    },
+  },
 }
-
