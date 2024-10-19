@@ -1,5 +1,4 @@
 require "nvchad.options"
-
 vim.opt.swapfile = false
 
 local opt = vim.opt
