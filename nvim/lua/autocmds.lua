@@ -27,7 +27,7 @@ autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "BufEnter" }, {
+  vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "BufEnter" }, {
   callback = function()
     -- try_lint without arguments runs the linters defined in `linters_by_ft`
     -- for the current filetype
@@ -35,9 +35,15 @@ vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "BufEnter" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
+  vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function(args)
     require("conform").format { bufnr = args.buf }
+  end,
+})
+
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  callback = function()
+    vim.cmd [[Trouble qflist open]]
   end,
 })
