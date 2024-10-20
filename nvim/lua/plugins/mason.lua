@@ -14,6 +14,7 @@ return {
       "html-lsp",
       "svelte-language-server",
       "dockerfile-language-server",
+      "biome",
       "docker-compose-language-server",
       "jsonlint",
       "nginx-language-server",
