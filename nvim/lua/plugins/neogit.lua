@@ -10,7 +10,16 @@ return {
   },
   opt = {
     integrations = {
-      diffview = true;
-    }
-  }
+      diffview = true,
+    },
+  },
+  keys = {
+    {
+      "<leader>gs",
+      function()
+        require("neogit").open {}
+      end,
+      desc = "Open neogit",
+    },
+  },
 }
