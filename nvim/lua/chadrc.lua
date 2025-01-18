@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "doomchad",
+  theme = "kanagawa",
   transparency = false,
 }
 
@@ -23,5 +23,16 @@ M.ui = {
     },
   },
 }
+
+M.copilot = {
+  suggestion = {
+    enable = false,
+  },
+  panel = {
+    enable = false,
+  },
+}
+
+M.term = {}
 
 return M
