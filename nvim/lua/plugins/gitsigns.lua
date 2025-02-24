@@ -1,6 +1,5 @@
 return {
   "lewis6991/gitsigns.nvim",
-  event = "BufEnter",
   keys = {
     {
       "<leader>td",
@@ -73,11 +72,25 @@ return {
       desc = "Reset Buffer",
     },
     {
-      "<leader>hU",
+      "<leader>hu",
       function()
         require("gitsigns").undo_stage_hunk {}
       end,
       desc = "undo stage hunk",
+    },
+    {
+      "<leader>hn",
+      function()
+        require("gitsigns").next_hunk {}
+      end,
+      desc = "next_hunk",
+    },
+    {
+      "<leader>hp",
+      function()
+        require("gitsigns").prev_hunk {}
+      end,
+      desc = "prev_hunk",
     },
   },
 }

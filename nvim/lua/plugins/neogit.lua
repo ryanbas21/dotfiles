@@ -13,6 +13,8 @@ return {
       diffview = true,
     },
   },
+  event = "VeryLazy",
+  cmd = "Neogit",
   keys = {
     {
       "<leader>gs",
