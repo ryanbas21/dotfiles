@@ -1,15 +1,15 @@
-  return {
-    "nvim-treesitter/nvim-treesitter",
-    pin = true,
-    opts = {
-      ensure_installed = {
-        "vim",
-        "lua",
-        "vimdoc",
-        "html",
-        "css",
-        "typescript",
-        "javascript"
-      },
-    }
-  }
+return {
+  "nvim-treesitter/nvim-treesitter",
+  opts = {
+    ignore_install = { "org" },
+    ensure_installed = {
+      "vim",
+      "lua",
+      "vimdoc",
+      "html",
+      "css",
+      "typescript",
+      "javascript",
+    },
+  },
+}

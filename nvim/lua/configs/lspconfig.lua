@@ -8,7 +8,7 @@ local servers = {
   eslint = {},
   angularls = {},
   bashls = {},
-  biome = {},
+  -- biome = {},
   clojure_lsp = {},
   cssls = {},
   css_variables = {},
@@ -39,7 +39,7 @@ local servers = {
   rescriptls = {},
   tailwindcss = {},
   svelte = {},
-  ts_ls = {},
+  -- ts_ls = {},
   yamlls = {
     settings = {
       yaml = {
@@ -85,9 +85,10 @@ for lsp in pairs(servers) do
         },
       },
       on_attach = function(client, bufnr)
-        if lsp == "ts_ls" then
-          require("twoslash-queries").attach(client, bufnr)
-        end
+        -- if lsp == "ts_ls" then
+        --   require("twoslash-queries").attach(client, bufnr)
+        -- end
+
         return on_attach(client, bufnr)
       end,
       on_init = on_init,
