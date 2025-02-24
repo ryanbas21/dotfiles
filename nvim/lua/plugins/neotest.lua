@@ -3,7 +3,6 @@ return {
   dependencies = {
     "nvim-neotest/nvim-nio",
     "nvim-lua/plenary.nvim",
-    "antoinemadec/FixCursorHold.nvim",
     "nvim-treesitter/nvim-treesitter",
     "marilari88/neotest-vitest",
     "nvim-neotest/neotest-jest",
@@ -95,14 +94,19 @@ return {
         failed = "",
         unknown = "",
       },
-      strategies = {
-        integrated = {
-          width = 180,
-        },
+      quickfix = {
+        open = function()
+          vim.cmd "Trouble quickfix"
+        end,
+        enabled = false,
       },
       adapters = {
-        require "neotest-vitest" {},
-        require "neotest-jest" {},
+        require "neotest-vitest" {
+          env = { CI = true },
+        },
+        require "neotest-jest" {
+          jestCommand = "pnpm jest",
+        },
         require("neotest-playwright").adapter {
           options = {
             persist_project_selection = false,
