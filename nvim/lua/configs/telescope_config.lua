@@ -49,8 +49,10 @@ M.telescope = {
     "import",
     "telescope-tabs",
     "egrepify",
+    "project",
   },
   extensions = {
+    project = {},
     egrepify = {
       prefixes = {
         -- matches all lines that do not comprise sorter

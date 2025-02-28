@@ -10,7 +10,7 @@ return {
   end,
   keys = {
     {
-      "<leader>ca",
+      "<leader>qf",
       function()
         require("tiny-code-action").code_action {}
       end,

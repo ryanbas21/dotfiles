@@ -104,9 +104,7 @@ return {
         require "neotest-vitest" {
           env = { CI = true },
         },
-        require "neotest-jest" {
-          jestCommand = "pnpm jest",
-        },
+        require "neotest-jest" {},
         require("neotest-playwright").adapter {
           options = {
             persist_project_selection = false,
@@ -121,7 +119,7 @@ return {
                 -- Otherwise, `vim.ui.select` is used.
                 -- In normal mode, `<Tab>` toggles the project under the cursor.
                 -- `<CR>` (enter key) applies the selection.
-                enabled = false,
+                enabled = true,
                 opts = {},
               },
             },

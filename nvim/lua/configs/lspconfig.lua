@@ -8,6 +8,27 @@ local servers = {
   eslint = {},
   angularls = {},
   bashls = {},
+  elmls = {
+    init_options = {
+      --elmReviewDiagnostics = "error",
+      elmAnalyseTrigger = "save",
+      onlyUpdateDiagnosticsOnSave = true,
+    },
+    handlers = {
+      -- See https://github.com/elm-tooling/elm-language-server/discussions/961
+      -- See https://github.com/joakin/nvim/blob/be72c11ff2d2c3ee6d6350f2221aabcca373adae/lua/plugins/lspconfig.lua#L148-L157
+      ["window/showMessageRequest"] = function(whatever, result)
+        -- For some reason, the showMessageRequest handler doesn't work with
+        -- the format failed error. It just hangs on the screen and can't
+        -- interact with the vim.ui.select thingy. So skip it.
+        if result.message:find("Running elm-format failed", 1, true) then
+          print(result.message)
+          return vim.NIL
+        end
+        return vim.lsp.handlers["window/showMessageRequest"](whatever, result)
+      end,
+    },
+  },
   -- biome = {},
   clojure_lsp = {},
   cssls = {},
