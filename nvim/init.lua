@@ -14,6 +14,11 @@ vim.opt.rtp:prepend(lazypath)
 local lazy = require "lazy"
 local lazy_config = require "configs.lazy"
 
+vim.schedule(function()
+  require "mappings"
+  require "nvchad.autocmds"
+  require "autocmds"
+end)
 -- load plugins
 lazy.setup({
   {
@@ -27,13 +32,6 @@ lazy.setup({
 
   { import = "plugins" },
 }, lazy_config)
-
-require "nvchad.autocmds"
-require "autocmds"
-
-vim.schedule(function()
-  require "mappings"
-end)
 
 -- load theme
 dofile(vim.g.base46_cache .. "defaults")

@@ -36,7 +36,7 @@ return {
       function()
         require("search").open { tab_id = 1 }
       end,
-      { desc = "search all files" },
+      { desc = "search all files", noremap = true },
     },
     {
       "<leader><leader>",
