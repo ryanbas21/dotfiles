@@ -74,5 +74,12 @@ return {
       end,
       { desc = "Whaler change dir", noremap = true },
     },
+    {
+      "<C-p>",
+      function()
+        require("telescope").extensions.project.project {}
+      end,
+      { desc = "Telescope project", noremap = true, silent = true },
+    },
   },
 }

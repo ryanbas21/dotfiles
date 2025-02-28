@@ -5,6 +5,7 @@ return {
     formatters_by_ft = {
       lua = { "stylua" },
       css = { "prettier", "biome", stop_after_first = true },
+      elm = { "elm_format" },
       html = { "prettierd", "prettier", "biome", stop_after_first = true },
       typescript = { "prettier", "biome", stop_after_first = true },
       javascript = { "prettier", "biome", stop_after_first = true },
