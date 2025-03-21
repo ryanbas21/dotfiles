@@ -1,54 +1,24 @@
 local telescope_config = require("configs.telescope_config").telescope
 return {
   "nvim-telescope/telescope.nvim",
+  event = "VeryLazy",
   dependencies = {
+    "nvim-telescope/telescope-ui-select.nvim",
     {
-      "LukasPietzschmann/telescope-tabs",
-      keys = {
-        {
-          "<leader>gT",
-          function()
-            require("telescope-tabs").list_tabs {}
-          end,
-          { desc = "List tabs" },
-        },
-      },
+      "aznhe21/actions-preview.nvim",
+    },
+    {
+      "nvim-telescope/telescope-file-browser.nvim",
+      dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
     },
     {
       "piersolenski/telescope-import.nvim",
       dependencies = "nvim-telescope/telescope.nvim",
       keys = {
-
         {
           "<LEADER>ti",
           ":Telescope import<CR>",
           { desc = "Telescope import" },
-        },
-      },
-    },
-    {
-      "joaomsa/telescope-orgmode.nvim",
-      dependencies = {
-        "nvim-orgmode/orgmode",
-      },
-      keys = {
-        {
-          "<LEADER>r",
-          function()
-            require("telescope").extensions.orgmode.refile_heading {}
-          end,
-        },
-        {
-          "<LEADER>fh",
-          function()
-            require("telescope").extensions.orgmode.search_headings {}
-          end,
-        },
-        {
-          "<LEADER>li",
-          function()
-            require("telescope").extensions.orgmode.insert_link {}
-          end,
         },
       },
     },
@@ -58,28 +28,45 @@ return {
     },
     "SalOrak/whaler",
   },
-  opts = telescope_config,
+  config = function()
+    require("telescope").setup(telescope_config)
+
+    -- Properly load each extension with error handling
+    for _, extension in ipairs(telescope_config.extensions_list) do
+      local status, err = pcall(function()
+        require("telescope").load_extension(extension)
+      end)
+    end
+  end,
   keys = {
-    {
-      "<leader>;",
-      function()
-        require("telescope").extensions.egrepify.egrepify {}
-      end,
-      { desc = "Live grep repo" },
-    },
     {
       "<leader>ww",
       function()
         require("telescope").extensions.whaler.whaler {}
       end,
-      { desc = "Whaler change dir", noremap = true },
+      desc = "Whaler change dir",
+      noremap = true,
     },
     {
       "<C-p>",
       function()
         require("telescope").extensions.project.project {}
       end,
-      { desc = "Telescope project", noremap = true, silent = true },
+      desc = "Telescope project",
+      noremap = true,
+      silent = true,
+    },
+    {
+      "<leader>ca",
+      function()
+        require("actions-preview").code_actions {}
+      end,
+      desc = "Code Actions",
+    },
+    {
+      "<leader>th",
+      "<cmd>Telescope colorscheme<CR>",
+      "Telescope themes",
     },
   },
 }

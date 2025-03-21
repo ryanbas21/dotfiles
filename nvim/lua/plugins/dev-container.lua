@@ -4,5 +4,5 @@ return {
   config = function()
     require("devcontainer").setup {}
   end,
-  lazy = false,
+  cmd = { "DevcontainerAttach", "DevContainerStart", "DevcontainerLogs" },
 }

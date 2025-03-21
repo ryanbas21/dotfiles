@@ -1,7 +1,7 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   opts = {
-    ignore_install = { "org" },
+    ignore_install = {},
     ensure_installed = {
       "vim",
       "lua",

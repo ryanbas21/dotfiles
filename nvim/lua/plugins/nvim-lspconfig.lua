@@ -1,7 +1,7 @@
 return {
   "neovim/nvim-lspconfig",
+  event = "BufReadPre", -- Lazy load on buffer read
   config = function()
-    require("nvchad.configs.lspconfig").defaults()
     require "configs.lspconfig"
   end,
 }

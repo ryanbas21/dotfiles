@@ -29,8 +29,6 @@ autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
 
 vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "BufEnter" }, {
   callback = function()
-    -- try_lint without arguments runs the linters defined in `linters_by_ft`
-    -- for the current filetype
     lint.try_lint()
   end,
 })
@@ -48,12 +46,14 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "org",
-  callback = function()
-    vim.keymap.set("i", "<S-CR>", '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
-      silent = true,
-      buffer = true,
-    })
+local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
+
+vim.api.nvim_create_autocmd("User", {
+  group = group,
+  callback = function(request)
+    if request.match == "CodeCompanionInlineFinished" then
+      -- Format the buffer after the inline request has completed
+      require("conform").format { bufnr = request.buf }
+    end
   end,
 })

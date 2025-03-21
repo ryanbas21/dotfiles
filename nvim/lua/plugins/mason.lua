@@ -1,11 +1,10 @@
 return {
   "williamboman/mason.nvim",
+  cmd = { "Mason", "MasonInstall" },
   opts = {
     ensure_installed = {
       "lua-language-server",
       "stylua",
-      "ocaml-lsp",
-      "ocaml-format",
       "astro-language-server",
       "bash-language-server",
       "actionlint",
@@ -23,7 +22,6 @@ return {
       "purescript-tidy",
       "haskell-language-server",
       "yaml-language-server",
-      "ts_ls",
       "eslint-lsp",
       "css-lsp",
       "cssmodules-language-server",

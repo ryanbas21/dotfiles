@@ -1,6 +1,5 @@
 return {
   defaults = { lazy = true },
-  install = { colorscheme = { "github_dark" } },
 
   ui = {
     icons = {
