@@ -29,35 +29,29 @@ return {
       function()
         require("search").open { tab_id = 3 }
       end,
-      { desc = "telescope search repo" },
+      desc = "telescope search repo",
     },
     {
       "<leader>ff",
       function()
         require("search").open { tab_id = 1 }
       end,
-      { desc = "search all files", noremap = true },
+      desc = "search all files",
+      noremap = true,
     },
     {
       "<leader><leader>",
       function()
         require("search").open { tab_id = 2 }
       end,
-      { desc = "telescope search git files" },
+      desc = "telescope search git files",
     },
     {
       "<leader>bgc",
       function()
         require("search").open { tab_id = 4 }
       end,
-      { desc = "telescope search git files" },
-    },
-    {
-      "<leader>gc",
-      function()
-        require("search").open { tab_id = 5 }
-      end,
-      { desc = "telescope search git files" },
+      desc = "telescope search git files",
     },
   },
 }

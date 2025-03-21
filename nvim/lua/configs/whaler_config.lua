@@ -8,7 +8,7 @@ local directories = {
 }
 
 M.Whaler = {
-  file_explorer = "nvimtree",
+  file_explorer = "telescope_file_browser",
   -- Whaler configuration
   directories = directories,
   -- You may also add directories that will not be searched for subdirectories

@@ -10,17 +10,16 @@ return {
     {
       "<leader>pr",
       ":DiffviewOpen origin/main...HEAD --imply-local<CR>",
-      { desc = "Review PR / branch" },
+      desc = "Review PR / branch",
     },
     {
       "dv",
       ":DiffviewOpen<CR>",
-      { desc = "Open Diffview" },
+      desc = "Open Diffview",
     },
     {
       "dc",
       ":DiffviewClose<CR>",
-      { desc = "Close Diffview" },
     },
   },
 }

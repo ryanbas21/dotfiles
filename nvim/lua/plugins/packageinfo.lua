@@ -32,27 +32,32 @@ return {
     {
       "<leader>pi",
       "<cmd>lua require('package-info').install()<CR>",
-      { noremap = true, desc = "Packages install" },
+      noremap = true,
+      desc = "Packages install",
     },
     {
       "<leader>pp",
       "<cmd>lua require('package-info').change_version()<CR>",
-      { noremap = true, desc = "Packages change version" },
+      noremap = true,
+      desc = "Packages change version",
     },
     {
       "<LEADER>pt",
       "<cmd>lua require('package-info').toggle()<CR>",
-      { noremap = true, desc = "Packages toggle" },
+      noremap = true,
+      desc = "Packages toggle",
     },
     {
       "<LEADER>pu",
       "<cmd>lua require('package-info').update()<CR>",
-      { noremap = true, desc = "Packages update" },
+      noremap = true,
+      desc = "Packages update",
     },
     {
       "<LEADER>pd",
       "<cmd>lua require('package-info').delete()<CR>",
-      { noremap = true, desc = "Packages delete" },
+      noremap = true,
+      desc = "Packages delete",
     },
   },
 }
