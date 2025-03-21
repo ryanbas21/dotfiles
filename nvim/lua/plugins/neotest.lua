@@ -12,11 +12,12 @@ return {
   keys = {
     { "<leader>t", "", desc = "+test" },
     {
-      "<leader>tt",
+      "<leader>tr",
       function()
         require("neotest").run.run(vim.fn.expand "%")
       end,
       desc = "Run File",
+      nnoremap = true,
     },
     {
       "<leader>tT",

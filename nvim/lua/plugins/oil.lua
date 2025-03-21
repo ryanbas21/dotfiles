@@ -1,6 +1,7 @@
 return {
   "stevearc/oil.nvim",
   ---@module 'oil'
+  cmd = "Oil",
   ---@type oil.SetupOpts
   opts = {},
   -- Optional dependencies

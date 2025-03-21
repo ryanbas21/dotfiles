@@ -1,6 +1,5 @@
-local previewers = require "telescope.previewers"
-
 local _bad = { ".*%.csv", ".*%.lua" } -- Put all filetypes that slow you down in this array
+
 local bad_files = function(filepath)
   for _, v in ipairs(_bad) do
     if filepath:match(v) then
