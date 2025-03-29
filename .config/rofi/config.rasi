@@ -1,0 +1,211 @@
+/**
+ * Comprehensive Rofi Configuration
+ * OneDark Theme with Multiple Modes and Custom Scripts
+ */
+
+configuration {
+    // Core Configuration
+    modi:                        "drun,run,window,combi,ssh,calc,emoji";
+    show-icons:                  true;
+    icon-theme:                  "Papirus";
+
+    // Display Names
+    display-drun:                " Apps";
+    display-run:                 " Execute";
+    display-window:              " Windows";
+    display-ssh:                 " SSH";
+    display-calc:                " Calc";
+    display-emoji:               " Emoji";
+    display-power:               " Power";
+    display-network:             " Network";
+    display-bluetooth:           " Bluetooth";
+
+    // Combi Mode
+    combi-modi:                  "drun,run,window";
+
+    // Performance and Behavior
+    sorting-method:              "fzf";
+    case-sensitive:              false;
+    cycle:                       true;
+    sidebar-mode:                true;
+    matching:                    "fuzzy";
+
+    // Caching and History
+    cache-dir:                   "~/.cache/rofi";
+    disable-history:             false;
+    max-history-size:            25;
+
+    window-format:               "{c} {t}";
+    window-thumbnail:            true;
+
+    // Misc Settings
+    parse-known-misconfiguration: true;
+    show-power-menu:             true;
+
+    // Font and Appearance
+    font:                        "NerdFont FiraCode 12";
+}
+
+* {
+    // OneDark color palette
+    background:     #282C34;
+    background-alt: #21252B;
+    foreground:     #ABB2BF;
+    selected:       #61AFEF;
+    active:         #98C379;
+    urgent:         #E06C75;
+    comment:        #5C6370;
+
+    border-color:   @selected;
+    text-color:     @foreground;
+    background-color: @background;
+}
+
+window {
+    transparency:                "real";
+    location:                    center;
+    anchor:                      center;
+    fullscreen:                  false;
+    width:                       600px;
+    x-offset:                    0px;
+    y-offset:                    0px;
+
+    background-color:            @background;
+    border:                      2px;
+    border-radius:               10px;
+    border-color:                @selected;
+}
+
+mainbox {
+    background-color:            @background;
+    children:                    [ inputbar, listview, mode-switcher ];
+}
+
+inputbar {
+    background-color:            @background-alt;
+    text-color:                  @foreground;
+    padding:                     10px;
+    border-radius:               6px;
+    children:                    [ prompt, entry ];
+}
+
+prompt {
+    background-color:            inherit;
+    text-color:                  @selected;
+    padding:                     0px 5px 0px 0px;
+}
+
+entry {
+    background-color:            inherit;
+    text-color:                  @foreground;
+    placeholder:                 "Search...";
+    placeholder-color:           @comment;
+}
+
+listview {
+    background-color:            @background;
+    columns:                     2;
+    lines:                       8;
+    cycle:                       true;
+    dynamic:                     true;
+    layout:                      vertical;
+}
+
+element {
+    background-color:            @background;
+    text-color:                  @foreground;
+    orientation:                 vertical;
+    border-radius:               6px;
+    padding:                     5px;
+}
+
+element normal.normal {
+    background-color:            @background;
+    text-color:                  @foreground;
+}
+
+element selected {
+    background-color:            @selected;
+    text-color:                  @background;
+    border-radius:               6px;
+}
+
+element-icon {
+    size:                        48px;
+    border:                      0px;
+    background-color:            transparent;
+}
+
+element-text {
+    expand:                      true;
+    horizontal-align:            0.5;
+    vertical-align:              0.5;
+    margin:                      5px 0px 0px 0px;
+    text-color:                  inherit;
+}
+
+mode-switcher {
+    background-color:            @background-alt;
+    border-radius:               6px;
+}
+
+button {
+    background-color:            @background-alt;
+    text-color:                  @foreground;
+    padding:                     10px;
+}
+
+button selected {
+    background-color:            @selected;
+    text-color:                  @background;
+}
+
+// // Custom Mode Configurations
+// mode network {
+//     command: "./scripts/nmcli-rofi.sh";
+// }
+//
+// mode bluetooth {
+//     command: "./scripts/bluetooth-rofi.sh";
+// }
+//
+// mode power {
+//     command: "./scripts/power-menu.sh";
+// }
+
+// Specific mode styling
+element.ssh {
+    background-color:            @background;
+    text-color:                  @active;
+}
+
+element.calc {
+    background-color:            @background;
+    text-color:                  @selected;
+}
+
+element.emoji {
+    background-color:            @background;
+    text-color:                  @urgent;
+}
+
+element.network {
+    background-color:            @background;
+    text-color:                  @active;
+}
+
+element.bluetooth {
+    background-color:            @background;
+    text-color:                  @selected;
+}
+
+element.power {
+    background-color:            @background;
+    text-color:                  @urgent;
+    padding:                     10px;
+}
+
+element.power selected {
+    background-color:            @urgent;
+    text-color:                  @background;
+}
