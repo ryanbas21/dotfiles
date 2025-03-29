@@ -1,0 +1,6 @@
+[Unit]
+Description=Regular dotfiles backup
+
+[Service]
+Type=oneshot
+ExecStart=%h/bin/backup_dotfiles.sh
