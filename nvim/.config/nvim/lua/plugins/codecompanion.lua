@@ -2,6 +2,7 @@ return {
   "olimorris/codecompanion.nvim",
   config = true,
   dependencies = {
+    "ravitemer/codecompanion-history.nvim",
     "ravitemer/mcphub.nvim",
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
@@ -151,6 +152,19 @@ If the user says "resume", "continue", or "try again":
 - Continue to the next step after checking off a step (don't stop and ask what to do next)
 - Each time you read a file, use a single concise sentence to inform the user of what you are reading and why.]],
     extensions = {
+      history = {
+        enabled = true,
+        keymap = "gh",
+        expiration_days = 7,
+        -- Picker interface (auto resolved to a valid picker)
+        picker = "snacks", --- ("telescope", "snacks", "fzf-lua", or "default")
+        -- Customize picker keymaps (optional)
+        picker_keymaps = {
+          rename = { n = "r", i = "<M-r>" },
+          delete = { n = "d", i = "<M-d>" },
+          duplicate = { n = "<C-y>", i = "<C-y>" },
+        },
+      },
       mcphub = {
         callback = "mcphub.extensions.codecompanion",
         opts = {
