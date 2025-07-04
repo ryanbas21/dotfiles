@@ -16,6 +16,8 @@ export DEPOT_TOKEN=$(pass show DEPOT/pat)
 export GH_TOKEN=$(pass show GITHUB/pat)
 export GITHUB_TOKEN=$GH_TOKEN
 export ANTHROPIC_API_KEY=$(pass show anthropic/pat)
+export BRAVE_SEARCH_API_KEY=$(pass show BRAVE/pat)
+export BRAVE_API_KEY=$(pass show BRAVE/pat)
 
 export EDITOR=nvim
 export DEFAULT_USER=`whoami`
