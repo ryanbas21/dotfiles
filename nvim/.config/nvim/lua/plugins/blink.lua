@@ -144,10 +144,14 @@ return {
             end
             return items
           end,
+          name = "copilot",
           module = "blink-cmp-copilot",
           score_offset = 100,
-          -- async = true,
+          async = true,
         },
+      },
+      per_filetype = {
+        codecompanion = { "codecompanion" },
       },
     },
     snippets = {
