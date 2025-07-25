@@ -39,6 +39,19 @@ return {
   end,
   keys = {
     {
+      "<leader>;",
+      function()
+        require("telescope").current_buffer_fuzzy_find {
+          previewer = false,
+          max_results = 15,
+          sorting_strategy = "ascending",
+          layout_strategy = "vertical",
+          layout_config = { height = 0.5 },
+        }
+      end,
+      desc = "Find current buffer",
+    },
+    {
       "<leader>ca",
       function()
         require("actions-preview").code_actions {}
