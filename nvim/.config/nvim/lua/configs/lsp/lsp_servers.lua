@@ -3,14 +3,11 @@ local M = {}
 M.servers = {
   -- Language servers with default settings
   eslint = {},
-  -- copilot = {},
+  copilot = {},
   angularls = {},
   bashls = {},
   clojure_lsp = {},
-  -- htmx = {},
-  ocamllsp = {
-    env = { "$HOME/ryan/.opam/default/bin/ocamllsp" },
-  },
+  ocamllsp = {},
   cssls = {},
   css_variables = {},
   cssmodules_ls = {},
@@ -23,7 +20,6 @@ M.servers = {
   rescriptls = {},
   hls = {
     haskell = {
-
       formattingProvider = "ormolu",
       hlintOn = true,
       plugin = {

@@ -6,6 +6,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+alias laptopscreen=xrandr --output DP-2 --off --output eDP-1 --auto --primary
+alias externalscreen=xrandr --output DP-2 --mode 2560x1600 --rate 165
 
 export UID=$(id -u)
 export GID=$(id -g)
@@ -27,7 +29,6 @@ alias ohmyzsh="mate ~/.oh-my-zsh"
 alias cat="bat"
 export TERM="xterm-256color"
 export ZSH=~/.oh-my-zsh
-export NODE_PROJECTS_PATH="/Users/$DEFAULT_USER/programming"
 export REVIEW_BASE=master git review
 export MYVIMRC="/Users/$DEFAULT_USER/dotfiles/nvim/init.vim"
 export ZSH="$HOME/.oh-my-zsh"
@@ -114,7 +115,7 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 export PROTO_HOME="$HOME/.proto"
-export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"
+export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH:$PATH/usr/local/bin/opam"
 . "$HOME/.cargo/env"
 
 [ -f "/home/ryan/.ghcup/env" ] && . "/home/ryan/.ghcup/env" # ghcup-envexport GPG_TTY=$(tty)

@@ -1,0 +1,15 @@
+font-family = "FiraCode Nerd Font Mono" theme = "catppuccin-mocha"
+font-size = 18
+window-padding-x = 10
+window-padding-y = 10
+window-decoration = true
+cursor-style = "block"
+scrollback-limit = 10000
+shell-integration = zsh
+confirm-close-surface = false
+
+# Keybindings
+keybind = "ctrl+shift+c=copy_to_clipboard"
+keybind = "ctrl+shift+v=paste_from_clipboard"
+keybind = "ctrl+shift+t=new_tab"
+keybind = "ctrl+shift+w=close_surface"
