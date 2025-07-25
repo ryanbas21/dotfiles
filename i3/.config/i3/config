@@ -16,7 +16,7 @@ set $mod Mod1
 font pango:DejaVuSansMono Nerd Font 12
 
 gaps inner 8
-gaps outer 8
+gaps outer 30
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -183,13 +183,41 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Rofi shortcuts
-bindsym $mod+space exec rofi -show drun
-bindsym $mod+shift+space exec rofi -show run
+bindsym $mod+space exec ~/.config/rofi/launchers/type-1/launcher.sh
+
 
 bindsym $mod+Tab exec rofi -show window
 bindsym $mod+Shift+s exec ~/.config/i3/setup_layout.sh
 
 
-exec_always --no-startup-id killall polybar
-exec_always --no-startup-id ~/.config/polybar/launch_polybar.sh &
+
+exec --no-startup-id ~/.config/polybar/launch_polybar.sh
+exec --no-startup-id flameshot &
+
+bindsym $mod+p exec "~/.config/polybar/launch_polybar.sh"
 exec --no-startup-id dex --autostart --environment i3 --exclude "org.kde.plasmashell" --exclude "org.kde.plasma-fallback-session-restore"
+
+
+# Workspace assignment for dual monitor setup
+workspace 1 output eDP-1
+workspace 2 output eDP-1
+workspace 3 output eDP-1
+workspace 4 output eDP-1
+workspace 5 output eDP-1
+workspace 6 output HDMI-1
+workspace 7 output HDMI-1
+workspace 8 output HDMI-1
+workspace 9 output HDMI-1
+workspace 10 output HDMI-1
+
+# Keybinding to manually trigger display setup
+bindsym $mod+Shift+w exec ~/.config/scripts/display-setup.sh
+
+# Move workspaces between monitors
+bindsym $mod+Ctrl+Left move workspace to output left
+bindsym $mod+Ctrl+Right move workspace to output right
+
+# Alternative keybindings for Flameshot
+bindsym $mod+Print exec flameshot full -p ~/Documents/screenshots
+bindsym F12 exec flameshot gui
+bindsym Shift+F12 exec flameshot full -p ~/Documents/screenshots

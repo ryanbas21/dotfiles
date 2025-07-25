@@ -6,7 +6,9 @@ return {
       {
         "Buffer Commits", -- or name = "Commits"
         function()
-          require("telescope.builtin").git_bcommits {}
+          require("telescope.builtin").git_bcommits {
+            max_results = 30,
+          }
         end,
         available = function() -- optional
           return vim.fn.isdirectory ".git" == 1
@@ -15,7 +17,9 @@ return {
       {
         "Git Commits", -- or name = "Commits"
         function()
-          require("telescope.builtin").git_commits {}
+          require("telescope.builtin").git_commits {
+            max_results = 30,
+          }
         end,
         available = function() -- optional
           return vim.fn.isdirectory ".git" == 1
@@ -24,13 +28,6 @@ return {
     },
   },
   keys = {
-    {
-      "<leader>;",
-      function()
-        require("search").open { tab_id = 3 }
-      end,
-      desc = "telescope search repo",
-    },
     {
       "<leader>ff",
       function()
@@ -47,11 +44,25 @@ return {
       desc = "telescope search git files",
     },
     {
+      "<leader>fs",
+      function()
+        require("search").open { tab_id = 3 }
+      end,
+      desc = "telescope search repo",
+    },
+    {
       "<leader>bgc",
       function()
         require("search").open { tab_id = 4 }
       end,
       desc = "telescope search git files",
+    },
+    {
+      "<leader>;",
+      function()
+        require("search").open { tab_id = 5 }
+      end,
+      desc = "telescope search repo",
     },
   },
 }
