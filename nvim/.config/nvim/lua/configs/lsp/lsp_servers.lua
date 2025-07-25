@@ -1,8 +1,6 @@
 local M = {}
 
 M.servers = {
-  -- Language servers with default settings
-  eslint = {},
   -- copilot = {},
   angularls = {},
   bashls = {},

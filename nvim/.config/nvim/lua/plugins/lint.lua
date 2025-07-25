@@ -10,7 +10,9 @@ return {
       angular = { "eslint_d" },
       bash = { "bash" },
       git = { "gitlint" },
-      markdown = { "marksman" },
+      json = { "jsonlint" },
+      markdown = { 'markdownlint' },
+      yaml = { 'actionlint' },
     }
   end,
 }

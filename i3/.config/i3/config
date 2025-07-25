@@ -16,7 +16,7 @@ set $mod Mod1
 font pango:DejaVuSansMono Nerd Font 12
 
 gaps inner 8
-gaps outer 8
+gaps outer 30
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
@@ -183,13 +183,15 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Rofi shortcuts
-bindsym $mod+space exec rofi -show drun
-bindsym $mod+shift+space exec rofi -show run
+bindsym $mod+space exec ~/.config/rofi/launchers/type-1/launcher.sh
+
 
 bindsym $mod+Tab exec rofi -show window
 bindsym $mod+Shift+s exec ~/.config/i3/setup_layout.sh
 
 
-exec_always --no-startup-id killall polybar
-exec_always --no-startup-id ~/.config/polybar/launch_polybar.sh &
+
+exec --no-startup-id ~/.config/polybar/launch_polybar.sh
+
+bindsym $mod+p exec "~/.config/polybar/launch_polybar.sh"
 exec --no-startup-id dex --autostart --environment i3 --exclude "org.kde.plasmashell" --exclude "org.kde.plasma-fallback-session-restore"

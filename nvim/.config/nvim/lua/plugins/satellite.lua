@@ -1,5 +1,6 @@
 return {
   "lewis6991/satellite.nvim",
+  enabled = false,
   event = { "BufRead" },
   opts = {
     current_only = false,
