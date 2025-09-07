@@ -4,7 +4,7 @@ return {
   cmd = { "ConformInfo" },
   opts = {
     formatters_by_ft = {
-      lua = { "stylua" },
+      lua = { "luaformatter", "stylua" },
       css = { "prettierd", stop_after_first = true },
       elm = { "elm_format" },
       ocaml = { "ocamlformat" },

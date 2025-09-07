@@ -106,28 +106,43 @@ return {
       enabled = true,
     },
     completion = {
-      accept = {
-        auto_brackets = {
-          enabled = false,
-        },
-      },
       menu = {
         draw = {
-          treesitter = { "lsp" },
+          -- keep your existing treesitter line if you like
+          -- treesitter = { "lsp" },
+
+          -- 👇 add/replace with columns that include "kind"
+          columns = {
+            { "kind_icon" },
+            { "label", "label_description", gap = 1 },
+            { "kind", "source_name", gap = 1 }, -- <- shows “Method/Function/Snippet”, plus source (LSP/snippets/etc.)
+          },
+
+          -- optional tweaks (nice but not required)
+          components = {
+            kind_icon = {
+              -- small spacer after the icon
+              text = function(ctx)
+                return (ctx.kind_icon or "") .. (ctx.icon_gap or " ")
+              end,
+            },
+            kind = {
+              -- render the textual kind
+              text = function(ctx)
+                return ctx.kind or ""
+              end,
+              highlight = "BlinkCmpKind", -- uses blink’s kind highlights
+            },
+            source_name = {
+              text = function(ctx)
+                return ctx.source_name or ""
+              end,
+              highlight = "Comment",
+            },
+          },
         },
-      },
-      documentation = {
-        auto_show = true,
-        auto_show_delay_ms = 200,
-        window = {
-          border = "single",
-        },
-      },
-      ghost_text = {
-        enabled = true,
       },
     },
-
     cmdline = {
       enabled = false,
     },
