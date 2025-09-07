@@ -1,0 +1,6 @@
+resolver: lts-22.28
+packages:
+  - .
+extra-deps:
+  - xmonad-0.18.0@sha256:22300a2626ba5b00dcf0e5071d56ccb42140fb849ee6ea7bf1337ed07de33642,5453
+  - xmonad-contrib-0.18.1@sha256:aae0f10f3f12492c9a3f0824c59b1d23982810a3f9fb096b2c3e2a0e417d0b05,22749

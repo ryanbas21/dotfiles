@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Start dbus if not already
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+  eval "$(dbus-launch --sh-syntax --exit-with-session)"
+fi
+
+# Start policykit/gnome-keyring/etc. if you need them
+# /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# Start compositor (picom) in background
+picom &
+
+# Finally replace this script with xmonad
+exec xmonad
