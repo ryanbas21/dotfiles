@@ -21,7 +21,8 @@ M.servers = {
   hls = {
     haskell = {
       formattingProvider = "ormolu",
-      hlintOn = true,
+      ghcide = { enable = true },
+      hls_hlint = { enable = true },
       plugin = {
         stan = { globalOn = false },
       },
