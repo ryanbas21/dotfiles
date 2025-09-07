@@ -221,3 +221,5 @@ bindsym $mod+Ctrl+Right move workspace to output right
 bindsym $mod+Print exec flameshot full -p ~/Documents/screenshots
 bindsym F12 exec flameshot gui
 bindsym Shift+F12 exec flameshot full -p ~/Documents/screenshots
+
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
