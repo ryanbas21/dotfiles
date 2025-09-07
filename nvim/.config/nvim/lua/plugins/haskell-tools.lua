@@ -1,24 +1,7 @@
 return {
   "mrcjkb/haskell-tools.nvim",
-  version = "^4", -- Recommended
-  ft = { "hs", "haskell" },
-  init = function()
-    local blink_cmp = require "blink.cmp"
-    local on_attach = require("configs.lsp.handlers").on_attach
-    vim.g.haskell_tools = {
-      hls = {
-        capabilities = blink_cmp.get_lsp_capabilities(),
-        default_settings = {
-          haskell = {
-            formattingProvider = "ormolu",
-            plugins = {
-              stan = { globalOn = false },
-            },
-          },
-        },
-      },
-    }
-  end,
+  version = "^6", -- Recommended
+  lazy = false,
   keys = {
     {
       "<leader>hs",
