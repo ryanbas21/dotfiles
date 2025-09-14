@@ -1,8 +1,5 @@
 module Main where
 
--- xmonad.hs - Converted from i3 config
--- Place this file in ~/.xmonad/xmonad.hs
-
 import qualified Data.Map as M
 import Data.Monoid
 import System.Exit
