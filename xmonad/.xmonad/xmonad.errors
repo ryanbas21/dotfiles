@@ -1,2 +1,2 @@
-$ stack build --silent --stack-yaml /home/ryan/.xmonad/stack.yaml
-$ stack ghc --stack-yaml /home/ryan/.xmonad/stack.yaml -- --make xmonad.hs -i -ilib -fforce-recomp -main-is main -dynamic -v0 -outputdir /home/ryan/.xmonad/build-x86_64-linux -o /home/ryan/.xmonad/xmonad-x86_64-linux
+$ stack build --silent --stack-yaml /home/ryan/dotfiles/xmonad/.xmonad/stack.yaml
+$ stack ghc --stack-yaml /home/ryan/dotfiles/xmonad/.xmonad/stack.yaml -- --make xmonad.hs -i -ilib -fforce-recomp -main-is main -dynamic -v0 -outputdir /home/ryan/.xmonad/build-x86_64-linux -o /home/ryan/.xmonad/xmonad-x86_64-linux
