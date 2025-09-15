@@ -2,27 +2,15 @@ return {
   "olimorris/codecompanion.nvim",
   config = true,
   dependencies = {
-    "ravitemer/codecompanion-history.nvim",
+    -- "ravitemer/codecompanion-history.nvim",
     "ravitemer/mcphub.nvim",
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
     "j-hui/fidget.nvim",
   },
   opts = {
+    adapter = "gemini_cli",
     extensions = {
-      history = {
-        enabled = true,
-        keymap = "gh",
-        expiration_days = 7,
-        -- Picker interface (auto resolved to a valid picker)
-        picker = "snacks", --- ("telescope", "snacks", "fzf-lua", or "default")
-        -- Customize picker keymaps (optional)
-        picker_keymaps = {
-          rename = { n = "r", i = "<M-r>" },
-          delete = { n = "d", i = "<M-d>" },
-          duplicate = { n = "<C-y>", i = "<C-y>" },
-        },
-      },
       mcphub = {
         callback = "mcphub.extensions.codecompanion",
         opts = {
@@ -33,28 +21,54 @@ return {
       },
     },
     adapters = {
-      http = {
-        chat = {
-          adapter = "copilot",
-          model = "claude-sonnet-4",
-          keymaps = {
-            hide = {
-              modes = {
-                n = "q",
-              },
-              callback = function(chat)
-                chat.ui:hide()
-              end,
-              description = "AI: Hide the chat buffer",
+      acp = {
+        gemini_cli = function()
+          return require("codecompanion.adapters").extend("gemini_cli", {
+            defaults = {
+              auth_method = "oauth-personal", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
             },
+            env = {
+              GOOGLE_CLOUD_PROJECT = os.getenv "GOOGLE_CLOUD_PROJECT" or "ryan-bas-sdk",
+            },
+          })
+        end,
+      },
+      http = {
+        gemini_cli = function()
+          return require("codecompanion.adapters").extend("gemini_cli", {
+            defaults = {
+              auth_method = "oauth-personal", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
+            },
+            env = {
+              GOOGLE_CLOUD_PROJECT = os.getenv "GOOGLE_CLOUD_PROJECT" or "ryan-bas-sdk",
+            },
+          })
+        end,
+      },
+    },
+    strategies = {
+      chat = {
+        adapter = "gemini",
+        model = "gemini-live-2.5-flash",
+        keymaps = {
+          hide = {
+            modes = {
+              n = "q",
+            },
+            callback = function(chat)
+              chat.ui:hide()
+            end,
+            description = "AI: Hide the chat buffer",
           },
         },
-        inline = {
-          adapter = "copilot",
-        },
-        agent = {
-          adapter = "copilot",
-        },
+      },
+      inline = {
+        adapter = "gemini",
+        model = "gemini-live-2.5-flash",
+      },
+      agent = {
+        adapter = "gemini",
+        model = "gemini-live-2.5-flash",
       },
     },
   },

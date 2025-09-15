@@ -8,3 +8,7 @@ Session.vim
 Sessionx.vim
 
 tags.temp
+
+prototools/*
+!prototools/.proto/.prototools
+!prototools/.proto/id

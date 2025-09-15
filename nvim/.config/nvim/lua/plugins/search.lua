@@ -60,7 +60,7 @@ return {
     {
       "<leader>;",
       function()
-        require("search").open { tab_id = 5 }
+        require("search").open { tab_id = 3 }
       end,
       desc = "telescope search repo",
     },

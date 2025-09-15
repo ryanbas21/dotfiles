@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/ryan.basmajian/dotfiles/logs/.f3ca41d8c1ea3568574a57fe4108f7ad23d3479c-audit.json",
+    "files": [
+        {
+            "date": 1757685646801,
+            "name": "/Users/ryan.basmajian/dotfiles/logs/mcp-puppeteer-2025-09-12.log",
+            "hash": "addbae807df99c861f1fbb5bce5a74f717584aa38628ed53bd5dcf243bdb41b1"
+        }
+    ],
+    "hashType": "sha256"
+}

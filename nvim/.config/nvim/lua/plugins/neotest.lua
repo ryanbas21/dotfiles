@@ -102,6 +102,12 @@ return {
         enabled = false,
       },
       adapters = {
+        require "mrcjkb/neotest-haskell" {
+          -- Default: Use stack if possible and then try cabal
+          build_tools = { "stack", "cabal" },
+          -- Default: Check for tasty first and then try hspec
+          frameworks = { "tasty", "hspec", "sydtest" },
+        },
         require "neotest-vitest" {
           env = { CI = true },
         },
@@ -126,6 +132,8 @@ return {
             },
           },
         },
+        require "codymikol/neotest-kotlin" {},
+        require "arthur944/neotest-bun" {},
       },
     }
   end,
