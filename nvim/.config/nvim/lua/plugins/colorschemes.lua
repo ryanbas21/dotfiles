@@ -1,7 +1,8 @@
 return {
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   {
     "olimorris/onedarkpro.nvim",
-    priority = 1000,
+    priority = 999,
     lazy = false,
     build = "make extras",
     opts = {

@@ -1,0 +1,25 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/ryan.basmajian/dotfiles/nvim/.config/nvim/logs/.e511ecef374a7f073a46548a99cc9760bddce67a-audit.json",
+    "files": [
+        {
+            "date": 1756997441248,
+            "name": "/Users/ryan.basmajian/dotfiles/nvim/.config/nvim/logs/mcp-puppeteer-2025-09-04.log",
+            "hash": "4d3afd9698c953c4dfc61e59542113cfa9062283ae02f93b13b1692a05582ac6"
+        },
+        {
+            "date": 1757081861431,
+            "name": "/Users/ryan.basmajian/dotfiles/nvim/.config/nvim/logs/mcp-puppeteer-2025-09-05.log",
+            "hash": "88c1ad339e9c867c6460111075349e8042b3fb76cf6df855097b02a6854b40c1"
+        },
+        {
+            "date": 1757520664346,
+            "name": "/Users/ryan.basmajian/dotfiles/nvim/.config/nvim/logs/mcp-puppeteer-2025-09-10.log",
+            "hash": "6392d86556aca325baa357e03c471cc2c498ffe020819b39ea008016ab19d6e4"
+        }
+    ],
+    "hashType": "sha256"
+}

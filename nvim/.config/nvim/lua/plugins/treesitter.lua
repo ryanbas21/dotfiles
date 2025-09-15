@@ -10,6 +10,9 @@ return {
       "css",
       "typescript",
       "javascript",
+      "haskell",
+      "css",
+      "all",
     },
   },
 }

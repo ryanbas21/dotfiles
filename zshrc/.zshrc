@@ -12,6 +12,7 @@ alias externalscreen=xrandr --output DP-2 --mode 2560x1600 --rate 165
 export UID=$(id -u)
 export GID=$(id -g)
 export OP_BIOMETRIC_UNLOCK_ENABLED=true
+export GOOGLE_CLOUD_PROJECT=ryan-bas-sdk
 
 # load keys with pass
 export DEPOT_TOKEN=$(pass show DEPOT/pat)
@@ -44,8 +45,7 @@ export FZF_CTRL_T_OPTS="
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
 
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
+source $HOME/fzf-gitbindings.zsh
 
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
 # To apply the command to CTRL-T as well
@@ -130,3 +130,4 @@ source ~/completion-for-pnpm.zsh
 # This section can be safely removed at any time if needed.
 [[ ! -r '/home/ryan/.opam/opam-init/init.zsh' ]] || source '/home/ryan/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 # END opam configuration
+source ~/completion-for-pnpm.zsh
