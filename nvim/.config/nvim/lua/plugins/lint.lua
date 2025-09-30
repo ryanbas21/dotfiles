@@ -10,6 +10,7 @@ return {
       angular = { "eslint_d" },
       bash = { "bash" },
       git = { "gitlint" },
+      json = { "jsonlint", "eslint_d" },
       yaml = { "yamllint" },
       python = { "ruff" },
       eslint_d = { "eslint_d" },

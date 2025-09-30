@@ -20,7 +20,7 @@ return {
       nnoremap = true,
     },
     {
-      "<leader>tT",
+      "<leader>tt",
       function()
         require("neotest").run.run(vim.uv.cwd())
       end,
@@ -62,7 +62,7 @@ return {
       desc = "Toggle Output Panel",
     },
     {
-      "<leader>tS",
+      "<leader>ts",
       function()
         require("neotest").run.stop()
       end,
@@ -102,21 +102,21 @@ return {
         enabled = false,
       },
       adapters = {
-        require "mrcjkb/neotest-haskell" {
-          -- Default: Use stack if possible and then try cabal
-          build_tools = { "stack", "cabal" },
-          -- Default: Check for tasty first and then try hspec
-          frameworks = { "tasty", "hspec", "sydtest" },
-        },
+        -- require "mrcjkb/neotest-haskell" {
+        --   -- Default: Use stack if possible and then try cabal
+        --   build_tools = { "stack", "cabal" },
+        --   -- Default: Check for tasty first and then try hspec
+        --   frameworks = { "tasty", "hspec", "sydtest" },
+        -- },
         require "neotest-vitest" {
           env = { CI = true },
         },
         require "neotest-jest" {},
         require("neotest-playwright").adapter {
           options = {
-            persist_project_selection = false,
+            persist_project_selection = true,
 
-            enable_dynamic_test_discovery = false,
+            enable_dynamic_test_discovery = true,
 
             preset = "none", -- "none" | "headed" | "debug"
 
@@ -132,8 +132,8 @@ return {
             },
           },
         },
-        require "codymikol/neotest-kotlin" {},
-        require "arthur944/neotest-bun" {},
+        -- require "codymikol/neotest-kotlin" {},
+        -- require "arthur944/neotest-bun" {},
       },
     }
   end,
