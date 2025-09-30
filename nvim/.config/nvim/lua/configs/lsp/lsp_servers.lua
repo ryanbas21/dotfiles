@@ -20,6 +20,7 @@ M.servers = {
   rescriptls = {},
   hls = {
     haskell = {
+      cmd = { "haskell-language-server-wrapper", "--lsp" },
       formattingProvider = "ormolu",
       ghcide = { enable = true },
       hls_hlint = { enable = true },
