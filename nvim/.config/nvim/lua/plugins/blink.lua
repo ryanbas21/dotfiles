@@ -106,12 +106,13 @@ return {
       enabled = true,
     },
     completion = {
+      ghost_text = {
+        enabled = true,
+        priority = 10,
+      },
       menu = {
         draw = {
-          -- keep your existing treesitter line if you like
-          -- treesitter = { "lsp" },
-
-          -- 👇 add/replace with columns that include "kind"
+          treesitter = { "lsp" },
           columns = {
             { "kind_icon" },
             { "label", "label_description", gap = 1 },
@@ -150,15 +151,6 @@ return {
       default = { "lsp", "snippets", "path", "buffer", "codecompanion" },
       providers = {
         copilot = {
-          transform_items = function(_, items)
-            local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
-            local kind_idx = #CompletionItemKind + 1
-            CompletionItemKind[kind_idx] = "Copilot"
-            for _, item in ipairs(items) do
-              item.kind = kind_idx
-            end
-            return items
-          end,
           name = "copilot",
           module = "blink-cmp-copilot",
           score_offset = 100,

@@ -3,6 +3,7 @@ local M = {}
 M.servers = {
   -- Language servers with default settings
   eslint = {},
+  eslint_d = {},
   angularls = {},
   bashls = {},
   clojure_lsp = {},
