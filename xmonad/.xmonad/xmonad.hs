@@ -181,13 +181,15 @@ myLogHook = return ()
 ------------------------------------------------------------------------
 -- Startup
 myStartupHook = do
-  spawnOnce "picom"
-  spawnOnce "feh --bg-scale \"/home/ryan/Pictures/i3-bg.png\""
-  spawnOnce "/usr/bin/dunst"
-  spawnOnce "nm-applet"
-  spawnOnce "~/.config/polybar/launch_polybar.sh"
-  spawnOnce "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-  spawnOnce "flameshot"
+  spawnOnce "picom &"
+  spawnOnce "feh --bg-scale /home/ryan/Pictures/i3-bg.png &"
+  spawnOnce "dunst &"
+  spawnOnce "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
+  spawnOnce "flameshot &"
+  -- Start the bar (creates the tray)
+  spawnOnce "~/.config/polybar/launch_polybar.sh &"
+  -- Give the tray a moment, then start nm-applet (XEmbed mode)
+  spawnOnce "bash -lc 'sleep 0.5; pkill -x nm-applet; nm-applet &'"
 
 -- spawn "dex --autostart --environment xmonad --exclude \"org.kde.plasmashell\" --exclude \"org.kde.plasma-fallback-session-restore\""
 

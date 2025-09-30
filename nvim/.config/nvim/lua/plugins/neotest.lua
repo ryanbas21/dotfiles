@@ -1,6 +1,7 @@
 return {
   "nvim-neotest/neotest",
   dependencies = {
+    "mrcjkb/neotest-haskell",
     "nvim-neotest/nvim-nio",
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
@@ -102,12 +103,12 @@ return {
         enabled = false,
       },
       adapters = {
-        -- require "mrcjkb/neotest-haskell" {
-        --   -- Default: Use stack if possible and then try cabal
-        --   build_tools = { "stack", "cabal" },
-        --   -- Default: Check for tasty first and then try hspec
-        --   frameworks = { "tasty", "hspec", "sydtest" },
-        -- },
+        require "neotest-haskell" {
+          -- Default: Use stack if possible and then try cabal
+          build_tools = { "stack", "cabal" },
+          -- Default: Check for tasty first and then try hspec
+          frameworks = { "tasty", "hspec", "sydtest" },
+        },
         require "neotest-vitest" {
           env = { CI = true },
         },

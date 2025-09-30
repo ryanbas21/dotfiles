@@ -150,6 +150,11 @@ return {
     sources = {
       default = { "lsp", "snippets", "path", "buffer", "codecompanion" },
       providers = {
+        snippets = {
+          should_show_items = function(ctx)
+            return ctx.trigger.initial_kind ~= "trigger_character"
+          end,
+        },
         copilot = {
           name = "copilot",
           module = "blink-cmp-copilot",
@@ -176,7 +181,6 @@ return {
         require("luasnip").jump(direction)
       end,
     },
-
     keymap = {
       preset = "enter",
       ["<Tab>"] = { "snippet_forward", "fallback" },
