@@ -11,6 +11,10 @@ return {
         require("typescript-tools").setup_buffer(client, bufnr)
       end,
       tsserver_file_preferences = {
+        includeCompletionsForImportStatements = true,
+        includeCompletionsWithInsertTextCompletions = true,
+        includeAutomaticOptionalChainCompletions = true,
+        includePackageJsonAutoImports = "on",
         importModuleSpecifierEnding = "js",
         includeInlayParameterNameHints = "all",
         includeCompletionsForModuleExports = true,
