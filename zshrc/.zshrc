@@ -80,6 +80,8 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "wfxr/forgit"
 zplug "urbainvaes/fzf-marks"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "ptavares/zsh-direnv"
+
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
@@ -114,8 +116,16 @@ zstyle :compinstall filename '/home/ryan/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
 export PROTO_HOME="$HOME/.proto"
-export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH:$PATH/usr/local/bin/opam"
+PATH="$PROTO_HOME/shims:$PATH"
+PATH="$PROTO_HOME/bin:$PATH"
+PATH="/usr/local/bin/opam:$PATH"
+PATH="$HOME/.cache/rebar3/bin:$PATH"
+PATH="$HOME/.local/bin:$PATH"
+export PATH
+
+
 . "$HOME/.cargo/env"
 
 [ -f "/home/ryan/.ghcup/env" ] && . "/home/ryan/.ghcup/env" # ghcup-envexport GPG_TTY=$(tty)
@@ -131,3 +141,5 @@ source ~/completion-for-pnpm.zsh
 [[ ! -r '/home/ryan/.opam/opam-init/init.zsh' ]] || source '/home/ryan/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 # END opam configuration
 source ~/completion-for-pnpm.zsh
+
+eval "$(direnv hook zsh)"
