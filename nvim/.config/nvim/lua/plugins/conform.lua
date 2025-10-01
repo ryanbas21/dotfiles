@@ -4,6 +4,7 @@ return {
   cmd = { "ConformInfo" },
   opts = {
     formatters_by_ft = {
+      nix = { "nixpkgs-fmt" },
       lua = { "luaformatter", "stylua", stop_after_first = true },
       css = { "prettierd", stop_after_first = true },
       elm = { "elm_format", stop_after_first = true },

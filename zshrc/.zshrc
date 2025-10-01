@@ -2,6 +2,30 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 #
+if [[ ! -d ~/.zplug ]]; then
+  git clone https://github.com/zplug/zplug ~/.zplug
+  source ~/.zplug/init.zsh && zplug update --self
+fi
+
+source ~/.zplug/init.zsh
+zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
+zplug "zsh-users/zsh-autosuggestions"
+zplug "wfxr/forgit"
+zplug "urbainvaes/fzf-marks"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+# zplug "ptavares/zsh-direnv"
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    echo -n "Install? [y/N]: "
+    read answer
+    if [[ "$answer" == [Yy] ]]; then
+        zplug install
+    fi
+fi
+
+zplug load
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -15,6 +39,7 @@ export OP_BIOMETRIC_UNLOCK_ENABLED=true
 export GOOGLE_CLOUD_PROJECT=ryan-bas-sdk
 
 # load keys with pass
+export CACHIX_AUTH_TOKEN=$(pass show CACHIX/pat)
 export DEPOT_TOKEN=$(pass show DEPOT/pat)
 export GH_TOKEN=$(pass show GITHUB/pat)
 export GITHUB_TOKEN=$GH_TOKEN
@@ -69,28 +94,6 @@ alias vim="nvim"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [[ ! -d ~/.zplug ]]; then
-  git clone https://github.com/zplug/zplug ~/.zplug
-  source ~/.zplug/init.zsh && zplug update --self
-fi
-
-source ~/.zplug/init.zsh
-zplug "romkatv/powerlevel10k", use:powerlevel10k.zsh-theme
-zplug "zsh-users/zsh-autosuggestions"
-zplug "wfxr/forgit"
-zplug "urbainvaes/fzf-marks"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "ptavares/zsh-direnv"
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-zplug load
 
 source ~/dotfiles/zshrc/fzf-gitbindings.zsh
 
@@ -141,5 +144,6 @@ source ~/completion-for-pnpm.zsh
 [[ ! -r '/home/ryan/.opam/opam-init/init.zsh' ]] || source '/home/ryan/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
 # END opam configuration
 source ~/completion-for-pnpm.zsh
-
+export DIRENV_BASH=/opt/homebrew/bin/bash
+source ~/.nix-profile/share/nix-direnv/direnvrc
 eval "$(direnv hook zsh)"
