@@ -78,6 +78,9 @@ return {
     },
   },
   config = function()
+    -- HACK: fix for nvim_create_augroup must not be called in a fast event context
+    -- see: https://github.com/nvim-neotest/neotest/issues/351
+    pcall(vim.treesitter.language.get_parser, "typescript")
     require("neotest").setup {
       status = {
         virtual_text = true,
