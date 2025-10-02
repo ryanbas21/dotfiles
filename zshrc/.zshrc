@@ -13,7 +13,7 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "wfxr/forgit"
 zplug "urbainvaes/fzf-marks"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-# zplug "ptavares/zsh-direnv"
+zplug "ptavares/zsh-direnv"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -46,6 +46,7 @@ export GITHUB_TOKEN=$GH_TOKEN
 export ANTHROPIC_API_KEY=$(pass show anthropic/pat)
 export BRAVE_SEARCH_API_KEY=$(pass show BRAVE/pat)
 export BRAVE_API_KEY=$(pass show BRAVE/pat)
+export JIRA_API_TOKEN=$(pass show JIRA/pat)
 
 export EDITOR=nvim
 export DEFAULT_USER=`whoami`
