@@ -12,3 +12,10 @@ tags.temp
 prototools/*
 !prototools/.proto/.prototools
 !prototools/.proto/id
+
+logs/*
+xmonad/.xmonad/*.o
+xmonad/.xmonad/*.hi
+xmonad/.xmonad/*.hi
+xmonad/.xmonad/*.errors
+
