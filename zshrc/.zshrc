@@ -30,8 +30,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
 alias laptopscreen=xrandr --output DP-2 --off --output eDP-1 --auto --primary
 alias externalscreen=xrandr --output DP-2 --mode 2560x1600 --rate 165
+alias copy=xclip -selection=clipboard
 
 export UID=$(id -u)
 export GID=$(id -g)
@@ -115,7 +117,7 @@ SAVEHIST=1000
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/ryan/.zshrc'
+zstyle :compinstall filename '$HOME/.zshrc'
 
 autoload -Uz compinit
 compinit
@@ -146,5 +148,14 @@ source ~/completion-for-pnpm.zsh
 # END opam configuration
 source ~/completion-for-pnpm.zsh
 export DIRENV_BASH=/opt/homebrew/bin/bash
-source ~/.nix-profile/share/nix-direnv/direnvrc
+
+# Direnv hook
 eval "$(direnv hook zsh)"
+
+# nix-direnv stdlib: prefer system path; fall back to user profiles
+for f in /usr/share/nix-direnv/direnvrc \
+         "$HOME/.nix-profile/share/nix-direnv/direnvrc" \
+         "/etc/profiles/per-user/$USER/share/nix-direnv/direnvrc"
+do
+  [ -e "$f" ] && source "$f" && break
+done

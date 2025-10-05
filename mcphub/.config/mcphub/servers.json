@@ -1,8 +1,50 @@
 {
   "mcpServers": {
+    "context7": {
+      "name": "context7",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp", "--api-key", "${cmd: pass show CONTEXT7/pat}"]
+    },
+ 
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_TOKEN}"
+      }
+    },
     "git": {
       "command": "uvx",
-      "args": ["mcp-server-git", "--repository", "path/to/git/repo"]
+      "args": ["mcp-server-git"]
+    },
+    "effect-mcp": {
+      "args": ["-y", "effect-mcp@latest"],
+      "command": "npx",
+      "env": []
+    },
+    "package-registry": {
+      "command": "npx",
+      "args": ["-y", "package-registry-mcp"]
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-knowledge-graph",
+        "--memory-path",
+        "/Users/ryan.basmajian/.aim/"
+      ]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "${HOME}/../programming",
+        "~/.config/nvim",
+        "~/.config",
+        "~/.config/nix"
+      ]
     },
     "brave-search": {
       "args": ["-y", "@modelcontextprotocol/server-brave-search"],
@@ -11,64 +53,36 @@
         "BRAVE_API_KEY": "$BRAVE_API_KEY"
       }
     },
-    "chrome-devtools": {
-      "args": ["chrome-devtools-mcp@latest"],
-      "command": "npx"
-    },
-    "effect-mcp": {
-      "args": ["-y", "effect-mcp@latest"],
-      "command": "npx",
-      "env": {}
-    },
-    "filesystem": {
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem",
-        "~/programming",
-        "/Users/ryan.basmajian/.config/nvim",
-        "/Users/ryan.basmajian/.config",
-        "/Users/ryan.basmajian/.config/nix"
-      ],
-      "command": "npx"
-    },
-    "memory": {
-      "args": [
-        "-y",
-        "mcp-knowledge-graph",
-        "--memory-path",
-        "/Users/ryan.basmajian/.aim/"
-      ],
-      "command": "npx"
-    },
-    "nixos": {
-      "args": ["run", "github:utensils/mcp-nixos", "--"],
-      "command": "nix"
-    },
-    "nx-mcp": {
-      "args": ["nx-mcp@latest"],
-      "command": "npx"
-    },
-    "package-registry": {
-      "args": ["-y", "package-registry-mcp"],
-      "command": "npx"
-    },
-    "playwright": {
-      "args": ["@playwright/mcp@latest"],
-      "command": "npx"
-    },
-    "puppeteer": {
-      "args": ["-y", "puppeteer-mcp-server"],
-      "command": "npx",
-      "env": {}
-    },
     "serena": {
+      "command": "uvx",
       "args": [
         "--from",
         "git+https://github.com/oraios/serena",
         "serena",
         "start-mcp-server"
-      ],
-      "command": "/Users/ryan.basmajian/.local/bin/uvx"
+      ]
+    },
+    "nx-mcp": {
+      "command": "npx",
+      "args": ["nx-mcp@latest"]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest"]
+    },
+    "puppeteer": {
+      "args": ["-y", "puppeteer-mcp-server"],
+      "command": "npx",
+      "env": []
+    },
+    "nixos": {
+      "disabled": false,
+      "args": ["run", "github:utensils/mcp-nixos", "--"],
+      "command": "nix"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
     }
   }
 }
