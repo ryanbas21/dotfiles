@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/home/ryan/dotfiles/picom/.config/picom/logs/.41cff2b5bb0676031128d0650e5cff2129385ee8-audit.json",
+    "files": [
+        {
+            "date": 1759679604002,
+            "name": "/home/ryan/dotfiles/picom/.config/picom/logs/mcp-puppeteer-2025-10-05.log",
+            "hash": "342186150186df73b4ca856729b7f16c90aa42eb69626af4f96972f99f35a34a"
+        }
+    ],
+    "hashType": "sha256"
+}

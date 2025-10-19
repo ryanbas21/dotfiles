@@ -19,3 +19,8 @@ xmonad/.xmonad/*.hi
 xmonad/.xmonad/*.hi
 xmonad/.xmonad/*.errors
 
+.codex/auth.json
+.codex/history.jsonl
+.codex/version.json
+.codex/sessions
+.codex/log

@@ -31,9 +31,10 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
-alias laptopscreen=xrandr --output DP-2 --off --output eDP-1 --auto --primary
-alias externalscreen=xrandr --output DP-2 --mode 2560x1600 --rate 165
-alias copy=xclip -selection=clipboard
+alias nano=nvim
+alias copy='xclip -selection clipboard'
+alias laptopscreen='xrandr --output DP-2 --off --output eDP-1 --auto --primary'
+alias externalscreen='xrandr --output DP-2 --mode 2560x1600 --rate 165'
 
 export UID=$(id -u)
 export GID=$(id -g)
@@ -49,6 +50,7 @@ export ANTHROPIC_API_KEY=$(pass show anthropic/pat)
 export BRAVE_SEARCH_API_KEY=$(pass show BRAVE/pat)
 export BRAVE_API_KEY=$(pass show BRAVE/pat)
 export JIRA_API_TOKEN=$(pass show JIRA/pat)
+export CONTEXT7_PAT=$(pass show CONTEXT7/pat)
 
 export EDITOR=nvim
 export DEFAULT_USER=`whoami`
@@ -58,8 +60,6 @@ alias ohmyzsh="mate ~/.oh-my-zsh"
 alias cat="bat"
 export TERM="xterm-256color"
 export ZSH=~/.oh-my-zsh
-export REVIEW_BASE=master git review
-export MYVIMRC="/Users/$DEFAULT_USER/dotfiles/nvim/init.vim"
 export ZSH="$HOME/.oh-my-zsh"
 
 export GPG_TTY=$(tty)
@@ -82,6 +82,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_OPTS="
   --walker-skip .git,node_modules,target
   --preview 'tree -C {}'"
+
 # CTRL-Y to copy the command into clipboard using pbcopy
 export FZF_CTRL_R_OPTS="
   --bind 'ctrl-y:execute-silent(echo -n {2..} | xclip -selection clipboard)+abort'
@@ -97,7 +98,6 @@ alias vim="nvim"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
 source ~/dotfiles/zshrc/fzf-gitbindings.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -110,11 +110,13 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 bindkey -e
+
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '$HOME/.zshrc'
@@ -129,6 +131,7 @@ PATH="$PROTO_HOME/bin:$PATH"
 PATH="/usr/local/bin/opam:$PATH"
 PATH="$HOME/.cache/rebar3/bin:$PATH"
 PATH="$HOME/.local/bin:$PATH"
+PATH="/var/lib/snapd/snap/bin:$PATH"
 export PATH
 
 
@@ -145,9 +148,17 @@ source ~/completion-for-pnpm.zsh
 #   - auto-completion for the opam binary
 # This section can be safely removed at any time if needed.
 [[ ! -r '/home/ryan/.opam/opam-init/init.zsh' ]] || source '/home/ryan/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
-# END opam configuration
-source ~/completion-for-pnpm.zsh
-export DIRENV_BASH=/opt/homebrew/bin/bash
+# END opam configuration source ~/completion-for-pnpm.zsh
+
+# --- Cross-platform direnv + bash path setup ---
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # macOS (Homebrew)
+  export DIRENV_BASH="/opt/homebrew/bin/bash"
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  # Arch / Linux (system bash)
+  export DIRENV_BASH="/usr/bin/bash"
+fi
+
 
 # Direnv hook
 eval "$(direnv hook zsh)"
@@ -159,3 +170,6 @@ for f in /usr/share/nix-direnv/direnvrc \
 do
   [ -e "$f" ] && source "$f" && break
 done
+
+# load codex completion
+source ~/dotfiles/zshrc/codex-bindings.zsh

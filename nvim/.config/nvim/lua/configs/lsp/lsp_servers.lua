@@ -1,23 +1,48 @@
 local M = {}
 
+local schemastore
+
+local function get_schemastore()
+  if schemastore then
+    return schemastore
+  end
+
+  local ok, store = pcall(require, "schemastore")
+  if not ok then
+    local lazy_ok, lazy = pcall(require, "lazy")
+    if lazy_ok then
+      lazy.load { plugins = { "schemastore.nvim" } }
+      ok, store = pcall(require, "schemastore")
+    end
+  end
+
+  if ok then
+    schemastore = store
+    return schemastore
+  end
+
+  return nil
+end
+
+local schemastore_module = get_schemastore()
+
 M.servers = {
   -- Language servers with default settings
   eslint = {},
-  eslint_d = {},
   angularls = {},
   bashls = {},
   clojure_lsp = {},
   ocamllsp = {},
   cssls = {},
-  css_variables = {},
-  cssmodules_ls = {},
+  -- cssmodules_ls = {},
   diagnosticls = {},
   html = {},
   jdtls = {},
   marksman = {},
   prismals = {},
-  purescriptls = {},
-  rescriptls = {},
+  -- removed servers (no default configs in current nvim-lspconfig release)
+  -- purescriptls = {},
+  -- rescriptls = {},
   hls = {
     haskell = {
       cmd = { "haskell-language-server-wrapper", "--lsp" },
@@ -31,43 +56,20 @@ M.servers = {
   },
   tailwindcss = {},
   svelte = {},
-  gleam = {},
+  -- gleam = {},
   -- biome = {},
-  zls = {},
-  grammarly = {},
-  dockerls = {},
-  -- ts_ls = {
-  -- cmd = { "/home/ryan/.local/share/nvim/mason/bin/typescript-language-server", "--stdio" },
-  -- },
+  -- zls = {}, -- removed upstream as of nvim-lspconfig v0.2.0
+  -- grammarly = {},
+  -- dockerls = {},
+  ts_ls = {},
   elixirls = {
     cmd = { "$HOME/.local/share/nvim/mason/packages/elixir-ls/language_server.sh" },
-  },
-  elmls = {
-    init_options = {
-      -- elmReviewDiagnostics = "error",
-      elmAnalyseTrigger = "save",
-      onlyUpdateDiagnosticsOnSave = true,
-    },
-    handlers = {
-      -- See https://github.com/elm-tooling/elm-language-server/discussions/961
-      -- See https://github.com/joakin/nvim/blob/be72c11ff2d2c3ee6d6350f2221aabcca373adae/lua/plugins/lspconfig.lua#L148-L157
-      ["window/showMessageRequest"] = function(whatever, result)
-        -- For some reason, the showMessageRequest handler doesn't work with
-        -- the format failed error. It just hangs on the screen and can't
-        -- interact with the vim.ui.select thingy. So skip it.
-        if result.message:find("Running elm-format failed", 1, true) then
-          print(result.message)
-          return vim.NIL
-        end
-        return vim.lsp.handlers["window/showMessageRequest"](whatever, result, {})
-      end,
-    },
   },
 
   jsonls = {
     settings = {
       json = {
-        schemas = require("schemastore").json.schemas(),
+        schemas = schemastore_module and schemastore_module.json.schemas() or {},
         validate = { enable = true },
       },
     },
@@ -105,7 +107,7 @@ M.servers = {
           -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
           url = "",
         },
-        schemas = require("schemastore").yaml.schemas(),
+        schemas = schemastore_module and schemastore_module.yaml.schemas() or {},
       },
     },
   },

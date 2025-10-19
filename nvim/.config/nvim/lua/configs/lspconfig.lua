@@ -7,6 +7,8 @@ local special_handlers = require("configs.lsp.handlers").special_handlers
 
 local capabilities = blink_cmp.get_lsp_capabilities()
 
+local configs_lib = require "lspconfig.configs"
+
 for lsp, config in pairs(lspservers) do
   local setup_config = {
     capabilities = capabilities,
@@ -27,5 +29,9 @@ for lsp, config in pairs(lspservers) do
     end
   end
 
-  lspconfig[lsp].setup(setup_config)
+  local has_config = configs_lib[lsp] ~= nil
+
+  if has_config then
+    lspconfig[lsp].setup(setup_config)
+  end
 end
