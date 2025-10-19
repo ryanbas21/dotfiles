@@ -106,10 +106,6 @@ return {
       enabled = true,
     },
     completion = {
-      ghost_text = {
-        enabled = true,
-        priority = 10,
-      },
       menu = {
         draw = {
           treesitter = { "lsp" },
