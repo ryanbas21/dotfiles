@@ -1,0 +1,11 @@
+[Unit]
+Description=Flameshot screenshot tool
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/flameshot
+Restart=on-failure
+
+[Install]
+WantedBy=xsession.target

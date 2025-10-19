@@ -1,0 +1,11 @@
+[Unit]
+Description=CopyQ clipboard manager
+After=graphical-session.target
+
+[Service]
+ExecStart=%h/.local/bin/copyq
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
+

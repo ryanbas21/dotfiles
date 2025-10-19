@@ -7,8 +7,8 @@
   i3 and Xmonad startup hooks).
 - **Visuals**:
   - Background/foreground sourced from Xresources with fallbacks.
-  - Rounded corners (`radius = 10`), 24pt height, and a 98.8% width bar that
-    leaves slight monitor margins.
+  - Rounded corners (`radius = 10`), 24pt height, and a full-width bar to keep
+    right-side modules (wifi menu, tray, power) visible.
   - Multi-font stack (Hack, FiraCode, JetBrains Mono) for icon coverage.
   - 3pt border and separators using the shared color palette.
 - **Modules (Left → Center → Right)**:

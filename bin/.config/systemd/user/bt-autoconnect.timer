@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Bluetooth auto-connect periodically
+
+[Timer]
+OnBootSec=30sec
+OnUnitActiveSec=1min
+Unit=bt-autoconnect.service
+
+[Install]
+WantedBy=timers.target

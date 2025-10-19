@@ -1,0 +1,12 @@
+[Unit]
+Description=Set wallpaper with feh
+After=graphical-session.target
+Wants=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -lc 'sleep 1; [ -x %h/.fehbg ] && %h/.fehbg || /usr/bin/feh --bg-scale %h/Pictures/i3-bg.png'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=xsession.target

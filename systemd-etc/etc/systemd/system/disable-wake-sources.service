@@ -1,0 +1,11 @@
+[Unit]
+Description=Disable problematic wake sources
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'echo GPP6 > /proc/acpi/wakeup; echo GPP8 > /proc/acpi/wakeup; echo GP11 > /proc/acpi/wakeup; echo GP12 > /proc/acpi/wakeup'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target 

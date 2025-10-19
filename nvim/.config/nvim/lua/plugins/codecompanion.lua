@@ -9,7 +9,6 @@ return {
     "j-hui/fidget.nvim",
   },
   opts = {
-    adapter = "gemini_cli",
     extensions = {
       mcphub = {
         callback = "mcphub.extensions.codecompanion",
@@ -22,35 +21,24 @@ return {
     },
     adapters = {
       acp = {
-        gemini_cli = function()
-          return require("codecompanion.adapters").extend("gemini_cli", {
+        codex = function()
+          return require("codecompanion.adapters").extend("codex", {
             defaults = {
-              auth_method = "oauth-personal", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
+              auth_method = "chatgpt", -- "openai-api-key"|"codex-api-key"|"chatgpt"
             },
             env = {
-              GOOGLE_CLOUD_PROJECT = os.getenv "GOOGLE_CLOUD_PROJECT" or "ryan-bas-sdk",
+              -- OPENAI_API_KEY = "my-api-key",
             },
           })
         end,
       },
-      http = {
-        gemini_cli = function()
-          return require("codecompanion.adapters").extend("gemini_cli", {
-            defaults = {
-              auth_method = "oauth-personal", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
-            },
-            env = {
-              GOOGLE_CLOUD_PROJECT = os.getenv "GOOGLE_CLOUD_PROJECT" or "ryan-bas-sdk",
-            },
-          })
-        end,
-      },
+      http = {},
     },
     strategies = {
       chat = {
-        adapter = "gemini",
-        model = "gemini-live-2.5-flash",
+        adapter = "codex",
         keymaps = {
+
           hide = {
             modes = {
               n = "q",
@@ -63,12 +51,10 @@ return {
         },
       },
       inline = {
-        adapter = "gemini",
-        model = "gemini-live-2.5-flash",
+        adapter = "codex",
       },
       agent = {
-        adapter = "gemini",
-        model = "gemini-live-2.5-flash",
+        adapter = "codex",
       },
     },
   },

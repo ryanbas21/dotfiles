@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+STEP="${1:-+5}"   # +5 | -5 | 50
+
+have() { command -v "$1" >/dev/null 2>&1; }
+
+# Normalize for absolute vs relative
+is_relative() { [[ "$STEP" =~ ^[+-] ]]; }
+
+if have pactl; then
+  SINK="@DEFAULT_SINK@"
+  if is_relative; then
+    pactl set-sink-volume "$SINK" "${STEP}%"
+  else
+    pactl set-sink-volume "$SINK" "${STEP}%"
+  fi
+  VOL="$(pactl get-sink-volume "$SINK" | awk -F/ 'NR==1{gsub(/[% ]/,""); print $2}')"
+  MUTED="$(pactl get-sink-mute "$SINK" | awk '{print $2}')"
+elif have pamixer; then
+  if is_relative; then
+    case "$STEP" in
+      +*) pamixer --allow-boost --increase "${STEP#+}" ;;
+      -*) pamixer --allow-boost --decrease "${STEP#-}" ;;
+    esac
+  else
+    pamixer --set-volume "$STEP"
+  fi
+  VOL="$(pamixer --get-volume)"
+  MUTED="$(pamixer --get-mute && echo true || echo false)"
+elif have amixer; then
+  if is_relative; then
+    amixer -q set Master "${STEP}%"
+  else
+    amixer -q set Master "${STEP}%"
+  fi
+  VOL="$(amixer get Master | sed -n 's/.*\[\([0-9]\+\)%\].*/\1/p' | head -n1)"
+  MUTED="$(amixer get Master | grep -q '\[off\]' && echo true || echo false)"
+else
+  # No mixer found; still show something
+  VOL="0"; MUTED="false"
+fi
+
+# Show OSD
+if command -v volnoti-show >/dev/null 2>&1; then
+  if [ "$MUTED" = "true" ] || [ "$MUTED" = "yes" ]; then
+    volnoti-show -m 0
+  else
+    volnoti-show "${VOL}"
+  fi
+else
+  dunstify -a "Volume" -r 2001 -h int:value:"${VOL}" "Volume: ${VOL}%"
+fi

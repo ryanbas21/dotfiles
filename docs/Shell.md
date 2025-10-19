@@ -31,6 +31,6 @@
   - Cross-platform `DIRENV_BASH` selection (macOS vs Linux).
   - Loads standard direnv hooks and Nix direnv stdlib if available.
 - **Codex Integration**: Custom bindings sourced from
-  `~/dotfiles/zshrc/codex-bindings.zsh` along with completion scripts.
+  `~/codex-bindings.zsh` along with completion scripts.
 - **Next Steps**: Document additional helper scripts under `zshrc/` as they are
   added so the shell story stays complete.

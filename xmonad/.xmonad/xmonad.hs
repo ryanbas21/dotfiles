@@ -117,14 +117,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       -- lock screen
       ((modm .|. shiftMask, xK_x), spawn "loginctl lock-session"),
       -- Volume
-      ((0, 0x1008ff13), spawn "pactl set-sink-volume @DEFAULT_SINK@ +10%"), -- XF86AudioRaiseVolume
-      ((0, 0x1008ff11), spawn "pactl set-sink-volume @DEFAULT_SINK@ -10%"), -- XF86AudioLowerVolume
-      ((0, 0x1008ff12), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle"), -- XF86AudioMute
+      ((0, 0x1008ff13), spawn "~/.local/bin/osd-volume +10"), -- XF86AudioRaiseVolume
+      ((0, 0x1008ff11), spawn "~/.local/bin/osd-volume -10"), -- XF86AudioLowerVolume
+      ((0, 0x1008ff12), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle && ~/.local/bin/osd-volume +0"), -- Mute shows OSD
       ((0, 0x1008ffb2), spawn "pactl set-source-mute @DEFAULT_SOURCE@ toggle"), -- Mic mute
 
       -- Brightness
-      ((0, 0x1008ff02), spawn "brightnessctl set +10%"), -- XF86MonBrightnessUp
-      ((0, 0x1008ff03), spawn "brightnessctl set 10%-"), -- XF86MonBrightnessDown
+      ((0, 0x1008ff02), spawn "~/.local/bin/osd-brightness +10%"), -- XF86MonBrightnessUp
+      ((0, 0x1008ff03), spawn "~/.local/bin/osd-brightness -10%"), -- XF86MonBrightnessDown
 
       -- Polybar
       ((modm, xK_p), spawn "~/.config/polybar/launch_polybar.sh"),
@@ -186,14 +186,7 @@ myLogHook = return ()
 
 ------------------------------------------------------------------------
 -- Startup
-myStartupHook = do
-  spawnOnce "picom &"
-  spawnOnce "feh --bg-scale /home/ryan/Pictures/i3-bg.png &"
-  spawnOnce "dunst &"
-  spawnOnce "polkit-gnome-authentication-agent-1 &" -- <— no /usr/lib path
-  spawnOnce "flameshot &"
-  spawnOnce "~/.config/polybar/launch_polybar.sh &"
-  spawnOnce "bash -lc 'sleep 0.5; pkill -x nm-applet; nm-applet &'"
+myStartupHook = return ()
 
 ------------------------------------------------------------------------
 -- Main

@@ -1,0 +1,19 @@
+[Unit]
+Description=Run backup script on system wake
+After=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+Environment="HOME=/home/ryan"
+# Wait for system to fully wake up
+ExecStartPre=/bin/sleep 30
+ExecStart=/home/ryan/backup.sh
+# Don't consider this a boot failure if backup fails
+RemainAfterExit=no
+TimeoutStartSec=3600
+
+[Install]
+WantedBy=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target

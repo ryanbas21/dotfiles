@@ -1,0 +1,11 @@
+[global]
+size = 64
+xpos = center
+ypos = 90%
+anchor = bottom
+offset = 0
+bg-color = #2e2e2e
+fg-color = #ffffff
+border = 0
+fade-time = 150
+timeout = 800

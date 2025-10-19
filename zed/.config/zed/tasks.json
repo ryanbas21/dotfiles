@@ -1,0 +1,77 @@
+[
+  {
+    "label": "gh: view PRs",
+    "command": "gh",
+    "args": ["pr", "list", "--limit", "10"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "reveal": "no_focus"
+  },
+  {
+    "label": "Github Browse",
+    "command": "gh",
+    "args": [
+      "browse",
+      "${ZED_RELATIVE_FILE}",
+      "--commit=$(git rev-parse HEAD)"
+    ],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal_target": "dock",
+    "hide": "always",
+    "shell": "system",
+    "reveal": "no_focus"
+  },
+  {
+    "label": "vitest file [watch]",
+    "command": "pnpm",
+    "args": ["vitest", "${ZED_RELATIVE_FILE}", "--watch"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal_target": "dock",
+    "hide": "always",
+    "shell": "system",
+    "tags": [],
+    "reveal": "no_focus"
+  },
+  {
+    "label": "commit and push",
+    "command": "git",
+    "args": ["commit", ";", "git", "push"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal_target": "dock",
+    "hide": "always",
+    "shell": "system",
+    "tags": [],
+    "reveal": "no_focus"
+  },
+  {
+    "label": "commit amend and push",
+    "command": "git",
+    "args": ["commit", "--amend --no-edit", ";", "git", "push"],
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "reveal_target": "dock",
+    "hide": "always",
+    "shell": "system",
+    "tags": [],
+    "reveal": "no_focus"
+  },
+  {
+    "label": "git: show last commit (confirm before reset)",
+    "command": "bash",
+    "args": [
+      "-lc",
+      "git log -1 --stat && read -p 'Reset last commit? (y/N): ' yn && [ \"$yn\" = y ] && git reset --soft HEAD~1"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "reveal": "no_focus"
+  },
+  {
+    "label": "git: checkout pr",
+    "command": "gh",
+    "args": ["pr", "checkout"],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "reveal": "always"
+  }
+]

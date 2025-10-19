@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+RAW="${1:-+5%}"   # +5% | -10% | 50%
+STEP="$RAW"
+
+# brightnessctl can be finicky: translate -10% → 10%-  and +10% → 10%+
+if [[ "$RAW" =~ ^\+([0-9]+)%$ ]]; then
+  STEP="${BASH_REMATCH[1]}%+"
+elif [[ "$RAW" =~ ^-([0-9]+)%$ ]]; then
+  STEP="${BASH_REMATCH[1]}%-"
+fi
+
+brightnessctl set "$STEP" >/dev/null
+
+# Read current brightness %
+PCT="$(brightnessctl -m | awk -F, '{print $4}' | tr -d '%')"
+
+# Slider OSD via dunst
+if command -v dunstify >/dev/null 2>&1; then
+  dunstify -a "Brightness" -r 2002 -h int:value:"${PCT}" "Brightness: ${PCT}%"
+else
+  notify-send "Brightness: ${PCT}%"
+fi
