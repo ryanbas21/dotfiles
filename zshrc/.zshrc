@@ -72,10 +72,11 @@ export FZF_CTRL_T_OPTS="
   --preview 'bat -n --color=always {}'
   --bind 'ctrl-/:change-preview-window(down|hidden|)'"
 
-
 source $HOME/fzf-gitbindings.zsh
+# source /usr/share/fzf/key-bindings.zsh
+# source /usr/share/fzf/completion.zsh
 
-export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix'
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix -E --follow --hidden .git,node_modules,.stack-work'
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # Print tree structure in the preview window
@@ -97,8 +98,7 @@ export NVM_DIR="$HOME/.nvm"
 alias vim="nvim"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-source ~/dotfiles/zshrc/fzf-gitbindings.zsh
+[[ -f ~/fzf-gitbindings.zsh ]] && source ~/fzf-gitbindings.zsh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -172,4 +172,4 @@ do
 done
 
 # load codex completion
-source ~/dotfiles/zshrc/codex-bindings.zsh
+[[ -f ~/codex-bindings.zsh ]] && source ~/codex-bindings.zsh

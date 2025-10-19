@@ -1,0 +1,168 @@
+// ~/.config/zed/keymap.json
+[
+  // ─────────────────────────────────────────────────────────────────────────────
+  // INSERT (Editor, Vim)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "j k": "vim::NormalBefore"
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // NORMAL (Editor, Vim)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    "context": "Editor && vim_mode == normal && !menu",
+    "bindings": {
+      "ctrl-]": "pane::ActivateNextItem",
+      "ctrl-[": "pane::ActivatePreviousItem",
+      "space space": "file_finder::Toggle",
+
+      "space n": "project_panel::ToggleFocus",
+      "space g s": "git_panel::ToggleFocus",
+      // LSP / Nav
+      "g d": "editor::GoToDefinition",
+      "g r": "editor::FindAllReferences",
+      "g i": "editor::GoToImplementation",
+      "g y": "editor::GoToTypeDefinition",
+      "g D": "editor::GoToDeclaration",
+      "shift-k": "editor::Hover",
+      "space t": "terminal_panel::Toggle",
+      "space t t": "workspace::ToggleBottomDock",
+
+      // Diagnostics
+      "] d": "editor::GoToDiagnostic",
+      "[ d": "editor::GoToPreviousDiagnostic",
+
+      // Changes / Hunks
+      "] c": "editor::GoToNextChange",
+      "[ c": "editor::GoToPreviousChange",
+      "] h": "editor::GoToHunk",
+      "[ h": "editor::GoToPreviousHunk",
+      "space h n": "editor::GoToHunk",
+      "space h p": "editor::GoToPreviousHunk",
+
+      // Format / code actions
+      "space f m": "editor::Format",
+      "space c a": "editor::ToggleCodeActions",
+      "space r n": "editor::ConfirmRename",
+
+      // Git
+      "space g d": "git::Diff",
+      "space g s f": "git::StageFile",
+      "space g b": "git::Blame",
+      "space g b o": "editor::OpenGitBlameCommit",
+      "space g p": "git::Pull",
+      "space g P": "git::Push",
+      "space g A": "git::StageAll",
+      "space g f": "git::StageFile",
+      "space g U": "git::UnstageAll",
+      "space g R": "git::RestoreFile",
+      "space g a": "git::StageAndNext",
+      "space g u": "git::UnstageAndNext",
+      "space g c m": "git::GenerateCommitMessage",
+      "space u g c": "git::Uncommit",
+
+      // Agent / threads
+      "space c c": "agent::ToggleFocus",
+
+      // Splits & buffer mgmt
+      "space s v": "pane::SplitRight",
+      "space s h": "pane::SplitDown",
+      "space b d": "pane::CloseActiveItem",
+      "space b o": "pane::CloseOtherItems",
+      "space b n": "pane::ActivateNextItem",
+      "space b p": "pane::ActivatePreviousItem",
+
+      // Clear search highlights (best available)
+      "space ,": "buffer_search::Dismiss",
+
+      // Misc
+      ", ,": "pane::GoBack",
+      "space x": [
+        "action::Sequence",
+        ["diagnostics::Deploy", "pane::SplitAndMoveDown"]
+      ],
+      //
+      // Pane focus (explicit here so they win in the editor)
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+
+      // Optional classic Vim combo
+      "ctrl-w h": "workspace::ActivatePaneLeft",
+      "ctrl-w j": "workspace::ActivatePaneDown",
+      "ctrl-w k": "workspace::ActivatePaneUp",
+      "ctrl-w l": "workspace::ActivatePaneRight"
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // WORKSPACE-WIDE (works in Editor, Project panel, Terminal, Agent, etc.)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    "context": "Workspace && !menu",
+    "bindings": {
+      // Global pane focus that also works inside Terminal (Ctrl often gets eaten)
+      "alt-h": "workspace::ActivatePaneLeft",
+      "alt-j": "workspace::ActivatePaneDown",
+      "alt-k": "workspace::ActivatePaneUp",
+      "alt-l": "workspace::ActivatePaneRight",
+      "ctrl-shift-p": "command_palette::Toggle",
+      "cmd-shift-p": "command_palette::Toggle",
+      "ctrl-p": "file_finder::Toggle",
+      "cmd-p": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "GitPanel",
+    "bindings": {
+      "space g s": "git_panel::OpenMenu",
+      "space g s c": "git_panel::Close"
+    }
+  },
+  // PROJECT PANEL (file tree)
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    "context": "ProjectPanel && !menu",
+    "bindings": {
+      "H": "project_panel::ToggleHideGitIgnore",
+      "v": "project_panel::OpenSplitVertical",
+      "h": "project_panel::OpenSplitHorizontal",
+      "l": "project_panel::ExpandSelectedEntry",
+      "L": "project_panel::CollapseSelectedEntry",
+      "[d": "project_panel::SelectNextDiagnostic",
+      "]d": "project_panel::SelectPrevDiagnostic",
+
+      // tmux-style pane focus from the file tree
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight"
+    }
+  },
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // TERMINAL PANEL
+  // ─────────────────────────────────────────────────────────────────────────────
+  {
+    "context": "TerminalPanel && !menu",
+    "bindings": {
+      // Fast escape: if your terminal is at the BOTTOM, Up returns to the editor
+      "escape": "workspace::ActivatePaneUp",
+      "ctrl-[": "workspace::ActivatePaneUp",
+
+      // Ctrl-* are often swallowed by the PTY; keeping them if they happen to work
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-l": "workspace::ActivatePaneRight",
+
+      // Your toggle
+      "space t": "terminal_panel::Toggle"
+    }
+  }
+]

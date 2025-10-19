@@ -1,0 +1,12 @@
+[Unit]
+Description=Picom compositor
+After=default.target
+
+[Service]
+ExecStart=/usr/bin/picom --config=%h/.config/picom/picom.conf
+Restart=on-failure
+RestartSec=2s
+
+[Install]
+WantedBy=xsession.target
+

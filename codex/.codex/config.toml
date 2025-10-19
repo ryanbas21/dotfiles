@@ -7,6 +7,9 @@ trust_level = "trusted"
 [projects."/home/programming/ci-dashboard"]
 trust_level = "trusted"
 
+[projects."/home/programming/nx-release-vp-pr"]
+trust_level = "trusted"
+
 [shell_environment_policy]
 # inherit can be "all" (default), "core", or "none"
 inherit = "all"

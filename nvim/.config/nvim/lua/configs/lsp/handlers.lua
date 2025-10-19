@@ -22,10 +22,4 @@ M.on_attach = function(_, bufnr)
   map("n", "gr", vim.lsp.buf.references, opts "Show references")
 end
 
-M.special_handlers = {
-  ts_ls = function(client, bufnr)
-    M.on_attach(client, bufnr)
-  end,
-}
-
 return M

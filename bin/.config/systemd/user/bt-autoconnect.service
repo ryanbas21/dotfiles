@@ -1,0 +1,9 @@
+[Unit]
+Description=Auto-connect trusted Bluetooth devices
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/bt-autoconnect
+
+[Install]
+WantedBy=xsession.target

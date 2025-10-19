@@ -1,0 +1,28 @@
+[
+  // JS/TS ecosystem
+  "prettier",
+  "eslint",
+  "tailwindcss",
+
+  // Infra / DevEx
+  "docker",
+  "dotenv",
+  "yaml",
+  "json",
+  "markdown",
+  "toml",
+  "makefile",
+  "gitlens-lite",
+
+  // FP languages you use
+  "haskell",
+  "ocaml",
+  "nix",
+  "rust",
+
+  // Web tooling
+  "html",
+  "css",
+  "svelte",
+  "vue"
+]

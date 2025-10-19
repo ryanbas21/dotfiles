@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Autoconnect all *trusted* but currently disconnected devices.
+# Reads BlueZ trust store under /var/lib/bluetooth/<ADAPTER>/<DEVICE>/info
+
+for ADAPTER in /var/lib/bluetooth/*; do
+  [ -d "$ADAPTER" ] || continue
+  for INFO in "$ADAPTER"/*/info; do
+    [ -f "$INFO" ] || continue
+    grep -q '^Trusted=true' "$INFO" || continue
+    DEV_MAC=$(basename "$(dirname "$INFO")")
+    # skip if already connected
+    if bluetoothctl info "$DEV_MAC" | grep -q "Connected: yes"; then
+      continue
+    fi
+    bluetoothctl connect "$DEV_MAC" >/dev/null 2>&1 || true
+  done
+done

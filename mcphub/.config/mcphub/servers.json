@@ -1,15 +1,9 @@
 {
   "mcpServers": {
-    "brave-search": {
-      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
-      "autoApprove": ["brave_web_search", "brave_local_search"],
-      "command": "npx",
-      "env": {
-        "BRAVE_API_KEY": "$BRAVE_API_KEY"
-      }
-    },
     "chrome-devtools": {
-      "args": ["chrome-devtools-mcp@latest"],
+      "args": [
+        "chrome-devtools-mcp@latest"
+      ],
       "autoApprove": [
         "list_console_messages",
         "emulate_cpu",
@@ -48,10 +42,14 @@
         "${cmd: pass show CONTEXT7/pat}"
       ],
       "command": "npx",
+      "disabled": false,
       "name": "context7"
     },
     "effect-mcp": {
-      "args": ["-y", "effect-mcp@latest"],
+      "args": [
+        "-y",
+        "effect-mcp@latest"
+      ],
       "command": "npx",
       "env": []
     },
@@ -67,7 +65,9 @@
       "command": "npx"
     },
     "git": {
-      "args": ["mcp-server-git"],
+      "args": [
+        "mcp-server-git"
+      ],
       "command": "uvx"
     },
     "github": {
@@ -78,22 +78,26 @@
       "url": "https://api.githubcopilot.com/mcp/"
     },
     "nixos": {
-      "args": ["run", "github:utensils/mcp-nixos", "--"],
+      "args": [
+        "run",
+        "github:utensils/mcp-nixos",
+        "--"
+      ],
       "command": "nix",
       "disabled": false
     },
     "nx-mcp": {
-      "args": ["nx-mcp@latest"],
+      "args": [
+        "nx-mcp@latest"
+      ],
       "command": "npx"
     },
     "package-registry": {
-      "args": ["-y", "package-registry-mcp"],
+      "args": [
+        "-y",
+        "package-registry-mcp"
+      ],
       "command": "npx"
-    },
-    "playwright": {
-      "args": ["@playwright/mcp@latest"],
-      "command": "npx",
-      "disabled": false
     },
     "serena": {
       "args": [
