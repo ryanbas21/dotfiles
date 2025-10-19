@@ -1,42 +1,61 @@
 {
   "mcpServers": {
-    "context7": {
-      "name": "context7",
+    "brave-search": {
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "autoApprove": ["brave_web_search", "brave_local_search"],
       "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp", "--api-key", "${cmd: pass show CONTEXT7/pat}"]
-    },
- 
-    "github": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/",
-      "headers": {
-        "Authorization": "Bearer ${GITHUB_TOKEN}"
+      "env": {
+        "BRAVE_API_KEY": "$BRAVE_API_KEY"
       }
     },
-    "git": {
-      "command": "uvx",
-      "args": ["mcp-server-git"]
+    "chrome-devtools": {
+      "args": ["chrome-devtools-mcp@latest"],
+      "autoApprove": [
+        "list_console_messages",
+        "emulate_cpu",
+        "emulate_network",
+        "click",
+        "drag",
+        "fill",
+        "fill_form",
+        "hover",
+        "upload_file",
+        "get_network_request",
+        "list_network_requests",
+        "close_page",
+        "handle_dialog",
+        "list_pages",
+        "navigate_page",
+        "navigate_page_history",
+        "new_page",
+        "resize_page",
+        "select_page",
+        "performance_analyze_insight",
+        "performance_start_trace",
+        "performance_stop_trace",
+        "take_screenshot",
+        "evaluate_script",
+        "take_snapshot",
+        "wait_for"
+      ],
+      "command": "npx"
+    },
+    "context7": {
+      "args": [
+        "-y",
+        "@upstash/context7-mcp",
+        "--api-key",
+        "${cmd: pass show CONTEXT7/pat}"
+      ],
+      "command": "npx",
+      "name": "context7"
     },
     "effect-mcp": {
       "args": ["-y", "effect-mcp@latest"],
       "command": "npx",
       "env": []
     },
-    "package-registry": {
-      "command": "npx",
-      "args": ["-y", "package-registry-mcp"]
-    },
-    "memory": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-knowledge-graph",
-        "--memory-path",
-        "/Users/ryan.basmajian/.aim/"
-      ]
-    },
     "filesystem": {
-      "command": "npx",
       "args": [
         "-y",
         "@modelcontextprotocol/server-filesystem",
@@ -44,45 +63,47 @@
         "~/.config/nvim",
         "~/.config",
         "~/.config/nix"
-      ]
+      ],
+      "command": "npx"
     },
-    "brave-search": {
-      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+    "git": {
+      "args": ["mcp-server-git"],
+      "command": "uvx"
+    },
+    "github": {
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_TOKEN}"
+      },
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/"
+    },
+    "nixos": {
+      "args": ["run", "github:utensils/mcp-nixos", "--"],
+      "command": "nix",
+      "disabled": false
+    },
+    "nx-mcp": {
+      "args": ["nx-mcp@latest"],
+      "command": "npx"
+    },
+    "package-registry": {
+      "args": ["-y", "package-registry-mcp"],
+      "command": "npx"
+    },
+    "playwright": {
+      "args": ["@playwright/mcp@latest"],
       "command": "npx",
-      "env": {
-        "BRAVE_API_KEY": "$BRAVE_API_KEY"
-      }
+      "disabled": false
     },
     "serena": {
-      "command": "uvx",
       "args": [
         "--from",
         "git+https://github.com/oraios/serena",
         "serena",
         "start-mcp-server"
-      ]
-    },
-    "nx-mcp": {
-      "command": "npx",
-      "args": ["nx-mcp@latest"]
-    },
-    "chrome-devtools": {
-      "command": "npx",
-      "args": ["chrome-devtools-mcp@latest"]
-    },
-    "puppeteer": {
-      "args": ["-y", "puppeteer-mcp-server"],
-      "command": "npx",
-      "env": []
-    },
-    "nixos": {
-      "disabled": false,
-      "args": ["run", "github:utensils/mcp-nixos", "--"],
-      "command": "nix"
-    },
-    "playwright": {
-      "command": "npx",
-      "args": ["@playwright/mcp@latest"]
+      ],
+      "command": "uvx",
+      "disabled": true
     }
   }
 }

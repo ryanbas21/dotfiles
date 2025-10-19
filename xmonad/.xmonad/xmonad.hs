@@ -4,6 +4,7 @@ import qualified Data.Map as M
 import Data.Monoid
 import System.Exit
 import XMonad
+import XMonad.Actions.CycleWS
 -- import XMonad.Actions.FloatKeys   -- not needed; functions are in XMonad
 import XMonad.Actions.WindowGo
 import XMonad.Hooks.DynamicLog
@@ -89,7 +90,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       -- toggle bar gap
       ((modm, xK_b), sendMessage ToggleStruts),
       -- quit / restart xmonad
-      ((modm .|. shiftMask, xK_e), io (exitWith ExitSuccess)),
+      ((modm .|. shiftMask, xK_e), io exitSuccess),
       ((modm .|. shiftMask, xK_r), spawn "xmonad --recompile; xmonad --restart"),
       -- arrows helpers
       ((modm, xK_Left), windows W.focusUp),
@@ -100,6 +101,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) =
       ((modm .|. shiftMask, xK_Down), windows W.swapDown),
       ((modm .|. shiftMask, xK_Up), windows W.swapUp),
       ((modm .|. shiftMask, xK_Right), windows W.swapDown),
+      -- cycle workspaces (for gestures)
+      ((myModMask, xK_bracketright), nextWS),
+      ((myModMask, xK_bracketleft), prevWS),
+      -- move focused window to next/prev workspace
+      ((myModMask .|. shiftMask, xK_bracketright), shiftToNext),
+      ((myModMask .|. shiftMask, xK_bracketleft), shiftToPrev),
       -- FULLSCREEN (MultiToggle)
       ((modm, xK_f), sendMessage $ Toggle NBFULL),
       -- jump-to-layout helpers (names must match)
@@ -154,8 +161,7 @@ myLayout =
     avoidStruts $
       mkToggle (NBFULL ?? EOT) $
         gaps [(U, 20), (D, 20), (L, 20), (R, 20)] $
-          spacing 6 $
-            (tiled ||| Mirror tiled ||| tabbed shrinkText def ||| Accordion)
+          spacing 6 (tiled ||| Mirror tiled ||| tabbed shrinkText def ||| Accordion)
   where
     tiled = Tall nmaster delta ratio
     nmaster = 1

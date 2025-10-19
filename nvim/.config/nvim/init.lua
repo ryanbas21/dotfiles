@@ -13,6 +13,10 @@ vim.opt.rtp:prepend(lazypath)
 local lazy = require "lazy"
 local lazy_config = require "configs.lazy"
 
+vim.diagnostic.config {
+  virtual_lines = { only_current_line = true },
+}
+
 vim.schedule(function()
   require "mappings"
   require "options"
