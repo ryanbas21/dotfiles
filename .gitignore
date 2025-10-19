@@ -14,13 +14,31 @@ prototools/*
 !prototools/.proto/id
 
 logs/*
-xmonad/.xmonad/*.o
-xmonad/.xmonad/*.hi
-xmonad/.xmonad/*.hi
-xmonad/.xmonad/*.errors
+xmonad/.xmonad/*build*/*.o
+xmonad/.xmonad/*build*/*.hi
+xmonad/.xmonad/*build*/*.hi
+xmonad/.xmonad/*build*/*.errors
 
 .codex/auth.json
 .codex/history.jsonl
 .codex/version.json
 .codex/sessions
 .codex/log
+
+codex/.codex/history.jsonl
+codex/.codex/log/codex-tui.log
+codex/.codex/sessions/*
+
+.serena/
+
+# system-scripts build artifacts
+programming/system-scripts/.stack-work/
+programming/system-scripts/.stack/
+programming/system-scripts/.direnv/
+programming/system-scripts/.codecompanion/
+programming/system-scripts/logs/
+programming/system-scripts/result
+
+xmonad/.xmonad/.stack-work
+.git
+zed/.config/zed/settings.json

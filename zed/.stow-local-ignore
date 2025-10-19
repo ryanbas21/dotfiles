@@ -1,0 +1,4 @@
+^conversations(/|$)
+^settings_backup\.json$
+^.*\.swp$
+^.*\.tmp$

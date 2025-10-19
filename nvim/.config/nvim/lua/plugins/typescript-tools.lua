@@ -3,13 +3,13 @@ return {
   enabled = false,
   dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
   ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-
   opts = {
     settings = {
       on_attach = function(client, bufnr)
         client.resolved_capabilities.document_formatting = false
         client.resolved_capabilities.document_range_formatting = false
         require("typescript-tools").setup_buffer(client, bufnr)
+        return require("configs.lsp.handlers").on_attach(client, bufnr)
       end,
       tsserver_file_preferences = {
         includeCompletionsForImportStatements = true,

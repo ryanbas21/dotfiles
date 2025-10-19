@@ -1,0 +1,11 @@
+[Unit]
+Description=Borg Backup
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=ryan
+Group=ryan
+ExecStart=/home/ryan/backup.sh
+Environment="HOME=/home/ryan"
