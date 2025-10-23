@@ -9,7 +9,6 @@ return {
     "j-hui/fidget.nvim",
   },
   opts = {
-    adapter = "gemini_cli",
     extensions = {
       mcphub = {
         callback = "mcphub.extensions.codecompanion",
@@ -21,36 +20,15 @@ return {
       },
     },
     adapters = {
-      acp = {
-        gemini_cli = function()
-          return require("codecompanion.adapters").extend("gemini_cli", {
-            defaults = {
-              auth_method = "oauth-personal", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
-            },
-            env = {
-              GOOGLE_CLOUD_PROJECT = os.getenv "GOOGLE_CLOUD_PROJECT" or "ryan-bas-sdk",
-            },
-          })
-        end,
-      },
-      http = {
-        gemini_cli = function()
-          return require("codecompanion.adapters").extend("gemini_cli", {
-            defaults = {
-              auth_method = "oauth-personal", -- "oauth-personal"|"gemini-api-key"|"vertex-ai"
-            },
-            env = {
-              GOOGLE_CLOUD_PROJECT = os.getenv "GOOGLE_CLOUD_PROJECT" or "ryan-bas-sdk",
-            },
-          })
-        end,
-      },
+      acp = {},
+      http = {},
     },
     strategies = {
       chat = {
-        adapter = "gemini",
-        model = "gemini-live-2.5-flash",
+        adapter = "openai_responses",
+        -- model = "gemini-live-2.5-flash",
         keymaps = {
+
           hide = {
             modes = {
               n = "q",
@@ -63,12 +41,12 @@ return {
         },
       },
       inline = {
-        adapter = "gemini",
-        model = "gemini-live-2.5-flash",
+        adapter = "openai_responses",
+        -- model = "gemini-live-2.5-flash",
       },
       agent = {
-        adapter = "gemini",
-        model = "gemini-live-2.5-flash",
+        adapter = "openai_responses",
+        -- model = "gemini-live-2.5-flash",
       },
     },
   },

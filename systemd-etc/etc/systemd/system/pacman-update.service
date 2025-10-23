@@ -1,0 +1,9 @@
+# /etc/systemd/system/pacman-update.service
+[Unit]
+Description=Update pacman packages
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/pacman -Syu --noconfirm

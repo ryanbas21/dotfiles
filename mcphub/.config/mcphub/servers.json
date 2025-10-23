@@ -1,13 +1,5 @@
 {
   "mcpServers": {
-    "brave-search": {
-      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
-      "autoApprove": ["brave_web_search", "brave_local_search"],
-      "command": "npx",
-      "env": {
-        "BRAVE_API_KEY": "$BRAVE_API_KEY"
-      }
-    },
     "chrome-devtools": {
       "args": ["chrome-devtools-mcp@latest"],
       "autoApprove": [
@@ -89,11 +81,6 @@
     "package-registry": {
       "args": ["-y", "package-registry-mcp"],
       "command": "npx"
-    },
-    "playwright": {
-      "args": ["@playwright/mcp@latest"],
-      "command": "npx",
-      "disabled": false
     },
     "serena": {
       "args": [

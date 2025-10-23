@@ -61,7 +61,7 @@ M.servers = {
   -- zls = {}, -- removed upstream as of nvim-lspconfig v0.2.0
   -- grammarly = {},
   -- dockerls = {},
-  ts_ls = {},
+  -- ts_ls = {},
   elixirls = {
     cmd = { "$HOME/.local/share/nvim/mason/packages/elixir-ls/language_server.sh" },
   },

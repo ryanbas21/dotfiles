@@ -1,5 +1,5 @@
 font-family = "FiraCode Nerd Font Mono"
-theme = "catppuccin-mocha"
+theme = "catppuccin-mocha.conf"
 font-size = 18
 window-padding-x = 10
 window-padding-y = 10
