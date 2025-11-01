@@ -21,13 +21,10 @@ return {
     },
     adapters = {
       acp = {
-        codex = function()
-          return require("codecompanion.adapters").extend("codex", {
-            defaults = {
-              auth_method = "chatgpt", -- "openai-api-key"|"codex-api-key"|"chatgpt"
-            },
+        claude_code = function()
+          return require("codecompanion.adapters").extend("claude_code", {
             env = {
-              -- OPENAI_API_KEY = "my-api-key",
+              CLAUDE_CODE_OAUTH_TOKEN = "cmd: pass show anthropic/oauth_token",
             },
           })
         end,
@@ -36,7 +33,7 @@ return {
     },
     strategies = {
       chat = {
-        adapter = "codex",
+        adapter = "claude_code",
         keymaps = {
 
           hide = {
@@ -51,16 +48,16 @@ return {
         },
       },
       inline = {
-        adapter = "codex",
+        adapter = "claude_code",
       },
       agent = {
-        adapter = "codex",
+        adapter = "claude_code",
       },
     },
   },
   keys = {
     {
-      "<leader>aa",
+      "<leader>cc;",
       function()
         require("codecompanion").toggle()
       end,
@@ -98,24 +95,6 @@ return {
       end,
       mode = { "v" },
       desc = "AI: Fix snippet",
-    },
-    {
-      "<leader>cc",
-      ":CodeCompanion<CR>",
-      desc = "Code Companion",
-    },
-    {
-      "<leader>cc;",
-      ":CodeCompanionActions<CR>",
-      desc = "Code Companion Actions",
-    },
-    {
-      "<leader>ccjs",
-      function()
-        require("codecompanion").prompt "js_docs"
-      end,
-      mode = { "v", "n" },
-      desc = "Run JS Docs AI workflow",
     },
     {
       "<leader>cct",

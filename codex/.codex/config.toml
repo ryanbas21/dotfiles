@@ -49,11 +49,6 @@ command = "npx"
 args = ["mcp-remote", "https://api.githubcopilot.com/mcp/"]
 env_key = "$GITHUB_TOKEN"
 
-[mcp_servers.nixos]
-command = "nix"
-args = ["run", "github:utensils/mcp-nixos"]
-env_key = "$GITHUB_TOKEN"
-
 [mcp_servers.package-registry]
 command = "npx"
 args = ["-y", "package-registry-mcp"]

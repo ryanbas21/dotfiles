@@ -61,7 +61,34 @@ M.servers = {
   -- zls = {}, -- removed upstream as of nvim-lspconfig v0.2.0
   -- grammarly = {},
   -- dockerls = {},
-  ts_ls = {},
+  ts_ls = {
+    settings = {
+      typescript = {
+        inlayHints = {
+          includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
+      },
+      javascript = {
+        inlayHints = {
+          includeInlayParameterNameHints = "all",
+          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayFunctionParameterTypeHints = true,
+          includeInlayVariableTypeHints = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+          includeInlayPropertyDeclarationTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayEnumMemberValueHints = true,
+        },
+      },
+    },
+  },
   elixirls = {
     cmd = { "$HOME/.local/share/nvim/mason/packages/elixir-ls/language_server.sh" },
   },
