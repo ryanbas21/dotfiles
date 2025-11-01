@@ -1,26 +1,29 @@
+-- lua/configs/lsp/init.lua
 local blink_cmp = require "blink.cmp"
-local lspconfig = require "lspconfig"
-
-local lspservers = require("configs.lsp.lsp_servers").servers
+local servers = require("configs.lsp.lsp_servers").servers
 local on_attach = require("configs.lsp.handlers").on_attach
-
 local capabilities = blink_cmp.get_lsp_capabilities()
 
-local configs_lib = require "lspconfig.configs"
+-- Set up LspAttach autocmd to handle on_attach for all servers
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    local bufnr = args.buf
+    if client then
+      on_attach(client, bufnr)
+    end
+  end,
+})
 
-for lsp, config in pairs(lspservers) do
-  local setup_config = {
+for server_name, value in pairs(servers) do
+  -- merge your defaults with each server's table
+  local cfg = vim.tbl_deep_extend("force", {
     capabilities = capabilities,
-    on_attach = on_attach,
-  }
+  }, value or {})
 
-  for k, v in pairs(config) do
-    setup_config[k] = v
-  end
+  -- Configure the server with settings first
+  vim.lsp.config(server_name, cfg)
 
-  if lspconfig[lsp] then
-    lspconfig[lsp].setup(setup_config)
-  else
-    print("LSP server '" .. lsp .. "' not found in lspconfig. Skipping setup.")
-  end
+  -- Then enable it
+  vim.lsp.enable(server_name)
 end

@@ -44,9 +44,9 @@ export GOOGLE_CLOUD_PROJECT=ryan-bas-sdk
 # load keys with pass
 export CACHIX_AUTH_TOKEN=$(pass show CACHIX/pat)
 export DEPOT_TOKEN=$(pass show DEPOT/pat)
+export CLAUDE_CODE_OAUTH_TOKEN=$(pass show anthropic/oauth_token)
 export GH_TOKEN=$(pass show GITHUB/pat)
 export GITHUB_TOKEN=$GH_TOKEN
-export ANTHROPIC_API_KEY=$(pass show anthropic/pat)
 export BRAVE_SEARCH_API_KEY=$(pass show BRAVE/pat)
 export BRAVE_API_KEY=$(pass show BRAVE/pat)
 export JIRA_API_TOKEN=$(pass show JIRA/pat)
