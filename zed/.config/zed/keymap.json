@@ -47,7 +47,7 @@
       // Format / code actions
       "space f m": "editor::Format",
       "space c a": "editor::ToggleCodeActions",
-      "space r n": "editor::ConfirmRename",
+      "space r n": "editor::Rename",
 
       // Git
       "space g d": "git::Diff",
