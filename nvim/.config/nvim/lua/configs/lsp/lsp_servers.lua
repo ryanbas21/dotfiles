@@ -65,13 +65,13 @@ M.servers = {
     settings = {
       typescript = {
         inlayHints = {
-          includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
-          includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          includeInlayParameterNameHints = "literals", -- 'none' | 'literals' | 'all'
+          includeInlayParameterNameHintsWhenArgumentMatchesName = false,
           includeInlayFunctionParameterTypeHints = true,
           includeInlayVariableTypeHints = true,
-          includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+          includeInlayVariableTypeHintsWhenTypeMatchesName = false,
           includeInlayPropertyDeclarationTypeHints = true,
-          includeInlayFunctionLikeReturnTypeHints = true,
+          includeInlayFunctionLikeReturnTypeHints = false,
           includeInlayEnumMemberValueHints = true,
         },
       },
@@ -90,7 +90,7 @@ M.servers = {
     },
   },
   elixirls = {
-    cmd = { "$HOME/.local/share/nvim/mason/packages/elixir-ls/language_server.sh" },
+    cmd = { vim.fn.expand("$HOME") .. "/.local/share/nvim/mason/packages/elixir-ls/language_server.sh" },
   },
 
   jsonls = {
@@ -116,10 +116,14 @@ M.servers = {
         workspace = {
           -- Make the server aware of Neovim runtime files
           library = vim.api.nvim_get_runtime_file("", true),
+          checkThirdParty = false,
         },
         -- Do not send telemetry data
         telemetry = {
           enable = false,
+        },
+        hint = {
+          enable = true,
         },
       },
     },

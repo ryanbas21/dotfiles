@@ -13,7 +13,7 @@ return {
   keys = {
     { "<leader>t", "", desc = "+test" },
     {
-      "<leader>tr",
+      "<leader>tf",
       function()
         require("neotest").run.run(vim.fn.expand "%")
       end,
@@ -63,7 +63,7 @@ return {
       desc = "Toggle Output Panel",
     },
     {
-      "<leader>ts",
+      "<leader>tS",
       function()
         require("neotest").run.stop()
       end,
