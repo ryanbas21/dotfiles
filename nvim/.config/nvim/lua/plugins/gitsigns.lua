@@ -58,7 +58,7 @@ return {
       desc = "Git blame full line",
     },
     {
-      "<leader>hR",
+      "<leader>hP",
       function()
         require("gitsigns").preview_hunk {}
       end,

@@ -19,7 +19,7 @@ return {
       },
       -- Whether the contents of a currently open hover window should be moved
       -- to a :h preview-window when pressing the hover keymap.
-      preview_window = false,
+      preview_window = true,
       title = true,
       mouse_providers = {
         "LSP",
@@ -37,21 +37,21 @@ return {
     },
     {
       "gK",
-      function(a)
-        require("hover").hover_select(a)
+      function()
+        require("hover").hover_select()
       end,
-      { desc = "hover.nvim" },
+      { desc = "hover select provider" },
     },
     {
-      "<C-t>",
-      function(a)
+      "<C-p>",
+      function()
         require("hover").hover_switch "previous"
       end,
       { desc = "hover previous provider" },
     },
     {
-      "<C-y>",
-      function(a)
+      "<C-n>",
+      function()
         require("hover").hover_switch "next"
       end,
       { desc = "hover next provider" },

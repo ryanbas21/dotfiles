@@ -55,14 +55,7 @@ return {
       function()
         require("search").open { tab_id = 4 }
       end,
-      desc = "telescope search git files",
-    },
-    {
-      "<leader>;",
-      function()
-        require("search").open { tab_id = 3 }
-      end,
-      desc = "telescope search repo",
+      desc = "Buffer git commits",
     },
   },
 }

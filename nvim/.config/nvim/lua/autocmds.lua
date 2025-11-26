@@ -1,16 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local lint = require "lint"
 
-vim.api.nvim_create_autocmd("User", {
-  pattern = "GitConflictDetected",
-  callback = function()
-    vim.notify("Conflict detected in " .. vim.fn.expand "<afile>")
-    vim.keymap.set("n", "cww", function()
-      engage.conflict_buster()
-      create_buffer_local_mappings()
-    end)
-  end,
-})
 -- user event that loads after UIEnter + only if file buf is there
 autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
   group = vim.api.nvim_create_augroup("NvFilePost", { clear = true }),
