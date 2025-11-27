@@ -9,5 +9,7 @@ dependencies:
 executables:
   my-xmonad:
     main: xmonad.hs
-    source-dirs: .
+    source-dirs:
+      - .
+      - lib
     ghc-options: [-threaded, -rtsopts, -with-rtsopts=-N]

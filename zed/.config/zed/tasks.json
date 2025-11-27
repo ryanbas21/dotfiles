@@ -35,8 +35,8 @@
   },
   {
     "label": "commit and push",
-    "command": "git",
-    "args": ["commit", ";", "git", "push"],
+    "command": "bash",
+    "args": ["-c", "git commit && git push"],
     "use_new_terminal": false,
     "allow_concurrent_runs": false,
     "reveal_target": "dock",
@@ -47,8 +47,8 @@
   },
   {
     "label": "commit amend and push",
-    "command": "git",
-    "args": ["commit", "--amend --no-edit", ";", "git", "push"],
+    "command": "bash",
+    "args": ["-c", "git commit --amend --no-edit && git push"],
     "use_new_terminal": false,
     "allow_concurrent_runs": false,
     "reveal_target": "dock",

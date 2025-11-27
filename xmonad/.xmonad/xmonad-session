@@ -5,11 +5,7 @@ if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
   eval "$(dbus-launch --sh-syntax --exit-with-session)"
 fi
 
-# Start policykit/gnome-keyring/etc. if you need them
-# /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+# All startup apps (picom, polybar, dunst, etc.) are handled by
+# xmonad's myStartupHook in lib/Config.hs via spawnOnce
 
-# Start compositor (picom) in background
-picom &
-
-# Finally replace this script with xmonad
 exec xmonad
