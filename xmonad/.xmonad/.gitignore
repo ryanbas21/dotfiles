@@ -1,0 +1,32 @@
+# Stack build directories
+.stack-work/
+.stack-root/
+
+# Cabal build
+dist/
+dist-*/
+
+# GHC build artifacts
+*.o
+*.hi
+*.hie
+*.dyn_o
+*.dyn_hi
+
+# GHC environment files
+.ghc.environment.*
+
+# Cabal sandbox (if ever used)
+cabal.sandbox.config
+cabal.sandbox.config.lock
+cabal-dev/
+sandbox.config
+.cabal-sandbox/
+
+# Generated docs
+*.hp
+*.prof
+*.aux
+*.ps
+*.pdf
+

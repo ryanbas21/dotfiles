@@ -156,7 +156,9 @@ export FZF_CTRL_R_OPTS="
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# FZF keybindings and completion (Arch Linux paths)
+[[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
+[[ -f /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh
 [[ -f ~/fzf-gitbindings.zsh ]] && source ~/fzf-gitbindings.zsh
 
 # =============================================================================
@@ -164,30 +166,15 @@ export FZF_CTRL_R_OPTS="
 # =============================================================================
 export NVM_DIR="$HOME/.nvm"
 
-nvm() {
-  unset -f nvm node npm npx
+_nvm_lazy_load() {
+  unset -f nvm node npm npx _nvm_lazy_load
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-  nvm "$@"
 }
 
-node() {
-  unset -f nvm node npm npx
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  node "$@"
-}
-
-npm() {
-  unset -f nvm node npm npx
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  npm "$@"
-}
-
-npx() {
-  unset -f nvm node npm npx
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  npx "$@"
-}
+for cmd in nvm node npm npx; do
+  eval "$cmd() { _nvm_lazy_load; $cmd \"\$@\"; }"
+done
 
 # =============================================================================
 # History Configuration

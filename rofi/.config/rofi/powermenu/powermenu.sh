@@ -82,6 +82,10 @@ run_cmd() {
 				i3-msg exit
 			elif [[ "$DESKTOP_SESSION" == 'plasma' ]]; then
 				qdbus org.kde.ksmserver /KSMServer logout 0 0 0
+			elif [[ "$DESKTOP_SESSION" == 'xmonad' ]]; then
+				pkill -u "$USER" xmonad
+			else
+				loginctl terminate-user "$USER"
 			fi
 		fi
 	else
@@ -112,7 +116,7 @@ case ${chosen} in
 		systemctl suspend
         ;;
     $logout)
-		i3-msg exit
+		run_cmd --logout
         ;;
 esac
 
