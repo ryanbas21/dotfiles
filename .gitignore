@@ -41,3 +41,8 @@ programming/system-scripts/result
 
 xmonad/.xmonad/.stack-work
 .git
+
+# Secrets - NEVER commit these
+ryanbas21.priv.asc
+*.priv.asc
+.password-store/
