@@ -110,6 +110,7 @@ path=(
   "$HOME/.cache/rebar3/bin"
   "/usr/local/bin/opam"
   "/var/lib/snapd/snap/bin"
+  "$HOME/.proto/tools/node/globals/bin"
   $path
 )
 export PATH
@@ -160,21 +161,6 @@ export FZF_CTRL_R_OPTS="
 [[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
 [[ -f /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh
 [[ -f ~/fzf-gitbindings.zsh ]] && source ~/fzf-gitbindings.zsh
-
-# =============================================================================
-# NVM (lazy-loaded)
-# =============================================================================
-export NVM_DIR="$HOME/.nvm"
-
-_nvm_lazy_load() {
-  unset -f nvm node npm npx _nvm_lazy_load
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-}
-
-for cmd in nvm node npm npx; do
-  eval "$cmd() { _nvm_lazy_load; $cmd \"\$@\"; }"
-done
 
 # =============================================================================
 # History Configuration

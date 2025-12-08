@@ -10,35 +10,33 @@
 ## style-1   style-2   style-3   style-4   style-5
 
 # Current Theme
-dir="$HOME/.config/rofi/powermenu/type-5"
-theme='style-3'
+dir="$HOME/.config/rofi/powermenu/type-1"
+theme='style-1'
 
 # CMDs
-lastlogin="`last $USER | head -n1 | tr -s ' ' | cut -d' ' -f5,6,7`"
 uptime="`uptime -p | sed -e 's/up //g'`"
-host=`hostname`
+host=$(cat /etc/hostname)
 
 # Options
-hibernate=''
-shutdown=''
-reboot=''
-lock=''
-suspend=''
-logout=''
-yes=''
-no=''
+shutdown=' Shutdown'
+reboot=' Reboot'
+lock=' Lock'
+suspend=' Suspend'
+logout=' Logout'
+yes=' Yes'
+no=' No'
 
 # Rofi CMD
 rofi_cmd() {
 	rofi -dmenu \
-		-p " $USER@$host" \
-		-mesg " Last Login: $lastlogin |  Uptime: $uptime" \
+		-p "$host" \
+		-mesg "Uptime: $uptime" \
 		-theme ${dir}/${theme}.rasi
 }
 
 # Confirmation CMD
 confirm_cmd() {
-	rofi -theme-str 'window {location: center; anchor: center; fullscreen: false; width: 350px;}' \
+	rofi -theme-str 'window {location: center; anchor: center; fullscreen: false; width: 250px;}' \
 		-theme-str 'mainbox {children: [ "message", "listview" ];}' \
 		-theme-str 'listview {columns: 2; lines: 1;}' \
 		-theme-str 'element-text {horizontal-align: 0.5;}' \
@@ -56,7 +54,7 @@ confirm_exit() {
 
 # Pass variables to rofi dmenu
 run_rofi() {
-	echo -e "$lock\n$suspend\n$logout\n$hibernate\n$reboot\n$shutdown" | rofi_cmd
+	echo -e "$lock\n$suspend\n$logout\n$reboot\n$shutdown" | rofi_cmd
 }
 
 # Execute Command
@@ -67,25 +65,22 @@ run_cmd() {
 			systemctl poweroff
 		elif [[ $1 == '--reboot' ]]; then
 			systemctl reboot
-		elif [[ $1 == '--hibernate' ]]; then
-			systemctl hibernate
 		elif [[ $1 == '--suspend' ]]; then
 			mpc -q pause
 			amixer set Master mute
 			systemctl suspend
 		elif [[ $1 == '--logout' ]]; then
-			if [[ "$DESKTOP_SESSION" == 'openbox' ]]; then
+			if pgrep -x openbox > /dev/null; then
 				openbox --exit
-			elif [[ "$DESKTOP_SESSION" == 'bspwm' ]]; then
+			elif pgrep -x bspwm > /dev/null; then
 				bspc quit
-			elif [[ "$DESKTOP_SESSION" == 'i3' ]]; then
+			elif pgrep -x i3 > /dev/null; then
 				i3-msg exit
-			elif [[ "$DESKTOP_SESSION" == 'plasma' ]]; then
+			elif pgrep -x plasmashell > /dev/null; then
 				qdbus org.kde.ksmserver /KSMServer logout 0 0 0
-			elif [[ "$DESKTOP_SESSION" == 'xmonad' ]]; then
-				pkill -u "$USER" xmonad
 			else
-				loginctl terminate-user "$USER"
+				# Generic logout - works with any display manager
+				pkill -KILL -u "$USER"
 			fi
 		fi
 	else
@@ -97,13 +92,10 @@ run_cmd() {
 chosen="$(run_rofi)"
 case ${chosen} in
     $shutdown)
-		systemctl poweroff
+		run_cmd --shutdown
         ;;
     $reboot)
-		systemctl reboot
-        ;;
-    $hibernate)
-		systemctl hibernate
+		run_cmd --reboot
         ;;
     $lock)
 		if [[ -x '/usr/bin/betterlockscreen' ]]; then
@@ -113,10 +105,9 @@ case ${chosen} in
 		fi
         ;;
     $suspend)
-		systemctl suspend
+		run_cmd --suspend
         ;;
     $logout)
 		run_cmd --logout
         ;;
 esac
-

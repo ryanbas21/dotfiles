@@ -1,8 +1,12 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  event = { "BufReadPost", "BufNewFile" },
+  build = ":TSUpdate",
+  main = "nvim-treesitter.configs",
   opts = {
-    ignore_install = {},
+    highlight = { enable = true },
     ensure_installed = {
+      "purescript",
       "vim",
       "lua",
       "vimdoc",

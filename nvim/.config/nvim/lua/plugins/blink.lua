@@ -102,10 +102,21 @@ return {
       },
     },
     signature = {
-
       enabled = true,
+      trigger = {
+        -- Show signature help automatically when typing trigger characters
+        enabled = true,
+        show_on_insert = true,
+      },
+      window = {
+        show_documentation = true,
+      },
     },
     completion = {
+      documentation = {
+        auto_show = true,
+        auto_show_delay_ms = 100,
+      },
       menu = {
         draw = {
           treesitter = { "lsp" },
@@ -146,7 +157,11 @@ return {
     sources = {
       default = { "lsp", "snippets", "path", "buffer", "codecompanion" },
       providers = {
+        lsp = {
+          score_offset = 100, -- prioritize LSP results
+        },
         snippets = {
+          score_offset = 50,
           should_show_items = function(ctx)
             return ctx.trigger.initial_kind ~= "trigger_character"
           end,

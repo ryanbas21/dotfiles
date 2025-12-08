@@ -29,7 +29,7 @@ myModMask :: KeyMask
 myModMask = mod1Mask -- Alt key
 
 myWorkspaces :: [WorkspaceId]
-myWorkspaces = map show [1 .. 10 :: Int]
+myWorkspaces = map show [1 .. 9 :: Int]
 
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
