@@ -126,12 +126,7 @@ return {
 
             experimental = {
               telescope = {
-                -- If true, a telescope picker will be used for `:NeotestPlaywrightProject`.
-                -- Otherwise, `vim.ui.select` is used.
-                -- In normal mode, `<Tab>` toggles the project under the cursor.
-                -- `<CR>` (enter key) applies the selection.
-                enabled = true,
-                opts = {},
+                enabled = false, -- Use vim.ui.select (snacks.input) instead
               },
             },
           },

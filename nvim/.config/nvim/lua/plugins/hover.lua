@@ -50,7 +50,7 @@ return {
       { desc = "hover previous provider" },
     },
     {
-      "<C-n>",
+      "<C-y>",
       function()
         require("hover").hover_switch "next"
       end,

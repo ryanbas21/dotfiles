@@ -25,12 +25,17 @@ return {
     zen = { enabled = false },
   },
   keys = {
-    {
-      "<C-n>",
-      function()
-        require("snacks").explorer.open()
-      end,
-      desc = "Open Snacks Explorer",
-    },
+    -- Explorer
+    { "<C-n>", function() Snacks.explorer.open() end, desc = "Explorer" },
+    -- Picker (replaces telescope)
+    { "<leader>ff", function() Snacks.picker.files() end, desc = "Find files" },
+    { "<leader><leader>", function() Snacks.picker.git_files() end, desc = "Git files" },
+    { "<leader>fg", function() Snacks.picker.grep() end, desc = "Grep" },
+    { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+    { "<leader>;", function() Snacks.picker.lines() end, desc = "Buffer lines" },
+    { "<leader>fh", function() Snacks.picker.help() end, desc = "Help" },
+    { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent files" },
+    { "<leader>fc", function() Snacks.picker.git_log() end, desc = "Git commits" },
+    { "<leader>th", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
   },
 }
