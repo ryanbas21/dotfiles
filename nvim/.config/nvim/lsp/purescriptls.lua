@@ -6,6 +6,9 @@ return {
   settings = {
     purescript = {
       formatter = "purs-tidy",
+      addSpagoSources = true,
+      addNpmPath = true,
+      autocompleteAddImport = true,
     },
   },
 }

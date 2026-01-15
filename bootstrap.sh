@@ -133,8 +133,6 @@ PACMAN_DESKTOP=(
   flameshot
   network-manager-applet
   brightnessctl
-  pulseaudio
-  pulseaudio-alsa
   pamixer
   alacritty
   xclip
@@ -150,11 +148,10 @@ PACMAN_HASKELL=(
 )
 
 AUR_PACKAGES=(
-  ghostty-git
-  nerd-fonts-hack
-  nerd-fonts-fira-code
-  nerd-fonts-jetbrains-mono
-  nerd-fonts-symbols-only
+  ttf-hack-nerd
+  ttf-firacode-nerd
+  ttf-jetbrains-mono-nerd
+  ttf-nerd-fonts-symbols
   gammastep
 )
 
@@ -211,20 +208,22 @@ install_homebrew() {
   log_success "Homebrew installed"
 }
 
-install_yay() {
-  if command_exists yay; then
-    log_info "yay already installed"
+install_paru() {
+  if command_exists paru; then
+    log_info "paru already installed"
     return 0
   fi
 
-  log_info "Installing yay (AUR helper)..."
+  log_info "Installing paru (AUR helper)..."
+  sudo pacman -S --needed --noconfirm base-devel git
+
   local tmp_dir
   tmp_dir=$(mktemp -d)
-  git clone https://aur.archlinux.org/yay.git "$tmp_dir/yay"
-  (cd "$tmp_dir/yay" && makepkg -si --noconfirm)
+  git clone https://aur.archlinux.org/paru.git "$tmp_dir/paru"
+  (cd "$tmp_dir/paru" && makepkg -si --noconfirm)
   rm -rf "$tmp_dir"
 
-  log_success "yay installed"
+  log_success "paru installed"
 }
 
 install_arch_packages() {
@@ -242,7 +241,7 @@ install_arch_packages() {
 
   # Install AUR packages
   log_info "Installing AUR packages..."
-  yay -S --needed --noconfirm "${AUR_PACKAGES[@]}"
+  paru -S --needed --noconfirm "${AUR_PACKAGES[@]}"
 
   INSTALLED_PACKAGES+=("${AUR_PACKAGES[@]}")
   log_success "AUR packages installed"
@@ -636,7 +635,7 @@ main() {
   if is_macos; then
     install_homebrew
   else
-    install_yay
+    install_paru
   fi
 
   # 3. Install packages

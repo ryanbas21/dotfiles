@@ -6,7 +6,7 @@ set -euo pipefail
 # Config
 # -----------------------
 export BORG_REPO="/mnt/synology/backups"
-export BORG_PASSPHRASE=$( pass show BORG/password )
+export BORG_PASSPHRASE=basded
 
 MOUNT_POINT="/mnt/synology"
 REQUIRED_FS_TYPES=("cifs" "nfs" "nfs4")
@@ -57,7 +57,7 @@ if [[ -f "$LAST_BACKUP_FILE" ]]; then
   LAST_BACKUP="$(cat "$LAST_BACKUP_FILE" || echo 0)"
   CURRENT_TIME="$(date +%s)"
   TIME_DIFF=$(( CURRENT_TIME - LAST_BACKUP ))
-  if (( TIME_DIFF < 4 * 3600 )); then
+  if (( TIME_DIFF < 0 * 3600 )); then
     HOURS_DIFF=$(( TIME_DIFF / 3600 ))
     log "Last backup was ${HOURS_DIFF} hour(s) ago, skipping to prevent excessive backups..."
     exit 0
@@ -155,6 +155,7 @@ log "  - Security configs..."
 sudo cp -r /etc/pam.d "$TEMP_DIR/" 2>/dev/null || true
 sudo cp -r /etc/sudoers.d "$TEMP_DIR/" 2>/dev/null || true
 sudo cp -r /etc/ssh "$TEMP_DIR/" 2>/dev/null || true
+sudo cp -r /etc/wireguard "$TEMP_DIR/" 2>/dev/null || true
 
 # Systemd services
 log "  - Systemd services..."
@@ -224,6 +225,8 @@ BORG_CMD=( borg create --lock-wait 300 --verbose --stats --compression zstd,3 \
   "$BORG_REPO::ryan-{now}" \
   /etc \
   /home/ryan \
+  /var/lib/tailscale \
+  /.snapshots \
   "$TEMP_DIR" \
   --exclude '/home/ryan/.cache' \
   --exclude '/home/ryan/.local/share/Trash' \
@@ -233,10 +236,12 @@ BORG_CMD=( borg create --lock-wait 300 --verbose --stats --compression zstd,3 \
   --exclude '/home/ryan/.cargo/registry' \
   --exclude '/home/ryan/.rustup' \
   --exclude '/home/ryan/.local/share/virtualenvs' \
+  --exclude '/home/ryan/.proto/cache' \
+  --exclude '/home/ryan/.proto/tools' \
+  --exclude '/home/ryan/.proto/temp' \
   --exclude '*.tmp' \
   --exclude '*.log' \
   --exclude 'node_modules' \
-  --exclude '.git' \
   --exclude '__pycache__' )
 
 # Run borg with nice/ionice if available
@@ -292,5 +297,16 @@ borg prune --lock-wait 300 \
 # -----------------------
 log "Compacting repository..."
 borg compact --lock-wait 300 "$BORG_REPO"
+
+# -----------------------
+# Sync snapshots to NAS (unencrypted, direct access)
+# -----------------------
+log "Syncing btrfs snapshots to NAS..."
+if [[ -d "/.snapshots" ]]; then
+  sudo rsync -a --delete /.snapshots/ "$MOUNT_POINT/snapshots/root/" 2>/dev/null || log "WARNING: Failed to sync root snapshots"
+fi
+if [[ -d "/home/.snapshots" ]]; then
+  sudo rsync -a --delete /home/.snapshots/ "$MOUNT_POINT/snapshots/home/" 2>/dev/null || log "WARNING: Failed to sync home snapshots"
+fi
 
 log "Backup and cleanup finished!"

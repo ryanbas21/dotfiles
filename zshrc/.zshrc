@@ -6,6 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
+export BORG_PASSPHRASE=$(pass show BORG/password)
 # =============================================================================
 # Zplug Plugin Manager
 # =============================================================================
