@@ -16,7 +16,7 @@ return {
       typescript = { "eslint_d", "dprint", "prettierd", "biome", stop_after_first = true },
       javascript = { "eslint_d", "dprint", "prettierd", "biome", stop_after_first = true },
       typescriptreact = { "prettierd", "biome", stop_after_first = true },
-      json = { "prettierd", stop_after_first = true },
+      json = { "eslint_d", "prettierd" },
       javascriptreact = { "prettierd", "biome", stop_after_first = true },
       purescript = { "purs-tidy", stop_after_first = true },
       luals = { "stylua", stop_after_first = true },

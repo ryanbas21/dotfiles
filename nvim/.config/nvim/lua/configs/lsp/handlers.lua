@@ -84,7 +84,6 @@ local function on_attach(client, bufnr)
     end, "Signature help", "i")
   end
 
-
   if client:supports_method "textDocument/documentHighlight" then
     local under_cursor_highlights_group = vim.api.nvim_create_augroup("mariasolos/cursor_highlights", { clear = false })
     vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
