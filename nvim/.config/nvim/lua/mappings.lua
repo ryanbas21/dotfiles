@@ -13,3 +13,10 @@ map("n", "<leader>st", "<cmd>TwoslashQueriesInspect<CR>", { silent = true, desc 
 map("n", "<leader>,", ":nohl<CR>")
 map("i", "jk", "<ESC>")
 map("n", ",,", "<C-6>")
+
+-- ESLint fix current file (works for JSON and other eslint_d supported files)
+map("n", "<leader>ef", function()
+  local file = vim.fn.expand("%:p")
+  vim.cmd("silent !eslint_d --fix " .. vim.fn.shellescape(file))
+  vim.cmd("edit") -- reload the buffer
+end, { desc = "ESLint fix current file" })
