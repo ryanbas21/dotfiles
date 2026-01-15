@@ -39,13 +39,6 @@ local function on_attach(client, bufnr)
     vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR }
   end, "Next error")
 
-  if client:supports_method "textDocument/codeAction" then
-    local ok, lightbulb = pcall(require, "lightbulb")
-    if ok then
-      lightbulb.attach_lightbulb(bufnr, client)
-    end
-  end
-
   -- Document color support (Neovim 0.11+)
   if vim.lsp.document_color then
     vim.lsp.document_color.enable(true, bufnr)
@@ -91,30 +84,6 @@ local function on_attach(client, bufnr)
     end, "Signature help", "i")
   end
 
-  -- Auto-show hover info in insert mode after a brief pause.
-  -- Useful for seeing type signatures while typing (e.g., HalogenM in PureScript).
-  if client:supports_method "textDocument/hover" then
-    local hover_group = vim.api.nvim_create_augroup("auto_hover_insert", { clear = false })
-    vim.api.nvim_create_autocmd("CursorHoldI", {
-      group = hover_group,
-      buffer = bufnr,
-      callback = function()
-        -- Don't show hover if completion menu is open
-        local blink_ok, blink_menu = pcall(require, "blink.cmp.completion.windows.menu")
-        if blink_ok and blink_menu.win:is_open() then
-          return
-        end
-
-        -- Use hover.nvim if available, otherwise fall back to built-in
-        local hover_ok, hover = pcall(require, "hover")
-        if hover_ok then
-          hover.hover()
-        else
-          vim.lsp.buf.hover()
-        end
-      end,
-    })
-  end
 
   if client:supports_method "textDocument/documentHighlight" then
     local under_cursor_highlights_group = vim.api.nvim_create_augroup("mariasolos/cursor_highlights", { clear = false })

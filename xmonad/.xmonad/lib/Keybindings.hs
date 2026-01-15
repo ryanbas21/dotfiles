@@ -99,7 +99,7 @@ windowKeys =
 
 layoutKeys :: [(String, X ())]
 layoutKeys =
-  [ ("M-c", sendMessage NextLayout),
+  [ ("M-e", sendMessage NextLayout),
     ("M-f", sendMessage $ Toggle NBFULL), -- Toggle fullscreen
     ("M-g", sendMessage ToggleStruts), -- Toggle bar gap
 
