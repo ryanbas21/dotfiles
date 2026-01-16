@@ -5,6 +5,10 @@ return {
     priority = 999,
     lazy = false,
     build = "make extras",
+    config = function(_, opts)
+      require("onedarkpro").setup(opts)
+      vim.cmd.colorscheme "onedark_vivid"
+    end,
     opts = {
       colors = {
         vaporwave = {

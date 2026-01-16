@@ -1,5 +1,7 @@
 return {
+
   "olimorris/codecompanion.nvim",
+  enabled = true,
   config = true,
   dependencies = {
     -- "ravitemer/codecompanion-history.nvim",
@@ -14,7 +16,7 @@ return {
         callback = "mcphub.extensions.codecompanion",
         opts = {
           show_result_in_chat = true, -- Show mcp tool results in chat
-          make_vars = true, -- Convert resources to #variables
+          make_vars = false, -- Disabled: mcphub extension incompatible with latest codecompanion (no config.interactions.chat.variables)
           make_slash_commands = true, -- Add prompts as /slash commands
         },
       },

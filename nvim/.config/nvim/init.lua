@@ -6,33 +6,22 @@ local sep = is_windows and "\\" or "/"
 local delim = is_windows and ";" or ":"
 vim.env.PATH = table.concat({ vim.fn.stdpath "data", "mason", "bin" }, sep) .. delim .. vim.env.PATH
 
--- bootstrap lazy and all plugins
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   local repo = "https://github.com/folke/lazy.nvim.git"
   vim.fn.system { "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath }
 end
-
 vim.opt.rtp:prepend(lazypath)
 
-local lazy = require "lazy"
-local lazy_config = require "configs.lazy"
+-- Load plugins
+require("lazy").setup({
+  { import = "plugins" },
+}, require "configs.lazy")
 
-vim.diagnostic.config {
-  virtual_lines = { only_current_line = true },
-}
-
+-- Deferred loads
 vim.schedule(function()
   require "mappings"
   require "options"
   require "autocmds"
 end)
--- load plugins
-lazy.setup({
-  { import = "plugins" },
-}, lazy_config)
-
-vim.opt.relativenumber = true
-
-vim.cmd "colorscheme onedark_vivid"

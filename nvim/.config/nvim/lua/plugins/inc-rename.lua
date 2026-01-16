@@ -2,7 +2,7 @@ return {
   "smjonas/inc-rename.nvim",
   event = "LspAttach",
   keys = {
-    { "<leader>rn", ":IncRename ", desc = "Rename under curosr" },
+    { "<leader>rn", ":IncRename ", desc = "Rename under cursor" },
   },
   config = function()
     require("inc_rename").setup {}

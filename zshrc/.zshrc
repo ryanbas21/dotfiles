@@ -70,7 +70,7 @@ _load_secret() {
 # Define lazy loaders - secrets load on first use
 _load_secret CACHIX_AUTH_TOKEN CACHIX/pat
 _load_secret DEPOT_TOKEN DEPOT/pat
-_load_secret CLAUDE_CODE_OAUTH_TOKEN anthropic/oauth_token
+# _load_secret CLAUDE_CODE_OAUTH_TOKEN anthropic/oauth_token
 _load_secret JIRA_API_TOKEN JIRA/pat
 _load_secret CONTEXT7_PAT CONTEXT7/pat
 
@@ -78,8 +78,9 @@ _load_secret CONTEXT7_PAT CONTEXT7/pat
 load-secrets() {
   export CACHIX_AUTH_TOKEN=$(pass show CACHIX/pat)
   export DEPOT_TOKEN=$(pass show DEPOT/pat)
-  export CLAUDE_CODE_OAUTH_TOKEN=$(pass show anthropic/oauth_token)
+  # export CLAUDE_CODE_OAUTH_TOKEN=$(pass show anthropic/oauth_token)
   export GH_TOKEN=$(pass show GITHUB/pat)
+  export GITHUB_PERSONAL_ACCESS_TOKEN=$GH_TOKEN
   export GITHUB_TOKEN=$GH_TOKEN
   export BRAVE_SEARCH_API_KEY=$(pass show BRAVE/pat)
   export BRAVE_API_KEY=$(pass show BRAVE/pat)
@@ -87,6 +88,7 @@ load-secrets() {
   export CONTEXT7_PAT=$(pass show CONTEXT7/pat)
   echo "All secrets loaded."
 }
+load-secrets
 
 # GitHub token is often needed immediately by git/gh - lazy load it
 gh() {
@@ -141,6 +143,7 @@ fi
 # =============================================================================
 [ -n "$NVIM_LISTEN_ADDRESS" ] && export FZF_DEFAULT_OPTS='--no-height'
 
+source <(fzf --zsh)
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --follow --hidden -E .git -E node_modules -E .stack-work'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
@@ -158,9 +161,21 @@ export FZF_CTRL_R_OPTS="
   --color header:italic
   --header 'Press CTRL-Y to copy command into clipboard'"
 
-# FZF keybindings and completion (Arch Linux paths)
-[[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
-[[ -f /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh
+# FZF keybindings and completion
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  # Homebrew (Apple Silicon / Intel)
+  for fzf_base in /opt/homebrew/opt/fzf "$HOME/.fzf"; do
+    if [[ -d "$fzf_base" ]]; then
+      [[ -f "$fzf_base/shell/key-bindings.zsh" ]] && source "$fzf_base/shell/key-bindings.zsh"
+      [[ -f "$fzf_base/shell/completion.zsh" ]] && source "$fzf_base/shell/completion.zsh"
+      break
+    fi
+  done
+else
+  # Linux (Arch, Ubuntu, etc.)
+  [[ -f /usr/share/fzf/key-bindings.zsh ]] && source /usr/share/fzf/key-bindings.zsh
+  [[ -f /usr/share/fzf/completion.zsh ]] && source /usr/share/fzf/completion.zsh
+fi
 [[ -f ~/fzf-gitbindings.zsh ]] && source ~/fzf-gitbindings.zsh
 
 # =============================================================================

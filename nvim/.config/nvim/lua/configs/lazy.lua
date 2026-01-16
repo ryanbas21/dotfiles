@@ -1,5 +1,6 @@
 return {
   defaults = { lazy = true },
+  rocks = { enabled = false },
 
   ui = {
     icons = {

@@ -1,9 +1,24 @@
 local autocmd = vim.api.nvim_create_autocmd
-local lint = require "lint"
+local augroup = vim.api.nvim_create_augroup
 
--- user event that loads after UIEnter + only if file buf is there
+-- Treesitter Patch --------------------------------------------------------
+-- Neovim 0.12 crash: node:range() on nil/invalid nodes
+-- See: languagetree.lua:196 "attempt to call method 'range' (a nil value)"
+do
+  local original_get_range = vim.treesitter.get_range
+  ---@diagnostic disable-next-line: duplicate-set-field
+  vim.treesitter.get_range = function(node, source, metadata)
+    if not node or not node.range then
+      return { 0, 0, 0, 0, 0, 0 }
+    end
+    return original_get_range(node, source, metadata)
+  end
+end
+
+-- File Post ----------------------------------------------------------------
+-- User event that loads after UIEnter + only if file buf is there
 autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
-  group = vim.api.nvim_create_augroup("NvFilePost", { clear = true }),
+  group = augroup("user/file-post", { clear = true }),
   callback = function(args)
     local file = vim.api.nvim_buf_get_name(args.buf)
     local buftype = vim.api.nvim_get_option_value("buftype", { buf = args.buf })
@@ -14,7 +29,7 @@ autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
 
     if file ~= "" and buftype ~= "nofile" and vim.g.ui_entered then
       vim.api.nvim_exec_autocmds("User", { pattern = "FilePost", modeline = false })
-      vim.api.nvim_del_augroup_by_name "NvFilePost"
+      vim.api.nvim_del_augroup_by_name "user/file-post"
 
       vim.schedule(function()
         vim.api.nvim_exec_autocmds("FileType", {})
@@ -27,46 +42,28 @@ autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "BufEnter" }, {
+-- Linting ------------------------------------------------------------------
+autocmd({ "BufWritePost", "InsertLeave", "BufEnter" }, {
+  group = augroup("user/linting", { clear = true }),
   callback = function()
-    lint.try_lint()
+    require("lint").try_lint()
   end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function(args)
-    require("conform").format { bufnr = args.buf }
-  end,
-})
-
-vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+-- Quickfix -----------------------------------------------------------------
+autocmd("QuickFixCmdPost", {
+  group = augroup("user/quickfix", { clear = true }),
   callback = function()
     vim.cmd [[Trouble qflist open]]
   end,
 })
 
-local group = vim.api.nvim_create_augroup("CodeCompanionHooks", {})
-
-vim.api.nvim_create_autocmd("User", {
-  group = group,
+-- CodeCompanion ------------------------------------------------------------
+autocmd("User", {
+  group = augroup("user/codecompanion", { clear = true }),
   callback = function(request)
     if request.match == "CodeCompanionInlineFinished" then
-      -- Format the buffer after the inline request has completed
       require("conform").format { bufnr = request.buf }
     end
-  end,
-})
-vim.api.nvim_create_autocmd("User", {
-  pattern = "BlinkCmpMenuOpen",
-  callback = function()
-    vim.b.copilot_suggestion_hidden = true
-  end,
-})
-
-vim.api.nvim_create_autocmd("User", {
-  pattern = "BlinkCmpMenuClose",
-  callback = function()
-    vim.b.copilot_suggestion_hidden = false
   end,
 })
