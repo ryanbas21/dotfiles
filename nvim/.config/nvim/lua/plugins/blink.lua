@@ -1,14 +1,11 @@
 return {
   "saghen/blink.cmp",
   event = "InsertEnter",
-  build = "cargo +nightly build --release",
   version = "1.*",
   dependencies = {
-    "giuxtaposition/blink-cmp-copilot",
     "moyiz/blink-emoji.nvim",
     "Kaiser-Yang/blink-cmp-dictionary",
     "onsails/lspkind.nvim",
-    "zbirenbaum/copilot.lua",
     "olimorris/codecompanion.nvim",
     {
       "L3MON4D3/LuaSnip",
@@ -30,13 +27,6 @@ return {
         },
       },
       keys = {
-        {
-          "<C-k>",
-          function()
-            require("luasnip").expand()
-          end,
-          mode = { "i" },
-        },
         {
           "<C-j>",
           function()
@@ -159,6 +149,12 @@ return {
       providers = {
         lsp = {
           score_offset = 100, -- prioritize LSP results
+          -- tsgo (v7.0.0-dev) can take >2s on large projects; the default 2000ms
+          -- timeout causes blink to emit 0 items and hide the menu before tsgo
+          -- responds. Setting async = true makes blink show other sources
+          -- immediately and stream LSP results in when they arrive, instead of
+          -- dropping them on timeout.
+          async = true,
         },
         snippets = {
           score_offset = 50,
@@ -166,11 +162,8 @@ return {
             return ctx.trigger.initial_kind ~= "trigger_character"
           end,
         },
-        copilot = {
-          name = "copilot",
-          module = "blink-cmp-copilot",
-          score_offset = 100,
-          async = true,
+        buffer = {
+          score_offset = -50,
         },
       },
       per_filetype = {

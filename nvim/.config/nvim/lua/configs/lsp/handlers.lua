@@ -5,15 +5,19 @@ local diagnostic_icons = {
   HINT = "",
 }
 
-local M = {}
-
--- Disable inlay hints initially (and enable if needed with my ToggleInlayHints command).
+-- Disable inlay hints initially (toggle with ToggleInlayHints).
 vim.g.inlay_hints = false
 
---- Sets up LSP keymaps and autocommands for the given buffer.
----@param client vim.lsp.Client
----@param bufnr integer
+-- LSP servers whose completionProvider should be disabled to prevent
+-- blocking blink.cmp's task.all across all completion clients.
+local completion_disabled_servers = { "tailwindcss", "angularls" }
+
 local function on_attach(client, bufnr)
+  -- Disable completionProvider for slow/problematic LSP servers.
+  if vim.tbl_contains(completion_disabled_servers, client.name) then
+    client.server_capabilities.completionProvider = nil
+  end
+
   ---@param lhs string
   ---@param rhs string|function
   ---@param opts string|vim.keymap.set.Opts
@@ -41,12 +45,16 @@ local function on_attach(client, bufnr)
 
   -- Document color support (Neovim 0.11+)
   if vim.lsp.document_color then
-    vim.lsp.document_color.enable(true, bufnr)
+    vim.lsp.document_color.enable(true, { bufnr = bufnr })
     if client:supports_method "textDocument/documentColor" then
       keymap("grc", function()
         vim.lsp.document_color.color_presentation()
       end, "vim.lsp.document_color.color_presentation()", { "n", "x" })
     end
+  end
+
+  if client:supports_method "textDocument/codeAction" then
+    keymap("<leader>qf", vim.lsp.buf.code_action, "LSP code action")
   end
 
   if client:supports_method "textDocument/references" then
@@ -85,7 +93,7 @@ local function on_attach(client, bufnr)
   end
 
   if client:supports_method "textDocument/documentHighlight" then
-    local under_cursor_highlights_group = vim.api.nvim_create_augroup("mariasolos/cursor_highlights", { clear = false })
+    local under_cursor_highlights_group = vim.api.nvim_create_augroup("user/cursor_highlights", { clear = false })
     vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
       group = under_cursor_highlights_group,
       desc = "Highlight references under the cursor",
@@ -101,7 +109,7 @@ local function on_attach(client, bufnr)
   end
 
   if client:supports_method "textDocument/inlayHint" then
-    local inlay_hints_group = vim.api.nvim_create_augroup("mariasolos/toggle_inlay_hints", { clear = false })
+    local inlay_hints_group = vim.api.nvim_create_augroup("user/toggle_inlay_hints", { clear = false })
 
     if vim.g.inlay_hints then
       -- Initial inlay hint display.
@@ -205,6 +213,7 @@ vim.diagnostic.config {
     end,
   },
   -- Disable signs in the gutter.
+  virtual_lines = { only_current_line = true },
   signs = false,
 }
 
@@ -221,15 +230,7 @@ vim.diagnostic.handlers.virtual_text = {
   hide = hide_handler,
 }
 
-local hover = vim.lsp.buf.hover
----@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.buf.hover = function()
-  return hover {
-    max_height = math.floor(vim.o.lines * 0.5),
-    max_width = math.floor(vim.o.columns * 0.4),
-  }
-end
-
+-- hover.nvim handles K/hover — only override signature_help sizing here.
 local signature_help = vim.lsp.buf.signature_help
 ---@diagnostic disable-next-line: duplicate-set-field
 vim.lsp.buf.signature_help = function()
@@ -270,8 +271,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- Extend neovim's client capabilities with the completion ones.
 vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities(nil, true) })
 
+local config_lsp_dir = vim.fn.stdpath("config") .. "/lsp"
 local servers = vim
   .iter(vim.api.nvim_get_runtime_file("lsp/*.lua", true))
+  :filter(function(file)
+    return vim.startswith(file, config_lsp_dir)
+  end)
   :map(function(file)
     return vim.fn.fnamemodify(file, ":t:r")
   end)
@@ -284,5 +289,3 @@ local buf_request = vim.lsp.buf_request
 vim.lsp.buf_request = function(bufnr, method, params, handler)
   return buf_request(bufnr, method, params, handler, function() end)
 end
-
-return M

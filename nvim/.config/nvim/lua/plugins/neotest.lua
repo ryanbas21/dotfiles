@@ -4,6 +4,7 @@ return {
     "mrcjkb/neotest-haskell",
     "nvim-neotest/nvim-nio",
     "nvim-lua/plenary.nvim",
+    "antoinemadec/FixCursorHold.nvim",
     "nvim-treesitter/nvim-treesitter",
     "marilari88/neotest-vitest",
     "nvim-neotest/neotest-jest",
@@ -18,7 +19,6 @@ return {
         require("neotest").run.run(vim.fn.expand "%")
       end,
       desc = "Run File",
-      nnoremap = true,
     },
     {
       "<leader>tt",
@@ -81,6 +81,7 @@ return {
     -- HACK: fix for nvim_create_augroup must not be called in a fast event context
     -- see: https://github.com/nvim-neotest/neotest/issues/351
     pcall(vim.treesitter.language.get_parser, "typescript")
+
     require("neotest").setup {
       status = {
         virtual_text = true,
@@ -114,6 +115,9 @@ return {
         },
         require "neotest-vitest" {
           env = { CI = true },
+          filter_dir = function(name, rel_path, root)
+            return name ~= "node_modules"
+          end,
         },
         require "neotest-jest" {},
         require("neotest-playwright").adapter {

@@ -88,7 +88,8 @@ if ! mountpoint -q "$MOUNT_POINT"; then
 fi
 
 # 2) Filesystem type must be expected (defends against accidental bind/local mounts)
-FS_TYPE="$(awk -v p="$MOUNT_POINT" '$2==p{print $3}' /proc/mounts | head -n1)"
+# Use tail to get the actual filesystem (autofs shows first, real fs shows last)
+FS_TYPE="$(findmnt -n -o FSTYPE --target "$MOUNT_POINT" | tail -n1)"
 if [[ -z "$FS_TYPE" ]]; then
   notify_failure "Could not determine filesystem type for $MOUNT_POINT"
   fail "Could not determine filesystem type for $MOUNT_POINT"
