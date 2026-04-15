@@ -6,6 +6,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
 
+# export CHROME_PATH=/usr/bin/chromium
 export BORG_PASSPHRASE=$(pass show BORG/password)
 # =============================================================================
 # Zplug Plugin Manager
@@ -256,3 +257,7 @@ fi
 # Powerlevel10k Theme Configuration
 # =============================================================================
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Added by flyctl installer
+export FLYCTL_INSTALL="/home/ryan/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
