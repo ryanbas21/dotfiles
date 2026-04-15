@@ -1,6 +1,7 @@
 return {
   "nvim-neotest/neotest",
   dependencies = {
+    "jfpedroza/neotest-elixir",
     "mrcjkb/neotest-haskell",
     "nvim-neotest/nvim-nio",
     "nvim-lua/plenary.nvim",
@@ -119,6 +120,7 @@ return {
             return name ~= "node_modules"
           end,
         },
+        require "neotest-elixir",
         require "neotest-jest" {},
         require("neotest-playwright").adapter {
           options = {
