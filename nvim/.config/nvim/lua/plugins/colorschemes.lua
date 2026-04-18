@@ -7,7 +7,7 @@ return {
     build = "make extras",
     config = function(_, opts)
       require("onedarkpro").setup(opts)
-      vim.cmd.colorscheme "onedark_vivid"
+      vim.cmd.colorscheme "onedark"
     end,
     opts = {
       colors = {
