@@ -54,7 +54,7 @@ local function on_attach(client, bufnr)
   end
 
   if client:supports_method "textDocument/codeAction" then
-    keymap("<leader>qf", vim.lsp.buf.code_action, "LSP code action")
+    keymap("<leader>ca", vim.lsp.buf.code_action, "LSP code action")
   end
 
   if client:supports_method "textDocument/references" then
