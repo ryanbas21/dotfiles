@@ -1,24 +1,30 @@
 module Scripts
   ( -- * Launchers
-    myLauncher
-  , myWindowSwitcher
+    myLauncher,
+    myWindowSwitcher,
+    myBrowser,
+
     -- * System
-  , myLockScreen
-  , myPolybarLaunch
-  , mySetupLayout
-  , myDisplaySetup
+    myLockScreen,
+    myPolybarLaunch,
+    mySetupLayout,
+    myDisplaySetup,
+
     -- * Volume
-  , myVolumeUp
-  , myVolumeDown
-  , myVolumeMute
-  , myMicMute
+    myVolumeUp,
+    myVolumeDown,
+    myVolumeMute,
+    myMicMute,
+
     -- * Brightness
-  , myBrightnessUp
-  , myBrightnessDown
+    myBrightnessUp,
+    myBrightnessDown,
+
     -- * Screenshots
-  , myScreenshotGui
-  , myScreenshotFull
-  ) where
+    myScreenshotGui,
+    myScreenshotFull,
+  )
+where
 
 --------------------------------------------------------------------------------
 -- Launchers
@@ -81,3 +87,6 @@ myScreenshotGui = "flameshot gui"
 
 myScreenshotFull :: String
 myScreenshotFull = "flameshot full -p ~/Documents/screenshots"
+
+myBrowser :: String
+myBrowser = "firefox"
