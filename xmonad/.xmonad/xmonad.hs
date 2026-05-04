@@ -1,12 +1,11 @@
 module Main (main) where
 
+import Config (myConfig)
+import Keybindings (myKeysP, myMouseBindings)
 import XMonad (xmonad)
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
 import XMonad.Hooks.ManageDocks (docks)
 import XMonad.Util.EZConfig (additionalKeysP, additionalMouseBindings)
-
-import Config (myConfig)
-import Keybindings (myKeysP, myMouseBindings)
 
 main :: IO ()
 main =
@@ -15,5 +14,5 @@ main =
     . ewmh
     . docks
     $ myConfig
-        `additionalKeysP` myKeysP
-        `additionalMouseBindings` myMouseBindings
+      `additionalKeysP` myKeysP
+      `additionalMouseBindings` myMouseBindings

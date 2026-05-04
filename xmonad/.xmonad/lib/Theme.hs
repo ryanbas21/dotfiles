@@ -1,14 +1,17 @@
 module Theme
   ( -- * Border settings
-    myBorderWidth
-  , myNormalBorderColor
-  , myFocusedBorderColor
+    myBorderWidth,
+    myNormalBorderColor,
+    myFocusedBorderColor,
+
     -- * Layout spacing
-  , myGaps
-  , mySpacing
+    myGaps,
+    mySpacing,
+
     -- * Tabbed layout theme
-  , myTabConfig
-  ) where
+    myTabConfig,
+  )
+where
 
 import XMonad (Dimension)
 import XMonad.Layout.Tabbed (Theme (..), def)
@@ -43,15 +46,16 @@ mySpacing = 6
 --------------------------------------------------------------------------------
 
 myTabConfig :: Theme
-myTabConfig = def
-  { activeColor         = "#556064"
-  , inactiveColor       = "#2f3d44"
-  , urgentColor         = "#fdf6e3"
-  , activeBorderColor   = "#454948"
-  , inactiveBorderColor = "#454948"
-  , urgentBorderColor   = "#268bd2"
-  , activeTextColor     = "#80fff9"
-  , inactiveTextColor   = "#1abc9c"
-  , urgentTextColor     = "#1abc9c"
-  , fontName            = "xft:JetBrainsMono Nerd Font:size=10:antialias=true"
-  }
+myTabConfig =
+  def
+    { activeColor = "#556064",
+      inactiveColor = "#2f3d44",
+      urgentColor = "#fdf6e3",
+      activeBorderColor = "#454948",
+      inactiveBorderColor = "#454948",
+      urgentBorderColor = "#268bd2",
+      activeTextColor = "#80fff9",
+      inactiveTextColor = "#1abc9c",
+      urgentTextColor = "#1abc9c",
+      fontName = "xft:JetBrainsMono Nerd Font:size=24:antialias=true"
+    }

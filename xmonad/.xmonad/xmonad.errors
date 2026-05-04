@@ -1,2 +1,11 @@
 $ stack build --silent --stack-yaml /home/ryan/dotfiles/xmonad/.xmonad/stack.yaml
-$ stack ghc --stack-yaml /home/ryan/dotfiles/xmonad/.xmonad/stack.yaml -- --make xmonad.hs -i -ilib -fforce-recomp -main-is main -v0 -outputdir /home/ryan/.xmonad/build-x86_64-linux -o /home/ryan/.xmonad/xmonad-x86_64-linux
+/home/ryan/.stack/hooks/ghc-install.sh: line 12: ghcup: command not found
+/home/ryan/.stack/hooks/ghc-install.sh: line 12: ghcup: command not found
+Installing 9.6.7 via ghcup failed
+$ stack ghc --stack-yaml /home/ryan/dotfiles/xmonad/.xmonad/stack.yaml -- --make xmonad.hs -i -ilib -fforce-recomp -main-is main -dynamic -v0 -outputdir /home/ryan/.xmonad/build-x86_64-linux -o /home/ryan/.xmonad/xmonad-x86_64-linux
+Stack has not been tested with GHC versions above 9.4, and using 9.6.7, this may fail
+/home/ryan/.stack/hooks/ghc-install.sh: line 12: ghcup: command not found
+/home/ryan/.stack/hooks/ghc-install.sh: line 12: ghcup: command not found
+Installing 9.6.7 via ghcup failed
+GHC install hook exited with code: 3
+Stack has not been tested with Cabal versions above 3.8, but version 3.10.3.0 was found, this may fail

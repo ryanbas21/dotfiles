@@ -1,6 +1,8 @@
 {-# OPTIONS_GHC -Wno-missing-signatures #-}
+
 module Layouts (myLayoutHook) where
 
+import Theme (myGaps, mySpacing, myTabConfig)
 import XMonad
 import XMonad.Hooks.ManageDocks (avoidStruts)
 import XMonad.Layout.Accordion (Accordion (..))
@@ -10,8 +12,6 @@ import XMonad.Layout.MultiToggle.Instances (StdTransformers (NBFULL))
 import XMonad.Layout.NoBorders (smartBorders)
 import XMonad.Layout.Spacing (spacing)
 import XMonad.Layout.Tabbed (shrinkText, tabbed)
-
-import Theme (myGaps, mySpacing, myTabConfig)
 
 --------------------------------------------------------------------------------
 -- Layout Hook
@@ -26,8 +26,8 @@ myLayoutHook =
     $ layouts
   where
     fullscreenToggle = mkToggle (NBFULL ?? EOT)
-    withGaps         = gaps [(U, myGaps), (D, myGaps), (L, myGaps), (R, myGaps)]
-    withSpacing      = spacing mySpacing
+    withGaps = gaps [(U, myGaps), (D, myGaps), (L, myGaps), (R, myGaps)]
+    withSpacing = spacing mySpacing
 
 --------------------------------------------------------------------------------
 -- Available Layouts
@@ -42,6 +42,6 @@ layouts = tiled ||| Mirror tiled ||| tabs ||| Accordion
     tabs = tabbed shrinkText myTabConfig
 
     -- Layout parameters
-    nmaster = 1      -- Number of windows in master pane
-    ratio   = 1 / 2  -- Proportion of screen for master
-    delta   = 3 / 100 -- Resize increment
+    nmaster = 1 -- Number of windows in master pane
+    ratio = 1 / 2 -- Proportion of screen for master
+    delta = 12 / 100 -- Resize increment

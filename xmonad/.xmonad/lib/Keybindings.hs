@@ -8,6 +8,7 @@ import Config (myTerminal)
 import Scripts
   ( myBrightnessDown,
     myBrightnessUp,
+    myBrowser,
     myDisplaySetup,
     myLauncher,
     myLockScreen,
@@ -39,7 +40,6 @@ import qualified XMonad.StackSet as W
 --   M1 = Alt (explicit)
 --   M4 = Super/Windows key
 --------------------------------------------------------------------------------
-
 myKeysP :: [(String, X ())]
 myKeysP =
   concat
@@ -60,7 +60,8 @@ launchersKeys =
   [ ("M-<Return>", spawn myTerminal),
     ("M-<Space>", spawn myLauncher),
     ("M-<Tab>", spawn myWindowSwitcher),
-    ("M-p", spawn myPolybarLaunch)
+    ("M-p", spawn myPolybarLaunch),
+    ("M4-f", spawn myBrowser)
   ]
 
 --------------------------------------------------------------------------------
