@@ -231,14 +231,14 @@ vim.diagnostic.handlers.virtual_text = {
 }
 
 -- hover.nvim handles K/hover — only override signature_help sizing here.
-local signature_help = vim.lsp.buf.signature_help
+-- local signature_help = vim.lsp.buf.signature_help
 ---@diagnostic disable-next-line: duplicate-set-field
-vim.lsp.buf.signature_help = function()
-  return signature_help {
-    max_height = math.floor(vim.o.lines * 0.5),
-    max_width = math.floor(vim.o.columns * 0.4),
-  }
-end
+-- vim.lsp.buf.signature_help = function()
+--   return signature_help {
+--     max_height = math.floor(vim.o.lines * 0.5),
+--     max_width = math.floor(vim.o.columns * 0.4),
+--   }
+-- end
 
 -- Update mappings when registering dynamic capabilities.
 local register_capability = vim.lsp.handlers["client/registerCapability"]
@@ -271,7 +271,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- Extend neovim's client capabilities with the completion ones.
 vim.lsp.config("*", { capabilities = require("blink.cmp").get_lsp_capabilities(nil, true) })
 
-local config_lsp_dir = vim.fn.stdpath("config") .. "/lsp"
+local config_lsp_dir = vim.fn.stdpath "config" .. "/lsp"
 local servers = vim
   .iter(vim.api.nvim_get_runtime_file("lsp/*.lua", true))
   :filter(function(file)

@@ -10,6 +10,7 @@ return {
         css = { "prettierd", stop_after_first = true },
         elm = { "elm_format", stop_after_first = true },
         ocaml = { "ocamlformat", stop_after_first = true },
+        gleam = { "gleam format", stop_after_first = true },
         yaml = { "yamlfix", stop_after_first = true },
         markdown = { "mdformat", stop_after_first = true },
         haskell = { "ormolu", stop_after_first = true },
