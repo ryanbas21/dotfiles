@@ -71,7 +71,7 @@ _load_secret() {
 # Define lazy loaders - secrets load on first use
 _load_secret CACHIX_AUTH_TOKEN CACHIX/pat
 _load_secret DEPOT_TOKEN DEPOT/pat
-# _load_secret CLAUDE_CODE_OAUTH_TOKEN anthropic/oauth_token
+_load_secret CLAUDE_CODE_OAUTH_TOKEN anthropic/oauth_token
 _load_secret JIRA_API_TOKEN JIRA/pat
 _load_secret CONTEXT7_PAT CONTEXT7/pat
 
@@ -79,7 +79,7 @@ _load_secret CONTEXT7_PAT CONTEXT7/pat
 load-secrets() {
   export CACHIX_AUTH_TOKEN=$(pass show CACHIX/pat)
   export DEPOT_TOKEN=$(pass show DEPOT/pat)
-  # export CLAUDE_CODE_OAUTH_TOKEN=$(pass show anthropic/oauth_token)
+  export CLAUDE_CODE_OAUTH_TOKEN=$(pass show anthropic/oauth_token)
   export GH_TOKEN=$(pass show GITHUB/pat)
   export GITHUB_PERSONAL_ACCESS_TOKEN=$GH_TOKEN
   export GITHUB_TOKEN=$GH_TOKEN
