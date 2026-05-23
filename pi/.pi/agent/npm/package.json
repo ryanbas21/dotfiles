@@ -2,6 +2,7 @@
   "name": "pi-extensions",
   "private": true,
   "dependencies": {
+    "@earendil-works/pi-coding-agent": "^0.75.5",
     "@gotgenes/pi-permission-system": "^7.1.2",
     "@gotgenes/pi-subagents": "^6.14.0",
     "@ifi/oh-pi-themes": "^0.5.1",
@@ -14,6 +15,7 @@
     "pi-cache-optimizer": "^2.4.1",
     "pi-chrome": "^0.15.27",
     "pi-codex-search": "^0.0.1",
+    "pi-fzf": "^0.9.0",
     "pi-lens": "^3.8.45",
     "pi-mcp-adapter": "^2.7.0",
     "pi-mermaid": "^0.3.0",
