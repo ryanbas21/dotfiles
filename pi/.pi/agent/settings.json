@@ -7,7 +7,6 @@
     "npm:context-mode",
     "npm:pi-mcp-adapter",
     "npm:@plannotator/pi-extension",
-    "npm:pi-lens",
     "npm:@gotgenes/pi-permission-system",
     "npm:@samfp/pi-memory",
     "npm:pi-chrome",
@@ -17,7 +16,9 @@
     "npm:pi-schedule-prompt",
     "npm:@narumitw/pi-chrome-devtools",
     "npm:pi-mermaid",
-    "npm:@ifi/oh-pi-themes"
+    "npm:@ifi/oh-pi-themes",
+    "npm:@earendil-works/pi-coding-agent",
+    "npm:pi-fzf"
   ],
   "lastChangelogVersion": "0.75.4",
   "enableInstallTelemetry": false,
