@@ -7,6 +7,7 @@ return {
       typescript = { "eslint_d" },
       typescriptreact = { "eslint_d" },
       javascriptreact = { "eslint_d" },
+      haskell = { "hlint" },
       angular = { "eslint_d" },
       bash = { "bash" },
       git = { "gitlint" },
