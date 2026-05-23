@@ -1,0 +1,28 @@
+{
+  "packages": [
+    "npm:pi-resource-center",
+    "npm:@gotgenes/pi-subagents",
+    "npm:pi-cache-optimizer",
+    "npm:pi-codex-search",
+    "npm:context-mode",
+    "npm:pi-mcp-adapter",
+    "npm:@plannotator/pi-extension",
+    "npm:pi-lens",
+    "npm:@gotgenes/pi-permission-system",
+    "npm:@samfp/pi-memory",
+    "npm:pi-chrome",
+    "npm:pi-studio",
+    "npm:ultimate-pi",
+    "npm:pi-rtk-optimizer",
+    "npm:pi-schedule-prompt",
+    "npm:@narumitw/pi-chrome-devtools",
+    "npm:pi-mermaid",
+    "npm:@ifi/oh-pi-themes"
+  ],
+  "lastChangelogVersion": "0.75.4",
+  "enableInstallTelemetry": false,
+  "theme": "cyberpunk",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-opus-4-7",
+  "defaultThinkingLevel": "medium"
+}

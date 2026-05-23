@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "anthropic/claude-sonnet-4-5",
+  "autoupdate": true,
+  "lsp": true,
+  "server": {
+    "port": 4096
+  },
+  "plugin": ["@plannotator/opencode@latest", "opencode-planner@latest", "opencode-agent-memory", "@simonwjackson/opencode-direnv"]
+}
