@@ -123,6 +123,50 @@ export PATH
 [[ -f "$HOME/.ghcup/env" ]] && . "$HOME/.ghcup/env"
 
 # =============================================================================
+# Exercism OCaml auto-patch
+# =============================================================================
+exercism() {
+  local output
+  output=$(command exercism "$@" 2>&1)
+  echo "$output"
+  if [[ "$1" == "download" && "$*" == *"--track=ocaml"* ]]; then
+    local dir
+    dir=$(echo "$output" | tail -1)
+    [[ -d "$dir" ]] || return
+    local dune="$dir/dune"
+    [[ -f "$dune" ]] || return
+    grep -q '^(library' "$dune" && return
+    local name=$(basename "$dir" | tr '-' '_')
+    cat > "$dune" <<EOF
+(library
+ (name $name)
+ (modules $name)
+ (libraries base))
+
+(executable
+ (name test)
+ (modules test)
+ (libraries base ounit2 $name))
+
+(alias
+  (name runtest)
+  (deps (:x test.exe))
+  (action (run %{x})))
+
+(alias
+  (name buildtest)
+  (deps (:x test.exe)))
+
+(env
+  (dev
+    (flags (:standard -warn-error -A))))
+EOF
+    (cd "$dir" && eval $(opam env) && dune build @check) 2>/dev/null
+    echo "Patched dune for $name (LSP ready)"
+  fi
+}
+
+# =============================================================================
 # Aliases
 # =============================================================================
 alias nano=nvim
@@ -214,8 +258,7 @@ fi
 # pnpm completions
 [[ -f ~/completion-for-pnpm.zsh ]] && source ~/completion-for-pnpm.zsh
 
-# opam configuration
-[[ ! -r "$HOME/.opam/opam-init/init.zsh" ]] || source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
+
 
 # =============================================================================
 # Direnv Configuration

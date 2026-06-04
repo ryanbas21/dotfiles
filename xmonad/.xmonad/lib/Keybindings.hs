@@ -80,7 +80,7 @@ windowKeys =
     ("M-<Up>", windows W.focusUp),
     ("M-<Right>", windows W.focusDown),
     -- Swap
-    ("M-S-<Return>", windows W.swapMaster),
+    ("M-S-.", windows W.swapMaster),
     ("M-S-j", windows W.swapDown),
     ("M-S-k", windows W.swapUp),
     -- Swap with arrows

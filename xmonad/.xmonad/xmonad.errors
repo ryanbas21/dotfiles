@@ -2,19 +2,3 @@ $ stack build --silent --stack-yaml /home/ryan/dotfiles/xmonad/.xmonad/stack.yam
 /home/ryan/.stack/hooks/ghc-install.sh: line 12: ghcup: command not found
 /home/ryan/.stack/hooks/ghc-install.sh: line 12: ghcup: command not found
 Installing 9.6.7 via ghcup failed
-$ stack ghc --stack-yaml /home/ryan/dotfiles/xmonad/.xmonad/stack.yaml -- --make xmonad.hs -i -ilib -fforce-recomp -main-is main -dynamic -v0 -outputdir /home/ryan/.xmonad/build-x86_64-linux -o /home/ryan/.xmonad/xmonad-x86_64-linux
-<<<<<<<<<<<<<<<<<<
-You are currently using Stack version 2.9.3.1, but version 3.7.1 is available
-You can try to upgrade by running 'stack upgrade'
-Tired of seeing this? Add 'recommend-stack-upgrade: false' to /home/ryan/.stack/config.yaml
->>>>>>>>>>>>>>>>>>
-
-
-Error: [S-7353]
-Error when running shouldUpgradeCheck: PersistMarshalError "Couldn't parse field `timestamp` from table `last_performed`. Failed to parse Haskell type `UTCTime`, but received PersistText \"2026-05-10T05:27:38.415905902Z\""
-Stack has not been tested with GHC versions above 9.4, and using 9.6.7, this may fail
-/home/ryan/.stack/hooks/ghc-install.sh: line 12: ghcup: command not found
-/home/ryan/.stack/hooks/ghc-install.sh: line 12: ghcup: command not found
-Installing 9.6.7 via ghcup failed
-GHC install hook exited with code: 3
-Stack has not been tested with Cabal versions above 3.8, but version 3.10.3.0 was found, this may fail

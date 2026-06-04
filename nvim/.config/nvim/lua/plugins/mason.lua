@@ -19,6 +19,7 @@ return {
       "jsonls",
       "purescript-language-server",
       "purescript-tidy",
+      "rescript-language-server",
       "haskell-language-server",
       "yaml-language-server",
       "eslint-lsp",
