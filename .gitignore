@@ -46,3 +46,12 @@ xmonad/.xmonad/.stack-work
 ryanbas21.priv.asc
 *.priv.asc
 .password-store/
+
+**/auth.json
+*.db-*
+pi/.pi/context-mode/*
+pi/.pi/content/*
+pi/.pi/agent/sessions/*
+pi/.pi/agent/mcp-cache.json
+pi/.pi/agent/mcp-npx-cache.json
+pi/.pi/agent/pi-cache-optimizer-stats.json

@@ -43,5 +43,5 @@ layouts = tiled ||| Mirror tiled ||| tabs ||| Accordion
 
     -- Layout parameters
     nmaster = 1 -- Number of windows in master pane
-    ratio = 1 / 2 -- Proportion of screen for master
+    ratio = 2 / 3 -- Proportion of screen for master
     delta = 12 / 100 -- Resize increment

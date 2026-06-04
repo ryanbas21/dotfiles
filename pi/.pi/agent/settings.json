@@ -1,29 +1,28 @@
 {
+  "npmCommand": [
+    "pnpm"
+  ],
   "packages": [
     "npm:pi-resource-center",
-    "npm:@gotgenes/pi-subagents",
     "npm:pi-cache-optimizer",
     "npm:pi-codex-search",
     "npm:context-mode",
-    "npm:pi-mcp-adapter",
     "npm:@plannotator/pi-extension",
-    "npm:@gotgenes/pi-permission-system",
-    "npm:@samfp/pi-memory",
-    "npm:pi-chrome",
     "npm:pi-studio",
-    "npm:ultimate-pi",
     "npm:pi-rtk-optimizer",
     "npm:pi-schedule-prompt",
     "npm:@narumitw/pi-chrome-devtools",
     "npm:pi-mermaid",
     "npm:@ifi/oh-pi-themes",
     "npm:@earendil-works/pi-coding-agent",
-    "npm:pi-fzf"
+    "npm:pi-fzf",
+    "npm:@ayulab/oh-my-pi",
+    "git:github.com/gotgenes/pi-packages"
   ],
-  "lastChangelogVersion": "0.75.4",
+  "lastChangelogVersion": "0.78.0",
   "enableInstallTelemetry": false,
-  "theme": "cyberpunk",
-  "defaultProvider": "anthropic",
-  "defaultModel": "claude-opus-4-7",
-  "defaultThinkingLevel": "medium"
+  "theme": "pi-studio-dark",
+  "defaultProvider": "openai-codex",
+  "defaultThinkingLevel": "high",
+  "defaultModel": "gpt-5.5"
 }
