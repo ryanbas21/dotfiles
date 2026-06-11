@@ -1,9 +1,12 @@
--- Neovim 0.12 enables treesitter highlighting by default.
--- nvim-treesitter now only manages parser installation/updates.
+-- Enable nvim-treesitter highlighting explicitly; Neovim's defaults alone
+-- don't start tree-sitter highlighting for every supported filetype.
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   lazy = false,
+  config = function(_, opts)
+    require("nvim-treesitter.configs").setup(opts)
+  end,
   opts = {
     ensure_installed = {
       "typescript",
@@ -24,5 +27,8 @@ return {
       "purescript",
     },
     auto_install = true,
+    highlight = {
+      enable = true,
+    },
   },
 }
