@@ -17,9 +17,10 @@
     "npm:@earendil-works/pi-coding-agent",
     "npm:pi-fzf",
     "npm:@ayulab/oh-my-pi",
-    "git:github.com/gotgenes/pi-packages"
+    "git:github.com/gotgenes/pi-packages",
+    "npm:@yeliu84/pi-model-router"
   ],
-  "lastChangelogVersion": "0.78.0",
+  "lastChangelogVersion": "0.79.1",
   "enableInstallTelemetry": false,
   "theme": "pi-studio-dark",
   "defaultProvider": "openai-codex",

@@ -55,3 +55,6 @@ pi/.pi/agent/sessions/*
 pi/.pi/agent/mcp-cache.json
 pi/.pi/agent/mcp-npx-cache.json
 pi/.pi/agent/pi-cache-optimizer-stats.json
+pi/.pi/agent/ayu/checkpoints/*
+pi/.pi/agent/ayu/extensions/*
+pi/.pi/auth.json

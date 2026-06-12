@@ -187,6 +187,20 @@ return {
     },
     keymap = {
       preset = "enter",
+      ["<CR>"] = {
+        function(cmp)
+          if cmp.is_visible() then
+            return cmp.select_and_accept()
+          end
+
+          -- If another source opened Neovim's native completion popup, accept it
+          -- with <C-y> instead of letting <CR> close the menu and insert a newline.
+          if vim.fn.pumvisible() == 1 then
+            return vim.api.nvim_replace_termcodes("<C-y>", true, true, true)
+          end
+        end,
+        "fallback",
+      },
       ["<Tab>"] = { "snippet_forward", "fallback" },
       ["<S-Tab>"] = { "snippet_backward", "fallback" },
 
