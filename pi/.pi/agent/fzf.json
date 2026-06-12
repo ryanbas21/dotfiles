@@ -1,0 +1,9 @@
+{
+  "commands": {
+    "file": {
+      "list": "fd --type f --max-depth 4",
+      "action": "Read and explain {{selected}}",
+      "shortcut": "ctrl+f"
+    }
+  }
+}
