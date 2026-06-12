@@ -3,7 +3,24 @@
     "file": {
       "list": "fd --type f --max-depth 4",
       "action": "Read and explain {{selected}}",
+      "preview": "bat --style=numbers --color=always {{selected}} 2>/dev/null || cat {{selected}}", 
       "shortcut": "ctrl+f"
+    },
+    "git-diff": {
+      "list": "git diff --name-only",
+      "multiSelect": true,
+      "shortcut": "ctrl+;",
+      "action": {
+        "type": "bash",
+        "template": "printf '%s\\n' '{{selected}}' | xargs -I{} git diff -- \"{}\"",
+        "output": "editor"
+      }
+    },
+    "branch": {
+      "list": "git branch --format='%(refname:short)'",
+      "shortcut": "ctrl+b",
+      "action": { "type": "bash", "template": "git checkout {{selected}}" },
+      "placement": "aboveEditor"
     }
   }
 }
