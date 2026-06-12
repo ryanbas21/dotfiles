@@ -1,1 +1,21 @@
-../../../dotfiles/pi/.pi/agent/npm/package.json
+{
+  "name": "pi-extensions",
+  "private": true,
+  "dependencies": {
+    "@ayulab/oh-my-pi": "^0.4.0",
+    "@earendil-works/pi-coding-agent": "^0.79.1",
+    "@ifi/oh-pi-themes": "^0.5.1",
+    "@narumitw/pi-chrome-devtools": "^0.2.0",
+    "@plannotator/pi-extension": "^0.20.1",
+    "@yeliu84/pi-model-router": "^0.3.1",
+    "context-mode": "^1.0.162",
+    "pi-cache-optimizer": "^2.5.7",
+    "pi-codex-search": "^0.1.2",
+    "pi-fzf": "^0.9.0",
+    "pi-mermaid": "^0.3.0",
+    "pi-resource-center": "^0.2.7",
+    "pi-rtk-optimizer": "^0.8.2",
+    "pi-schedule-prompt": "^0.4.0",
+    "pi-studio": "^0.9.32"
+  }
+}

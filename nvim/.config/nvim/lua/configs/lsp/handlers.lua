@@ -108,6 +108,8 @@ local function on_attach(client, bufnr)
     })
   end
 
+  require("configs.lsp.purescript").on_attach(client, bufnr, keymap)
+
   if client:supports_method "textDocument/inlayHint" then
     local inlay_hints_group = vim.api.nvim_create_augroup("user/toggle_inlay_hints", { clear = false })
 
