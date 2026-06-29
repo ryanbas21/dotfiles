@@ -9,21 +9,37 @@
     "npm:context-mode",
     "npm:@plannotator/pi-extension",
     "npm:pi-studio",
-    "npm:pi-rtk-optimizer",
     "npm:pi-schedule-prompt",
     "npm:@narumitw/pi-chrome-devtools",
     "npm:pi-mermaid",
     "npm:@ifi/oh-pi-themes",
-    "npm:@earendil-works/pi-coding-agent",
     "npm:pi-fzf",
     "npm:@ayulab/oh-my-pi",
     "git:github.com/gotgenes/pi-packages",
-    "npm:@yeliu84/pi-model-router"
+    "npm:@yeliu84/pi-model-router",
+    "npm:@ryan_nookpi/pi-extension-headroom",
+    "npm:pi-subagents",
+    "npm:@pi-unipi/ralph",
+    "npm:@davehardy20/pi-lsp-tools",
+    "npm:@slix/obsidian-notes",
+    "npm:@fodx/codelens",
+    {
+      "source": "git:github.com/tmustier/pi-extensions",
+      "extensions": [
+        "pi-ralph-wiggum/index.ts"
+      ],
+      "skills": [
+        "pi-ralph-wiggum/SKILL.md"
+      ]
+    },
+    "npm:pi-rtk",
+    "npm:@tintinweb/pi-subagents"
   ],
-  "lastChangelogVersion": "0.79.1",
+  "lastChangelogVersion": "0.80.2",
   "enableInstallTelemetry": false,
-  "theme": "pi-studio-dark",
+  "theme": "catppuccin-mocha",
   "defaultProvider": "router",
-  "defaultThinkingLevel": "high",
-  "defaultModel": "auto"
+  "defaultThinkingLevel": "low",
+  "defaultModel": "auto",
+  "hideThinkingBlock": true
 }

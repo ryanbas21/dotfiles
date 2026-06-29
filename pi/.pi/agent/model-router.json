@@ -1,11 +1,12 @@
 {
-  "classifierModel": "openai/gpt-5.4-pro",
+  "classifierModel": "openai-codex/gpt-5.4-mini",
   "maxSessionBudget": 1.0,
+  "enableOnNewSession": true,
   "profiles": {
     "auto": {
-      "high": { "model": "openai/gpt-5.4-pro", "thinking": "high" },
-      "medium": { "model": "google/gemini-flash-latest", "thinking": "medium" },
-      "low": { "model": "openai/gpt-5.4-nano", "thinking": "low" }
+      "high": { "model": "openai-codex/gpt-5.5", "thinking": "high" },
+      "medium": { "model": "openai-codex/gpt-5.4", "thinking": "medium" },
+      "low": { "model": "openai-codex/gpt-5.4-mini", "thinking": "low" }
     }
   }
 }

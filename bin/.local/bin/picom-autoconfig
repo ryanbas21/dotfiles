@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+battery_config="${HOME}/.config/picom/picom.battery.conf"
+ac_config="${HOME}/.config/picom/picom.conf"
+
+is_on_ac() {
+  local online
+  for path in /sys/class/power_supply/AC*/online /sys/class/power_supply/ADP*/online; do
+    [ -r "$path" ] || continue
+    online="$(tr -d '\n' < "$path")"
+    [ "$online" = "1" ] && return 0
+  done
+  return 1
+}
+
+if is_on_ac; then
+  exec /usr/bin/picom --config="$ac_config"
+else
+  exec /usr/bin/picom --config="$battery_config"
+fi

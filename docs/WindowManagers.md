@@ -6,7 +6,7 @@
 - **Mod Key**: `Mod1` (left Alt) keeps shortcuts distinct from terminal control.
 - **Gaps**: Inner gap of 8px and outer gap of 30px for a clean tiling aesthetic.
 - **Autostart**:
-  - `picom` compositor
+  - `~/.local/bin/picom-autoconfig` compositor wrapper
   - `feh` background at `~/Pictures/i3-bg.png`
   - `dunst` notifications
   - `nm-applet` tray networking
@@ -36,8 +36,8 @@
   - Tiled, mirrored tiled, tabbed (simplest), and accordion layouts.
   - Gaps of 20px and spacing of 6px keep layouts airy.
   - Toggleable fullscreen via `Toggle NBFULL` while preserving gaps.
-- **Startup Hooks**: Mirrors i3—`picom`, `feh`, `dunst`, `flameshot`,
-  Polybar, `nm-applet`, and a Polkit agent.
+- **Startup Hooks**: Mirrors i3—`~/.local/bin/picom-autoconfig`, `feh`,
+  `dunst`, `flameshot`, Polybar, `nm-applet`, and a Polkit agent.
 - **Keybindings**:
   - `Mod+Space` launches the themed Rofi script.
   - `Mod+Tab` shows the Rofi window switcher.

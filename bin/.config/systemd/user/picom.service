@@ -3,7 +3,7 @@ Description=Picom compositor
 After=default.target
 
 [Service]
-ExecStart=/usr/bin/picom --config=%h/.config/picom/picom.conf
+ExecStart=%h/.local/bin/picom-autoconfig
 Restart=on-failure
 RestartSec=2s
 

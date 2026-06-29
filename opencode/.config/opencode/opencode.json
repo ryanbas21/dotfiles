@@ -2,5 +2,14 @@
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
     "/home/ryan/programming/hosted-login/node_modules/.pnpm/@rynfar+meridian@1.42.1_zod@4.4.3/node_modules/@rynfar/meridian/plugin/meridian.ts"
-  ]
+  ],
+  "mcp": {
+    "codelens": {
+      "type": "local",
+      "command": [
+        "/home/ryan/.local/bin/codelens"
+      ],
+      "enabled": true
+    }
+  }
 }
