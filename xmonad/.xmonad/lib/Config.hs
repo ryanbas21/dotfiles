@@ -65,7 +65,7 @@ myConfig =
 myStartupHook :: X ()
 myStartupHook = do
   -- Compositor
-  spawnOnce "picom"
+  spawnOnce "~/.local/bin/picom-autoconfig"
   -- Wallpaper
   spawnOnce "feh --bg-scale /home/ryan/Pictures/i3-bg.png"
   -- Notifications

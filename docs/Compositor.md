@@ -4,9 +4,10 @@
 
 - **Configs**:
   - `picom/.config/picom/picom.conf` (primary, tuned for AC power).
-  - `picom/.config/picom/picom.battery.conf` (profile for lower power draw—
-    document differences when updated).
-- **Backend**: Uses the `glx` backend with `vsync` for tear-free rendering.
+  - `picom/.config/picom/picom.battery.conf` (lower-power profile).
+- **Backend**: Uses the `glx` backend with `vsync` for tear-free rendering on AC.
+- **Battery behavior**: `bin/.local/bin/picom-autoconfig` picks the battery
+  profile automatically when AC power is unavailable.
 - **Performance Tweaks**:
   - `glx-no-stencil`, `glx-no-rebind-pixmap`, and `use-damage = true` for better
     GPU utilization.
