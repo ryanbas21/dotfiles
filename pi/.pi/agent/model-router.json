@@ -1,5 +1,5 @@
 {
-  "classifierModel": "openai-codex/gpt-5.4-mini",
+  "classifierModel": "openai-codex/gpt-5.4",
   "maxSessionBudget": 1.0,
   "enableOnNewSession": true,
   "profiles": {

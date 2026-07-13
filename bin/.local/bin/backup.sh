@@ -310,4 +310,5 @@ if [[ -d "/home/.snapshots" ]]; then
   sudo rsync -a --delete /home/.snapshots/ "$MOUNT_POINT/snapshots/home/" 2>/dev/null || log "WARNING: Failed to sync home snapshots"
 fi
 
+
 log "Backup and cleanup finished!"

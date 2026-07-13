@@ -35,11 +35,11 @@
     "npm:pi-rtk",
     "npm:@tintinweb/pi-subagents"
   ],
-  "lastChangelogVersion": "0.80.2",
+  "lastChangelogVersion": "0.80.3",
   "enableInstallTelemetry": false,
-  "theme": "catppuccin-mocha",
-  "defaultProvider": "router",
-  "defaultThinkingLevel": "low",
-  "defaultModel": "auto",
-  "hideThinkingBlock": true
+  "theme": "oh-p-dark",
+  "defaultProvider": "openai-codex",
+  "defaultThinkingLevel": "high",
+  "defaultModel": "gpt-5.5",
+  "hideThinkingBlock": false
 }
