@@ -1,20 +1,69 @@
 {
+  "imports": [
+    "claude-code"
+  ],
   "mcpServers": {
-    "brave-search-mcp-server": {
+    "obsidian": {
+      "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@brave/brave-search-mcp-server", "--transport", "stdio"],
+      "args": [
+        "-y",
+        "obsidian-mcp-server@latest"
+      ],
       "env": {
-        "BRAVE_API_KEY": "${pass show BRAVE/pat}"
-      }
+        "MCP_TRANSPORT_TYPE": "stdio",
+        "MCP_LOG_LEVEL": "info",
+        "OBSIDIAN_API_KEY": "ed3be3189c1b5b49d008c289d316f24b1914315a1c80e7344b8929a3fdca3bb7"
+      },
+      "directTools": true
+    },
+    "chrome-devtools": {
+      "args": [
+        "chrome-devtools-mcp@latest"
+      ],
+      "autoApprove": [
+        "list_console_messages",
+        "emulate_cpu",
+        "emulate_network",
+        "click",
+        "drag",
+        "fill",
+        "fill_form",
+        "hover",
+        "upload_file",
+        "get_network_request",
+        "list_network_requests",
+        "close_page",
+        "handle_dialog",
+        "list_pages",
+        "navigate_page",
+        "navigate_page_history",
+        "new_page",
+        "resize_page",
+        "select_page",
+        "performance_analyze_insight",
+        "performance_start_trace",
+        "performance_stop_trace",
+        "take_screenshot",
+        "evaluate_script",
+        "take_snapshot",
+        "wait_for"
+      ],
+      "command": "npx",
+      "directTools": true
     },
     "context7": {
-      "url": "https://mcp.context7.com/mcp",
-      "headers": {
-        "CONTEXT7_API_KEY": "${pass show CONTEXT7/pat}"
-      },
-      "cloudflare-api": {
-      "url": "https://mcp.cloudflare.com/mcp"
+      "args": [
+        "-y",
+        "@upstash/context7-mcp",
+        "--api-key",
+        "ctx7sk-6816eb53-38e3-498e-8008-05717da35b34"
+      ],
+      "command": "npx",
+      "disabled": false,
+      "name": "context7",
+      "directTools": true
     }
-    }
+    
   }
 }

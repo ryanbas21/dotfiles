@@ -10,19 +10,19 @@
     "npm:@plannotator/pi-extension",
     "npm:pi-studio",
     "npm:pi-schedule-prompt",
-    "npm:@narumitw/pi-chrome-devtools",
     "npm:pi-mermaid",
     "npm:@ifi/oh-pi-themes",
     "npm:pi-fzf",
     "npm:@ayulab/oh-my-pi",
     "git:github.com/gotgenes/pi-packages",
     "npm:@yeliu84/pi-model-router",
-    "npm:@ryan_nookpi/pi-extension-headroom",
-    "npm:pi-subagents",
+    {
+      "source": "npm:@ryan_nookpi/pi-extension-headroom",
+      "url": "127.0.0.1:6767"
+    },
     "npm:@pi-unipi/ralph",
     "npm:@davehardy20/pi-lsp-tools",
     "npm:@slix/obsidian-notes",
-    "npm:@fodx/codelens",
     {
       "source": "git:github.com/tmustier/pi-extensions",
       "extensions": [
@@ -32,14 +32,19 @@
         "pi-ralph-wiggum/SKILL.md"
       ]
     },
-    "npm:pi-rtk",
-    "npm:@tintinweb/pi-subagents"
+    "npm:pi-rtk-optimizer",
+    "npm:pi-image-tools",
+    "npm:pi-web-access",
+    "npm:@quintinshaw/pi-dynamic-workflows",
+    "npm:pi-powerline-footer",
+    "npm:pi-subagents",
+    "npm:pi-mcp-adapter"
   ],
-  "lastChangelogVersion": "0.80.3",
+  "lastChangelogVersion": "0.80.7",
   "enableInstallTelemetry": false,
-  "theme": "oh-p-dark",
-  "defaultProvider": "openai-codex",
+  "theme": "catppuccin-mocha",
+  "defaultProvider": "amazon-bedrock",
   "defaultThinkingLevel": "high",
-  "defaultModel": "gpt-5.5",
-  "hideThinkingBlock": false
+  "defaultModel": "anthropic.claude-opus-4-8",
+  "hideThinkingBlock": true
 }

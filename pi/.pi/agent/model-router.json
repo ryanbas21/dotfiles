@@ -1,12 +1,20 @@
 {
-  "classifierModel": "openai-codex/gpt-5.4",
   "maxSessionBudget": 1.0,
   "enableOnNewSession": true,
   "profiles": {
     "auto": {
-      "high": { "model": "openai-codex/gpt-5.5", "thinking": "high" },
-      "medium": { "model": "openai-codex/gpt-5.4", "thinking": "medium" },
-      "low": { "model": "openai-codex/gpt-5.4-mini", "thinking": "low" }
+      "high": {
+        "model": "amazon-bedrock/global.anthropic.claude-opus-4-8",
+        "thinking": "high"
+      },
+      "medium": {
+        "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6",
+        "thinking": "medium"
+      },
+      "low": {
+        "model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0",
+        "thinking": "medium"
+      }
     }
   }
 }

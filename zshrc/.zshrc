@@ -43,6 +43,7 @@ export UID=$(id -u)
 export GID=$(id -g)
 export OP_BIOMETRIC_UNLOCK_ENABLED=true
 export GOOGLE_CLOUD_PROJECT=ryan-bas-sdk
+export CXXFLAGS="-std=c++20"
 
 # =============================================================================
 # Secrets via pass (LAZY LOADED - massive speedup)
