@@ -1,9 +1,6 @@
 # Main Ghostty config
 # Split keybindings into a separate file to keep this easier to scan.
 
-# Keyboard protocol — enables proper shift/ctrl modifier encoding
-# so TUI apps (herdr, etc.) can distinguish shifted keybindings on macOS.
-kitty-keyboard = true
 
 # Appearance
 font-family = "FiraCode Nerd Font Mono"
