@@ -399,7 +399,7 @@ command = "drovr.move-pane"
 description = "move pane to tab"
 
 [[keys.command]]
-key = "ctrl+shift+p"
+key = "prefix+k"
 type = "plugin_action"
 command = "ramarivera.palette.toggle"
 description = "command palette"
