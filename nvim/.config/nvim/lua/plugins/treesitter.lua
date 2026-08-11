@@ -4,7 +4,7 @@ return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   lazy = false,
-  main = "nvim-treesitter.config",
+  main = "nvim-treesitter.configs",
   opts = {
     ensure_installed = {
       "typescript",

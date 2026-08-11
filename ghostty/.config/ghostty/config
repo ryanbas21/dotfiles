@@ -18,4 +18,4 @@ scrollback-limit = 10000
 shell-integration = zsh
 
 # Extra config files
-config-file = keybinds
+# config-file = keybinds
