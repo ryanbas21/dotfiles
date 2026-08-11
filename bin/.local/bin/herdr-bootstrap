@@ -74,7 +74,7 @@ for slug in "${PLUGINS[@]}"; do
   fi
 
   echo "install: ${slug} ..."
-  local rc=0
+  rc=0
   if [[ "$(uname -s)" == "Darwin" ]]; then
     # macOS/BSD: script takes the command as trailing args (no -c flag)
     printf 'y\n' | script -q /dev/null herdr plugin install "$slug" || rc=$?
