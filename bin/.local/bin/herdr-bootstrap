@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# herdr-bootstrap — regenerate herdr plugins on a fresh machine
+#
+# After running `stow herdr` to link config.toml, run this script to
+# install all tracked herdr plugins. It clones each plugin from GitHub
+# (always latest commit) and writes plugins.json.
+#
+# Idempotent: skips plugins that are already installed. Safe to re-run.
+#
+# Usage:
+#   herdr-bootstrap            # install missing plugins
+#   herdr-bootstrap --force    # reinstall all plugins (update to latest)
+
+# ── Plugin slug list ──────────────────────────────────────────────
+# Each entry is the GitHub OWNER/REPO that `herdr plugin install` expects.
+# Add or remove entries here to change the tracked plugin set.
+PLUGINS=(
+  "ChmaraX/herdr-nvim"
+  "cloudmanic/herdr-plus"
+  "AVGVSTVS96/herdr-drovr"
+  "persiyanov/herdr-reviewr"
+  "ramarivera/herdr-palette"
+  "andrewchng/herdr-sessionizer"
+  "The-Dave-Stack/herdr-keymap"
+  "pedroloch/herdr-undo-close"
+)
+
+# ── Guard: herdr must be on PATH ─────────────────────────────────────
+if ! command -v herdr &>/dev/null; then
+  echo "error: herdr not found on PATH" >&2
+  echo "  Install herdr first: https://github.com/herdrdev/herdr" >&2
+  exit 1
+fi
+
+# ── Parse flags ──────────────────────────────────────────────────────
+FORCE="${FORCE:-0}"
+if [[ "${1:-}" == "--force" ]]; then
+  FORCE=1
+fi
+
+# ── Determine already-installed plugins by GitHub slug ────────────────
+# herdr plugin list output format:
+#   - plugin.id (Name) enabled [github:owner/repo@sha]
+# We extract the owner/repo from the [github:...] bracket to match
+# against our slug list, because herdr's internal plugin.id does NOT
+# always equal owner.repo (e.g. "drovr" not "AVGVSTVS96/drovr").
+declare -A INSTALLED_SLUG
+if [[ "$FORCE" -eq 0 ]]; then
+  while IFS= read -r line; do
+    # Extract "owner/repo" from "[github:owner/repo@sha]"
+    if [[ "$line" =~ github:([A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)@ ]]; then
+      INSTALLED_SLUG["${BASH_REMATCH[1]}"]=1
+    fi
+  done < <(herdr plugin list 2>&1 || true)
+fi
+
+# ── Install loop ────────────────────────────────────────────────────
+# herdr's `plugin install` is NOT idempotent for already-installed
+# plugins — it re-clones (updates to latest). The `-y` flag is broken
+# in the current version (requires interactive TTY). We use `script`
+# with `printf 'y\n'` to provide pseudo-TTY + auto-confirm.
+SKIPPED=0
+INSTALLED_COUNT=0
+FAILED=0
+
+for slug in "${PLUGINS[@]}"; do
+  if [[ "$FORCE" -eq 0 && -v "INSTALLED_SLUG[$slug]" ]]; then
+    echo "skip: ${slug} (already installed)"
+    SKIPPED=$((SKIPPED + 1))
+    continue
+  fi
+
+  echo "install: ${slug} ..."
+  if printf 'y\n' | script -qc "herdr plugin install ${slug}" /dev/null; then
+    echo "  -> done"
+    INSTALLED_COUNT=$((INSTALLED_COUNT + 1))
+  else
+    echo "  -> FAILED" >&2
+    FAILED=$((FAILED + 1))
+  fi
+done
+
+# ── Summary ─────────────────────────────────────────────────────────
+echo ""
+echo "herdr-bootstrap complete:"
+echo "  installed: ${INSTALLED_COUNT}"
+echo "  skipped:   ${SKIPPED}"
+echo "  failed:    ${FAILED}"
+
+if [[ "$FAILED" -gt 0 ]]; then
+  exit 1
+fi

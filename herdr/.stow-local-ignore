@@ -1,0 +1,7 @@
+plugins/
+plugins.json
+.plugins.lock
+session.json
+.*\.sock$
+.*\.log$
+config\.toml\.bak.*$
