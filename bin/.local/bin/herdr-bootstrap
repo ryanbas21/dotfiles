@@ -61,6 +61,7 @@ fi
 # plugins — it re-clones (updates to latest). The `-y` flag is broken
 # in the current version (requires interactive TTY). We use `script`
 # with `printf 'y\n'` to provide pseudo-TTY + auto-confirm.
+# NOTE: macOS `script` has no -c flag; we branch on `uname -s`.
 SKIPPED=0
 INSTALLED_COUNT=0
 FAILED=0
@@ -73,7 +74,15 @@ for slug in "${PLUGINS[@]}"; do
   fi
 
   echo "install: ${slug} ..."
-  if printf 'y\n' | script -qc "herdr plugin install ${slug}" /dev/null; then
+  local rc=0
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    # macOS/BSD: script takes the command as trailing args (no -c flag)
+    printf 'y\n' | script -q /dev/null herdr plugin install "$slug" || rc=$?
+  else
+    # Linux (util-linux): script -c "command" /dev/null
+    printf 'y\n' | script -qc "herdr plugin install $slug" /dev/null || rc=$?
+  fi
+  if [[ "$rc" -eq 0 ]]; then
     echo "  -> done"
     INSTALLED_COUNT=$((INSTALLED_COUNT + 1))
   else
