@@ -401,5 +401,5 @@ description = "move pane to tab"
 [[keys.command]]
 key = "prefix+k"
 type = "plugin_action"
-command = "ramarivera.palette.toggle"
+command = "ramarivera.palette.open"
 description = "command palette"
