@@ -1,19 +1,94 @@
 {
+  "debug": false,
   "maxSessionBudget": 1.0,
-  "enableOnNewSession": true,
+  "models": {
+    "glm-high": {
+      "model": "zai/glm-5.3",
+      "contextWindow": 1000000,
+      "maxTokens": 131072
+    },
+    "glm-fast": {
+      "model": "zai/glm-5.2-highspeed",
+      "contextWindow": 1000000,
+      "maxTokens": 131072
+    },
+    "glm-medium": {
+      "model": "zai/glm-5.2",
+      "contextWindow": 1000000,
+      "maxTokens": 131072
+    },
+    "glm-turbo": {
+      "model": "zai/glm-5-turbo",
+      "contextWindow": 200000,
+      "maxTokens": 131072
+    },
+    "glm-47": {
+      "model": "zai/glm-4.7",
+      "contextWindow": 204800,
+      "maxTokens": 131072
+    }
+  },
+  "rules": [
+    {
+      "matches": ["deploy", "production", "release", "security"],
+      "tier": "high",
+      "reason": "Safety check for production tasks"
+    },
+    {
+      "matches": ["changelog", "typo", "format", "lint"],
+      "tier": "low",
+      "reason": "Simple tasks don't need high tier"
+    }
+  ],
   "profiles": {
     "auto": {
       "high": {
-        "model": "amazon-bedrock/global.anthropic.claude-opus-4-8",
-        "thinking": "high"
+        "model": "glm-high",
+        "thinking": "high",
+        "fallbacks": ["glm-fast"]
       },
       "medium": {
-        "model": "amazon-bedrock/global.anthropic.claude-sonnet-4-6",
-        "thinking": "medium"
+        "model": "glm-fast",
+        "thinking": "medium",
+        "fallbacks": ["glm-medium"]
       },
       "low": {
-        "model": "amazon-bedrock/global.anthropic.claude-haiku-4-5-20251001-v1:0",
-        "thinking": "medium"
+        "model": "glm-turbo",
+        "thinking": "low",
+        "fallbacks": ["glm-47"]
+      }
+    },
+    "zai": {
+      "high": {
+        "model": "glm-high",
+        "thinking": "high",
+        "fallbacks": ["glm-fast"]
+      },
+      "medium": {
+        "model": "glm-fast",
+        "thinking": "medium",
+        "fallbacks": ["glm-medium"]
+      },
+      "low": {
+        "model": "glm-turbo",
+        "thinking": "low",
+        "fallbacks": ["glm-47"]
+      }
+    },
+    "cheap": {
+      "high": {
+        "model": "glm-fast",
+        "thinking": "medium",
+        "fallbacks": ["glm-turbo"]
+      },
+      "medium": {
+        "model": "glm-turbo",
+        "thinking": "low",
+        "fallbacks": ["glm-47"]
+      },
+      "low": {
+        "model": "glm-47",
+        "thinking": "low"
       }
     }
   }

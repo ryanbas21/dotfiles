@@ -1,50 +1,20 @@
 {
-  "npmCommand": [
-    "pnpm"
-  ],
   "packages": [
-    "npm:pi-resource-center",
-    "npm:pi-cache-optimizer",
-    "npm:pi-codex-search",
-    "npm:context-mode",
-    "npm:@plannotator/pi-extension",
-    "npm:pi-studio",
-    "npm:pi-schedule-prompt",
-    "npm:pi-mermaid",
-    "npm:@ifi/oh-pi-themes",
-    "npm:pi-fzf",
-    "npm:@ayulab/oh-my-pi",
-    "git:github.com/gotgenes/pi-packages",
-    "npm:@yeliu84/pi-model-router",
-    {
-      "source": "npm:@ryan_nookpi/pi-extension-headroom",
-      "url": "127.0.0.1:6767"
-    },
-    "npm:@pi-unipi/ralph",
-    "npm:@davehardy20/pi-lsp-tools",
-    "npm:@slix/obsidian-notes",
-    {
-      "source": "git:github.com/tmustier/pi-extensions",
-      "extensions": [
-        "pi-ralph-wiggum/index.ts"
-      ],
-      "skills": [
-        "pi-ralph-wiggum/SKILL.md"
-      ]
-    },
-    "npm:pi-rtk-optimizer",
-    "npm:pi-image-tools",
+    "npm:@ogulcancelik/pi-herdr",
+    "npm:pi-mcp-adapter",
     "npm:pi-web-access",
-    "npm:@quintinshaw/pi-dynamic-workflows",
+    "npm:@plannotator/pi-extension",
+    "npm:pi-simplify",
     "npm:pi-powerline-footer",
-    "npm:pi-subagents",
-    "npm:pi-mcp-adapter"
+    "npm:pi-rtk-optimizer",
+    "npm:@raquezha/noheadroom",
+    "npm:@yeliu84/pi-model-router",
+    "npm:@spences10/pi-lsp"
   ],
-  "lastChangelogVersion": "0.80.7",
-  "enableInstallTelemetry": false,
-  "theme": "catppuccin-mocha",
-  "defaultProvider": "amazon-bedrock",
-  "defaultThinkingLevel": "high",
-  "defaultModel": "anthropic.claude-opus-4-8",
+  "lastChangelogVersion": "0.84.2",
+  "theme": "dark",
+  "defaultProvider": "router",
+  "defaultModel": "zai",
+  "defaultThinkingLevel": "medium",
   "hideThinkingBlock": true
 }

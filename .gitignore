@@ -58,3 +58,6 @@ pi/.pi/agent/pi-cache-optimizer-stats.json
 pi/.pi/agent/ayu/checkpoints/*
 pi/.pi/agent/ayu/extensions/*
 pi/.pi/auth.json
+pi/.pi/agent/models-store.json
+pi/.pi/agent/npm/package-lock.json
+pi/.pi/web-search-cache/*
