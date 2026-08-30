@@ -1,25 +1,22 @@
 # Shell Environment
 
-## Zsh (home-manager)
+## Zsh (stow)
 
-Zsh is configured in `home/zsh.nix` and imported by `home/ryan.nix`. The
-generated `.zshrc` replaces the old zplug-managed `zshrc/.zshrc`, which
-remains stowed only until the next activation removes it.
+This repo is a plain GNU Stow repo for the CachyOS desktop. The shell is zsh,
+deployed by the `zshrc/` stow package:
 
-- **Prompt**: Powerlevel10k, sourced from the nixpkgs derivation in
-  `initExtraFirst` so the instant prompt stays the first output of the
-  generated `.zshrc`. The theme config lives in `home/zsh/p10k.zsh` and is
-  deployed as `~/.p10k.zsh` (it was previously unmanaged).
-- **Plugins**: managed by home-manager, not zplug.
-  - `zsh-autosuggestions` and `zsh-syntax-highlighting` via module options.
-  - `forgit` from `pkgs.zsh-forgit`.
-  - `fzf-marks` pinned to upstream master via `fetchFromGitHub`.
-- **History**: `~/.histfile`, 10000 entries — the same file the old rc used.
-- **fzf**: `programs.fzf` provides the keybindings and completion (a single
-  `fzf --zsh` load). `fd` lists files, `bat` and `tree` render previews, and
-  CTRL-Y inside CTRL-R copies the command through `xclip`.
-- **Direnv**: `programs.direnv` with nix-direnv replaces the zsh-direnv
-  plugin and the manual direnvrc hunt.
+- **`.zshrc`**: the live rc, including the PATH ordering (proto shims, proto
+  bin, pnpm, `~/.local/bin`, cargo, flyctl) and the cached
+  `proto activate zsh` pattern under `~/.cache/proto-init.zsh`.
+- **`codex-bindings.zsh`** and **`fzf-gitbindings.zsh`** (locally modified for
+  `--tmux 90%,70%`): sourced from `$HOME` by the rc.
+- **Prompt**: Powerlevel10k with the instant prompt, configured by
+  `~/.p10k.zsh`.
+- **History**: `~/.histfile`, 10000 entries.
+
+Optional completions are picked up when present: pnpm completions from
+`~/completion-for-pnpm.zsh` and cached p1-cli completions under
+`~/.cache/p1-cli-completions.zsh`.
 
 ## Secrets
 
@@ -31,44 +28,11 @@ matters when a secret is actually needed. `bin/backup.sh` sources its own
 `BORG_PASSPHRASE` from pass (with a fallback) instead of inheriting it from
 the shell.
 
-## Environment and PATH
+## Nix-managed configuration
 
-`EDITOR=nvim` and other static variables are set through
-`home.sessionVariables`. `GPG_TTY` and the `$HOME`-derived tool roots
-(proto, pnpm, flyctl) are exported in `initExtra`, along with the `path`
-array ordering: proto shims, proto bin, pnpm, `~/.local/bin`, rebar3, snap,
-proto node globals, cargo, and flyctl.
-
-## Tooling kept outside nix
-
-- **proto** is not in nixpkgs; the rc keeps the cached
-  `proto activate zsh` pattern under `~/.cache/proto-init.zsh`.
-- **pnpm completions** source from `~/.completion-for-pnpm.zsh` when present.
-- **p1-cli completions** cache under `~/.cache/p1-cli-completions.zsh`.
-- **Vendored files**: `home/zsh/fzf-gitbindings.zsh` (locally modified for
-  `--tmux 90%,70%`) and `home/zsh/codex-bindings.zsh` are copied into the
-  store and sourced from there, so the shell never depends on a repo
-  checkout at runtime.
-
-## Fish (home-manager, shared module)
-
-Fish is now the shared shell config, ported from the NixOS box into
-`home/fish.nix` and imported by `home/ryan.nix`. The module is consumed
-twice: by this standalone CachyOS flake, and by the NixOS repo, which
-imports it nvf-style via the ryan-nvim flake input
-(`"${ryan-nvim}/home/fish.nix"`).
-
-The full bundle includes fish plus fzf with the `fzf-fish` plugin and
-`fzf-git.sh` (keybindings sourced into `conf.d` from the `fzf-git-sh`
-flake input), `starship` for the prompt, `zoxide`, `carapace`, `direnv`
-with nix-direnv, and `eza`. The `fzf-fish` plugin needs `fd` at runtime,
-so the module ships it in `home.packages` to stay self-contained.
-
-CachyOS activation is still pending: switching the login shell with
-`chsh` and running `home-manager switch` remain to be done. The zsh port
-in `home/zsh.nix` stays dormant as a fallback until then.
-
-## Still stow-managed
-
-The `zshrc/` package now only ships `.zshrc` itself; it is superseded by
-home-manager and will be removed when the migration activates.
+The NixOS laptop is fully managed by a separate repo,
+[ryanbas21/nixos-configuration](https://github.com/ryanbas21/nixos-configuration).
+That repo owns the fish shell setup and the nvf/Neovim configuration for the
+`batman` user. Neovim's lua tree still lives here in `nvim/` — the nixos repo
+consumes it read-only through its `ryan-nvim` flake input, so edits to
+`nvim/` propagate on the next lock bump there.
