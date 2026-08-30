@@ -50,6 +50,24 @@ proto node globals, cargo, and flyctl.
   store and sourced from there, so the shell never depends on a repo
   checkout at runtime.
 
+## Fish (home-manager, shared module)
+
+Fish is now the shared shell config, ported from the NixOS box into
+`home/fish.nix` and imported by `home/ryan.nix`. The module is consumed
+twice: by this standalone CachyOS flake, and by the NixOS repo, which
+imports it nvf-style via the ryan-nvim flake input
+(`"${ryan-nvim}/home/fish.nix"`).
+
+The full bundle includes fish plus fzf with the `fzf-fish` plugin and
+`fzf-git.sh` (keybindings sourced into `conf.d` from the `fzf-git-sh`
+flake input), `starship` for the prompt, `zoxide`, `carapace`, `direnv`
+with nix-direnv, and `eza`. The `fzf-fish` plugin needs `fd` at runtime,
+so the module ships it in `home.packages` to stay self-contained.
+
+CachyOS activation is still pending: switching the login shell with
+`chsh` and running `home-manager switch` remain to be done. The zsh port
+in `home/zsh.nix` stays dormant as a fallback until then.
+
 ## Still stow-managed
 
 The `zshrc/` package now only ships `.zshrc` itself; it is superseded by

@@ -16,6 +16,22 @@
         "url": "https://git.lix.systems/lix-project/flake-compat.git"
       }
     },
+    "fzf-git-sh": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786002972,
+        "narHash": "sha256-j7co9UjWdSMC7Ojyhuz2bIALrucF94o+irF4pJ6hgG4=",
+        "owner": "junegunn",
+        "repo": "fzf-git.sh",
+        "rev": "d5b0a5dcd1e073b8bfca45338d5dfad3e5642471",
+        "type": "github"
+      },
+      "original": {
+        "owner": "junegunn",
+        "repo": "fzf-git.sh",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -92,6 +108,7 @@
     },
     "root": {
       "inputs": {
+        "fzf-git-sh": "fzf-git-sh",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
         "nvf": "nvf"

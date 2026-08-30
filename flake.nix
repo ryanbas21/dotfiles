@@ -14,16 +14,23 @@
       url = "github:NotAShelf/nvf/v26.07";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    fzf-git-sh = {
+      url = "github:junegunn/fzf-git.sh";
+      flake = false;
+    };
   };
 
   outputs = {
     nixpkgs,
     home-manager,
     nvf,
+    fzf-git-sh,
     ...
   }: {
     homeConfigurations.ryan = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      extraSpecialArgs = {inherit fzf-git-sh;};
       modules = [
         nvf.homeManagerModules.nvf
         ./home/ryan.nix
