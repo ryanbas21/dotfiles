@@ -1,9 +1,29 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "zai-coding-plan/glm-5.2",
+  "model": "amazon-bedrock/anthropic.claude-opus-4-7",
   "autoupdate": true,
   "lsp": true,
   "references": {
+    "davinci-client": {
+      "path": "/Users/ryan.basmajian/programming/ping-javascript-sdk",
+      "description": "Use for @forgerock/davinci-client details — see packages/davinci-client/",
+    },
+    "oidc-client": {
+      "path": "/Users/ryan.basmajian/programming/ping-javascript-sdk",
+      "description": "Use for @forgerock/oidc-client details — see packages/oidc-client/",
+    },
+    "journey-client": {
+      "path": "/Users/ryan.basmajian/programming/ping-javascript-sdk",
+      "description": "Use for @forgerock/journey-client details — see packages/journey-client/",
+    },
+    "login-widget": {
+      "path": "/Users/ryan.basmajian/programming/forgerock-web-login-framework",
+      "description": "Use for forgerock web login widget implementation details",
+    },
+    "ping-sdk": {
+      "path": "/Users/ryan.basmajian/programming/ping-javascript-sdk",
+      "description": "Use for ping JavaScript SDK implementation details",
+    },
     "effect": {
       "repository": "Effect-TS/effect",
       "branch": "main",
@@ -17,7 +37,6 @@
 		"@tarquinen/opencode-dcp@3.1.3",
 		"@franlol/opencode-md-table-formatter@0.0.6",
     "opencode-vibeguard",
-    "./plugins/opencode-model-router/src/index.ts"
 	],
 	"permission": {
 		"task": "deny",
@@ -211,7 +230,7 @@
     "headroom": {
       "type": "local",
       "command": [
-        "/home/batman/.local/bin/headroom",
+        "/Users/ryan.basmajian/.proto/tools/python/3.14.6/bin/headroom",
         "mcp",
         "serve"
       ],
@@ -231,6 +250,6 @@
 	},
 	"instructions": [
 		"./tools/philosophy.md",
-    "./.config/opencode/instructions/effect.md"
+    "~/.config/opencode/instructions/morph-tools.md"
 	]
 }

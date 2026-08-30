@@ -6,7 +6,13 @@ set -euo pipefail
 # Config
 # -----------------------
 export BORG_REPO="/mnt/synology/backups"
-export BORG_PASSPHRASE=basded
+# Passphrase from pass (preferred); falls back to the historical literal so
+# direct invocation still works with a locked GPG agent.
+if BORG_PASSPHRASE="$(pass show BORG/password 2>/dev/null)" && [[ -n "$BORG_PASSPHRASE" ]]; then
+  export BORG_PASSPHRASE
+else
+  export BORG_PASSPHRASE=basded
+fi
 
 MOUNT_POINT="/mnt/synology"
 REQUIRED_FS_TYPES=("cifs" "nfs" "nfs4")

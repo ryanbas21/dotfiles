@@ -1,0 +1,26 @@
+{ "defaults": {
+    "model": { "provider": "openai-codex", "id": "gpt-5.4" },
+    "activeTools": ["read", "bash"],
+    "statusLabel": "Ready",
+    "systemPrompt": "Optional prompt template"
+  },
+  "phases": {
+    "planning": {
+      "model": null,
+      "thinking": null,
+      "activeTools": ["grep", "find", "ls", "plannotator_submit_plan"],
+      "statusLabel": "⏸ plan",
+      "systemPrompt": "[PLANNING]\nPlan file: ${planFilePath}"
+    },
+    "executing": {
+      "model": { "provider": "openai-codex", "id": "gpt-5.5" },
+      "thinking": "high",
+      "activeTools": [],
+      "statusLabel": "",
+      "systemPrompt": "[EXECUTING]\nRemaining steps:\n${todoList}"
+    },
+    "reviewing": {
+      "systemPrompt": "..."
+    }
+  }
+}

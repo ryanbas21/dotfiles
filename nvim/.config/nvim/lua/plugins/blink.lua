@@ -145,7 +145,7 @@ return {
       enabled = false,
     },
     sources = {
-      default = { "lsp", "snippets", "path", "buffer" },
+      default = { "lsp", "snippets", "path", "buffer", "codecompanion" },
       providers = {
         lsp = {
           score_offset = 100, -- prioritize LSP results
@@ -165,6 +165,9 @@ return {
         buffer = {
           score_offset = -50,
         },
+      },
+      per_filetype = {
+        codecompanion = { "codecompanion" },
       },
     },
     snippets = {

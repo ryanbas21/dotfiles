@@ -1,5 +1,5 @@
 {
-  "activePreset": "z-ai-plan",
+  "activePreset": "anthropic",
   "activeMode": "normal",
   "tierCaps": {
     "fast": 8,
@@ -12,30 +12,6 @@
     "heavy": "STOP CONDITIONS — read these FIRST, they govern EVERY tool call:\n\n1. CAP: ≤3 reads/greps per dispatch. `CAP:N` in the dispatch overrides; `CAP:none` disables (used in `deep` mode). The opencode runtime tracks your count and appends `[cap: N/MAX]` to every read-only tool result — that's your LIVE COUNTER. You are an analysis specialist, not a reconnaissance specialist: at N=MAX, return your analysis based on what you have, or return `SCOPE GROWTH` asking for @fast pre-exploration.\n\n2. REDUNDANCY: before every new tool call, ask: \"Is this re-reading ground I've already covered or information already in my context?\" The runtime appends `[⚠ REDUNDANT]` to your tool result when you repeat a call. When you see that marker, STOP IMMEDIATELY — repeated reads do not add analysis value.\n\n3. RETURN PROTOCOL: first line of your response must be EXACTLY ONE of:\n   - `DONE: [structured analysis]` — request fully satisfied.\n   - `SCOPE GROWTH: prefer @fast pre-exploration of [specific files/patterns/areas] before I continue.` — orchestrator dispatches @fast and re-invokes you.\n   - `ESCALATE: [reason]` — hand back for orchestrator decision.\n\n4. EXCEEDING CAP: only when the analysis genuinely cannot be completed without one more read AND `SCOPE GROWTH` would be worse. Prepend `reason: <1-line>`.\n\n---\n\nROLE: You are @heavy — a senior architecture and debugging consultant. Scope: architecture decisions, security review, perf optimization, complex debugging (invoked after ≥2 prior failures), multi-system tradeoffs, migration strategy, root-cause analysis. Analyze exhaustively WITHIN the context you were given. Provide reasoning, tradeoffs, and concrete recommendations. Default to analysis + recommendations; write code only when the orchestrator explicitly asked for implementation. Return structured output: problem framing → options considered → tradeoffs → recommendation → implementation notes (if applicable).\n\nNO SUB-DELEGATION: you have no Task tool. Your job is analysis, not reconnaissance. 40 minutes of file reads is not analysis — it's reconnaissance. Stop early, analyze what you have, return SCOPE GROWTH if genuinely needed."
   },
   "presets": {
-    "z-ai-plan": {
-      "fast": {
-        "model": "zai-coding-plan/glm-4.7",
-        "costRatio": 1,
-        "description": "GLM-4.7 — cheapest ZAI credit cost (output mult 16), 200K ctx, best for exploration/reads",
-        "steps": 30,
-        "whenToUse": ["Codebase exploration", "Simple file reads", "Grep/glob", "Quick lookups"]
-      },
-      "medium": {
-        "model": "zai-coding-plan/glm-5-turbo",
-        "costRatio": 1.3,
-        "description": "GLM-5-Turbo — mid credit cost (output mult 21), fast reasoning, 200K ctx",
-        "steps": 50,
-        "whenToUse": ["Feature implementation", "Refactoring", "Writing tests", "Bug fixes"]
-      },
-      "heavy": {
-        "model": "zai-coding-plan/glm-5.2",
-        "variant": "max",
-        "costRatio": 1.5,
-        "description": "GLM-5.2 max effort — strongest reasoning (output mult 24), 1M ctx, for arch/debug/security",
-        "steps": 120,
-        "whenToUse": ["Architecture decisions", "Complex debugging", "Security review", "Perf optimization"]
-      }
-    },
     "anthropic": {
       "fast": {
         "model": "amazon-bedrock/anthropic.claude-haiku-4-5-20251001-v1:0",
@@ -316,12 +292,6 @@
   },
   "fallback": {
     "global": {
-      "z-ai-plan": [
-        "anthropic",
-        "openai",
-        "google",
-        "github-copilot"
-      ],
       "anthropic": [
         "openai",
         "google",

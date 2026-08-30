@@ -1,7 +1,6 @@
 # Main Ghostty config
 # Split keybindings into a separate file to keep this easier to scan.
 
-
 # Appearance
 font-family = "FiraCode Nerd Font Mono"
 font-size = 20
@@ -19,4 +18,4 @@ scrollback-limit = 10000
 shell-integration = zsh
 
 # Extra config files
-# config-file = keybinds
+config-file = keybinds

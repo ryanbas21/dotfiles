@@ -1,36 +1,56 @@
 # Shell Environment
 
-## Zsh
+## Zsh (home-manager)
 
-- **Config**: `zshrc/.zshrc`
-- **Plugin Manager**: `zplug` bootstraps itself if missing, then loads:
-  - `powerlevel10k` theme
-  - `zsh-autosuggestions`
-  - `zsh-syntax-highlighting`
-  - `forgit`, `fzf-marks`, and `zsh-direnv`
-- **Prompt**: Powerlevel10k with instant prompt enabled (`POWERLEVEL9K_INSTANT_PROMPT=quiet`).
-- **Aliases**:
-  - `nano → nvim`, `vim → nvim`
-  - `cat → bat` for syntax-highlighted previews
-  - Monitor helpers (`laptopscreen`, `externalscreen`) wrapping `xrandr`
-  - `reload` to source the shell config
-- **Secrets**:
-  - All API tokens live in `pass`. `~/.zshrc` sources them automatically and
-    relies on the GPG agent being unlocked. If you boot into a context where
-    `pass` is unavailable, expect the shell to warn—unlock the keychain before
-    running commands that need the tokens.
-- **Environment**:
-  - `EDITOR=nvim`, terminal set to `xterm-256color`.
-  - PATH augmented for pnpm, proto, opam, cargo, ghcup, rebar3, direnv, and
-    general local bins.
-  - NVM initialized when present.
-- **FZF Configuration**:
-  - Defaults use `fd` for listing and `bat` for previews.
-  - CTRL-T, ALT-C, and CTRL-R integrations customize preview/clipboard actions.
-- **Direnv**:
-  - Cross-platform `DIRENV_BASH` selection (macOS vs Linux).
-  - Loads standard direnv hooks and Nix direnv stdlib if available.
-- **Codex Integration**: Custom bindings sourced from
-  `~/codex-bindings.zsh` along with completion scripts.
-- **Next Steps**: Document additional helper scripts under `zshrc/` as they are
-  added so the shell story stays complete.
+Zsh is configured in `home/zsh.nix` and imported by `home/ryan.nix`. The
+generated `.zshrc` replaces the old zplug-managed `zshrc/.zshrc`, which
+remains stowed only until the next activation removes it.
+
+- **Prompt**: Powerlevel10k, sourced from the nixpkgs derivation in
+  `initExtraFirst` so the instant prompt stays the first output of the
+  generated `.zshrc`. The theme config lives in `home/zsh/p10k.zsh` and is
+  deployed as `~/.p10k.zsh` (it was previously unmanaged).
+- **Plugins**: managed by home-manager, not zplug.
+  - `zsh-autosuggestions` and `zsh-syntax-highlighting` via module options.
+  - `forgit` from `pkgs.zsh-forgit`.
+  - `fzf-marks` pinned to upstream master via `fetchFromGitHub`.
+- **History**: `~/.histfile`, 10000 entries — the same file the old rc used.
+- **fzf**: `programs.fzf` provides the keybindings and completion (a single
+  `fzf --zsh` load). `fd` lists files, `bat` and `tree` render previews, and
+  CTRL-Y inside CTRL-R copies the command through `xclip`.
+- **Direnv**: `programs.direnv` with nix-direnv replaces the zsh-direnv
+  plugin and the manual direnvrc hunt.
+
+## Secrets
+
+All tokens live in `pass` and load lazily: referencing a variable such as
+`CACHIX_AUTH_TOKEN` triggers a one-time `pass show`. Run `load-secrets` to
+export everything at once, or call `gh`, which fetches the GitHub token on
+first use. Nothing decrypts at shell startup, so a locked GPG agent only
+matters when a secret is actually needed. `bin/backup.sh` sources its own
+`BORG_PASSPHRASE` from pass (with a fallback) instead of inheriting it from
+the shell.
+
+## Environment and PATH
+
+`EDITOR=nvim` and other static variables are set through
+`home.sessionVariables`. `GPG_TTY` and the `$HOME`-derived tool roots
+(proto, pnpm, flyctl) are exported in `initExtra`, along with the `path`
+array ordering: proto shims, proto bin, pnpm, `~/.local/bin`, rebar3, snap,
+proto node globals, cargo, and flyctl.
+
+## Tooling kept outside nix
+
+- **proto** is not in nixpkgs; the rc keeps the cached
+  `proto activate zsh` pattern under `~/.cache/proto-init.zsh`.
+- **pnpm completions** source from `~/.completion-for-pnpm.zsh` when present.
+- **p1-cli completions** cache under `~/.cache/p1-cli-completions.zsh`.
+- **Vendored files**: `home/zsh/fzf-gitbindings.zsh` (locally modified for
+  `--tmux 90%,70%`) and `home/zsh/codex-bindings.zsh` are copied into the
+  store and sourced from there, so the shell never depends on a repo
+  checkout at runtime.
+
+## Still stow-managed
+
+The `zshrc/` package now only ships `.zshrc` itself; it is superseded by
+home-manager and will be removed when the migration activates.

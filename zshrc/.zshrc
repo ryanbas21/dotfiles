@@ -121,7 +121,6 @@ path=(
 export PATH
 
 [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
-[[ -f "$HOME/.ghcup/env" ]] && . "$HOME/.ghcup/env"
 
 # =============================================================================
 # Exercism OCaml auto-patch
@@ -305,6 +304,3 @@ fi
 # Added by flyctl installer
 export FLYCTL_INSTALL="/home/ryan/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
-
-# Added by OpenAgents installer
-export PATH="/home/batman/.openagents/nodejs/bin:/home/batman/.openagents/nodejs/node_modules/.bin:$PATH"
