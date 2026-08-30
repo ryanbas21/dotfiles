@@ -40,6 +40,7 @@
     "jsonls"
     "lua_ls"
     "marksman"
+    "nixd"
     "ocamllsp"
     "prismals"
     "purescriptls"
@@ -1344,6 +1345,7 @@ in {
       gleam
       jdt-language-server
       marksman
+      nixd
       ocamlPackages.ocaml-lsp
       yaml-language-server
       angular-language-server
